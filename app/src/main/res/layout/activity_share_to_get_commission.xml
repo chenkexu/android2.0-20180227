@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_fafafa"
+    tools:context=".view.home.InvoiceActivity">
+
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/my_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/my_title">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <RelativeLayout
+                android:id="@+id/relative1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/c_ffffff">
+
+                <ImageView
+                    android:id="@+id/ivQRCode"
+                    android:layout_width="174dp"
+                    android:layout_height="174dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="46dp"/>
+
+                <TextView
+                    android:id="@+id/tvShareRemind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ivQRCode"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="86dp"
+                    android:text="分享到"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/viewLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/tvShareRemind"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/c_D8D8D8" />
+
+                <LinearLayout
+                    android:id="@+id/lineae1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewLine"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvWechat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:drawableTop="@mipmap/img_wechat"
+                        android:gravity="center_horizontal"
+                        android:text="微信" />
+
+                    <TextView
+                        android:id="@+id/tvWechatFriend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="65dp"
+                        android:layout_marginRight="65dp"
+                        android:drawablePadding="10dp"
+                        android:drawableTop="@mipmap/img_wechat_friend"
+                        android:gravity="center_horizontal"
+                        android:text="朋友圈" />
+
+                    <TextView
+                        android:id="@+id/tvQQ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:drawableTop="@mipmap/img_qq"
+                        android:gravity="center_horizontal"
+                        android:text="QQ好友" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lineae1"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:paddingBottom="25dp">
+
+                    <TextView
+                        android:id="@+id/tvWeibo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:drawableTop="@mipmap/img_weibo"
+                        android:gravity="center_horizontal"
+                        android:text="微博" />
+
+                    <TextView
+                        android:id="@+id/tvQQSpace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="65dp"
+                        android:layout_marginRight="65dp"
+                        android:drawablePadding="10dp"
+                        android:drawableTop="@mipmap/img_space"
+                        android:gravity="center_horizontal"
+                        android:text="QQ空间" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:drawableTop="@mipmap/img_qq"
+                        android:gravity="center_horizontal"
+                        android:text="QQ好友"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tvActivityDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="38dp"
+                android:text="活动说明"
+                android:textColor="@color/c_09B6F2"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

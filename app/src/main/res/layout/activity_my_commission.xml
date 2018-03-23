@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_fafafa"
+    android:orientation="vertical">
+
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/my_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/c_ffffff">
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/red_envelopse" />
+        <TextView
+            android:id="@+id/tvRemindWithdraw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:paddingBottom="15dp"
+            android:textSize="12sp"
+            android:layout_below="@+id/imageView6"
+            android:textColor="@color/c_9c9c9c"
+            android:layout_centerHorizontal="true"
+            android:text="佣金超过10元可提现，今日还可提现1次"/>
+
+        <TextView
+            android:id="@+id/tvCommission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tvRemindWithdraw"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="65dp"
+            android:paddingRight="16dp"
+            android:textSize="20sp"
+            android:text="0"
+            android:textColor="@color/c_DB010B"/>
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tvCommissionWithdraw"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_btn_selector"
+        android:gravity="center"
+        android:text="佣金提现"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tvEarnCommission"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_btn_selector"
+        android:gravity="center"
+        android:text="赚取佣金"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tvTransferTobalance"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_btn_selector"
+        android:gravity="center"
+        android:text="转入余额"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+
+
+
+</LinearLayout>

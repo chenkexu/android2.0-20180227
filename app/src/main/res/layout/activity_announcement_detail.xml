@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa"
+    android:orientation="vertical"
+    tools:context="com.orientdata.lookforcustomers.view.home.AnnouncementDetailActivity">
+    <!--title-->
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/my_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tv_topic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textColor="#1c1c1c"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:paddingBottom="15dp"
+                android:paddingTop="20dp"
+                android:paddingRight="15dp"
+                android:paddingLeft="15dp"
+                android:textColor="#414141"
+                android:lineSpacingMultiplier="1.4"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fafafa"
+                android:layout_marginTop="10dp"
+                android:textColor="#9a9a9a"
+                android:gravity="right"
+                android:lineSpacingMultiplier="1.4"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

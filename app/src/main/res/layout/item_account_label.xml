@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/login_btn_style"
+    >
+
+    <ImageView
+        android:id="@+id/iv_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerInside"
+        android:src="@mipmap/icon_login_account_clear"
+        android:visibility="gone"
+        />
+
+    <EditText
+        android:id="@+id/et_account"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/iv_clear"
+        android:background="@color/color_09B6F2"
+        android:drawableLeft="@mipmap/icon_login_account_hint"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:hint="@string/login_account_text_hint"
+        android:inputType="phone"
+        android:maxLength="11"
+        android:singleLine="true"
+        android:textColor="@color/color_FFFFFF"
+        android:textColorHint="@color/color_81D9F7"
+        android:textSize="@dimen/text_size_13"
+        />
+
+
+</RelativeLayout>

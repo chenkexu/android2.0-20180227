@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <!--<com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/mt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />-->
+
+    <RelativeLayout
+        android:padding="10dp"
+        android:background="@color/bg_blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/bg_white"
+            android:text="我的"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_setting"
+            android:layout_alignParentRight="true"
+            android:textSize="13sp"
+            android:textColor="@color/bg_white"
+            android:text="设置"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <!--<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="252dp">
+
+        <ImageView
+            android:id="@+id/blur"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/c_09B6F2" />
+
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@mipmap/img_set" />
+
+        <com.orientdata.lookforcustomers.widget.CircleImageView
+            android:id="@+id/iv_head_portrait"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp" />
+
+        <LinearLayout
+            android:id="@+id/linear_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_head_portrait"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="25dp">
+
+            <TextView
+                android:id="@+id/tv_company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:textColor="#ffffff"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_phone_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/iv_setting"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="99dp"
+            android:src="@mipmap/arrow_right_white" />
+
+        <TextView
+            android:id="@+id/tv_my_commission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_toLeftOf="@+id/v_white_line"
+            android:text="我的佣金"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/v_white_line"
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:background="#ffffff" />
+
+        <TextView
+            android:id="@+id/tv_balance_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_toRightOf="@+id/v_white_line"
+            android:text="账户余额"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </RelativeLayout>-->
+
+
+    <RelativeLayout
+        android:id="@+id/linear_company"
+        android:paddingLeft="15dp"
+        android:gravity="center_vertical"
+        android:background="@color/bg_blue"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <com.orientdata.lookforcustomers.widget.toggleButton.RoundImageView
+            android:id="@+id/iv_head_portrait"
+            android:src="@mipmap/head_portrait"
+            app:type="circle"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_head_portrait"
+            android:layout_toLeftOf="@id/image"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            
+            <TextView
+                android:id="@+id/tv_company_name"
+                android:textSize="15sp"
+                android:textColor="@color/bg_white"
+                android:text="@string/company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_phone_no"
+                android:textSize="10sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/bg_white"
+                android:text="北京东方网润科技有限公司"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            style="@style/mine_right_img"
+            app:srcCompat="@drawable/arrow_right" />
+
+    </RelativeLayout>
+    
+    
+    <!--账户余额-->
+    <RelativeLayout
+        android:id="@+id/rv_balance_account"
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <ImageView
+            android:id="@+id/iv_balance_account"
+            style="@style/mine_left_img"
+            app:srcCompat="@mipmap/img_withdraw" />
+
+        <TextView
+            android:id="@+id/tv_balance_account"
+            style="@style/mine_text"
+            android:layout_toRightOf="@+id/iv_balance_account"
+            android:text="账户余额" />
+
+        <ImageView
+            android:id="@+id/iv_balance_account_arrow_right"
+            style="@style/mine_right_img"
+            app:srcCompat="@drawable/arrow_right" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/line_gray"/>
+
+
+
+    <!--我的佣金-->
+    <RelativeLayout
+        android:id="@+id/rl_my_commission"
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <ImageView
+            android:id="@+id/iv_my_commission"
+            style="@style/mine_left_img"
+            app:srcCompat="@mipmap/img_withdraw" />
+
+        <TextView
+            android:id="@+id/tv_my_commission"
+            style="@style/mine_text"
+            android:layout_toRightOf="@+id/iv_my_commission"
+            android:text="我的佣金" />
+
+        <ImageView
+            android:id="@+id/iv_my_commission_arrow_right"
+            style="@style/mine_right_img"
+            app:srcCompat="@drawable/arrow_right" />
+
+    </RelativeLayout>
+
+
+
+    <include layout="@layout/line_gray"/>
+    <!--佣金提现-->
+    <RelativeLayout
+        android:id="@+id/rl_commission_withdraw"
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <ImageView
+            android:id="@+id/iv_commission_withdraw"
+            style="@style/mine_left_img"
+            app:srcCompat="@mipmap/img_withdraw" />
+
+        <TextView
+            android:id="@+id/tv_commission_withdraw"
+            style="@style/mine_text"
+            android:layout_toRightOf="@+id/iv_commission_withdraw"
+            android:text="佣金提现" />
+
+        <ImageView
+            android:id="@+id/iv_commission_withdraw_arrow_right"
+            style="@style/mine_right_img"
+            app:srcCompat="@drawable/arrow_right" />
+
+    </RelativeLayout>
+
+
+
+
+
+
+    <include layout="@layout/line_gray"/>
+    <!--开发票-->
+    <RelativeLayout
+        android:id="@+id/rl_invoice"
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <ImageView
+            android:id="@+id/iv_invoice"
+            style="@style/mine_left_img"
+            app:srcCompat="@mipmap/img_invoice" />
+
+        <TextView
+            android:id="@+id/tv_invoice"
+            style="@style/mine_text"
+            android:layout_toRightOf="@+id/iv_invoice"
+            android:text="开发票" />
+
+        <ImageView
+            android:id="@+id/iv_invoice_arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            app:srcCompat="@drawable/arrow_right" />
+
+    </RelativeLayout>
+
+
+    <include layout="@layout/line_gray"/>
+    <!--联系客服-->
+    <RelativeLayout
+        android:id="@+id/rl_service"
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <ImageView
+            android:id="@+id/iv_service"
+            style="@style/mine_left_img"
+            app:srcCompat="@mipmap/img_customer_service" />
+
+        <TextView
+           style="@style/mine_text"
+            android:layout_toRightOf="@+id/iv_service"
+            android:text="联系客服" />
+
+        <ImageView
+            android:id="@+id/iv_service_arrow_right"
+         style="@style/mine_right_img"
+            app:srcCompat="@drawable/arrow_right" />
+
+    </RelativeLayout>
+
+
+
+    <include layout="@layout/line_gray"/>
+    <!--分享-->
+    <RelativeLayout
+        android:id="@+id/rl_share"
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <ImageView
+            android:id="@+id/iv_share"
+            style="@style/mine_left_img"
+            app:srcCompat="@mipmap/img_share" />
+
+        <TextView
+            android:layout_toRightOf="@+id/iv_share"
+            android:text="分享"
+            android:id="@+id/tv_share"
+            style="@style/mine_text" />
+
+        <ImageView
+            android:id="@+id/iv_share_arrow_right"
+            style="@style/mine_right_img"
+            app:srcCompat="@drawable/arrow_right" />
+
+    </RelativeLayout>
+    <include layout="@layout/line_gray"/>
+
+
+</LinearLayout>

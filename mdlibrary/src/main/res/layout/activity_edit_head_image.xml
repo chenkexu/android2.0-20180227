@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fafafa" >
+
+    <com.mylawyer.lawyerframe.view.title.MyTitle
+        android:id="@+id/titleView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:id="@+id/descTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="#000000"
+        android:gravity="center|bottom"
+        android:text="可双指缩放或拖动图片到红色选框内，以确定您的头像"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+
+    <RelativeLayout
+        android:id="@+id/editImageLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/descTextView"
+        android:layout_below="@id/titleView" >
+
+        <ImageView
+            android:id="@+id/editImage"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="matrix"
+             />
+
+        <com.mylawyer.lawyerframe.view.editheaderimg.FrontImageView
+            android:id="@+id/frontImage"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".view.home.InvoiceActivity">
+
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/my_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:id="@+id/lv_show_invoices"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/my_title"
+        android:layout_centerHorizontal="true"
+        android:background="#fafafa"
+        android:visibility="visible">
+
+    </ListView>
+
+</RelativeLayout>

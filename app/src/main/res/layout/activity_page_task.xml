@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_fafafa"
+    android:orientation="vertical">
+
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/titlePage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/c_ffffff"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="15dp">
+
+                <!--开始日期-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="开始日期："
+                        android:textColor="@color/c_1C1C1C"
+                        android:textSize="14sp"/>
+
+                    <include
+                        android:id="@+id/date_from"
+                        layout="@layout/pull_down_text_view1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                <!--结束日期-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="结束日期："
+                        android:textColor="@color/c_1C1C1C"
+                        android:textSize="14sp"/>
+
+                    <include
+                        android:id="@+id/date_to"
+                        layout="@layout/pull_down_text_view1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_marginLeft="15dp"
+                        android:text="添加广告位"
+                        android:textColor="@color/c_1C1C1C"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/addAd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="7dp"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/upload_ad"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/c_ffffff"
+                android:orientation="vertical"
+                android:paddingTop="15dp"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="输入图片链接："
+                    android:textColor="@color/c_1C1C1C"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+                <include
+                    android:id="@+id/input_img_url"
+                    layout="@layout/img_link_view"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <LinearLayout
+                    android:id="@+id/linearImgMake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/c_9c9c9c"
+                        android:text="没有落地页？点击"/>
+                    <TextView
+                        android:id="@+id/tv_create_ad_page"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/c_09B6F2"
+                        android:text="制作落地页"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/c_9c9c9c"
+                        android:text="吧！"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvCoverage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/c_1C1C1C"
+                android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/tvCreate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/bg_enterprise_certification_upload"
+                android:gravity="center"
+                android:text="创建寻客"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

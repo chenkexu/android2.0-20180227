@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/c_ffffff"
+        android:orientation="vertical">
+
+        <com.orientdata.lookforcustomers.widget.EditTextView
+            android:id="@+id/perName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:hintText="@string/per_name_hint"
+            app:leftText="@string/per_name" />
+
+        <com.orientdata.lookforcustomers.widget.EditTextView
+            android:id="@+id/perCard"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:hintText="@string/per_name_hint"
+            app:leftText="@string/per_card" />
+
+        <com.orientdata.lookforcustomers.widget.EditTextView
+            android:id="@+id/perPhone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:hintText="@string/per_phone_hint"
+            app:leftText="@string/per_phone" />
+
+        <com.orientdata.lookforcustomers.widget.EditTextView
+            android:id="@+id/perAddress"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:hintText="@string/per_address_hint"
+            app:leftText="@string/per_address" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/c_ffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="@string/per_locate"
+                android:textColor="@color/c_1C1C1C"
+                android:textSize="14sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="130dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/linearProvince"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingRight="20dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvChooseProvince"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/choose_province"
+                        android:textColor="@color/c_414141"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/ivChooseProvince"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/tvChooseProvince"
+                        app:srcCompat="@mipmap/choose" />
+                </LinearLayout>
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="2px"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toRightOf="@+id/ivChooseProvince"
+                    android:background="@color/c_D8D8D8" />
+                <LinearLayout
+                    android:id="@+id/linearCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvChooseCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/view"
+                        android:text="@string/choose_city"
+                        android:textColor="@color/c_414141"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/ivChooseCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/tvChooseCity"
+                        app:srcCompat="@mipmap/choose" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/bt_bg"
+        android:text="@string/next"
+        android:textColor="@color/c_ffffff" />
+
+    <TextView
+        android:id="@+id/province_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/city_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/province_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/city_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+</LinearLayout>

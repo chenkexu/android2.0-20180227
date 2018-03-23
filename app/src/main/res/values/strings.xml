@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">网润寻客</string>
+    <string name="login_auth_code_hint">验证码登录</string>
+    <string name="login_account_text_hint">+86请输入手机号</string>
+    <string name="login_password_text_hint">请输入密码</string>
+    <string name="reset_password_text_hint">请设置新密码</string>
+    <!--认证-->
+    <string name="business_authentication">企业认证</string>
+    <string name="personal_authentication">个人认证</string>
+    <string name="certificate">认证</string>
+    <string name="certificate1">账户认证</string>
+    <string name="skip">跳过</string>
+    <string name="enterprise_name">企业名称：</string>
+    <string name="enterprise_name_hint">请保持与营业执照一致</string>
+    <string name="business_license_num">营业执照编号：</string>
+    <string name="business_license_num_hint">请保持与营业执照一致</string>
+    <string name="contact_name">联系人：</string>
+    <string name="contact_name_hint">请填写企业联系人姓名</string>
+    <string name="contact_phone">联系人电话：</string>
+    <string name="contact_phone_hint">请填写企业联系人电话</string>
+    <string name="contact_id_num">联系人身份证号：</string>
+    <string name="contact_id_num_hint">请填写企业联系人身份证号</string>
+    <string name="enterprise_address">企业通信地址：</string>
+    <string name="enterprise_locate">企业所在地:</string>
+    <string name="enterprise_address_hint">请填写企业通信地址</string>
+    <string name="choose_province">请选择省</string>
+    <string name="choose_city">请选择市</string>
+    <string name="next">下一步</string>
+    <string name="input_remind">请完善信息</string>
+    <string name="input_remind1">请填写正确的手机号</string>
+    <string name="input_remind2">请填写正确的身份证号</string>
+    <string name="per_name_hint">请保持与身份证一致</string>
+    <string name="per_name">姓名：</string>
+    <string name="per_card">身份证号：</string>
+    <string name="per_phone">联系电话：</string>
+    <string name="per_phone_hint">请填写联系电话</string>
+    <string name="per_address">通信地址：</string>
+    <string name="per_address_hint">请填写联系人通信地址</string>
+    <string name="per_locate">所在地：</string>
+    <string name="cancel">取消</string>
+    <string name="upload_car_positive">请上传身份证正面：</string>
+    <string name="upload_car_other_side">请上传身份证反面：</string>
+    <string name="upload_car_hand">请上传手持身份证照：</string>
+    <string name="input_industry">请选择行业</string>
+    <string name="input_sub_industry">请选择子类</string>
+    <string name="quit_activity">返回</string>
+    <string name="no_cer">未认证</string>
+    <string name="no_pass">审核未通过</string>
+    <string name="cer_pass">审核通过</string>
+    <string name="cer_pass1">已认证</string>
+    <string name="cer_ing">审核中</string>
+    <string name="go_cer">去认证</string>
+    <string name="go_watch">去查看</string>
+    <string name="re_go_cer">重新认证</string>
+    <string name="no_certified">抱歉，您的账户还未认证，快去认证吧～</string>
+    <string name="not_pass">抱歉，您的账户审核未通过，快去看看吧～</string>
+    <string name="cer_waiting">您的账户认证正在审核中，请耐心等待。。。</string>
+    <string name="sub_suc">提交成功！</string>
+    <string name="sub_confirm">确定</string>
+    <string name="sub_fail">提交失败！</string>
+    <string name="sub_fail_txt">返回</string>
+    <string name="confirm_remind">确定删除全部历史记录？</string>
+    <!--创建寻客-->
+    <string name="direction_setting">定向设置</string>
+    <string name="page_task_setting">创建页面任务</string>
+    <string name="msg_task_setting">创建短信任务</string>
+    <string name="test">测试号</string>
+    <string name="hobby_set_remind">注：兴趣标签至少选择1个，最多选择6个</string>
+    <string name="submit_remind">注：任务提交后不得进行修改，且审核通过后不得删除！</string>
+    <string name="local_upload">本地上传</string>
+    <string name="template_making">模板制作</string>
+    <string name="img_making">图片制作</string>
+    <string name="picture_library">图片库</string>
+    <string name="local_upload_remind">注：推荐上传720*250, 100KB以内, 格\n式为png、jpge、jpg的图片。</string>
+
+    <string name="pull_to_refresh">下拉可以刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新…</string>
+    <string name="not_updated_yet">暂未更新过</string>
+    <string name="updated_at">上次更新于%1$s前</string>
+    <string name="updated_just_now">刚刚更新</string>
+    <string name="time_error">时间有问题</string>
+    <string name="yesterday">昨日</string>
+    <string name="latest_seven">最近7天</string>
+    <string name="last_week">上周</string>
+    <string name="this_month">本月</string>
+    <string name="last_month">上个月</string>
+
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+
+
+    <string name="company">北京东方网润科技有限公司</string>
+
+</resources>

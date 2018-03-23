@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 勋章控件属性 -->
+    <declare-styleable name="BGABadgeView">
+        <!-- 徽章背景色 -->
+        <attr name="badge_bgColor" format="reference|color"/>
+        <!-- 徽章文本的颜色 -->
+        <attr name="badge_textColor" format="reference|color"/>
+        <!-- 徽章文本字体大小 -->
+        <attr name="badge_textSize" format="reference|dimension"/>
+        <!-- 徽章背景与宿主控件上下边缘间距离 -->
+        <attr name="badge_verticalMargin" format="reference|dimension"/>
+        <!-- 徽章背景与宿主控件左右边缘间距离 -->
+        <attr name="badge_horizontalMargin" format="reference|dimension"/>
+        <!-- 徽章文本边缘与徽章背景边缘间的距离 -->
+        <attr name="badge_padding" format="reference|dimension"/>
+        <!-- 徽章在宿主控件中的位置 -->
+        <attr name="badge_gravity" format="enum">
+            <enum name="rightTop" value="0"/>
+            <enum name="rightCenter" value="1"/>
+            <enum name="rightBottom" value="2"/>
+        </attr>
+        <!-- 是否可以拖拽删除徽章 -->
+        <attr name="badge_dragable" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="RollLoadingView">
+        <attr name="point_color" format="color"/>
+        <attr name="point_radius" format="dimension"/>
+        <attr name="point_space" format="dimension"/>
+    </declare-styleable>
+
+    <style name="loadingDialog" parent="@android:style/Theme.Dialog">
+        <!--背景颜色及透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否有标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="border_overlay" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="XEditText">
+        <attr name="x_separator" format="string"/>
+        <attr name="x_disableClear" format="boolean"/>
+        <attr name="x_clearDrawable" format="reference"/>
+        <attr name="x_showPwdDrawable" format="reference"/>
+        <attr name="x_hidePwdDrawable" format="reference"/>
+        <attr name="x_disableEmoji" format="boolean"/>
+        <attr name="x_disableTogglePwdDrawable" format="boolean"/>
+    </declare-styleable>
+
+
+
+
+
+
+
+    <!--圆角ImageView-->
+
+        <declare-styleable name="RoundImageView">
+            <attr name="type" format="enum">
+                <enum name="circle" value="1"/>
+                <enum name="round" value="2"/>
+            </attr>
+            <attr name="radius" format="dimension"/>
+        </declare-styleable>
+
+
+</resources>

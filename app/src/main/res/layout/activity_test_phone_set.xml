@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_title"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_fafafa"
+    android:orientation="vertical">
+
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/myTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c_ffffff"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_show_info"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/c_ffffff"
+            android:gravity="center_vertical"
+            android:text="请添加(选择投放任务的城市)本地号码"
+            android:textColor="@color/c_1C1C1C"
+            android:textSize="15sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="移动电话："
+                android:textColor="@color/c_414141"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/tvMove"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_bg_gray_round_rec2"
+                android:cursorVisible="true"
+                android:hint="单行输入"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:paddingLeft="10dp"
+                android:textColor="@color/c_414141"
+                android:textColorHint="@color/c_9c9c9c"
+                android:textCursorDrawable="@drawable/cursor_style"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="联通电话："
+                android:textColor="@color/c_414141"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/tvUnicom"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_bg_gray_round_rec2"
+                android:cursorVisible="true"
+                android:hint="单行输入"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:paddingLeft="10dp"
+                android:textColor="@color/c_414141"
+                android:textColorHint="@color/c_9c9c9c"
+                android:textCursorDrawable="@drawable/cursor_style"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="电信电话："
+                android:textColor="@color/c_414141"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/tvTelecom"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_bg_gray_round_rec2"
+                android:cursorVisible="true"
+                android:hint="单行输入"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:paddingLeft="10dp"
+                android:textColor="@color/c_414141"
+                android:textColorHint="@color/c_9c9c9c"
+                android:textCursorDrawable="@drawable/cursor_style"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@mipmap/bt_bg"
+            android:text="保存"
+            android:textColor="@color/c_ffffff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:drawableLeft="@mipmap/attention"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="注意:"
+            android:textColor="@color/c_DB010B"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:lineSpacingExtra="1dp"
+            android:text="*1、请正确填写符合运营商规则的任务投放地本地手机号，否则有可能无法接收投放广告内容。\n2、测试号功能仅用来接收测试广告使用。\n3、测试广告将会产生费用，费用按当前投放任务价格计算并从当前任务预算中扣除。\n4、如果是短信任务，测试广告仅会收到一次并扣除一条短信的费用；如果是页面任务，按点击次数收取费用，不点击不收费。\n5、可能会由于欠费、停机、关机、不在服务区、网络信号不良等原因无法获取测试广告，同时将不会产生费用。"
+            android:textColor="@color/c_9c9c9c"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+

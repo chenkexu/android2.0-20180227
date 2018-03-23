@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bb_inActiveBottomBarItemColor">#6a6c70</color>
+    <color name="white">#FFFFFF</color>
+    <color name="bb_darkBackgroundColor">#212121</color>
+    <color name="bb_tabletRightBorderDark">#505050</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#49bdcc</color>
+    <color name="transparent_80">#80000000</color>
+    <color name="c_ededeb">#ededeb</color>
+    <color name="c_9d9d9f">#9d9d9f</color>
+
+    <color name="line">#99c4c4c4</color>
+    <color name="grid_line">#979797</color>
+    <color name="lanmu">#2f889b</color>
+    <!--===========================alertview弹出框===========================-->
+    <!--覆盖颜色-->
+    <color name="bgColor_overlay">#60000000</color>
+    <!--窗口背景颜色-->
+    <color name="bgColor_alertview_alert">#f8f8f8</color>
+    <color name="bgColor_alertview_alert_start">#f0f0f0</color>
+    <!--标题颜色-->
+    <color name="textColor_alert_title">#000000</color>
+    <color name="textColor_actionsheet_title">#8f8f8f</color>
+    <!--消息颜色-->
+    <color name="textColor_alert_msg">#000000</color>
+    <color name="textColor_actionsheet_msg">#8f8f8f</color>
+    <!--线条颜色-->
+    <color name="bgColor_divier">#d7d7db</color>
+    <!--取消按钮颜色-->
+    <color name="textColor_alert_button_cancel">#007aff</color>
+    <!--高亮按钮颜色-->
+    <color name="textColor_alert_button_destructive">#ff3b30</color>
+    <!--普通按钮文字颜色-->
+    <color name="textColor_alert_button_others">#007aff</color>
+    <!--点击颜色-->
+    <color name="bgColor_alert_button_press">#EAEAEA</color>
+    <!--actionsheet模式的取消按钮背景颜色-->
+    <color name="bgColor_actionsheet_cancel_nor">#ffffff</color>
+    <color name="T1">#9f9b9b</color>
+
+    <!--主题色-->
+    <color name="C1">#ff8161</color>
+    <color name="C2">#2bb579</color>
+    <color name="C3">#f9b457</color>
+    <color name="C4">#6a6c70</color>
+    <color name="C5">#9f9b9b</color>
+    <color name="C6">#6b6c70</color>
+    <color name="B1">#f2f3f8</color>
+    <color name="L1">#d6d7e1</color>
+
+    <!--新版主题色-->
+    <color name="CN1">#ffc007</color>
+    <color name="CN2">#3a3a3a</color>
+    <color name="CN3">#616161</color>
+    <color name="CN4">#9d9d9d</color>
+    <color name="CN5">#b7b7b7</color>
+    <color name="CN6">#e2e2e2</color>
+    <color name="CN7">#fafafa</color>
+    <color name="CN8">#f1f4f7</color>
+    <color name="CN9">#e54515</color>
+    <color name="CN10">#f85c5c</color>
+    <color name="CN11">#fa6a35</color>
+    <color name="CN12">#333333</color>
+    <color name="CN13">#4f4f4f</color>
+    <color name="CN14">#000000</color>
+    <color name="CN15">#ffffff</color>
+    <color name="CN16">#fcf2dc</color>
+    <color name="CN17">#C6B38F</color>
+
+    <color name="CNL1">#e2e2e2</color>
+    <!--activity根布局背景-->
+    <color name="CNB1">#f1f4f7</color>
+    <!--activity标题栏颜色-->
+    <color name="CNTitle">@color/CN7</color>
+
+
+    <!--Version Code2.1以上的颜色-->
+    <color name="gray">#B5B5B5</color>
+    <color name="text_gray">#7A7C85</color>
+    <color name="bd_blue">#3660E5 </color>
+
+
+
+
+
+    <!-- bg -->
+    <color name="light_gray">#999999</color>
+    <color name="bg_grey">#212121</color>
+    <color name="bg_green">#3f9105</color>
+    <color name="bg_gray_pale">#F7F8F7</color>
+    <color name="bg_gray_light">#323232</color>
+    <color name="bg_gray">#DCDCDC</color>
+    <color name="alpha_black">#22000000</color>
+    <color name="bg_orange">#f8891d</color>
+    <color name="bg_blue">#01acf1</color>
+    <color name="bg_yellow">#f9b62b</color>
+    <color name="bg_translucent_white">#F0FFFFFF</color>
+    <color name="bg_top_or_bottom">#F7F8F7</color>
+    <color name="bg_guide">#292C29</color>
+    <color name="bg_white">#FFFFFF</color>
+    <color name="bg_red">#FF0000</color>
+    <color name="grey_dark">#ff404850</color>
+
+    <color name="white_transparent_cc">#CCffffff</color>  <!--不透明度80%-->
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+</resources>

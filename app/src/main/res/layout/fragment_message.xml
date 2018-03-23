@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_fafafa"
+    android:orientation="vertical">
+
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/title"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.orientdata.lookforcustomers.view.xlistview.XListView
+        android:id="@+id/xListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/title"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
+    <LinearLayout
+        android:id="@+id/rl_bottom"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/c_e8e8e8"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#ffffff"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/tvChoose"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="全选"
+                android:gravity="center"
+                android:textColor="@color/c_ffffff"
+                android:background="@color/c_09B6F2"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tvDelete1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="取消"
+                android:gravity="center"
+                android:textColor="@color/c_9c9c9c"
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

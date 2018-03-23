@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_circle_white_load_bg1"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="发票信息"
+        android:textColor="#1c1c1c"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_invoice_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="left"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="#414141"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="收件信息"
+        android:textColor="#1c1c1c"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_address_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="left"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="#414141"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvRemind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:lineSpacingExtra="3dp"
+        android:text="*请确认邮箱无误，电子发票将在系统开具后发送至您的邮箱，请注意查收。"
+        android:textColor="@color/c_d1820"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvCancel"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:background="@mipmap/quxiaokaung"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/c_999999"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="35dp"
+            android:background="@mipmap/tijiao"
+            android:gravity="center"
+            android:text="确认提交"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</LinearLayout>

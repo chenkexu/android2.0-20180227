@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="yesterday_line_pagecon" />
+    <item type="id" name="yesterday_line_pagedisplay" />
+    <item type="id" name="yesterday_line_pageclick" />
+    <item type="id" name="yesterday_line_msgcon" />
+    <item type="id" name="yesterday_line_msgissued" />
+
+    <item type="id" name="latestseven_line_pagecon" />
+    <item type="id" name="latestseven_line_pagedisplay" />
+    <item type="id" name="latestseven_line_pageclick" />
+    <item type="id" name="latestseven_line_msgcon" />
+    <item type="id" name="latestseven_line_msgissued" />
+
+    <item type="id" name="lastweek_line_pagecon" />
+    <item type="id" name="lastweek_line_pagedisplay" />
+    <item type="id" name="lastweek_line_pageclick" />
+    <item type="id" name="lastweek_line_msgcon" />
+    <item type="id" name="lastweek_line_msgissued" />
+
+    <item type="id" name="month_line_pagecon" />
+    <item type="id" name="month_line_pagedisplay" />
+    <item type="id" name="month_line_pageclick" />
+    <item type="id" name="month_line_msgcon" />
+    <item type="id" name="month_line_msgissued" />
+
+    <item type="id" name="lastmonth_line_pagecon" />
+    <item type="id" name="lastmonth_line_pagedisplay" />
+    <item type="id" name="lastmonth_line_pageclick" />
+    <item type="id" name="lastmonth_line_msgcon" />
+    <item type="id" name="lastmonth_line_msgissued" />
+</resources>

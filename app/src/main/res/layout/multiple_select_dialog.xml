@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/c_ffffff"
+    android:orientation="vertical">
+
+    <!--<TextView-->
+        <!--android:id="@+id/tvChooseRemind"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="@string/choose_province"-->
+        <!--android:textColor="@color/c_1C1C1C"-->
+        <!--android:textSize="15sp"-->
+        <!--android:textStyle="bold" />-->
+
+    <ListView
+        android:id="@+id/area"
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:layout_marginBottom="13dp"
+        android:divider="#00000000"
+        android:dividerHeight="0dip"
+        android:scrollbars="none" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/c_eeeeee" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:id="@+id/tvCacel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="重置"
+            android:textColor="@color/c_9c9c9c"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_09B6F2"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/c_ffffff"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

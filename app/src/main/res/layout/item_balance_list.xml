@@ -1,0 +1,71 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/c_ffffff">
+
+    <ImageView
+        android:id="@+id/ivType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:src="@mipmap/img_alipay" />
+
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/ivType"
+        android:layout_toRightOf="@+id/ivType"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/c_414141"
+        android:text="支付宝充值" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvType"
+        android:layout_alignStart="@+id/tvType"
+        android:layout_below="@+id/tvType"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="12sp"
+        android:textColor="@color/c_999999"
+        android:text="2017/08/09 12:07:30" />
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/more" />
+
+    <TextView
+        android:id="@+id/tvMoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/imageView4"
+        android:layout_toStartOf="@+id/imageView4"
+        android:textSize="15sp"
+        android:textColor="@color/c_414141"
+        android:text="+10000" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tvDate"
+        android:background="@color/c_eeeeee"/>
+</RelativeLayout>

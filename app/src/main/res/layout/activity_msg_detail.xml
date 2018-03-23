@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_fafafa"
+    android:paddingBottom="20dp"
+    android:orientation="vertical">
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/title"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:background="@color/c_ffffff"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="10dp"
+        android:layout_marginRight="15dp">
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/c_1C1C1C"/>
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvTitle"
+            android:textSize="14sp"
+            android:lineSpacingExtra="2dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/c_2a2a2a"
+            />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingRight="15dp"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/c_999999"/>
+
+</LinearLayout>

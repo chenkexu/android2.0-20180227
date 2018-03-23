@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/linear_main_tab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/CN6"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/CN7"
+            android:orientation="horizontal"
+            >
+
+            <RelativeLayout
+                android:id="@+id/rl_main_home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+
+                <com.orientdata.lookforcustomers.widget.bgabadgeview.BGABadgeTextView
+                    android:id="@+id/brb_main_home"
+                    style="@style/RbMainTab"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableTop="@drawable/selector_home_bottom"
+                    android:paddingRight="10dp"
+                    android:text="首页"
+                    app:badge_gravity="rightTop"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_main_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+
+                <com.orientdata.lookforcustomers.widget.bgabadgeview.BGABadgeTextView
+                    android:id="@+id/brb_main_search"
+                    style="@style/RbMainTab"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableTop="@drawable/selector_search_bottom"
+                    android:paddingRight="10dp"
+                    android:text="寻客"
+                    app:badge_gravity="rightTop"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_main_report"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+
+                <com.orientdata.lookforcustomers.widget.bgabadgeview.BGABadgeTextView
+                    android:id="@+id/brb_main_report"
+                    style="@style/RbMainTab"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableTop="@drawable/selector_report_bottom"
+                    android:paddingRight="10dp"
+                    android:text="报表"
+                    app:badge_gravity="rightTop"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_main_message"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+
+                <com.orientdata.lookforcustomers.widget.bgabadgeview.BGABadgeTextView
+                    android:id="@+id/brb_main_message"
+                    style="@style/RbMainTab"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableTop="@drawable/selector_message_bottom"
+                    android:paddingRight="10dp"
+                    android:text="消息"
+                    app:badge_gravity="rightTop"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_main_me"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+
+                <com.orientdata.lookforcustomers.widget.bgabadgeview.BGABadgeRelativeLayout
+                    android:id="@+id/rl_badge_me"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:badge_dragable="true"
+                    app:badge_gravity="rightTop"
+                    >
+
+                    <TextView
+                        android:id="@+id/brb_main_me"
+                        style="@style/RbMainTab"
+                        android:layout_centerVertical="true"
+                        android:drawableTop="@drawable/selector_mine_bottom"
+                        android:paddingRight="10dp"
+                        android:text="我的"
+                        />
+                </com.orientdata.lookforcustomers.widget.bgabadgeview.BGABadgeRelativeLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/linear_main_tab"
+        />
+
+</RelativeLayout>

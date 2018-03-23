@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    
+	<!-- **********CustomDialog自定义Dialog全屏********** -->
+	<style name="Dialog_Fullscreen">
+		<item name="android:windowFullscreen">true</item>
+		<item name="android:windowNoTitle">true</item>
+	</style>
+	<!-- **********CustomDialog自定义Dialog图例********** -->
+	<style name="Dialog_Legend">
+		<item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowBackground">@color/transparent_80</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+	</style>
+
+	<!-- **********CustomActivityAnimation 从右到左进入，从左到右退出********** -->
+	<style
+		name="AnimRightToLeftTheme"
+		parent="Theme.AppCompat.DayNight.NoActionBar">
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowAnimationStyle">@style/ActivityRightToLeftAnimation</item>
+	</style>
+
+	<style name="AnimationUpEnterDownExitDialog">
+		<item name="android:windowFrame">@null</item>
+		<item name="android:windowIsFloating">true</item>
+		<item name="android:windowTitleStyle">@null</item>
+		<item name="android:windowNoTitle">true</item>
+
+		<item name="android:windowFullscreen">false</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowIsTranslucent">true</item><!--半透明-->
+		<item name="android:backgroundDimEnabled">true</item><!--模糊-->
+
+		<item name="android:windowContentOverlay">@null</item>
+		<!--<item name="android:windowAnimationStyle">@style/UpEnterDownExitDialog</item>-->
+		<item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+	</style>
+
+	<style name="AnimationUpEnterDownExitDialogTransparent">
+		<item name="android:windowFrame">@null</item>
+		<item name="android:windowIsFloating">true</item>
+		<item name="android:windowTitleStyle">@null</item>
+		<item name="android:windowNoTitle">true</item>
+
+		<item name="android:windowFullscreen">false</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowIsTranslucent">false</item><!--半透明-->
+		<item name="android:backgroundDimEnabled">false</item><!--模糊-->
+
+		<item name="android:windowContentOverlay">@null</item>
+		<!--<item name="android:windowAnimationStyle">@style/UpEnterDownExitDialog</item>-->
+		<!--<item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>-->
+	</style>
+</resources>

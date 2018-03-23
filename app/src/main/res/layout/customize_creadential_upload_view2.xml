@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--灰色隔离区域-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f5f2f2" />
+
+    <TextView
+        android:id="@+id/tv_customize_creadential_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:text="资质证件"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:textColor="#1C1C1C"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_customize_creadential_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:text="请选择上传以下资质"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:textColor="#1C1C1C"
+        android:textSize="15sp" />
+
+    <RadioGroup
+        android:id="@+id/rg_customize_creadential_container"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <!--<RadioButton
+            android:textSize="14dp"
+            android:textColor="#414141"
+            android:layout_width="wrap_content"
+            android:text="觉得手机发了见识到了副驾驶垃圾分类数据士大夫精神的浪费精力时间的法律"
+            android:layout_height="wrap_content"
+            android:button="@drawable/bg_customize_creadential_upload_selector"
+            />
+        <RadioButton
+            android:textSize="14dp"
+            android:textColor="#414141"
+            android:layout_width="wrap_content"
+            android:text="觉得手机发了见识到了副驾驶垃圾分类数据士大夫精神的浪费精力时间的法律"
+            android:layout_height="wrap_content"
+            android:button="@drawable/bg_customize_creadential_upload_selector"
+            />
+        <RadioButton
+            android:textSize="14dp"
+            android:textColor="#414141"
+            android:layout_width="wrap_content"
+            android:text="觉得手机发了见识到了副驾驶垃圾分类数据士大夫精神的浪费精力时间的法律"
+            android:layout_height="wrap_content"
+            android:button="@drawable/bg_customize_creadential_upload_selector"
+            />-->
+
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/iv_customize_creadential_upload1"
+        android:layout_width="190dp"
+        android:layout_height="253dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@mipmap/bg_img_at_enterprise_certification_upload"
+        />
+    <ImageView
+        android:id="@+id/iv_customize_creadential_upload2"
+        android:layout_width="190dp"
+        android:layout_height="253dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@mipmap/bg_img_at_enterprise_certification_upload"
+        />
+    <ImageView
+        android:id="@+id/iv_customize_creadential_upload3"
+        android:layout_width="190dp"
+        android:layout_height="253dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@mipmap/bg_img_at_enterprise_certification_upload"
+        />
+
+</merge>

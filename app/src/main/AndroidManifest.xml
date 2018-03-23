@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.orientdata.lookforcustomers"
+    android:versionCode="202"
+    android:versionName="2.0.2">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CONTACTS" />
+    <uses-permission android:name="android.permission.MICROPHONE" />
+    <uses-permission android:name="android.permission.SMS" />
+    <!-- 百度地图权限 -->
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- END OF 百度地图定位 -->
+
+
+    <!-- 友盟分享 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+    <!--微信支付-->
+
+    <!-- OpenGLES 2.0 -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <application
+        android:name=".app.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="zYqGZSxS1XS6HD2Dq5k8vKjByBiOnVrM" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <activity
+            android:name=".view.login.imple.LoginAndRegisterActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
+        <activity
+            android:name=".view.home.imple.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.webview.imple.CommonWebView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.certification.impl.CertificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.certification.PersonalQualificationsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.agreement.MyWebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.certification.EnterpriseCertificationUploadActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".view.certification.PersonalCertificationUploadActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.clip.ClipActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".test.TestActivity" />
+        <activity
+            android:name=".view.GuideActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.LaunchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.findcustomer.CreateFindCustomerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+            android:name=".view.certification.WathchCertificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.findcustomer.CityPickActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".view.findcustomer.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.findcustomer.impl.DirectionalSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.findcustomer.impl.PageTaskActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".view.findcustomer.impl.MessageTaskActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.findcustomer.impl.AddAdvertiseImgActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.findcustomer.ImageMakingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.findcustomer.CreateAdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+            android:name=".view.findcustomer.DownLoadImgActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.findcustomer.TaskDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.findcustomer.DirectionDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.findcustomer.TestPhoneListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.findcustomer.TestPhoneSettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+        <activity
+            android:name=".view.findcustomer.CreateAdActivity2"
+            android:screenOrientation="portrait" />
+        <!-- 友盟推送 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="58c0fc3a07fe653c10001c45" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="umeng" />
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="6119919e888e88f695761c9d6b627293" />
+
+        <!--<service android:name="com.app.EastOffice.exceptionbroadcast.MyPushIntentService"/>-->
+
+        <!--分享-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1106072736" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"></activity>
+
+        <receiver
+            android:name=".receiver.ExceptionBroadCast"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.microdreams.timeprints.error" />
+            </intent-filter>
+        </receiver>
+
+
+        <activity android:name=".view.home.AnnouncementDetailActivity" />
+        <activity android:name=".view.home.AnnouncementListActivity" />
+        <activity android:name=".view.home.RechargeActivity"></activity>
+        <!--微信支付回调-->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--支付宝回调-->
+        <!--<activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+
+        <activity
+            android:name=".view.home.InvoiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.home.InvoiceHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mine.imple.MyCommissionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mine.ShareToGetCommissionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mine.DescriptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mine.imple.CommissionWithDrawActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mine.imple.PhoneCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.home.OfflineRechargeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.home.UploadOfflineRechargeReceiptActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.home.OfflineRechargeReceiptDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.mine.imple.CommissionListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mine.imple.AccountBalanceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.home.imple.MsgDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.home.InvoiceNextStepActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mine.imple.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mine.imple.AccountBalanceDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mine.AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.home.InvoiceDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.home.InvoiceTaskListActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

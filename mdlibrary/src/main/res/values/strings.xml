@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">BottomBar</string>
+    <string name="wait_loading">玩命加载中...</string>
+    <string name="error_internet">网络有问题,请稍后再试！</string>
+    <string name="download_state">正在下载中</string>
+    <string name="download_rate">210KB/S</string>
+    <string name="video_size">1024MB</string>
+    <string name="video_category">视频分类：个人展示</string>
+    <string name="suspend">已暂停</string>
+    <string name="fail">失败</string>
+    <string name="err">网络异常啦，轻触重新加载</string>
+    <string name="tv_empty">暂无数据</string>
+    <string name="pull_to_refresh_pull_label" translatable="false">向下拉动可以刷新</string>
+    <string name="pull_to_refresh_release_label" translatable="false">松开可以刷新</string>
+    <string name="pull_to_refresh_refreshing_label" translatable="false">加载中&#8230;</string>
+    <string name="pull_to_refresh_tap_label" translatable="false">点击刷新</string>
+
+    <string name="quit_activity">返回</string>
+</resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".view.home.InvoiceActivity">
+
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/my_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:id="@+id/lv_show_invoices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/my_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:background="#fafafa"
+        android:visibility="visible">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/tv_show_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_alignRight="@+id/v_line"
+        android:layout_alignEnd="@+id/v_line"
+        android:maxLines="1"
+        android:text="0个任务 共0元"
+        android:textColor="#db010b"
+        android:textSize="12sp" />
+
+    <CheckBox
+        android:id="@+id/cb_choose_all"
+        style="@style/CustomCheckboxTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:paddingBottom="23dp"
+        android:paddingEnd="0dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="0dp"
+        android:paddingStart="15dp"
+        android:text="全选"
+        android:textColor="#414141"
+        android:textSize="15sp" />
+
+    <View
+        android:id="@+id/v_line"
+        android:layout_width="1dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/tv_next_step"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toEndOf="@+id/v_line"
+        android:layout_toRightOf="@+id/v_line"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_explain"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_above="@+id/tv_next_step"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="#fafafa"
+        android:gravity="end"
+        android:paddingBottom="15dp"
+        android:paddingEnd="15dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="15dp"
+        android:paddingStart="0dp"
+        android:text="开票说明"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp" />
+
+
+</RelativeLayout>

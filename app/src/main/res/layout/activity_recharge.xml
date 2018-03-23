@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context="com.orientdata.lookforcustomers.view.home.RechargeActivity">
+
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/mt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="start"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="账户充值"
+        android:textColor="#1c1c1c"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/tv_recharge200"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginStart="70dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_recharge_tv_unchecked"
+            android:gravity="center"
+            android:text="充200元"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_recharge500"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginStart="14dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_recharge_tv_unchecked"
+            android:gravity="center"
+            android:text="充500元"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/tv_recharge1000"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginStart="70dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_recharge_tv_unchecked"
+            android:gravity="center"
+            android:text="充1000元"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_recharge3000"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginStart="14dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_recharge_tv_unchecked"
+            android:gravity="center"
+            android:text="充3000元"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/shape_bg_gray_round_rec4"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_customize_money"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="自定义金额(元):"
+            android:textColor="#1c1c1c"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/fet_recharge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/tv_customize_money"
+            android:layout_toRightOf="@+id/tv_customize_money"
+            android:background="#fafafa"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:inputType="number"
+            android:textColorHint="#9c9c9c"
+            android:textSize="14sp" />
+
+
+    </RelativeLayout>
+
+    <!--<com.orientdata.lookforcustomers.widget.FixedEditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/shape_bg_gray_round_rec4"
+        android:gravity="center"
+        android:hint="单笔最小200"
+        android:paddingLeft="10dp"
+        android:textColor="#9c9c9c"
+        android:textSize="14sp" />-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#fafafa" />
+
+    <RelativeLayout
+        android:id="@+id/rl_weixin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_weixin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:src="@mipmap/weixin" />
+
+        <TextView
+            android:id="@+id/tv_weixin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
+            android:layout_toEndOf="@+id/iv_weixin"
+            android:layout_toRightOf="@+id/iv_weixin"
+            android:text="微信充值"
+            android:textColor="#1c1c1c"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/rb_weixin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:button="@drawable/select_photo_bg" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_zhifubao"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_zhifubao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:src="@mipmap/zhifubao" />
+
+        <TextView
+            android:id="@+id/tv_zhifubao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
+            android:layout_toEndOf="@+id/iv_zhifubao"
+            android:layout_toRightOf="@+id/iv_zhifubao"
+            android:text="支付宝充值"
+            android:textColor="#1c1c1c"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/rb_zhifubao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:button="@drawable/select_photo_bg" />
+
+    </RelativeLayout>
+
+    <!--按钮-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_recharge_btn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/bg_tv_round_gradient"
+            android:gravity="center"
+            android:text="立即充值"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_offline_recharge_btn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="线下充值"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

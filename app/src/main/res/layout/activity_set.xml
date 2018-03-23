@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_fafafa"
+    android:orientation="vertical">
+
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/my_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/relaScavengingCaching"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/my_title">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
+            android:layout_marginStart="21dp"
+            android:text="清除缓存"
+            android:textColor="@color/c_1C1C1C"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            app:srcCompat="@drawable/arrow_right" />
+    </RelativeLayout>
+    <View
+        android:id="@+id/view3"
+        android:layout_below="@+id/relaScavengingCaching"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/c_eeeeee"/>
+    <RelativeLayout
+        android:id="@+id/relaPushNotice"
+        android:layout_below="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="23dp"
+            android:layout_marginStart="23dp"
+            android:text="推送通知"
+            android:textColor="@color/c_1C1C1C"
+            android:textSize="16sp" />
+        <com.orientdata.lookforcustomers.widget.toggleButton.zcw.togglebutton.ToggleButton
+            android:id="@+id/toggleBold"
+            android:layout_width="48dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <View
+        android:id="@+id/view5"
+        android:layout_below="@+id/relaPushNotice"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/c_eeeeee"/>
+    <RelativeLayout
+        android:id="@+id/relaResetPwd"
+        android:layout_below="@+id/view5"
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
+            android:textSize="16sp"
+            android:textColor="@color/c_1C1C1C"
+            android:layout_marginStart="21dp"
+            android:text="重置密码" />
+        <ImageView
+            android:id="@+id/iv_commission_withdraw_arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            app:srcCompat="@drawable/arrow_right" />
+    </RelativeLayout>
+    <View
+        android:id="@+id/view1"
+        android:layout_below="@+id/relaResetPwd"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/c_eeeeee"/>
+    <RelativeLayout
+        android:id="@+id/relaAboutUs"
+        android:layout_below="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
+            android:textSize="16sp"
+            android:textColor="@color/c_1C1C1C"
+            android:layout_marginStart="21dp"
+            android:text="关于我们" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            app:srcCompat="@drawable/arrow_right" />
+    </RelativeLayout>
+    <View
+        android:id="@+id/view2"
+        android:layout_below="@+id/relaAboutUs"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/c_eeeeee"/>
+    <RelativeLayout
+        android:id="@+id/relaFeedback"
+        android:layout_below="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
+            android:textSize="16sp"
+            android:textColor="@color/c_1C1C1C"
+            android:layout_marginStart="21dp"
+            android:text="意见反馈" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            app:srcCompat="@drawable/arrow_right" />
+    </RelativeLayout>
+    <View
+        android:id="@+id/view4"
+        android:layout_below="@+id/relaFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/c_eeeeee"/>
+
+
+   <LinearLayout
+       android:layout_marginLeft="10dp"
+       android:layout_marginRight="10dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_alignParentBottom="true"
+       android:layout_marginBottom="20dp">
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@color/c_eeeeee"/>
+       <TextView
+           android:id="@+id/tvLogOut"
+           android:layout_width="match_parent"
+           android:layout_height="49dp"
+           android:gravity="center"
+           android:textSize="16sp"
+           android:textColor="@color/bg_white"
+           android:background="@drawable/bg_tv_round_gradient"
+           android:text="退出账号" />
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@color/c_eeeeee"/>
+   </LinearLayout>
+</RelativeLayout>

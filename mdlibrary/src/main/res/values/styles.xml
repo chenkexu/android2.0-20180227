@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BB_BottomBarItem_Fixed">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">bottom|center_horizontal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+    </style>
+
+    <style name="BB_BottomBarItem_Fixed.Title" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="BB_BottomBarItem_Shifting">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">bottom|center_horizontal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:paddingTop">5dp</item>
+    </style>
+
+    <style name="BB_BottomBarItem_Shifting.Title" parent="BB_BottomBarItem_Fixed.Title">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="BB_BottomBarItem_Tablet">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="BB_BottomBarBadge_Text" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="SwipeBackLayout">
+        <item name="edge_size">50dip</item>
+        <item name="shadow_left">@drawable/shadow_left</item>
+        <item name="shadow_right">@drawable/shadow_right</item>
+        <item name="shadow_bottom">@drawable/shadow_bottom</item>
+    </style>
+
+
+    <style name="ActivityRightToLeftAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">
+            @anim/activity_right_left_enter_anim_translate
+        </item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_alpha_fixed</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_alpha_fixed</item>
+        <item name="android:activityCloseExitAnimation">
+            @anim/activity_left_right_exit_anim_translate
+        </item>
+    </style>
+
+
+    <style name="AlertActivity_AlertStyle" parent="android:Theme.Dialog">
+        <!--<item name="android:windowAnimationStyle">@style/AnimAlert</item>-->
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+</resources>

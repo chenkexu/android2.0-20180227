@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="classic_min_width">120dp</dimen>
+    <dimen name="classic_min_width_small_views">104dp</dimen>
+    <dimen name="classic_max_width">168dp</dimen>
+    <dimen name="classic_width_padding">12dp</dimen>
+
+    <dimen name="classic_height">56dp</dimen>
+    <dimen name="classic_height_top_padding_inactive">8dp</dimen>
+    <dimen name="classic_height_top_padding_active">6dp</dimen>
+    <dimen name="classic_height_bottom_padding">10dp</dimen>
+
+    <dimen name="classic_label_active">14sp</dimen>
+    <dimen name="classic_label_inactive">12sp</dimen>
+    <!--<item name="classic_label_active_to_inactive_ratio" format="float" type="dimen">0.857</item>-->
+
+    <dimen name="classic_icon_grid">24dp</dimen>
+
+
+    <dimen name="shifting_min_width_active">96dp</dimen>
+    <dimen name="shifting_max_width_active">168dp</dimen>
+    <dimen name="shifting_min_width_inactive">64dp</dimen>
+    <dimen name="shifting_max_width_inactive">96dp</dimen>
+    <dimen name="shifting_width_custom_padding">6dp</dimen>
+
+    <dimen name="shifting_height">56dp</dimen>
+    <dimen name="shifting_height_bottom_padding_inactive">16dp</dimen>
+    <dimen name="shifting_height_bottom_padding_active">10dp</dimen>
+    <dimen name="shifting_height_top_padding_active">6dp</dimen>
+    <dimen name="shifting_height_top_padding_inactive">16dp</dimen>
+    <!-- 56 - 24 - 16 = 16 -->
+
+    <dimen name="shifting_label">14sp</dimen>
+
+
+    <dimen name="shifting_icon_grid">24dp</dimen>
+
+    <dimen name="bottom_navigation_elevation">8dp</dimen>
+    <dimen name="bottom_navigation_height">56dp</dimen>
+    <dimen name="indicator_right_padding">10dp</dimen>
+    <dimen name="indicator_corner_radius">12dp</dimen>
+    <dimen name="indicator_internal_padding">4dp</dimen>
+    <dimen name="header_footer_left_right_padding">24dp</dimen>
+    <dimen name="header_footer_top_bottom_padding">12dp</dimen>
+
+
+    <dimen name="default_padding_top">8dp</dimen>
+    <dimen name="default_padding_bottom">8dp</dimen>
+    <dimen name="inner_padding_left">0dp</dimen>
+    <dimen name="inner_padding_right">0dp</dimen>
+    <dimen name="floating_label_text_size">12sp</dimen>
+    <dimen name="bottom_text_size">12sp</dimen>
+    <dimen name="inner_components_spacing">8dp</dimen>
+    <dimen name="bottom_ellipsis_height">4dp</dimen>
+
+    <!--===========================alertview弹出框===========================-->
+    <!--标题文字大小-->
+    <dimen name="textSize_alert_title">22sp</dimen>
+    <dimen name="textSize_actionsheet_title">14sp</dimen>
+    <!--标题文字高度-->
+    <dimen name="height_alert_title">60dp</dimen>
+    <dimen name="height_actionsheet_title">40dp</dimen>
+    <!--消息文字大小-->
+    <dimen name="textSize_alert_msg">15sp</dimen>
+    <dimen name="textSize_actionsheet_msg">14sp</dimen>
+    <!--消息距离底部间距-->
+    <dimen name="marginBottom_alert_msg">25dp</dimen>
+    <dimen name="marginBottom_actionsheet_msg">14dp</dimen>
+    <!--窗口模式左右两边到屏幕的间距-->
+    <dimen name="margin_alert_left_right">40dp</dimen>
+    <dimen name="margin_actionsheet_left_right">10dp</dimen>
+    <!--线条粗细-->
+    <dimen name="size_divier">1dp</dimen>
+    <!--按钮的高度-->
+    <dimen name="height_alert_button">48dp</dimen>
+    <!--按钮文字大小-->
+    <dimen name="textSize_alert_button">18sp</dimen>
+    <!--圆角-->
+    <dimen name="radius_alertview">15px</dimen>
+
+</resources>

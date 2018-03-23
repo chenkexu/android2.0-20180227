@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa"
+    android:orientation="vertical"
+    tools:context=".view.home.InvoiceActivity">
+
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:id="@+id/my_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:text="请选择发票类型"
+                android:textColor="#1c1c1c"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="#ffffff"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+                <!--电子发票-->
+                <RelativeLayout
+                    android:id="@+id/rl_e_invoice"
+                    android:layout_width="135dp"
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/kuang_invoice_unchecked">
+
+
+                    <ImageView
+                        android:id="@+id/iv_e_invoice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@mipmap/weixuanzhong_invoice" />
+
+                    <TextView
+                        android:id="@+id/tv_e_invoice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/iv_e_invoice"
+                        android:layout_toRightOf="@+id/iv_e_invoice"
+                        android:text="电子发票"
+                        android:textColor="#9c9c9c"
+                        android:textSize="17sp" />
+                </RelativeLayout>
+                <!--纸质发票-->
+                <RelativeLayout
+                    android:id="@+id/rl_p_invoice"
+                    android:layout_width="135dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="27dp"
+                    android:background="@mipmap/kuang_invoice_unchecked">
+
+                    <ImageView
+                        android:id="@+id/iv_p_invoice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@mipmap/weixuanzhong_invoice" />
+
+                    <TextView
+                        android:id="@+id/tv_p_invoice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/iv_p_invoice"
+                        android:layout_toRightOf="@+id/iv_p_invoice"
+                        android:text="纸质发票"
+                        android:textColor="#9c9c9c"
+                        android:textSize="17sp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+            <!--主面板-->
+            <LinearLayout
+                android:id="@+id/ll_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#fafafa" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="15dp"
+                    android:text="发票详情"
+                    android:textColor="#1c1c1c"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+                <!--抬头类型-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:text="抬头类型"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_invoice_title_enterprise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginStart="25dp">
+                            <!--公司抬头-->
+                        <ImageView
+                            android:id="@+id/iv_invoice_title_enterprise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/xuanzhong_invoice2" />
+
+                        <TextView
+                            android:id="@+id/tv_invoice_title_enterprise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_toEndOf="@+id/iv_invoice_title_enterprise"
+                            android:layout_toRightOf="@+id/iv_invoice_title_enterprise"
+                            android:text="公司抬头"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_invoice_title_personal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginStart="30dp">
+
+                        <ImageView
+                            android:id="@+id/iv_invoice_title_personal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/weixuanzhong_invoice2" />
+
+                        <TextView
+                            android:id="@+id/tv_invoice_title_personal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_toEndOf="@+id/iv_invoice_title_personal"
+                            android:layout_toRightOf="@+id/iv_invoice_title_personal"
+                            android:text="个人\非企业单位"
+                            android:textColor="#9c9c9c"
+                            android:textSize="14sp" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#fafafa" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:text="发票抬头"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/chang"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@drawable/cursor_style"
+                        android:textColor="#414141"
+                        android:maxLines="1"
+                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#d9d9d9" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:text="纳税人识别号"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/chang"
+                        android:maxLines="1"
+                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@drawable/cursor_style"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+                <!--发票内容-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#d9d9d9" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:text="发票内容"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"
+                        android:text="服务费"
+                        android:textColor="#999999"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+                <!--发票金额-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#d9d9d9" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:text="发票金额"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_money"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"
+                        android:text="1000"
+                        android:textColor="#999999"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#d9d9d9" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#fafafa" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#d9d9d9" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="15dp"
+                    android:text="收件信息"
+                    android:textColor="#1c1c1c"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <!--电子发票收件信息-->
+            <LinearLayout
+                android:id="@+id/ll_e_consignee_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:text="电子邮件"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/chang"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@drawable/cursor_style"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#d9d9d9" />
+            </LinearLayout>
+            <!--纸质发票收件信息-->
+            <LinearLayout
+                android:id="@+id/ll_p_consignee_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <!--收件人-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:text="收件人"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_person_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/chang"
+                        android:maxLines="1"
+                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@drawable/cursor_style"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#d9d9d9" />
+                <!--联系电话-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:text="联系电话"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_person_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/chang"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@drawable/cursor_style"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#d9d9d9" />
+                <!--所在地区-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:gravity="center_vertical"
+                        android:text="所在地区"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal">
+
+
+                        <RelativeLayout
+                            android:id="@+id/rl_province"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@mipmap/xiaokuang">
+
+                            <TextView
+                                android:id="@+id/tv_province"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_toLeftOf="@+id/iv_province"
+                                android:layout_toStartOf="@+id/iv_province"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="省" />
+
+                            <ImageView
+                                android:id="@+id/iv_province"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginRight="5dp"
+                                android:src="@mipmap/choose" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_city"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:background="@mipmap/xiaokuang">
+
+                            <TextView
+                                android:id="@+id/tv_city"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_toLeftOf="@+id/iv_city"
+                                android:layout_toStartOf="@+id/iv_city"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="市" />
+
+                            <ImageView
+                                android:id="@+id/iv_city"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginRight="5dp"
+                                android:src="@mipmap/choose" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_county"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:background="@mipmap/xiaokuang">
+
+                            <TextView
+                                android:id="@+id/tv_county"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_toLeftOf="@+id/iv_county"
+                                android:layout_toStartOf="@+id/iv_county"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="区" />
+
+                            <ImageView
+                                android:id="@+id/iv_county"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginRight="5dp"
+                                android:src="@mipmap/choose" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#d9d9d9" />
+                <!--详细地址-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:text="详细地址"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/chang"
+                        android:maxLines="1"
+                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@drawable/cursor_style"
+                        android:textColor="#414141"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#d9d9d9" />
+            </LinearLayout>
+            <!--提交按钮-->
+            <LinearLayout
+                android:id="@+id/ll_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#fafafa"
+                android:padding="15dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/shape_bg_primary_round_rec"
+                    android:gravity="center"
+                    android:text="提交"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/province_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/city_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+    <TextView
+        android:id="@+id/county_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/province_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/city_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/county_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+
+</LinearLayout>
