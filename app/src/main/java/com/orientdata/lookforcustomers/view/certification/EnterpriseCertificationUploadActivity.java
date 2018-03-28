@@ -723,7 +723,7 @@ public class EnterpriseCertificationUploadActivity extends ImageActivity impleme
                 closeActivity(EnterpriseCertificationUploadActivity.class, CertificationActivity.class);
             }
         });
-        title.setLeftImage(R.mipmap.back_white, new View.OnClickListener() {
+        title.setLeftImage(R.drawable.bg_back_btn, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

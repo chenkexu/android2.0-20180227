@@ -425,7 +425,7 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                 }
 
                 break;
-            case R.id.tv_recharge200:
+            case R.id.tv_recharge200: //充1000元
                 cost = 200;
                 is200Checked = !is200Checked;
                 is500Checked = !is200Checked;
@@ -446,8 +446,8 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     tv_recharge200.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 }
                 break;
-            case R.id.tv_recharge500:
-                cost = 500;
+            case R.id.tv_recharge500://充2000元
+                cost = 2000;
                 is500Checked = !is500Checked;
                 is200Checked = !is500Checked;
                 is1000Checked = !is500Checked;
@@ -467,8 +467,8 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     tv_recharge500.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 }
                 break;
-            case R.id.tv_recharge1000:
-                cost = 1000;
+            case R.id.tv_recharge1000: //充3000元
+                cost = 3000;
                 is1000Checked = !is1000Checked;
                 is500Checked = !is1000Checked;
                 is200Checked = !is1000Checked;
@@ -489,8 +489,8 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     tv_recharge1000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 }
                 break;
-            case R.id.tv_recharge3000:
-                cost = 3000;
+            case R.id.tv_recharge3000: //5000元
+                cost = 5000;
                 is3000Checked = !is3000Checked;
                 is1000Checked = !is3000Checked;
                 is500Checked = !is3000Checked;

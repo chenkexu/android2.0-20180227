@@ -54,6 +54,7 @@ import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
 import com.orientdata.lookforcustomers.widget.toggleButton.RoundImageView;
 
 import org.greenrobot.eventbus.Subscribe;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -137,6 +138,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         linear_company = view.findViewById(R.id.linear_company);
         rl_share = view.findViewById(R.id.rl_share);
         rl_service = view.findViewById(R.id.rl_service);
+
         rl_commission_withdraw.setOnClickListener(this);
         tv_balance_account.setOnClickListener(this);
         iv_setting.setOnClickListener(this);
@@ -177,10 +179,12 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                         if (!TextUtils.isEmpty(name)) {
                             tv_company_name.setText(name);
                         } else {
-                            tv_company_name.setVisibility(View.GONE);
+//                            tv_company_name.setVisibility(View.GONE);
+                            tv_company_name.setText("未认证");
                         }
                     } else {
-                        tv_company_name.setVisibility(View.GONE);
+//                        tv_company_name.setVisibility(View.GONE);
+                        tv_company_name.setText("未认证");
                     }
 
                     /*        userHead
@@ -193,11 +197,11 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
 //                        Glide.with(getContext()).load(userHead).bitmapTransform(new BlurTransformation(getContext(), 25),
 //                                new CenterCrop(getContext())).into(blur);
 //                        Glide.with(getContext()).load(userHead).into(iv_head_portrait);
-                        GlideUtil.getInstance().loadImage(getContext(),iv_head_portrait,userHead,true);
+                        GlideUtil.getInstance().loadHeadImage(getContext(),iv_head_portrait,userHead,true);
 //                        Glide.with(getContext()).load(userHead).bitmapTransform(new CropCircleTransformation(getContext()))
 //                                .into(iv_head_portrait);
                     } else {
-                        Glide.with(getContext()).load(R.mipmap.head_portrait).bitmapTransform(new CropCircleTransformation(getContext()))
+                        Glide.with(getContext()).load(R.mipmap.head_default)
                                 .into(iv_head_portrait);
                     }
                     /*        phone

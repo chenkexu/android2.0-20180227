@@ -12,7 +12,7 @@ import com.orientdata.lookforcustomers.view.certification.ICertificateView;
 import java.util.List;
 /**
  * Created by wy on 2017/11/18.
- * 认证
+ * 企业认证Presenter
  */
 
 public class CertificatePresent<T> extends BasePresenter<ICertificateView> {

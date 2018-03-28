@@ -43,10 +43,30 @@ public class GuideActivity extends BaseActivity<ILoginAndRegisterView, LoginAndR
         //取消状态栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_guide);
+//        setContentView(R.layout.activity_guide);
 //        tvVersion = findViewById(R.id.tvVersion);
 //        tvVersion.setText("V"+AppConfig.VER);
 
+        boolean isfirstenter = SharedPreferencesTool.getInstance().getBooleanValue(SharedPreferencesTool.ISFIRSTENTER, true);
+        if (isfirstenter) {
+            //进入引导页面
+            startActivity(new Intent(GuideActivity.this, LaunchActivity.class));
+            finish();
+        } else {
+            setContentView(R.layout.activity_guide);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(GuideActivity.this, HomeActivity.class));
+                    finish();
+                }
+            }, 2000);
+
+        }
+
+
+
+      /*
         new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -64,13 +84,13 @@ public class GuideActivity extends BaseActivity<ILoginAndRegisterView, LoginAndR
 //                    }else{
 //                        startActivity(new Intent(GuideActivity.this, LoginAndRegisterActivity.class));
 //                    }
+                    setContentView(R.layout.activity_guide);
                     startActivity(new Intent(GuideActivity.this, HomeActivity.class));
                 }
-
                 finish();
             }
 
-        }.sendEmptyMessageDelayed(1, 2000);
+        }.sendEmptyMessageDelayed(1, 2000);*/
     }
 
     @Override

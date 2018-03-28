@@ -136,7 +136,6 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
                     startActivity(intent);
                     closeActivity(TaskDetailActivity.class);
                 }
-
             }
         });
     }

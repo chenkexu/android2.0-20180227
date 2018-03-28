@@ -17,7 +17,7 @@
         android:layout_height="26dp"
         android:gravity="center"
         android:text="未认证"
-        android:textColor="@color/c_9c9c9c"
+        android:textColor="#FF5C64"
         android:textSize="12sp" />
 
     <VideoView
@@ -37,7 +37,7 @@
             android:layout_height="40dp"
             android:background="@color/c_ffffff"
             app:tabIndicatorColor="@color/c_09B6F2"
-            app:tabSelectedTextColor="@color/c_09B6F2"
+            app:tabSelectedTextColor="@color/colorPrimary"
             app:tabTextAppearance="@style/authentication_text"
             app:tabTextColor="@color/c_999999" />
         <!--可滑动的布局内容-->
@@ -219,12 +219,12 @@
         <TextView
             android:id="@+id/tvWatchImg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
-            android:background="@mipmap/bg_enterprise_certification_upload"
+            android:background="@drawable/bg_tv_round_gradient"
             android:gravity="center"
             android:text="查看资质"
             android:textColor="#FFFFFF"

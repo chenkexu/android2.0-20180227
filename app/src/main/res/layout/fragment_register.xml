@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_09B6F2"
     android:clickable="true"
     android:orientation="vertical"
     >
@@ -31,6 +30,15 @@
         android:layout_marginTop="10dp"
         android:src="@mipmap/ic_launcher"
         />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_gray"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/iv_logo"
+        android:text="@string/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +46,7 @@
         android:layout_below="@id/iv_logo"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:orientation="vertical"
         >
 
@@ -46,7 +54,7 @@
             android:id="@+id/account_label"
             layout="@layout/item_account_label"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginTop="5dp"
             />
 
@@ -54,15 +62,14 @@
             android:id="@+id/auth_code_label"
             layout="@layout/item_auth_code_label"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="15dp"
-            />
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp" />
 
         <include
             android:id="@+id/auth_code_label"
             layout="@layout/item_reset_password_label"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_marginTop="15dp"
             />
 
@@ -71,10 +78,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:background="@drawable/shape_bg_white_round_rec"
-            android:text="注册"
-            android:textColor="@color/color_09B6F2"
-            android:textSize="@dimen/text_size_17"
+            android:background="@drawable/bg_tv_round_gradient"
+            android:text="用户注册"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15"
             />
     </LinearLayout>
 
@@ -103,12 +110,13 @@
             android:id="@+id/tv_agreement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="东方网润产品注册协议"
+            android:text="网润寻客APP用户协议"
             android:textColor="@color/color_838383"
             android:textSize="@dimen/text_size_10"
             />
 
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Copyright@2017东方网润"

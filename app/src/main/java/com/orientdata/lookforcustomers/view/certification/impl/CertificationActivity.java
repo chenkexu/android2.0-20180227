@@ -194,14 +194,14 @@ public class CertificationActivity extends BaseActivity<ICertificateView, Certif
             linearCertific.setVisibility(View.VISIBLE);
             linearCertificMsg.setVisibility(View.GONE);
             tvCertificateStatus.setText(R.string.no_cer);
-            //只有此状态显示 跳过
-            titleCertificate.setRightText(getString(R.string.skip));
-            titleCertificate.setRightTextClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+            //只有此状态显示 跳过(不显示)
+//            titleCertificate.setRightText(getString(R.string.skip));
+//            titleCertificate.setRightTextClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    finish();
+//                }
+//            });
             initTab();
             initViewPager();
         } else {

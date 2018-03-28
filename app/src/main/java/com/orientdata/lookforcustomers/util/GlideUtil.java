@@ -44,14 +44,14 @@ public class GlideUtil {
      * @param imgUrl  图片地址
      * @param isFade  是否需要动画
      */
-    public void loadImage(Context context, ImageView imageView,
+    public void loadHeadImage(Context context, ImageView imageView,
                           String imgUrl, boolean isFade) {
         if (isFade) {
             Glide.with(context)
                     .load(imgUrl)
-                    .error(R.mipmap.head_portrait)
+                    .error(R.mipmap.head_default)
                     .crossFade()
-                    .placeholder(R.mipmap.head_portrait)
+                    .placeholder(R.mipmap.head_default)
                     .priority(Priority.NORMAL) //下载的优先级
                     //all:缓存源资源和转换后的资源 none:不作任何磁盘缓存
                     //source:缓存源资源   result：缓存转换后的资源

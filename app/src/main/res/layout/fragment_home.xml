@@ -6,7 +6,9 @@
     android:background="@color/c_ffffff"
     android:orientation="vertical">
     <!--ID Title-->
+
     <com.orientdata.lookforcustomers.widget.MyTitle
+        android:elevation="3dp"
         android:id="@+id/fm_home_title_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

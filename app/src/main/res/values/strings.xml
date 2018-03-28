@@ -3,7 +3,7 @@
     <string name="login_auth_code_hint">验证码登录</string>
     <string name="login_account_text_hint">+86请输入手机号</string>
     <string name="login_password_text_hint">请输入密码</string>
-    <string name="reset_password_text_hint">请设置新密码</string>
+    <string name="reset_password_text_hint">设置密码6-18位数字与字母</string>
     <!--认证-->
     <string name="business_authentication">企业认证</string>
     <string name="personal_authentication">个人认证</string>
@@ -36,7 +36,7 @@
     <string name="per_phone_hint">请填写联系电话</string>
     <string name="per_address">通信地址：</string>
     <string name="per_address_hint">请填写联系人通信地址</string>
-    <string name="per_locate">所在地：</string>
+    <string name="per_locate">个人所在地：</string>
     <string name="cancel">取消</string>
     <string name="upload_car_positive">请上传身份证正面：</string>
     <string name="upload_car_other_side">请上传身份证反面：</string>

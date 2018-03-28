@@ -156,7 +156,7 @@ public class ProvinceCityDialog extends Dialog{
             if (null != areaOut) {
                 viewHolder.areaName.setText(areaOut.getName());
                 if (position == selectItem) {
-                    viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.c_09B6F2));
+                    viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                 }else {
                     viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.c_414141));
                 }

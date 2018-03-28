@@ -77,7 +77,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
-    //打印日志
-    compile 'com.orhanobut:logger:2.1.1'
+
 
 }

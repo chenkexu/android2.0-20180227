@@ -13,6 +13,7 @@
 
         <com.orientdata.lookforcustomers.widget.EditTextView
             android:id="@+id/perName"
+            app:leftTextColor="@color/text_gray"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:hintText="@string/per_name_hint"
@@ -20,6 +21,7 @@
 
         <com.orientdata.lookforcustomers.widget.EditTextView
             android:id="@+id/perCard"
+            app:leftTextColor="@color/text_gray"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:hintText="@string/per_name_hint"
@@ -29,6 +31,8 @@
             android:id="@+id/perPhone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+
+            app:leftTextColor="@color/text_gray"
             app:hintText="@string/per_phone_hint"
             app:leftText="@string/per_phone" />
 
@@ -36,6 +40,7 @@
             android:id="@+id/perAddress"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            app:leftTextColor="@color/text_gray"
             app:hintText="@string/per_address_hint"
             app:leftText="@string/per_address" />
     </LinearLayout>
@@ -63,7 +68,7 @@
                 android:layout_marginLeft="15dp"
                 android:text="@string/per_locate"
                 android:textColor="@color/c_1C1C1C"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -83,8 +88,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/choose_province"
-                        android:textColor="@color/c_414141"
-                        android:textSize="14sp" />
+                        android:textColor="@color/text_gray"
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:id="@+id/ivChooseProvince"
@@ -117,8 +122,8 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/view"
                         android:text="@string/choose_city"
-                        android:textColor="@color/c_414141"
-                        android:textSize="14sp" />
+                        android:textColor="@color/text_gray"
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:id="@+id/ivChooseCity"
@@ -148,7 +153,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:background="@mipmap/bt_bg"
+        android:background="@drawable/bg_tv_round_gradient"
         android:text="@string/next"
         android:textColor="@color/c_ffffff" />
 

@@ -14,7 +14,4 @@ import java.util.List;
 
 public interface IDirectionalSettingView extends BaseView {
     void getSelectSetting(SettingOut settingOuts);
-
-
-
 }

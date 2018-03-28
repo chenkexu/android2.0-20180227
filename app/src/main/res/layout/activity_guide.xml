@@ -10,7 +10,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:src="@mipmap/luanchpage"
+        android:src="@mipmap/splash"
         android:layout_height="match_parent" />
 
 </RelativeLayout>

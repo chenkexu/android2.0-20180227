@@ -4,9 +4,12 @@
     <color name="white">#FFFFFF</color>
     <color name="bb_darkBackgroundColor">#212121</color>
     <color name="bb_tabletRightBorderDark">#505050</color>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#49bdcc</color>
+
+    <!--主题颜色-->
+    <color name="colorPrimary">#3660E5</color>
+    <color name="colorPrimaryDark">#3660E5</color>
+    <color name="colorAccent">#3660E5</color>
+
     <color name="transparent_80">#80000000</color>
     <color name="c_ededeb">#ededeb</color>
     <color name="c_9d9d9f">#9d9d9f</color>
@@ -80,6 +83,9 @@
     <color name="gray">#B5B5B5</color>
     <color name="text_gray">#7A7C85</color>
     <color name="bd_blue">#3660E5 </color>
+
+
+    <color name="line_color">#D8D8D8</color>
 
 
 

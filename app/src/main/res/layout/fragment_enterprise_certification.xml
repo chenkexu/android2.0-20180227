@@ -17,35 +17,40 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:hintText="@string/enterprise_name_hint"
-            app:leftText="@string/enterprise_name" />
+            app:leftText="@string/enterprise_name"
+            app:leftTextColor="@color/text_gray" />
 
         <com.orientdata.lookforcustomers.widget.EditTextView
             android:id="@+id/businessNum"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:hintText="@string/business_license_num_hint"
-            app:leftText="@string/business_license_num" />
+            app:leftText="@string/business_license_num"
+            app:leftTextColor="@color/text_gray" />
 
         <com.orientdata.lookforcustomers.widget.EditTextView
             android:id="@+id/contact"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:hintText="@string/contact_name_hint"
-            app:leftText="@string/contact_name" />
+            app:leftText="@string/contact_name"
+            app:leftTextColor="@color/text_gray" />
 
         <com.orientdata.lookforcustomers.widget.EditTextView
             android:id="@+id/contactPhone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:hintText="@string/contact_phone_hint"
-            app:leftText="@string/contact_phone" />
+            app:leftText="@string/contact_phone"
+            app:leftTextColor="@color/text_gray" />
 
         <com.orientdata.lookforcustomers.widget.EditTextView
             android:id="@+id/contactIdNum"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:hintText="@string/contact_id_num_hint"
-            app:leftText="@string/contact_id_num" />
+            app:leftText="@string/contact_id_num"
+            app:leftTextColor="@color/text_gray" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,6 +67,7 @@
             android:layout_marginTop="15dp">
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,8 +76,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:text="@string/enterprise_locate"
-                android:textColor="@color/c_1C1C1C"
-                android:textSize="14sp" />
+                android:textColor="@color/text_gray"
+                android:textSize="18sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -91,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/choose_province"
-                        android:textColor="@color/c_414141"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -123,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/choose_city"
-                        android:textColor="@color/c_414141"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -146,6 +152,7 @@
         </RelativeLayout>
 
         <com.orientdata.lookforcustomers.widget.EditTextView
+            app:leftTextColor="@color/text_gray"
             android:id="@+id/enterpriseAddress"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -161,7 +168,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:background="@mipmap/bt_bg"
+        android:background="@drawable/bg_tv_round_gradient"
         android:text="@string/next"
         android:textColor="@color/c_ffffff" />
 

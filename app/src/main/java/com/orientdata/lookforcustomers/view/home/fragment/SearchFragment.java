@@ -28,10 +28,7 @@ import com.orientdata.lookforcustomers.view.xlistview.XListView;
 import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
-
 import org.greenrobot.eventbus.Subscribe;
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 

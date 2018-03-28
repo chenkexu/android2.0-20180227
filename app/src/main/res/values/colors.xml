@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#09B6F2</color>
-    <color name="colorPrimaryDark">#14619D</color>
-    <color name="colorAccent">#FFFFFF</color>
+
+    <!--主题颜色-->
+    <color name="colorPrimary">#3660E5</color>
+    <color name="colorPrimaryDark">#3660E5</color>
+    <color name="colorAccent">#3660E5</color>
+
+
+
 
     <color name="color_09B6F2">#09B6F2</color>
     <color name="color_FFFFFF">#FFFFFF</color>
@@ -27,6 +32,8 @@
     <color name="c_e6e6e6">#e6e6e6</color>
     <color name="c_d1820">#de1820</color>
     <color name="c_838383">#838383</color>
+    <color name="no_certifacation">#FF5C64</color>
+
 
     <!--Home Fragment-->
     <color name="c_ffffff">#FFFFFF</color>
@@ -50,6 +57,12 @@
     <color name="c_05A822">#05A822</color>
 
 
+    <!--首页四个按钮的颜色-->
+    <color name="home_btn">#7A7C85</color>
+
+    <!--首页数量文字颜色-->
+    <color name="home_count">#9699A3</color>
+
 
 
     <color name="c8">#ff6c6c</color>
@@ -62,6 +75,9 @@
     <color name="blue">#4674EC</color>
 
 
+
+    <!--充值页面-->
+    <color name="charge_text">#3F6AE8</color>
 
 
 </resources>

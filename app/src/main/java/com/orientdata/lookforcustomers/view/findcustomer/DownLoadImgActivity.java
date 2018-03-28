@@ -1,10 +1,8 @@
 package com.orientdata.lookforcustomers.view.findcustomer;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ProgressBar;
@@ -20,36 +18,27 @@ import com.orientdata.lookforcustomers.network.okhttp.manager.OkClient;
 import com.orientdata.lookforcustomers.network.okhttp.manager.ParamManager;
 import com.orientdata.lookforcustomers.network.okhttp.progress.ProgressListener;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.certification.EnterpriseCertificationUploadActivity;
-import com.orientdata.lookforcustomers.view.certification.impl.CertificationActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.SubmitFeedBackDialog;
-import com.squareup.okhttp.internal.http.Transport;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Created by wy on 2017/12/4.
  * 模板图片下载
  */
 
-public class DownLoadImgActivity extends WangrunBaseActivity{
-    private static  final int DOWN_START  = 1;
-    private static  final int DOWN_SUCCESS  = 2;
-    private static  final int DOWN_FAILED  = 3;
-    private static  final int DOWN_PROGRESS  = 4;
+public class DownLoadImgActivity extends WangrunBaseActivity {
+    private static final int DOWN_START = 1;
+    private static final int DOWN_SUCCESS = 2;
+    private static final int DOWN_FAILED = 3;
+    private static final int DOWN_PROGRESS = 4;
     private int totlefile = 0;
     String[] str = null;
     private TextView tvProgress;
     private ProgressBar progressBar;
     private MyTitle titleImg;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,21 +49,23 @@ public class DownLoadImgActivity extends WangrunBaseActivity{
         tvProgress = findViewById(R.id.tvProgress);
         titleImg = findViewById(R.id.titleImg);
         initTitle();
-        if(str!=null && str.length>0){
+        if (str != null && str.length > 0) {
             downloadfile(str);
         }
     }
+
     private void initTitle() {
         titleImg.setTitleName("下载");
         titleImg.setImageBack(this);
     }
 
-        /**
-         * 下载文件
-         *
-         * @param downloadurls
-         */
+    /**
+     * 下载文件
+     *
+     * @param downloadurls
+     */
     private int nowfile = 0;
+
     public void downloadfile(String downloadurls[]) {
 
         OkClient.download(3, ParamManager.download(downloadurls[nowfile]), null, new IResponseCallback() {
@@ -102,6 +93,7 @@ public class DownLoadImgActivity extends WangrunBaseActivity{
         });
 
     }
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -110,7 +102,7 @@ public class DownLoadImgActivity extends WangrunBaseActivity{
                 case DOWN_START:
 //                    downDialog.updateView(0, "准备下载");
 //                    ToastUtils.showShort("准备下载");
-                    tvProgress.setText("图片"+nowfile+"正在拼命下载中。。。");
+                    tvProgress.setText("图片" + nowfile + "正在拼命下载中。。。");
                     break;
                 case DOWN_PROGRESS:
                     int progress = msg.arg1;
@@ -126,12 +118,12 @@ public class DownLoadImgActivity extends WangrunBaseActivity{
 //                    }
                     if (nowfile == totlefile) {
                         Log.i("DownLoadImgActivity", "下载全部完成" + nowfile);
-                        ToastUtils.showShort("图片"+nowfile+"下载全部完成");
+                        ToastUtils.showShort("图片" + nowfile + "下载全部完成");
 //                        downDialog.dissmiss();
 //                        downthumb = null;
 //                        downVideoUrls = null;
-                        nowfile=0;
-                        totlefile=0;
+                        nowfile = 0;
+                        totlefile = 0;
 //                        finish();
                         progressBar.setProgress(100);
                         showDialog();
@@ -152,8 +144,9 @@ public class DownLoadImgActivity extends WangrunBaseActivity{
 
         }
     };
-    private void showDialog(){
-        final SubmitFeedBackDialog submitFeedBackDialog = new SubmitFeedBackDialog(this,"下载完成！","确定",R.mipmap.submit_suc);
+
+    private void showDialog() {
+        final SubmitFeedBackDialog submitFeedBackDialog = new SubmitFeedBackDialog(this, "下载完成！", "确定", R.mipmap.submit_suc);
         submitFeedBackDialog.show();
         submitFeedBackDialog.setClickListenerInterface(new SubmitFeedBackDialog.ClickListenerInterface() {
             @Override
@@ -166,6 +159,7 @@ public class DownLoadImgActivity extends WangrunBaseActivity{
             }
         });
     }
+
     /**
      * 取消请求
      *

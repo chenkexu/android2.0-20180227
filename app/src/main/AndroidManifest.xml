@@ -205,7 +205,7 @@
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize"/>
 
         <receiver
             android:name=".receiver.ExceptionBroadCast"
@@ -218,7 +218,7 @@
 
         <activity android:name=".view.home.AnnouncementDetailActivity" />
         <activity android:name=".view.home.AnnouncementListActivity" />
-        <activity android:name=".view.home.RechargeActivity"></activity>
+        <activity android:name=".view.home.RechargeActivity"/>
         <!--微信支付回调-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
@@ -244,13 +244,13 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
 
         <activity
             android:name=".view.home.InvoiceActivity"

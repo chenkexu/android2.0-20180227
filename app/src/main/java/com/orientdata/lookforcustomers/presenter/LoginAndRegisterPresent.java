@@ -307,7 +307,6 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
     }
 
     //倒计时开始
-
     private void countDown() {
         progress = totalTime;
         timer = new CountDownTimer(totalTime, 1000) {

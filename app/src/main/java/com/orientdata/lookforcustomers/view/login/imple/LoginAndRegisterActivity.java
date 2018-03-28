@@ -44,11 +44,11 @@ public class LoginAndRegisterActivity extends BaseActivity<ILoginAndRegisterView
 
     }
     private void initFragment(){
-        if(type == 0){
+        if(type == 0){  //进入登陆界面
             loginFragment = LoginFragment.newInstance(isReLogin);
             fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().add(R.id.fl_content, loginFragment).commit();
-        }else if(type == 3){
+        }else if(type == 3){  //进入修改密码界面
             ResetPasswordFragment resetPasswordFragment = ResetPasswordFragment.newInstance();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.fl_content, resetPasswordFragment);

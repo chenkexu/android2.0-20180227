@@ -10,12 +10,12 @@
 
     <style name="login_btn_style">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">40dp</item>
-        <item name="android:background">@drawable/shape_white_round_rec</item>
+        <item name="android:layout_height">70dp</item>
+        <!--<item name="android:background">@drawable/shape_white_round_rec</item>-->
         <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingLeft">15dp</item>
         <item name="android:paddingRight">15dp</item>
-        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingTop">15dp</item>
     </style>
 
     <style name="AutoWrap">
@@ -32,6 +32,7 @@
 
     <style name="authentication_text">
         <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
     <style name="img_text">
         <item name="android:textSize">15sp</item>
@@ -128,8 +129,8 @@
         <item name="android:layout_marginLeft">15dp</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
     </style>
 
 
@@ -138,7 +139,8 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">#7F7F7F</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -150,6 +152,17 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">20dp</item>
+    </style>
+
+
+
+
+
+    <style name="line_style">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/line_color</item>
     </style>
 
 

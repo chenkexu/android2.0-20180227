@@ -8,7 +8,10 @@ public class HttpConstant {
    // public static final String HOST_URL = "http://wrtest.geekdana.com:1580/netrun-app/";
 //    public static final String HOST_URL = "http://wrc.geekdana.com/netrun-app/";
 //   public static final String HOST_URL = "http://wrtest.geekdana.com:1580/netrun-app/";
-   public static final String HOST_URL = "http://172.31.9.91:8080/netrun-app/";
+//    public static final String HOST_URL = "http://172.31.12.2:8080/netrun-app/";
+    public static final String HOST_URL = "http://sms2.qisu100.com:8090/netrun-app/";
+
+
     /*发短信*/
     public static final String SEND_SMS = HOST_URL + "/SMSCode";
     /*注册接口*/
@@ -21,8 +24,11 @@ public class HttpConstant {
     public static final String RESET_PASSWORD = HOST_URL + "/pub/resetpwd";
     /*验证码登录*/
     public static final String CODE_LOGIN_ACCOUNT = HOST_URL + "/pub/usercodelogin";
+
     /*获取省市*/
     public static final String SELECT_CITY = HOST_URL + "pub/selectPinYinCity";
+
+
     public static final String SELECT_PROVINCE_CITY = HOST_URL + "pub/selectPinYinCity";
     /*我的认证信息*/
     public static final String QUERY_CERTIFICATION_MSG = HOST_URL + "app/user/selectCertificate";

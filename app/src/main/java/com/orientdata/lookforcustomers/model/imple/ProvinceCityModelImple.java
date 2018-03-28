@@ -13,6 +13,7 @@ import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
  */
 
 public class ProvinceCityModelImple implements IProvinceCityModel {
+
     @Override
     public void getProvinceCity(final Complete complete) {
         String url = HttpConstant.SELECT_CITY;

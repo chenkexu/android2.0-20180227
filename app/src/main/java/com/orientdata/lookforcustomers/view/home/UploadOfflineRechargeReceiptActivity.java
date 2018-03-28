@@ -91,7 +91,7 @@ public class UploadOfflineRechargeReceiptActivity extends WangrunBaseActivity im
     }
 
     private void initTitle() {
-        title.setTitleName("上传充值凭证");
+        title.setTitleName("线下充值");
         title.setImageBack(this);
        /* title.setRightText("上传充值凭证");
         title.setRightTextClickListener(new View.OnClickListener() {

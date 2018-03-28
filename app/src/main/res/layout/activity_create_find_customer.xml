@@ -347,7 +347,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="9.5"
                             android:gravity="center"
-                            android:text="--未设置--"
+                            android:text="--人群定向未设置--"
                             android:textColor="@color/c_414141"
                             android:textSize="14sp" />
 

@@ -6,7 +6,10 @@ import android.os.Vibrator;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
+import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.map.LocationService;
 import com.umeng.socialize.Config;
@@ -51,8 +54,16 @@ public class MyApplication extends MyApp {
         SharedPreferencesTool.getInstance().init(getApplicationContext());
 
         UMShareAPI.get(this);
+        // 初始化百度定位服务
+        LbsManager.getInstance().init(this);
         //打印日志初始化
-        Logger.addLogAdapter(new AndroidLogAdapter());
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
+                .methodCount(0)         // (Optional) How many method line to show. Default 2
+                .methodOffset(0)        // (Optional) Hides internal method calls up to offset. Default 5
+                .tag("okgo")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                .build();
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
     }
 
     public static MyApplication getInstance() {

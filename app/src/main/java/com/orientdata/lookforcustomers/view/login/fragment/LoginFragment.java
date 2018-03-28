@@ -173,6 +173,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                 break;
             case R.id.iv_clear:
                 etAccount.setText("");
+                etPassword.setText("");
                 break;
         }
     }
@@ -182,11 +183,13 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
      */
     private void toResetPasswordFragment() {
         ResetPasswordFragment resetPasswordFragment = ResetPasswordFragment.newInstance();
+
         FragmentTransaction fragmentTransaction = getActivity()
                 .getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom
                 , R.anim.enter_from_bottom, R.anim.exit_from_bottom);
-        fragmentTransaction.add(R.id.fl_content, resetPasswordFragment);
+
+        fragmentTransaction.replace(R.id.fl_content, resetPasswordFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -196,13 +199,17 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
      */
     private void toRegister() {
         RegisterFragment registerFragment = RegisterFragment.newInstance();
-        FragmentManager supportFragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+
+        FragmentTransaction fragmentTransaction = getActivity()
+                .getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left
                 , R.anim.enter_from_left, R.anim.exit_from_right);
-        fragmentTransaction.add(R.id.fl_content, registerFragment);
+
+        fragmentTransaction.replace(R.id.fl_content, registerFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
+
     }
 
 

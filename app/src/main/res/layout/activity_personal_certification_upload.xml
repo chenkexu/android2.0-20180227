@@ -25,7 +25,7 @@
                 android:layout_height="26dp"
                 android:gravity="center"
                 android:text="未认证"
-                android:textColor="@color/c_9c9c9c"
+                android:textColor="@color/no_certifacation"
                 android:textSize="12sp" />
 
             <VideoView
@@ -39,7 +39,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:text="请上传身份证正面:"
-                android:textColor="#1C1C1C"
+                android:textColor="@color/text_gray"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:text="请上传身份证反面:"
-                android:textColor="#1C1C1C"
+                android:textColor="@color/text_gray"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -75,7 +75,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:text="请上传手持身份证照:"
-                android:textColor="#1C1C1C"
+                android:textColor="@color/text_gray"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -128,7 +128,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:text="@string/input_industry"
-                        android:textColor="@color/c_414141"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -163,7 +163,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:text="@string/input_sub_industry"
-                        android:textColor="@color/c_414141"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -228,9 +228,9 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="5dp"
                 android:orientation="vertical">
-
-
             </LinearLayout>
+
+
             <!--灰色隔离区域-->
             <View
                 android:layout_width="match_parent"
@@ -240,11 +240,11 @@
             <TextView
                 android:id="@+id/tv_personal_certification_upload"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
-                android:background="@mipmap/bg_enterprise_certification_upload"
+                android:background="@drawable/bg_tv_round_gradient"
                 android:gravity="center"
                 android:text="提交认证"
                 android:textColor="#FFFFFF"

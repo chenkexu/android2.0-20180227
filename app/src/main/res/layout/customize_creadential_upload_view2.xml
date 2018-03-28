@@ -12,10 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:text="资质证件"
+        android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:textColor="#1C1C1C"
-        android:textSize="15sp" />
+        android:textColor="@color/text_gray"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tv_customize_creadential_welcome"
@@ -25,8 +26,8 @@
         android:text="请选择上传以下资质"
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
-        android:textColor="#1C1C1C"
-        android:textSize="15sp" />
+        android:textColor="@color/text_gray"
+        android:textSize="17sp" />
 
     <RadioGroup
         android:id="@+id/rg_customize_creadential_container"
@@ -77,8 +78,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:src="@mipmap/bg_img_at_enterprise_certification_upload"
-        />
+        android:src="@mipmap/bg_img_at_enterprise_certification_upload" />
+
     <ImageView
         android:id="@+id/iv_customize_creadential_upload3"
         android:layout_width="190dp"

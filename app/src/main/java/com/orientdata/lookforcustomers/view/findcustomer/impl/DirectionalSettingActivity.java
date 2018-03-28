@@ -42,7 +42,7 @@ import vr.md.com.mdlibrary.UserDataManeger;
 
 /**
  * Created by wy on 2017/11/27.
- * 定向设置
+ * 定向设置Activity
  */
 
 public class DirectionalSettingActivity extends BaseActivity<IDirectionalSettingView, DirectionalSettingPresent<IDirectionalSettingView>> implements IDirectionalSettingView, View.OnClickListener {

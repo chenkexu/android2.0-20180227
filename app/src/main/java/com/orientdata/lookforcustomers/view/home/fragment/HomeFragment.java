@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,7 +90,7 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     private TextView tv_fm_home_LastestAnnouncementTime;
     private RelativeLayout rl_announcement_lists;
     private LinearLayout ll_fm_home_consumerConsults;
-    private Button btn_recharge;
+    private LinearLayout btn_recharge;
     private LinearLayout ll_fm_home_accountRecharge;
 
     private List<String> imagerUrls = new ArrayList<String>();
@@ -109,19 +110,33 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     int authStatus = -1;//认证
     double userStatus = -1;//用户状态
     private boolean isCertificateNext = false;
+    private TextView tv_useId; //标题栏中的id
+    private SwipeRefreshLayout refreshLayout;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home2, container, false);
         initView(view);
         mActivity = getActivity();
         addDefultUrl();
         initTitle();
         getUserData();
+        //添加下拉刷新
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshLayout.setRefreshing(false);
+                getUserData();
+            }
+        });
         return view;
     }
+
+
+
+
 
     /*  @Override
     public void onHiddenChanged(boolean hidden) {
@@ -184,8 +199,6 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         showDefaultLoading();
         MDBasicRequestMap map = new MDBasicRequestMap();
         map.put("userId", UserDataManeger.getInstance().getUserId());
-
-
         OkHttpClientManager.postAsyn(HttpConstant.SELECT_USER_INFO, new OkHttpClientManager.ResultCallback<UserInfoBean>() {
             @Override
             public void onError(Exception e) {
@@ -219,7 +232,9 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                     userStatus = (Double) map.get("userStatus");//是 int 1 正常 2 黑名单 3 黑名单审核中
 
                     String userNo = (String) map.get("userNo"); //是 String 用户编号
-                    title.setTitleName("ID:" + userNo);
+//                    title.setTitleName("ID:" + userNo);
+
+                    tv_useId.setText(userNo);
                     BigDecimal todaySmsMoney = BigDecimal.valueOf((Double) map.get("todaySmsMoney")); //是 bigdecimal 今日短信消费
                     tv_fm_home_SMSTodayConsumeCoins.setText(todaySmsMoney.intValue() + "");
                     double successCount = (Double) map.get("successCount");//是 int 今日下发量
@@ -390,7 +405,8 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     }
 
     private void initTitle() {
-        title.setTitleName("ID:" + "---");
+        tv_useId.setText("---");
+//        title.setTitleName("ID:" + "---");
 //        title.setImageBack(this);
 //        title.setRightText(R.string.test);
 //        title.setRightTextClickListener(new View.OnClickListener() {
@@ -405,6 +421,8 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         aCache = ACache.get(getContext());
 
         tv_user_status = view.findViewById(R.id.tv_user_status);
+        tv_useId = view.findViewById(R.id.tv_useId);
+
         tv_fm_home_accountBalance = view.findViewById(R.id.tv_fm_home_accountBalance);
         tv_fm_home_blockBalance = view.findViewById(R.id.tv_fm_home_blockBalance);
         tv_fm_home_PageTodayConsumeCoins = view.findViewById(R.id.tv_fm_home_PageTodayConsumeCoins);
@@ -412,7 +430,8 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         tv_fm_home_PageTodayClickVolume = view.findViewById(R.id.tv_fm_home_PageTodayClickVolume);
         tv_fm_home_SMSTodayConsumeCoins = view.findViewById(R.id.tv_fm_home_SMSTodayConsumeCoins);
         tv_fm_home_SMSTodaySendVolume = view.findViewById(R.id.tv_fm_home_SMSTodaySendVolume);
-        title = view.findViewById(R.id.fm_home_title_id);
+        refreshLayout = view.findViewById(R.id.refreshLayout);
+//        title = view.findViewById(R.id.fm_home_title_id);
         rlCreate = view.findViewById(R.id.rlCreate);
         ll_fm_home_accountCertification = view.findViewById(R.id.ll_fm_home_accountCertification);
         mViewPager = view.findViewById(R.id.home_Viewpager);

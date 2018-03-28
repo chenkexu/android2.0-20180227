@@ -1,8 +1,6 @@
 package com.orientdata.lookforcustomers.view.certification;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,8 +18,6 @@ import com.orientdata.lookforcustomers.bean.QualificationCertificationUser;
 import com.orientdata.lookforcustomers.presenter.CertificatePresent;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 /**

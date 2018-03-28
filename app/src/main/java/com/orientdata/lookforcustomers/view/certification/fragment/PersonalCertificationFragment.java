@@ -19,22 +19,16 @@ import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.CertificationBean;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.presenter.CertificatePresent;
-import com.orientdata.lookforcustomers.util.CommonUtils;
+import com.orientdata.lookforcustomers.util.RegexUtils;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.ICertificateView;
 import com.orientdata.lookforcustomers.view.certification.PersonalCertificationUploadActivity;
-import com.orientdata.lookforcustomers.view.certification.PersonalQualificationsActivity;
-import com.orientdata.lookforcustomers.view.certification.impl.CertificationActivity;
 import com.orientdata.lookforcustomers.widget.EditTextView;
 import com.orientdata.lookforcustomers.widget.dialog.CityDialog;
 import com.orientdata.lookforcustomers.widget.dialog.ProvinceCityDialog;
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import vr.md.com.mdlibrary.UserDataManeger;
 
 /**
@@ -278,14 +272,39 @@ public class PersonalCertificationFragment extends BaseFragment implements View.
     private void next(){
         //存储信息
         getInputMsg();
-        if(TextUtils.isEmpty(name) || TextUtils.isEmpty(phone)
-                || TextUtils.isEmpty(contactCard)
-                || TextUtils.isEmpty(cityCode)
-                || TextUtils.isEmpty(provinceCode)
-                || TextUtils.isEmpty(address)){
-            ToastUtils.showShort(R.string.input_remind);
+        if (TextUtils.isEmpty(name)){
+            ToastUtils.showShort("企业名称不能为空");
             return;
         }
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtils.showShort("联系人电话不能为空");
+            return;
+        }
+        if (RegexUtils.isIDCard18(contactCard)) {
+            ToastUtils.showShort("身份证号不合法");
+            return;
+        }
+        if (TextUtils.isEmpty(provinceCode)) {
+            ToastUtils.showShort("省不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(cityCode)) {
+            ToastUtils.showShort("市不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(address) ){
+            ToastUtils.showShort("通信地址不能为空");
+            return;
+        }
+
+//        if(TextUtils.isEmpty(name) || TextUtils.isEmpty(phone)
+//                || TextUtils.isEmpty(contactCard)
+//                || TextUtils.isEmpty(cityCode)
+//                || TextUtils.isEmpty(provinceCode)
+//                || TextUtils.isEmpty(address)){
+//            ToastUtils.showShort(R.string.input_remind);
+//            return;
+//        }
 
 //        if(!TextUtils.isEmpty(phone)&&!CommonUtils.isPhoneNum(phone)){
 //            ToastUtils.showShort(R.string.input_remind1);

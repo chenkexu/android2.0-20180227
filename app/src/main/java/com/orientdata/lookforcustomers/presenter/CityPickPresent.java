@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Created by wy on 2017/11/18.
- * 城市
+ * 选择城市的presenter
  */
 
 public class CityPickPresent<T> extends BasePresenter<ICityPickView> {
@@ -26,7 +26,9 @@ public class CityPickPresent<T> extends BasePresenter<ICityPickView> {
         this.iCityPickView = cityPickView;
     }
 
-    public void getProvinceCityData1() {
+
+
+/*public void getProvinceCityData1() {
         if (mProvinceModel != null) {
             iCityPickView.showLoading();
             mProvinceModel.getProvinceCity(new IProvinceCityModel.Complete() {
@@ -48,8 +50,7 @@ public class CityPickPresent<T> extends BasePresenter<ICityPickView> {
                 }
             });
         }
-    }
-
+    }*/
     public void getProvinceCityData() {
         if (mProvinceModel != null) {
             iCityPickView.showLoading();

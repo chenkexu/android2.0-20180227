@@ -35,7 +35,7 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
     private ClearableEditText clearEdit;
     private TextView rightText;//搜索
     private ImageView back_btn;//返回
-    List<String> history; //搜索内容的集合
+    List<String> history;
     private FluidLayout flowlayout;
 
     int column = 0;
@@ -90,11 +90,7 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
                 if (history == null) {
                     history = new ArrayList<>();
                 }
-                String searchContent = clearEdit.getText().toString();
-
-                if (!history.contains(searchContent)) {
-                    history.add(searchContent);
-                }
+                history.add(clearEdit.getText().toString());
                 SharedPreferencesTool.getInstance().setDataList(SharedPreferencesTool.SEARCH_HISTORY, history);
                 Intent intent = new Intent();
                 intent.putExtra("searchValue", clearEdit.getText().toString().trim());
@@ -123,16 +119,9 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
             ivDelete.setVisibility(View.GONE);
             return;
         }
-        ivDelete.setVisibility(View.VISIBLE);
-
-        int maxSearchSize = 0;
-
-        if (history.size()<11) { //最多显示10条搜索记录
-            maxSearchSize = history.size();
-        }else{
-            maxSearchSize = 10;
-        }
-        for (int i = maxSearchSize-1; i >=maxSearchSize-10; i--) {
+        ivDelete.setVisibility(View.VISIBLE
+        );
+        for (int i = 0; i < history.size(); i++) {
             final TextView textView = new TextView(this);
             FluidLayout.LayoutParams params = new FluidLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.setMargins(15, 15, 15, 15);

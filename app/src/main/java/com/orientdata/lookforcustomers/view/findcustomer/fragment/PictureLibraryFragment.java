@@ -38,30 +38,20 @@ import com.orientdata.lookforcustomers.network.okhttp.manager.OkClient;
 import com.orientdata.lookforcustomers.network.okhttp.manager.ParamManager;
 import com.orientdata.lookforcustomers.network.okhttp.progress.ProgressListener;
 import com.orientdata.lookforcustomers.network.util.AppConfig;
-import com.orientdata.lookforcustomers.presenter.CertificatePresent;
 import com.orientdata.lookforcustomers.presenter.ImgPresent;
-import com.orientdata.lookforcustomers.util.CommonUtils;
-import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.certification.EnterpriseCertificationUploadActivity;
-import com.orientdata.lookforcustomers.view.certification.ICertificateView;
 import com.orientdata.lookforcustomers.view.findcustomer.DownLoadImgActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.IImgView;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.AddAdvertiseImgActivity;
-import com.orientdata.lookforcustomers.widget.EditTextView;
-import com.orientdata.lookforcustomers.widget.dialog.CityDialog;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmSubmitDialog;
-import com.orientdata.lookforcustomers.widget.dialog.ProvinceCityDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import vr.md.com.mdlibrary.UserDataManeger;
 
 /**
  * Created by wy on 2017/11/16.
