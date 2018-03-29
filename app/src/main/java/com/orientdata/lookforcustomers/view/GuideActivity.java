@@ -3,30 +3,17 @@ package com.orientdata.lookforcustomers.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
-import com.orientdata.lookforcustomers.bean.CertificationBean;
-import com.orientdata.lookforcustomers.event.LoginResultEvent;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
-import com.orientdata.lookforcustomers.util.MyOpenActivityUtils;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.login.ILoginAndRegisterView;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
-import com.tencent.connect.UserInfo;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.w3c.dom.Text;
-
-import vr.md.com.mdlibrary.AppConfig;
-import vr.md.com.mdlibrary.UserDataManeger;
 
 /**
  * 欢迎界面、快闪页面
@@ -57,8 +44,20 @@ public class GuideActivity extends BaseActivity<ILoginAndRegisterView, LoginAndR
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(GuideActivity.this, HomeActivity.class));
-                    finish();
+                    boolean loginout = SharedPreferencesTool.getInstance().getBooleanValue(SharedPreferencesTool.USER_LOGOUT, false);
+
+                    if (loginout) { //已经退出,进入登录界面
+                        startActivity(new Intent(GuideActivity.this, LoginAndRegisterActivity.class));
+                        //移除是否退出的标志位
+                        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.USER_LOGOUT);
+                        finish();
+                    }else{
+                        startActivity(new Intent(GuideActivity.this, HomeActivity.class));
+                        finish();
+                    }
+
+
+
                 }
             }, 2000);
 

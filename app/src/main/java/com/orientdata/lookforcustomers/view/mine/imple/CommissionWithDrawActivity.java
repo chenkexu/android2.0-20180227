@@ -65,12 +65,12 @@ public class CommissionWithDrawActivity extends BaseActivity<ICommissionView, Co
         title = findViewById(R.id.my_title);
         tvRemind = findViewById(R.id.tvRemind);
         tvCommissionMoney = findViewById(R.id.tvCommissionMoney);
-        tvAllMoneyCommission = findViewById(R.id.tvAllMoneyCommission);
+//        tvAllMoneyCommission = findViewById(R.id.tvAllMoneyCommission);
         tvNext = findViewById(R.id.tvNext);
         etMoneyCommission = findViewById(R.id.etMoneyCommission);
         etPayAccount = findViewById(R.id.etPayAccount);
         tvNext.setOnClickListener(this);
-        tvAllMoneyCommission.setOnClickListener(this);
+//        tvAllMoneyCommission.setOnClickListener(this);
     }
     private void updateView(){
         String str = "佣金超过"+moreMoney+"元可提现，今日还可提现"+subCount+"次";
@@ -99,13 +99,13 @@ public class CommissionWithDrawActivity extends BaseActivity<ICommissionView, Co
             case R.id.tvNext:
                 goToNext();
                 break;
-            case R.id.tvAllMoneyCommission:
-                if(commission1 == -1){
-                    etMoneyCommission.setText(commission+"");
-                }else{
-                    etMoneyCommission.setText(commission1+"");
-                }
-                break;
+//            case R.id.tvAllMoneyCommission:
+//                if(commission1 == -1){
+//                    etMoneyCommission.setText(commission+"");
+//                }else{
+//                    etMoneyCommission.setText(commission1+"");
+//                }
+//                break;
         }
     }
     String payAccount = "";
@@ -144,6 +144,7 @@ public class CommissionWithDrawActivity extends BaseActivity<ICommissionView, Co
     private void vertificate(){
         mPresent.commissionVertificate(BigDecimal.valueOf(Double.parseDouble(moneyCommission)),payAccount);
     }
+
     @Subscribe
     public void commissionVertificate(CommissionVertificateEvent commissionVertificateEvent){
         if(commissionVertificateEvent.err.getCode() == 0){
@@ -161,6 +162,7 @@ public class CommissionWithDrawActivity extends BaseActivity<ICommissionView, Co
             tvCommissionMoney.setText(getNum(moneyEvent.commission)+"元");
         }
     }
+
     public String getNum(double num){
         if(commission % 1 == 0){
             return (int)commission+"";

@@ -23,11 +23,10 @@ import com.orientdata.lookforcustomers.model.imple.ResetPasswordModelImple;
 import com.orientdata.lookforcustomers.model.imple.SendSmsModelImple;
 import com.orientdata.lookforcustomers.model.imple.UserModelImple;
 import com.orientdata.lookforcustomers.util.CommonUtils;
+import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.login.ILoginAndRegisterView;
-
 import org.greenrobot.eventbus.EventBus;
-
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.utils.MD5;
 
@@ -244,12 +243,16 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
         if (mLoginAndRegisterView != null && mLogOutModel != null) {
             mLoginAndRegisterView.showLoading();
             mLogOutModel.logOut(new ILogOutModel.Complete(){
-
                 @Override
                 public void onSuccess(ErrBean errBean) {
+
+                    //记录已经退出登录了
+                    SharedPreferencesTool.getInstance().putBoolean(SharedPreferencesTool.USER_LOGOUT, true);
+
                     mLoginAndRegisterView.hideLoading();
                     LogoutResultEvent logoutResultEvent = new LogoutResultEvent();
                     logoutResultEvent.errBean = errBean;
+                    //发出广播，返回到登录界面
                     EventBus.getDefault().post(logoutResultEvent);
                 }
 

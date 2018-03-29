@@ -105,7 +105,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     public static final String IMAGE_FILE_LOCATION = "file:///sdcard/tempHeadPortrait.jpg";//剪切完的图片所存地址
     public static final String IMAGE_FILE_LOCATION_Path = Environment.getExternalStorageDirectory() + "/tempHeadPortrait.jpg";//剪切完的图片所存地址
     Uri imageUri = Uri.parse(IMAGE_FILE_LOCATION);
-
+    private RelativeLayout ll_rv_balance_account;
 
 
     @Nullable
@@ -138,6 +138,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         linear_company = view.findViewById(R.id.linear_company);
         rl_share = view.findViewById(R.id.rl_share);
         rl_service = view.findViewById(R.id.rl_service);
+        ll_rv_balance_account = view.findViewById(R.id.rv_balance_account);
 
         rl_commission_withdraw.setOnClickListener(this);
         tv_balance_account.setOnClickListener(this);
@@ -147,6 +148,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         rl_service.setOnClickListener(this);
         iv_head_portrait.setOnClickListener(this);
         rl_my_commission.setOnClickListener(this);
+        ll_rv_balance_account.setOnClickListener(this);
     }
 
 
@@ -275,7 +277,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 intent.putExtra("subCount", subCount);
                 startActivity(intent);
                 break;
-            case R.id.tv_balance_account: //账户余额
+            case R.id.rv_balance_account: //账户余额
                 intent = new Intent(getActivity(), AccountBalanceActivity.class);
                 intent.putExtra("balance", balance);
                 intent.putExtra("frozenAmount", frozenAmount);

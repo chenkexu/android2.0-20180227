@@ -1,7 +1,5 @@
 package vr.md.com.mdlibrary;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
 
 import vr.md.com.mdlibrary.utils.MySharedpreferences;
 
@@ -66,6 +64,7 @@ public class UserDataManeger {
     public String getPassword() {
         return MySharedpreferences.getString("password");
     }
+
     public void clearUserData(){
         MySharedpreferences.putString("TOKEN","");
         MySharedpreferences.putString("userId","");

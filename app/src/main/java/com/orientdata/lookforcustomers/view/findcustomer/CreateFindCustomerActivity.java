@@ -297,6 +297,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         });
         if (isReCreate) { //如果是点击详情的地址
             Logger.d("点击详情进来以后——------");
+            //地址转坐标
             mSearch.geocode(new GeoCodeOption()
                     .city("中国")
                     .address(mThrowAddress));
@@ -369,6 +370,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
         if (isReCreate) {
             //不需要再次创建
+
             mThrowAddress = mTaskOut.getThrowAddress();//上一次的投放地址
 //            BigDecimal latitude = mTaskOut.getDimension();//纬度
 //            BigDecimal longitude = mTaskOut.getDimension();//经度
@@ -421,6 +423,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 //            interestIds = data.getStringExtra("interestIds");
             tv_ac_create_find_customer_set.setText("已设置");
             mCityCode = mTaskOut.getCityCode().trim();
+            Logger.d("传过来的已经创建好的任务类型的详情：");
         }
     }
 
@@ -441,7 +444,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             mBaiduMap.setMyLocationData(locData);
         }
         lastX = x;
-
     }
 
     @Override
@@ -517,7 +519,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 tv_ac_create_find_customer_radius.setText(mCircleRadiusKM[mCurrentScaleLevelPositon]);
                 mIsShowDialog = false;
 
-                //发起反地理编码检索
+                //发起反地理编码检索（坐标转地址）
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                         .location(mCurrentLatLng)
                         .newVersion(0));
@@ -546,6 +548,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder2.build()));
                 tv_ac_create_find_customer_radius.setText(mCircleRadiusKM[mCurrentScaleLevelPositon]);
                 mIsShowDialog = false;
+
+                //开始坐标转地址
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                         .location(mCurrentLatLng).newVersion(0));
                 break;
@@ -580,7 +584,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 OkHttpClientManager.postAsyn(HttpConstant.SELECT_TASK_TYPE, new OkHttpClientManager.ResultCallback<TaskTypeBean>() {
                     @Override
                     public void onError(Exception e) {
-
                         ToastUtils.showShort(e.getMessage());
                     }
 
@@ -647,6 +650,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 if (isReCreate) {
                     intent.putExtra("orientationSettingsOut", mTaskOut.getOrientationSettingsOut());
                 }
+                Logger.d("cityCode:"+mCityCode+" "+mTaskOut.getOrientationSettingsOut().toString());
                 startActivityForResult(intent, 3); //打开定向设置页面
                 break;
 
@@ -1059,7 +1063,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 if (data != null) {
                     //来自手动选择。
                     mFromAction = 1;
-
                     String tempCityName = data.getStringExtra("cityName");
                     if (!tempCityName.equals(mCityName)) {
                         //ToastUtils.showShort("");
@@ -1074,6 +1077,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     if (!TextUtils.isEmpty(mCityName)) {
                         tv_at_create_find_customer_location.setText(mCityName.trim().toCharArray(), 0, 3);
                         tvMore.setVisibility(View.GONE);
+                        //开始城市转坐标
                         mSearch.geocode(new GeoCodeOption()
                                 .city(mCityName).address("人民政府"));
                     }
@@ -1083,6 +1087,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 if (data != null) {
                     mSearchValue = data.getStringExtra("searchValue");
                     if (!TextUtils.isEmpty(mCityName)) {
+                        //地址转坐标
                         mSearch.geocode(new GeoCodeOption()
                                 .city("中国")
                                 .address(mSearchValue));
@@ -1220,6 +1225,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             public void onMapStatusChangeFinish(MapStatus mapStatus) {
                 mFromAction = 3;//来自地图移动
                 mIsShowDialog = false;
+                //开始坐标转地址
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                         .location(mapStatus.target)
                         .newVersion(0));
@@ -1228,6 +1234,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         });
         mFromAction = 4;//来自搜索
         mIsShowDialog = true;
+
+        //开始坐标转地址
         mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                 .location(mCurrentLatLng)
                 .newVersion(0));
@@ -1236,19 +1244,16 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     ////根据经纬度获得地址的回调
     @Override
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
-        Logger.d("获得了经纬度转换地址的回调");
-
 
         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
 //            Toast.makeText(CreateFindCustomerActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
 //                    .show();
             return;
         }
-
-
         ReverseGeoCodeResult.AddressComponent addCom = result.getAddressDetail();
         String address = result.getAddress();
         if (mFromAction == 1) {//手动选择
+            Logger.d("获得了经纬度转换地址的回调(手动选择)");
             tv_at_create_find_customer_putlocation.setText(address);
         } else if (mFromAction == 2) {//定位
             Logger.d("获得了经纬度转换地址的回调（定位获得的）");
@@ -1262,13 +1267,16 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             mCityName = addCom.city;
             mProvinceName = addCom.province;
             mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
-        } else if (mFromAction == 3) {//来自地图平移
+        } else if (mFromAction == 3) {
+            Logger.d("获得了经纬度转换地址的回调（来自地图平移）");
+            //来自地图平移
             //tv_at_create_find_customer_putlocation.setText(address);
             mMoveAddress = result.getAddress().trim();
             mMoveCityName = addCom.city;
             mMoveProvinceName = addCom.province;
             mMoveCityCode = findLocCityCodeByName(mMoveProvinceName, mMoveCityName);
         } else {
+            Logger.d("获得了经纬度转换地址的回调（来自其他）");
             mCityName = addCom.city;
             mProvinceName = addCom.province;
             mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
@@ -1279,6 +1287,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         mCurrentLatLng = result.getLocation();
 
         if (!TextUtils.isEmpty(mCityName)) { //百度定位的结果
+            Logger.d("mCityName:"+mCityName);
             tv_at_create_find_customer_location.setText(mCityName.trim().toCharArray(), 0, 3);
             tvMore.setVisibility(View.GONE);
             requestCityStatus(mCityName);
@@ -1293,6 +1302,23 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 Toast.LENGTH_LONG).show();*/
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 定位SDK监听函数
@@ -1317,7 +1343,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     .longitude(location.getLongitude()).build();
             mBaiduMap.setMyLocationData(locData);
             if (isFirstLoc) {
-                Logger.e("第一次定位");
+
                 isFirstLoc = false;
                 LatLng ll = new LatLng(location.getLatitude(),
                         location.getLongitude());
@@ -1356,6 +1382,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
                     @Override
                     public void onMapStatusChangeFinish(MapStatus mapStatus) {
+                        //开始坐标转地址
                         mFromAction = 3;//来自地图移动
                         mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                                 .location(mapStatus.target)
@@ -1366,6 +1393,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 });
 
                 mFromAction = 2;//来自定位
+                Logger.e("第一次定位"+mCurrentLatLng.latitude+"---"+mCurrentLatLng.longitude);
+                //开始坐标转地址
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                         .location(mCurrentLatLng)
                         .newVersion(0));

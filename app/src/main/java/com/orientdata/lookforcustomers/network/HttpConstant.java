@@ -53,6 +53,7 @@ public class HttpConstant {
     public static final String INSERT_CREATE_TASK = HOST_URL + "app/task/insertTask";//app/task/insertTask
     /*落地页提交*/
     public static final String INSERT_USER_PAGE = HOST_URL + "app/user/inserUserPage";
+
     /*寻客列表*/
     public static final String USER_TASK_LIST = HOST_URL + "app/task/usertasklist";
     /*寻客详情*/

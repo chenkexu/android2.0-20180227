@@ -53,6 +53,13 @@ public class SharedPreferencesTool {
     public static final String DIRECTION_HISTORY="direction_set_history";//定向设置
     public static final String CERTIFICATE_STATUS="certificate_status";//认证状态
     public static final String USER_STATUS="user_status";//认证状态
+
+
+    public static final String USER_LOGOUT="user_logout";//退出登录之后，再次进来app，需要先进入登录界面）
+
+
+
+
     private Context context;
 
 

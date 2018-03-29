@@ -29,7 +29,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * 账户余额
+ * 账户余额--
  */
 
 public class AccountBalanceActivity extends BaseActivity<ICommissionView, CommissionPresent<ICommissionView>> implements ICommissionView, View.OnClickListener, XListView.IXListViewListener {
@@ -39,7 +39,7 @@ public class AccountBalanceActivity extends BaseActivity<ICommissionView, Commis
     private double frozenAmount;
     private int frozenAmount1 = -1;
     private TextView tvMoney, tvFrozenMoney;
-    private XListView xListView;
+    private XListView xListView; //交易记录
     private ImageView ivCalendar;
     private int page = 1;
     private int size = 10;

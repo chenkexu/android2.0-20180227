@@ -136,8 +136,10 @@ public class PhoneCodeActivity extends BaseActivity<ICommissionView, CommissionP
         if (updateSmsTimeEvent.isCall) {
             tvGetCode.setText("再次获取验(60)");
             tvGetCode.setClickable(true);
+            tvCode.setBackground(getResources().getDrawable(R.drawable.bg_tv_round_gradient));
         } else {
             tvGetCode.setText(updateSmsTimeEvent.surplusTime);
+            tvCode.setBackground(getResources().getDrawable(R.drawable.round_border1));
             tvGetCode.setClickable(false);
         }
     }

@@ -32,6 +32,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
+
 /**
  * Created by wy on 2017/10/30.
  *
@@ -67,6 +69,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
     }
 
     public void updateData() {
+        //类型，状态，第几页，size
         mHomePresent.getSearchList(choosePosition1,typeChoose,page,size);
     }
 
@@ -152,6 +155,8 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         dialog.setSelect(choosePosition1);
         dialog.show();
     }
+
+
     private int getStatus(String type){
         int  status = -1;
         if("审核中".equals(type)){
@@ -168,6 +173,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         return status;
     }
     boolean isLoadMore = false;
+
     private void showStringDialog2(){
         final SettingStringDialog dialog = new SettingStringDialog(getContext(),R.style.Theme_Light_Dialog);
         dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
@@ -186,14 +192,19 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         dialog.setSelect(choosePosition2);
         dialog.show();
     }
+
+
     SearchListBean searchListBean;
+
+
+
     @Subscribe
     public void searchListResult(SearchListEvent searchListEvent) {
         searchListBean = searchListEvent.searchListBean;
         if(searchListBean!=null) {
-            if(searchListBean.isHasMore()){
+            if(searchListBean.isHasMore()){ //有更多数据
                 mListView.setLoadState(XListViewFooter.STATE_NORMAL);
-            }else{
+            }else{              //没有更多数据
                 mListView.setLoadState(XListViewFooter.STATE_NO_MORE);
             }
             if(page == 1){
@@ -209,6 +220,31 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         mAdapter.notifyDataSetChanged();
         onLoad();
     }
+
+
+
+
+    private void setData(boolean isRefresh, List data) {
+        page++;
+        final int size = data == null ? 0 : data.size();
+        if (isRefresh) {
+//            cAdapter.setNewData(data);
+        } else {
+            if (size > 0) {
+//                cAdapter.addData(data);
+            }
+        }
+        if (size < PAGE_SIZE) {
+            //第一页如果不够一页就不显示没有更多数据布局
+//            cAdapter.loadMoreEnd(isRefresh);
+//            T.showShort(getApplicationContext(),"没有更多数据");
+        } else {
+//            cAdapter.loadMoreComplete();
+        }
+    }
+
+
+
 
     @Override
     public void onRefresh() {

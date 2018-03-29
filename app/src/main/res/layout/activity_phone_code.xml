@@ -58,7 +58,7 @@
                 android:gravity="center"
                 android:textColor="@color/c_ffffff"
                 android:textSize="14sp"
-                android:background="@drawable/round_border4"
+                android:background="@drawable/bg_tv_round_gradient"
                 android:text="获取验证码" />
 
             <TextView
@@ -80,11 +80,11 @@
     <TextView
         android:id="@+id/tvConfirm"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="30dp"
-        android:background="@mipmap/bg_enterprise_certification_upload"
+        android:background="@drawable/bg_tv_round_gradient"
         android:gravity="center"
         android:text="确定"
         android:textColor="#FFFFFF"

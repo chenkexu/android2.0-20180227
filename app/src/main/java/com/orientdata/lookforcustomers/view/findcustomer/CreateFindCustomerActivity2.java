@@ -92,7 +92,7 @@ import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
- * 创建寻客页面
+ * 创建寻客页面 (测试页面)
  */
 public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, CityPickPresent<ICityPickView>> implements ICityPickView, SensorEventListener, View.OnClickListener, OnGetGeoCoderResultListener {
 

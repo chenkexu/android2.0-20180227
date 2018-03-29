@@ -59,6 +59,8 @@ public class HomePresent<T> extends BasePresenter<IHomeView> {
 
     }
 
+
+
     public void uploadImg(int type, String picPath) {
         if (mImgModel != null) {
             mHomeView.showLoading();
@@ -85,6 +87,8 @@ public class HomePresent<T> extends BasePresenter<IHomeView> {
         }
     }
 
+
+
     public void getSearchList(int type, int status, int page, int size) {
         if (mCertificateModel != null) {
             mHomeView.showLoading();
@@ -105,6 +109,12 @@ public class HomePresent<T> extends BasePresenter<IHomeView> {
             }, type, status, page, size);
         }
     }
+
+
+
+
+
+
 
     public void getSearchList() {
         //-1代表不传 0全部

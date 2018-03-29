@@ -17,6 +17,7 @@ import com.orientdata.lookforcustomers.widget.CommonTitleBar;
 
 /**
  * Created by wy on 2017/10/31.
+ * webView页面
  */
 
 public class CommonWebView extends BaseActivity<ICommonWebView,

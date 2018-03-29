@@ -20,11 +20,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.event.AdEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
+import com.orientdata.lookforcustomers.util.ImageUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
@@ -41,6 +43,7 @@ import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
+
 /**
  * Created by wy on 2017/11/16.
  * 创建落地页-保存
@@ -52,9 +55,13 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
     private TextView tv_phone_no;
     private TextView tv_address;
     private TextView tv_save;
-    private ImageView iv_upload_show;
+
+    private ImageView iv_upload_show;//上传的图片
+
     private RelativeLayout rl_show_baidumap;
-    private ImageView iv_show_baidumap;
+
+    private ImageView iv_show_baidumap;//百度地图片的截图
+
     private LinearLayout ll_clip_layout;
 
     private String baiduMapPath;//百度地图截图路径
@@ -63,13 +70,16 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
     private String name;
     private String sopsName;
     private String sopsIphone;
-    private String imagePath;
+    private String imagePath; //图片路径
     private String address;
     private List<File> fileLists;
     private Dialog progressDialog;
-    private Bitmap bm;
-    //private String filePath;
     private MyTitle title;
+    private Bitmap bm;
+
+
+    //private String filePath;
+
     //rivate String adImagePath;
 
 
@@ -81,6 +91,8 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
         initTitle();
         Intent data = getIntent();
         if (data != null) {
+
+            Logger.d("百度地图截图路径："+baiduMapPath);
             baiduMapPath = data.getStringExtra("baiduMapPath");
             longitude = data.getStringExtra("longitude");
             dimension = data.getStringExtra("dimension");
@@ -88,6 +100,7 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
             sopsName = data.getStringExtra("sopsName");
             sopsIphone = data.getStringExtra("sopsIphone");
             imagePath = data.getStringExtra("imagePath");//广告位图片
+            Logger.d("广告位图片路径："+imagePath);
             address = data.getStringExtra("address");
             //adImagePath = data.getStringExtra("adImagePath");
         }
@@ -130,8 +143,6 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
-
-
     }
 
     @Override
@@ -173,32 +184,36 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
                 final MDBasicRequestMap map = new MDBasicRequestMap();
                 map.put("userId", UserDataManeger.getInstance().getUserId());
                 map.put("token", UserDataManeger.getInstance().getUserToken());
-                map.put("name", name);
-                map.put("sopsName", sopsName);
-                map.put("sopsIphone", sopsIphone);
-                map.put("longitude", longitude);
-                map.put("dimension", dimension);
-                map.put("throwAdress", address);
+                map.put("name", name);//页面名称
+                map.put("sopsName", sopsName);//店铺名称
+                map.put("sopsIphone", sopsIphone);//店铺电话
+                map.put("longitude", longitude);//经度
+                map.put("dimension", dimension);//维度
+                map.put("throwAdress", address);//落地页投放位置
 
-                String url = HttpConstant.INSERT_USER_PAGE;
-                File[] submitfiles = null;
-                if (!TextUtils.isEmpty(imagePath)) {
-                    fileLists = new ArrayList<File>();
-                    //  TODO
-                    fileLists.add(new File(imagePath));
+                String url = HttpConstant.INSERT_USER_PAGE;//用户制作落地页请求url
+
+                File[] submitfiles = null; //要提交的图片文件
+
+                if (!TextUtils.isEmpty(imagePath)) { //如果上传的图片不为空
+                    fileLists = new ArrayList<>();
+                    //  TODO 文件压缩
+                    fileLists.add(ImageUtils.compressFile(imagePath));
+//                  fileLists.add(new File(imagePath));
                     submitfiles = new File[fileLists.size()];
                     //fileLists.add(new File(adImagePath));
+
                     String[] submitFileKeys = new String[fileLists.size()];
                     for (int i = 0; i < fileLists.size(); i++) {
-                        submitfiles[i] = fileLists.get(i);
+                        submitfiles[i] = fileLists.get(i);//图片数组添加提交的图片
                         submitFileKeys[i] = i + "";
                     }
                     List<File> fileList = new ArrayList<>();
                     for (int i = 0; i < fileLists.size(); i++) {
                         fileList.add(fileLists.get(i));
                     }
-                }else {
-                    fileLists = new ArrayList<File>();
+                }else {  //如果上传的图片为空
+                    fileLists = new ArrayList<>();
                     //  TODO
                     String path = Environment.getExternalStorageDirectory() + "/ClipPhoto/cache/";// + System.currentTimeMillis() + ".png";
                     File dir = new File(path);
@@ -223,6 +238,7 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
                         submitFileKeys[i] = i + "";
                     }
                     List<File> fileList = new ArrayList<>();
+
                     for (int i = 0; i < fileLists.size(); i++) {
                         fileList.add(fileLists.get(i));
                     }
@@ -244,7 +260,6 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
                                 AdEvent adEvent = new AdEvent();
                                 adEvent.complete = true;
                                 EventBus.getDefault().post(adEvent);
-
                                 finish();
                             }
                         }
@@ -256,6 +271,19 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
         }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 显示默认的进度条
@@ -284,6 +312,28 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
             progressDialog = null;
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //确认，生成图片
     public void confirm(View view, String path) {

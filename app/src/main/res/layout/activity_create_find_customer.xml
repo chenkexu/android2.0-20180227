@@ -40,7 +40,7 @@
                 android:layout_marginLeft="3dp"
                 android:text="位置"
                 android:textColor="#9C9C9C"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvMore"
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="请输入搜索内容"
+                android:text="请输入搜索地址"
                 android:textColor="#9C9C9C"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -109,7 +109,7 @@
                         android:layout_marginLeft="15dp"
                         android:gravity="center"
                         android:text="任务类型:"
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -131,7 +131,7 @@
                             android:layout_weight="9.5"
                             android:gravity="center"
                             android:text="--未设置--"
-                            android:textColor="@color/c_414141"
+                            android:textColor="@color/text_gray"
                             android:textSize="14sp" />
 
                         <ImageView
@@ -163,7 +163,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="8dp"
                         android:text="任务名称:"
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -182,14 +182,14 @@
                         android:layout_toStartOf="@+id/tv_name2"
                         android:background="@drawable/shape_bg_gray_round_rec2"
                         android:gravity="center"
-                        android:hint="请设置任务名称"
+                        android:hint="请设置任务名称(不超过12个字)"
                         android:maxLength="12"
                         android:maxLines="1"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:textColor="@color/c_1C1C1C"
                         android:textCursorDrawable="@drawable/cursor_style"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_name2"
@@ -224,7 +224,7 @@
                         android:layout_marginStart="15dp"
                         android:gravity="center"
                         android:text="任务预算:"
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -277,7 +277,7 @@
                         android:layout_marginLeft="15dp"
                         android:gravity="center"
                         android:text="范围半径:"
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -326,7 +326,7 @@
                         android:layout_marginLeft="15dp"
                         android:gravity="center"
                         android:text="定向设置:"
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -347,7 +347,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="9.5"
                             android:gravity="center"
-                            android:text="--人群定向未设置--"
+                            android:text="--人群定向(未设置)--"
                             android:textColor="@color/c_414141"
                             android:textSize="14sp" />
 
@@ -380,7 +380,7 @@
                         android:layout_marginLeft="15dp"
                         android:gravity="center"
                         android:text="投放位置:"
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 

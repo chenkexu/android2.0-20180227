@@ -117,7 +117,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         public void onClick(View widget) {
             if (type == 0) {
                 MyOpenActivityUtils.openCommonWebView(getActivity(),
-                        "注册协议", "http://www.orientdata.cn/protocol.html");
+                        "东方网润商品产品注册协议", "http://www.orientdata.cn/protocol.html");
             } else {
                 MyOpenActivityUtils.openCommonWebView(getActivity(),
                         "推广合同", "http://www.orientdata.cn/contract.html");

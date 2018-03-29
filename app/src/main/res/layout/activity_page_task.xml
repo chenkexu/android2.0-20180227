@@ -82,12 +82,12 @@
                     android:layout_marginTop="34dp"
                     android:orientation="vertical">
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:layout_marginLeft="15dp"
-                        android:text="添加广告位"
-                        android:textColor="@color/c_1C1C1C"
+                        android:text="添加广告位图片"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp"
                         android:textStyle="bold" />
                     <ImageView
@@ -119,8 +119,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:text="输入图片链接："
-                    android:textColor="@color/c_1C1C1C"
+                    android:text="添加广告位链接："
+                    android:textColor="@color/text_gray"
                     android:textSize="15sp"
                     android:textStyle="bold" />
                 <include
@@ -174,12 +174,12 @@
             <TextView
                 android:id="@+id/tvCreate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
-                android:background="@mipmap/bg_enterprise_certification_upload"
+                android:background="@drawable/bg_tv_round_gradient"
                 android:gravity="center"
                 android:text="创建寻客"
                 android:textColor="#FFFFFF"

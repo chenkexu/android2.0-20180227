@@ -325,4 +325,46 @@ public class TaskOut implements Serializable{
     public void setTestCtPhone(String testCtPhone) {
         this.testCtPhone = testCtPhone;
     }
+
+
+    @Override
+    public String toString() {
+        return "TaskOut{" +
+                "xunMoney消费寻币: =" + xunMoney +
+                ", showCount 消费寻币:=" + showCount +
+                ", issuedCount 下发成功量:=" + issuedCount +
+                ", clickCount 点击量:=" + clickCount +
+                ", orientationSettingsOut 定向设置信息输出:=" + orientationSettingsOut.toString() +
+                ", taskId=" + taskId +
+                ", taskNo 任务编号:='" + taskNo + '\'' +
+                ", taskName 任务名称:='" + taskName + '\'' +
+                ", userId=" + userId +
+                ", type 任务类型：=" + type +
+                ", status 任务状态：=" + status +
+                ", rangeRadius 半径范围：='" + rangeRadius + '\'' +
+                ", budget= 预算：" + budget +
+                ", actualAmount 实际支出：=" + actualAmount +
+                ", invoiceStatus 开发票状态：=" + invoiceStatus +
+                ", orientationSettingsId=" + orientationSettingsId +
+                ", throwStartdate 任务开始日期：=" + throwStartdate.getTime() +
+                ", throwEnddate 任务结束日期=" + throwEnddate.getTime() +
+                ", estimatePeoplerno 预计投放人数:=" + estimatePeoplerno +
+                ", content 短信内容:='" + content + '\'' +
+                ", provinceCode 省code:='" + provinceCode + '\'' +
+                ", cityCode=' 城市Code：" + cityCode + '\'' +
+                ", throwAddress 投放地址：='" + throwAddress + '\'' +
+                ", createDate 创建日期：=" + createDate +
+                ", delFlag 删除状态：=" + delFlag +
+                ", longitude 经度：=" + longitude +
+                ", dimension= 维度：" + dimension +
+                ", adImgid 广告图片id：='" + adImgid + '\'' +
+                ", adLink= 广告链接：'" + adLink + '\'' +
+                ", templateUrl 落地页图片路径：='" + templateUrl + '\'' +
+                ", templateId 落地页id：=" + templateId +
+                ", plat String ios /Android /web 设备标识：='" + plat + '\'' +
+                ", testCmPhone='" + testCmPhone + '\'' +
+                ", testCuPhone='" + testCuPhone + '\'' +
+                ", testCtPhone='" + testCtPhone + '\'' +
+                '}';
+    }
 }

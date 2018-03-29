@@ -140,18 +140,18 @@ public class OrientationSettingsOut implements Serializable {
     @Override
     public String toString() {
         return "OrientationSettingsOut{" +
-                "jixing=" + jixing +
-                ", xingqu=" + xingqu +
+                "jixing 机型数组：=" + jixing +
+                ", xingqu 兴趣=" + xingqu +
                 ", userId=" + userId +
                 ", taskId=" + taskId +
-                ", ageF='" + ageF + '\'' +
-                ", ageB='" + ageB + '\'' +
-                ", educationLevelF='" + educationLevelF + '\'' +
+                ", ageF 用户年龄：='" + ageF + '\'' +
+                ", ageB  用户年龄到='" + ageB + '\'' +
+                ", educationLevelF 教育程度 ='" + educationLevelF + '\'' +
                 ", educationLevelB='" + educationLevelB + '\'' +
-                ", sex='" + sex + '\'' +
-                ", consumptionCapacityF='" + consumptionCapacityF + '\'' +
+                ", sex 性别='" + sex + '\'' +
+                ", consumptionCapacityF 消费能力='" + consumptionCapacityF + '\'' +
                 ", consumptionCapacityB='" + consumptionCapacityB + '\'' +
-                ", ascription='" + ascription + '\'' +
+                ", ascription 归属地='" + ascription + '\'' +
                 '}';
     }
 }

@@ -8,8 +8,11 @@ import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
 import com.orientdata.lookforcustomers.R;
+import com.orientdata.lookforcustomers.app.MyApplication;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
+import com.orientdata.lookforcustomers.util.AppManager;
+import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.login.ILoginAndRegisterView;
 import com.orientdata.lookforcustomers.view.login.fragment.LoginFragment;
 import com.orientdata.lookforcustomers.view.login.fragment.RegisterFragment;
@@ -82,12 +85,27 @@ public class LoginAndRegisterActivity extends BaseActivity<ILoginAndRegisterView
         isNoBack = false;
     }
 
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK && isNoBack) {
+//            return true;
+//        }
+//        return false;
+//    }
+
+    private long exitTime;
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && isNoBack) {
-            return true;
+    public void onBackPressed() {
+        //显示在：发现Fragment
+        long nowTime = System.currentTimeMillis();
+        if((nowTime - exitTime) <= 2000){
+            finish();
+            AppManager.getAppManager().AppExit(this);
+        }else{
+            ToastUtils.showLong("再按一次后退键退出程序！");
+            exitTime = nowTime;
         }
-        return false;
     }
+
 
 }

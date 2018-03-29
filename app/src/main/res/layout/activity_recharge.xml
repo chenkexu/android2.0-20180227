@@ -38,10 +38,10 @@
             android:layout_marginLeft="70dp"
             android:layout_marginStart="70dp"
             android:layout_weight="1"
-            android:background="@drawable/selector_recharge_tv_unchecked"
+            android:background="@drawable/selector_recharge_tv_checked"
             android:gravity="center"
             android:text="1000元"
-            android:textColor="@color/charge_text"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
         <TextView

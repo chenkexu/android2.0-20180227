@@ -12,7 +12,7 @@ public class CloseEvent {
     private int closeType;
     public CloseEvent(int closeType, Class...classes) {
         this.closeType = closeType;
-        classNameList = new ArrayList<String>();
+        classNameList = new ArrayList<>();
         if (classes != null) {
             for (int i=0;i<classes.length;i++) {
                 classNameList.add(classes[i].getName());

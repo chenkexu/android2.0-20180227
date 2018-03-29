@@ -73,7 +73,7 @@
             android:textCursorDrawable="@drawable/cursor_style"
             android:textSize="14sp" />
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/tvAllMoneyCommission"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,19 +85,20 @@
             android:padding="5dp"
             android:text="全部提现"
             android:textColor="@color/c_DB010B"
-            android:textSize="14sp" />
+            android:textSize="14sp" />-->
 
 
     </RelativeLayout>
 
     <TextView
+        android:text="每日可提现1次，10元起可提现，上限1000元"
         android:id="@+id/tvRemind"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:gravity="center_vertical"
-        android:textColor="@color/c_9c9c9c"
+        android:textColor="@color/text_gray"
         android:textSize="12sp" />
 
     <RelativeLayout
@@ -112,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="提支付宝账号 :"
+            android:text="支付宝账号 :"
             android:textColor="@color/c_414141"
             android:textSize="15sp"
             android:textStyle="bold" />
