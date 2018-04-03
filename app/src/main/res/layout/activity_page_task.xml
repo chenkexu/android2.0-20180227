@@ -42,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="开始日期："
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp"/>
 
                     <include
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="结束日期："
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp"/>
 
                     <include
@@ -93,12 +93,12 @@
                     <ImageView
                         android:id="@+id/addAd"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="120dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
                         android:layout_marginLeft="7dp"
                         android:layout_marginRight="7dp"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         android:src="@mipmap/upload_ad"/>
 
                 </LinearLayout>

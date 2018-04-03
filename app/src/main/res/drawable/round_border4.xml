@@ -3,9 +3,9 @@
     <!-- 边框颜色 宽度 -->
     <stroke
         android:width="1dip"
-        android:color="@color/c_09B6F2" />
+        android:color="@color/report_color" />
     <solid
-        android:color="@color/c_09B6F2"/>
+        android:color="@color/report_color"/>
     <!-- 边框圆角 -->
     <corners
         android:radius="3dp"/>

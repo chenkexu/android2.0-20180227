@@ -31,7 +31,7 @@
             <ImageView
                 android:layout_width="12dp"
                 android:layout_height="17dp"
-                android:src="@mipmap/bg_ac_create_find_customer_location" />
+                android:src="@mipmap/location_icon" />
 
             <TextView
                 android:id="@+id/tv_at_create_find_customer_location"
@@ -468,7 +468,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:visibility="visible"
-                    app:srcCompat="@mipmap/dingwei2" />
+                    app:srcCompat="@mipmap/location_icon_big" />
 
             </RelativeLayout>
 

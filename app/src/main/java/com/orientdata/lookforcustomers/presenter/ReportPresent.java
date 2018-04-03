@@ -36,6 +36,7 @@ public class ReportPresent<T> extends BasePresenter<IReportView> {
     public void fecth() {
 
     }
+
     public void getReportData(final int type, String today,final boolean isShowLoading){
         if(mReportModel!=null){
             if(type == 1 || isShowLoading){

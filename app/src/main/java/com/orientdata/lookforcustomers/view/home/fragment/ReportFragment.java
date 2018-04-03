@@ -80,6 +80,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     private List<Report> reportLastWeek = null;
     private List<Report> reportMonth = null;
     private List<Report> reportLastMonth = null;
+
     //昨日
     private String[] yesterDayX = null;
     private String[] yesterDayXText = null;
@@ -502,40 +503,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
         });
     }
 
-    /**
-     * 是否有拍照的权限
-     */
-    @TargetApi(23)
-    public boolean hasSharePermisson() {
-        boolean b1 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.ACCESS_NETWORK_STATE);
-        boolean b2 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.ACCESS_WIFI_STATE);
-        boolean b3 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.READ_PHONE_STATE);
-        boolean b4 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        boolean b5 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
-        boolean b6 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.INTERNET);
-        boolean b7 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
-        boolean b8 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
-        boolean b9 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS);
-        return b1 && b2 && b3 && b4 && b5 && b6 && b7 && b8 && b9;
-    }
 
-    /**
-     * 请求拍照的权限
-     */
-    @TargetApi(23)
-    public void requestSharePermission() {
-        ActivityCompat.requestPermissions(getActivity(),
-                new String[]{Manifest.permission.ACCESS_NETWORK_STATE,
-                        Manifest.permission.ACCESS_WIFI_STATE,
-                        Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.INTERNET,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS},
-                0);
-    }
 
     private boolean isNeedGetData(int type) {
         if (type == 1 && reportYesterDay == null) {
@@ -581,6 +549,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
         }
     }
 
+    //报表数据返回
     @Subscribe
     public void reportListResult(ReportDataEvent reportDataEvent) {
         ReportListBean reportListBean = reportDataEvent.reportListBean;
@@ -622,15 +591,15 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     }
 
     private void setData(int type, List<Report> list,boolean isErro) {
-        if (type == 1) {
+        if (type == 1) { //昨天的数据
             reportYesterDay = list;
-        } else if (type == 2) {
+        } else if (type == 2) { //最近七天的数据
             reportLatestSeven = list;
-        } else if (type == 3) {
+        } else if (type == 3) { //上周的数据
             reportLastWeek = list;
-        } else if (type == 4) {
+        } else if (type == 4) { //本月的数据
             reportMonth = list;
-        } else if (type == 5) {
+        } else if (type == 5) { //上个月的数据
             reportLastMonth = list;
         }
         setData1(type, list,isErro);
@@ -647,7 +616,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     }
 
     private void initString(int type, int size, List<Report> list,boolean isErro) {
-        if (type == 1) {
+        if (type == 1) { // //昨天的数据
             if (yesterDayX == null) {
                 yesterDayX = new String[size];
                 yesterDayXText = new String[size];
@@ -659,7 +628,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
                 yesterDayMsgConY = new int[size];
                 yesterDayMsgIssuedY = new int[size];
             }
-        } else if (type == 2) {
+        } else if (type == 2) {  //最近七天的数据
             if (latestSevenMoneyX == null) {
                 latestSevenMoneyX = new String[size];
                 latestSevenMoneyXText = new String[size];
@@ -672,7 +641,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
                 latestSevenMsgIssuedY = new int[size];
             }
 
-        } else if (type == 3) {
+        } else if (type == 3) {  //上周的数据
             if (lastWeekMoneyX == null) {
                 lastWeekMoneyX = new String[size];
                 lastWeekMoneyXText = new String[size];
@@ -685,7 +654,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
                 lastWeekMsgIssuedY = new int[size];
             }
 
-        } else if (type == 4) {
+        } else if (type == 4) {  //本月的数据
             if (monthMoneyXList == null) {
                 monthMoneyXList = new ArrayList<>();
                 monthMoneyXAllList = new ArrayList<>();
@@ -698,7 +667,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
                 monthMsgIssuedY = new int[size];
             }
 
-        } else if (type == 5) {
+        } else if (type == 5) { //上个月
             if (lastMonthMoneyXList == null) {
                 lastMonthMoneyXList = new ArrayList<>();
                 lastMonthMoneyXAllList = new ArrayList<>();
@@ -905,6 +874,8 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
         return bigDecimal.intValue();
     }
 
+
+
     @Subscribe
     public void reportUrlResult(ReportUrlEvent reportUrlEvent) {
         if (reportUrlEvent.reportUrlBean.getCode() == 0) {
@@ -946,6 +917,8 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
         //显示
         updateCurTotalData(touchIndex);
     }
+
+
 
     /**
      * 更新黄色框里的内容
@@ -1017,19 +990,19 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.linearPageCon:
+            case R.id.linearPageCon:     //消费元
                 clickPageCon();
                 break;
-            case R.id.linearPageDisplay:
+            case R.id.linearPageDisplay: //页面展示量
                 clickPageDisplay();
                 break;
-            case R.id.linearPageClick:
+            case R.id.linearPageClick: //页面点击量
                 clickPageClick();
                 break;
-            case R.id.linearMsgCon:
+            case R.id.linearMsgCon: //短信消费元
                 clickMsgCon();
                 break;
-            case R.id.linearMsgIssued:
+            case R.id.linearMsgIssued://短信下发量
                 clickMsgIssued();
                 break;
         }
@@ -1368,6 +1341,10 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
         return null;
     }
 
+
+
+
+
     //分享的dialog
     private void showShareDialog(final String time,final String uid) {
         Activity activity = getActivity();
@@ -1456,6 +1433,62 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
 
     }
 
+
+
+    /**
+     * 获取过去第几天的日期
+     * @param past
+     * @return
+     */
+    public static String getPastDate(int past) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - past);
+        Date today = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String result = format.format(today);
+        Log.e(null, result);
+        return result;
+    }
+
+
+
+    /**
+     * 是否有拍照的权限
+     */
+    @TargetApi(23)
+    public boolean hasSharePermisson() {
+        boolean b1 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.ACCESS_NETWORK_STATE);
+        boolean b2 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.ACCESS_WIFI_STATE);
+        boolean b3 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.READ_PHONE_STATE);
+        boolean b4 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        boolean b5 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        boolean b6 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.INTERNET);
+        boolean b7 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+        boolean b8 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
+        boolean b9 = PermissionsManager.getInstance().hasPermission(getActivity(), Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS);
+        return b1 && b2 && b3 && b4 && b5 && b6 && b7 && b8 && b9;
+    }
+
+    /**
+     * 请求拍照的权限
+     */
+    @TargetApi(23)
+    public void requestSharePermission() {
+        ActivityCompat.requestPermissions(getActivity(),
+                new String[]{Manifest.permission.ACCESS_NETWORK_STATE,
+                        Manifest.permission.ACCESS_WIFI_STATE,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS},
+                0);
+    }
+
+
+
    /* //分享的dialog
     private void showShareDialog() {
         Activity activity = getActivity();
@@ -1530,23 +1563,6 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
         window.setAttributes(params);
 
     }*/
-
-
-    /**
-     * 获取过去第几天的日期
-     *
-     * @param past
-     * @return
-     */
-    public static String getPastDate(int past) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - past);
-        Date today = calendar.getTime();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String result = format.format(today);
-        Log.e(null, result);
-        return result;
-    }
 
 }
 

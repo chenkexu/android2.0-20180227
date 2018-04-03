@@ -10,7 +10,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.orientdata.lookforcustomers.R;
 
+
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 
 
 public class GlideUtil {
@@ -38,7 +40,7 @@ public class GlideUtil {
     }
 
     /**
-     * 常规加载图片
+     * 加载头像图片
      * @param context
      * @param imageView  图片容器
      * @param imgUrl  图片地址
@@ -60,10 +62,41 @@ public class GlideUtil {
         } else {
             Glide.with(context)
                     .load(imgUrl)
-                    .error(R.mipmap.head_portrait)
+                    .error(R.mipmap.head_default)
                     .into(imageView);
         }
     }
+
+
+    /**
+     * 加载广告图片
+     * @param context
+     * @param imageView  图片容器
+     * @param imgUrl  图片地址
+     * @param isFade  是否需要动画
+     */
+    public void loadAdImage(Context context, ImageView imageView,
+                              String imgUrl, boolean isFade) {
+        if (isFade) {
+            Glide.with(context)
+                    .load(imgUrl)
+                    .error(R.mipmap.ad_error)
+                    .crossFade()
+                    .placeholder(R.mipmap.ad_error)
+                    .priority(Priority.NORMAL) //下载的优先级
+                    //all:缓存源资源和转换后的资源 none:不作任何磁盘缓存
+                    //source:缓存源资源   result：缓存转换后的资源
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) //缓存策略
+                    .into(imageView);
+        } else {
+            Glide.with(context)
+                    .load(imgUrl)
+                    .error(R.mipmap.ad_error)
+                    .into(imageView);
+        }
+    }
+
+
 
     /**
      * 加载缩略图

@@ -91,7 +91,7 @@
     </RelativeLayout>
 
     <TextView
-        android:text="每日可提现1次，10元起可提现，上限1000元"
+        android:text="今日可提现1次，10元起可提现，单笔上限1000元"
         android:id="@+id/tvRemind"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -142,7 +142,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/bg_btn_selector"
+        android:background="@drawable/bg_tv_round_gradient"
         android:gravity="center"
         android:text="下一步"
         android:textColor="#FFFFFF"

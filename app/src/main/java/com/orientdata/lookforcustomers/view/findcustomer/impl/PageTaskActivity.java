@@ -71,7 +71,7 @@ import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
  * Created by wy on 2017/11/27.
- * 页面任务
+ * 创建页面任务
  */
 
 public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskView>> implements ITaskView, View.OnClickListener {
@@ -488,6 +488,7 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
 //        Glide.with(this).load(imgClipResultEvent.path).into(addAd);
         if (imgClipResultEvent.bitmap != null) {
             addAd.setImageBitmap(imgClipResultEvent.bitmap);
+
         }
         if (!TextUtils.isEmpty(imgClipResultEvent.path)) {
             adImgPath = imgClipResultEvent.path;

@@ -50,7 +50,9 @@ public class SharedPreferencesTool {
     /**是否是第一次进入**/
     public static final String ISFIRSTENTER="isfirstenter";
     public static final String SEARCH_HISTORY="search_history";//业务选择搜索记录
-    public static final String DIRECTION_HISTORY="direction_set_history";//定向设置
+
+    public static final String DIRECTION_HISTORY="direction_set_history";//缓存的定向设置
+
     public static final String CERTIFICATE_STATUS="certificate_status";//认证状态
     public static final String USER_STATUS="user_status";//认证状态
 

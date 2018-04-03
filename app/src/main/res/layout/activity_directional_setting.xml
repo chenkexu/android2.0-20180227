@@ -377,7 +377,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/round_border_fafafa"
+                    android:background="@drawable/bg_round_border"
                     android:padding="10dp"
                     android:visibility="gone">
 
@@ -461,7 +461,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/round_border_fafafa"
+                    android:background="@drawable/bg_round_border"
                     android:padding="10dp"
                     android:visibility="gone">
 

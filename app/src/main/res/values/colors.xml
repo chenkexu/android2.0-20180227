@@ -63,6 +63,9 @@
     <!--首页数量文字颜色-->
     <color name="home_count">#9699A3</color>
 
+    <!--报表按钮的颜色-->
+    <color name="report_color">#3660E5</color>
+
 
 
     <color name="c8">#ff6c6c</color>

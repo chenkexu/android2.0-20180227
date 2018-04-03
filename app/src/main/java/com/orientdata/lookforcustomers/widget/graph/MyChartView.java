@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
@@ -38,11 +39,14 @@ public class MyChartView extends View {
 	// X,Y轴的单位长度
 	private int Xscale = 2;
 	private int xScale = 2;//多的
+
 	private int Yscale = 5;
+
 	// X,Y轴上面的显示文字
 	private String[] Xlabel = {"", "", "", "", "", ""};
 	private String[] Ylabel = {"0", "100", "200", "300", "400", "500"};
 	private int[] y = {0};
+
 	private Context context;
 	// 标题文本
 	private String Title;
@@ -67,6 +71,11 @@ public class MyChartView extends View {
 	// 曲线数据
 	public MyChartView(Context context, String[] xlabel, String title, int[] y, int lineColor){
 		super(context);
+
+		for (int i=0;i<y.length;i++) {
+			Logger.d("y轴数据为："+y[i]);
+		}
+
 		this.mContext = context;
 		Margin = CommonUtils.dipToPx(context,10);
 		if (null != xlabel) {
@@ -108,7 +117,6 @@ public class MyChartView extends View {
 	}
 	// 初始化数据值
 	public void init(Canvas canvas) {
-
 		Xpoint = 3*this.Margin;
 		Ypoint = this.getHeight() - 3*this.Margin;
 		if(this.Xlabel.length - 1 == 0){
@@ -227,12 +235,20 @@ public class MyChartView extends View {
 		}
 		return Ypoint-((y-y0)*Yscale/(y1-y0));
 	}
+
+
+
+
+
 	public int getMargin() {
 		return Margin;
 	}
 	public void setMargin(int margin) {
 		Margin = margin;
 	}
+
+
+
 	// 画表格
 	private void drawTable(Canvas canvas) {
 		Paint paint = new Paint();
@@ -271,7 +287,6 @@ public class MyChartView extends View {
 			path.lineTo(stopX, startY);
 			paint.setColor(ContextCompat.getColor(context, R.color.c_D9D9D9));
 			canvas.drawPath(path, paint);
-
 
 			mPaint.setTextSize(this.Margin);
 			canvas.drawText(this.Ylabel[i], (3*this.Margin) / 8, startY + (3*this.Margin) / 4, mPaint);//纵坐标的数字
@@ -342,13 +357,17 @@ public class MyChartView extends View {
 		}
 		return touchEvent;
 	}
+
 	public static ClickListener clickBtn = null;
 	public void setClickListener(ClickListener clickBtn){
 		this.clickBtn = clickBtn;
 	}
+
 	public interface  ClickListener{
 		void onClickLine(int touchIndex);
 	}
+
+
 	// 画横轴
 	private void drawXLine(Canvas canvas, Paint p) {
 		canvas.drawLine(Xpoint, Ypoint, this.getWidth() - this.Margin, Ypoint, p);
@@ -357,6 +376,8 @@ public class MyChartView extends View {
 	private void drawYLine(Canvas canvas, Paint p) {
 		canvas.drawLine(Xpoint, Ypoint, 3*this.Margin, 2*this.Margin, p);
 	}
+
+
 	private int dpTopx(float dp){
 		return DensityUtils.dp2px(getContext(), dp);
 	}

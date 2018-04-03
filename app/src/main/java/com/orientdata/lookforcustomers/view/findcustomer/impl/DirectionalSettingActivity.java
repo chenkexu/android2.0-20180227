@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.BaseTagImportOut;
@@ -38,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.ButterKnife;
 import vr.md.com.mdlibrary.UserDataManeger;
 
 /**
@@ -92,6 +94,7 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directional_setting);
+        ButterKnife.bind(this);
         initView();
         initTitle();
         mPresent.getSelectSetting(cityCode);
@@ -166,6 +169,7 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
      */
     private void getData() {
         if (isReCreate) {
+            Logger.d("点击详情的定向设置数据");
             //再次创建 后台数据
             orientationSettingsOut = (OrientationSettingsOut) getIntent().getSerializableExtra("orientationSettingsOut");
             //想办法将 多出的list 修改
@@ -173,12 +177,15 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
             //缓存的数据
             ArrayList<OrientationSettingsOut> list = (ArrayList<OrientationSettingsOut>) aCache.getAsObject(SharedPreferencesTool.DIRECTION_HISTORY);
             if (list != null) {
+                Logger.d("缓存的定向设置的数据："+list.size());
                 for (OrientationSettingsOut direction : list) {
                     if (UserDataManeger.getInstance().getUserId().equals(direction.getUserId() + "")) {
                         orientationSettingsOut = direction;
                         break;
                     }
                 }
+            }else {
+                Logger.d("没有任何数据，再次进行选择");
             }
         }
     }

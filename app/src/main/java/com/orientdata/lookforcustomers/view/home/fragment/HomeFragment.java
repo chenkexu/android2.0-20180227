@@ -36,6 +36,7 @@ import com.orientdata.lookforcustomers.event.MyMoneyEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
+import com.orientdata.lookforcustomers.test.TestActivity;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
@@ -46,6 +47,7 @@ import com.orientdata.lookforcustomers.view.banner.RoolViewPager;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.certification.impl.CertificationActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.CreateFindCustomerActivity;
+import com.orientdata.lookforcustomers.view.findcustomer.impl.MessageTaskActivity;
 import com.orientdata.lookforcustomers.view.home.AnnouncementDetailActivity;
 import com.orientdata.lookforcustomers.view.home.AnnouncementListActivity;
 import com.orientdata.lookforcustomers.view.home.IHomeView;
@@ -468,7 +470,7 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                     ToastUtils.showShort("账户异常，请联系客服");
                 } else {
                     ACache.get(getContext()).remove(SharedPreferencesTool.DIRECTION_HISTORY);
-                    startActivity(new Intent(getContext(), CreateFindCustomerActivity.class));
+                    startActivity(new Intent(getContext(), MessageTaskActivity.class));
                 }
 //                mPresent.getCertificateMsg(false);
                 break;

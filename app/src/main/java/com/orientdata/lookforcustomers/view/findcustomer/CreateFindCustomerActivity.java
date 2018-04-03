@@ -633,7 +633,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     }
                 }, map);
                 break;
-            case R.id.ll_ac_create_find_customer_set://定向设置
+            case R.id.ll_ac_create_find_customer_set://-----------------定向设置
                 if (TextUtils.isEmpty(mCityCode)) {
                     ToastUtils.showShort("请选择业务城市!");
                     return;
@@ -648,9 +648,10 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 intent.putExtra("isReCreate", isReCreate);
 
                 if (isReCreate) {
+                    Logger.d("打开详情已经创建好的：cityCode:"+mCityCode+" "+mTaskOut.getOrientationSettingsOut().toString());
                     intent.putExtra("orientationSettingsOut", mTaskOut.getOrientationSettingsOut());
                 }
-                Logger.d("cityCode:"+mCityCode+" "+mTaskOut.getOrientationSettingsOut().toString());
+
                 startActivityForResult(intent, 3); //打开定向设置页面
                 break;
 
@@ -785,9 +786,9 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
             //通过验证到下一步页面
             final Intent intent = new Intent();
-            if (type == 1) {
+            if (type == 1) { //创建短信任务
                 intent.setClass(CreateFindCustomerActivity.this, MessageTaskActivity.class);
-            } else if (type == 2) {
+            } else if (type == 2) { //创建页面任务
                 intent.setClass(CreateFindCustomerActivity.this, PageTaskActivity.class);
             }
             intent.putExtra("ageF", ageF);
@@ -1473,6 +1474,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         return "";
     }
 
+
+    //根据城市名和省名获取城市代码
     private int findLocCityStatusByName(String provinceName, String cityName) {
         if (TextUtils.isEmpty(provinceName) || TextUtils.isEmpty(cityName)) {
             return -666;
@@ -1488,7 +1491,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 }
             }
         }
-
         return -666;
     }
 

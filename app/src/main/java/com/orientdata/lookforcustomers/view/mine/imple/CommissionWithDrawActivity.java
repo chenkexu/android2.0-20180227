@@ -14,6 +14,7 @@ import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.event.CommissionVertificateEvent;
 import com.orientdata.lookforcustomers.event.MyMoneyEvent;
 import com.orientdata.lookforcustomers.presenter.CommissionPresent;
+import com.orientdata.lookforcustomers.util.RegexUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.mine.ICommissionView;
 import com.orientdata.lookforcustomers.view.mine.imple.PhoneCodeActivity;
@@ -73,7 +74,8 @@ public class CommissionWithDrawActivity extends BaseActivity<ICommissionView, Co
 //        tvAllMoneyCommission.setOnClickListener(this);
     }
     private void updateView(){
-        String str = "佣金超过"+moreMoney+"元可提现，今日还可提现"+subCount+"次";
+//        String str = "佣金超过"+moreMoney+"元可提现，今日还可提现"+subCount+"次";
+        String str = "今日可提现"+subCount+"次+"+moreMoney+"元起可体现，"+"单笔上限X元";
         if(commission1 == -1){
             tvCommissionMoney.setText(commission + "元");
         }else{
@@ -123,9 +125,12 @@ public class CommissionWithDrawActivity extends BaseActivity<ICommissionView, Co
             return;
         }
         if(TextUtils.isEmpty(payAccount)){
-            ToastUtils.showShort("请输入支付宝账号");
-            return;
+            if(RegexUtils.isMobileExact(payAccount)||RegexUtils.isEmail(payAccount)){
+                ToastUtils.showShort("请输入有效的支付宝账号");
+                return;
+            }
         }
+
 
         if(Double.parseDouble(moneyCommission)<Integer.parseInt(moreMoney)){
             ToastUtils.showShort("提现金额需大于"+moreMoney+"元");

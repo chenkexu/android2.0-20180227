@@ -66,6 +66,7 @@
     <string name="msg_task_setting">创建短信任务</string>
     <string name="test">测试号</string>
     <string name="hobby_set_remind">注：兴趣标签至少选择1个，最多选择6个</string>
+    <string name="hobby_set_remind2">按行业投放：是系统根据行业的特征，选择投放效果最佳的标签投放</string>
     <string name="submit_remind">注：任务提交后不得进行修改，且审核通过后不得删除！</string>
     <string name="local_upload">本地上传</string>
     <string name="template_making">模板制作</string>

@@ -3,14 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c_fafafa"
     android:orientation="vertical">
-
     <com.orientdata.lookforcustomers.widget.MyTitle
         android:id="@+id/titleMsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,6 +23,219 @@
                 android:background="@color/c_ffffff"
                 android:orientation="vertical"
                 android:paddingBottom="15dp">
+                <!--企业签名-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="企业签名："
+                        android:textColor="@color/text_gray"
+                        android:textSize="14sp" />
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:background="@drawable/shape_bg_gray_round_rec2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:visibility="gone"
+                        android:gravity="center_vertical"
+                        android:id="@+id/left_text"
+                        android:text="【"
+                        android:textColor="@color/text_gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                  <!--  <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tv_hint"
+                        android:gravity="center_vertical"
+                        android:text="请输入企业签名2-4个汉字"
+                        android:textColor="@color/text_gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />-->
+
+                    <EditText
+                        android:hint="【请输入企业签名2-4个汉字】"
+                        android:visibility="visible"
+                        android:maxLength="6"
+                        android:singleLine="true"
+                        android:id="@+id/et_enterprise_signature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:maxLines="1"
+                        android:textColor="@color/text_gray"
+                        android:textCursorDrawable="@drawable/cursor_style"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:visibility="gone"
+                        android:gravity="center_vertical"
+                        android:text="】"
+                        android:textColor="@color/text_gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+
+                </LinearLayout>
+
+                <!--短信内容-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_horizontal"
+                        android:text="短信内容"
+                        android:textColor="@color/text_gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/round_border1"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/tv_message_sign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="【请输入企业签名2-4个汉字】"
+                            android:textColor="@color/text_gray"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:visibility="visible"
+                            android:layout_toRightOf="@id/tv_message_sign"
+                            android:id="@+id/tv_message_content_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="请输入短信内容"
+                            android:textColor="@color/text_gray"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/etMsgContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="93dp"
+                            android:background="@null"
+                            android:cursorVisible="true"
+                            android:gravity="top|left"
+                            android:padding="5dp"
+                            android:textColor="@color/text_gray"
+                            android:textCursorDrawable="@drawable/cursor_style"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_unsubscribe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@id/etMsgContent"
+                            android:text="回复00000退订"
+                            android:textColor="@color/text_gray"
+                            android:textSize="12sp" />
+
+
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:gravity="right"
+                        android:orientation="horizontal"
+                        android:paddingRight="15dp">
+
+                        <TextView
+                            android:id="@+id/tvNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/c_999999"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:text="/"
+                            android:textColor="@color/c_999999"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/tvTotalNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="70（包含企业签名字数）"
+                            android:textColor="@color/c_999999"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/icon_attention"
+                        android:drawablePadding="3dp"
+                        android:text="注意:"
+                        android:textColor="@color/bg_red"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="1.根据国家有关规定,短信下发必须包含签名。"
+                        android:textColor="@color/c_999999"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="1.短信内容包含签名字数。"
+                        android:textColor="@color/c_999999"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="3.根据运营商规则，不同省份签名会有固定签名和自定义签名，具体以创建短信任务投放地为准"
+                        android:textColor="@color/c_999999"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+
 
                 <!--开始日期-->
                 <LinearLayout
@@ -42,7 +252,7 @@
                         android:gravity="center_horizontal"
                         android:text="开始日期："
                         android:textColor="@color/c_1C1C1C"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                     <include
                         android:id="@+id/date_from"
@@ -66,7 +276,7 @@
                         android:gravity="center_horizontal"
                         android:text="结束日期："
                         android:textColor="@color/c_1C1C1C"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                     <include
                         android:id="@+id/date_to"
@@ -75,92 +285,70 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/c_fafafa"/>
+
+                <!--任务预算-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical">
+
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:layout_marginLeft="15dp"
-                        android:text="短信内容"
+                        android:text="任务预算："
                         android:textColor="@color/c_1C1C1C"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
+
+
                     <EditText
-                        android:id="@+id/etMsgContent"
+                        android:id="@+id/et_budget"
                         android:layout_width="match_parent"
-                        android:layout_height="93dp"
-                        android:padding="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="8dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/c_1C1C1C"
-                        android:hint="请输入短信内容"
-                        android:cursorVisible="true"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/shape_bg_gray_round_rec2"
+                        android:hint="请输入任务预算，1000元起"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/text_gray"
                         android:textCursorDrawable="@drawable/cursor_style"
-                        android:maxLength="64"
-                        android:gravity="top|left"
-                        android:background="@drawable/round_border1"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:paddingRight="15dp"
-                        android:layout_marginTop="9dp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/tvNum"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textColor="@color/c_999999"
-                            android:textSize="11sp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginRight="2dp"
-                            android:text="/"
-                            android:textColor="@color/c_999999"
-                            android:textSize="11sp"/>
-                        <TextView
-                            android:id="@+id/tvTotalNum"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="64"
-                            android:textColor="@color/c_999999"
-                            android:textSize="11sp"/>
-                    </LinearLayout>
+                        android:textSize="12sp" />
+
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/c_fafafa" />
+
+
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvCoverage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="预计最大可覆盖人数(人)：10000"
                 android:textColor="@color/c_1C1C1C"
-                android:textSize="12sp"
-                android:text="预计最大可覆盖人数(人)：10000"/>
+                android:textSize="12sp" />
+
             <TextView
                 android:id="@+id/tvCreate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
-                android:background="@mipmap/bg_enterprise_certification_upload"
+                android:background="@drawable/bg_tv_round_gradient"
                 android:gravity="center"
                 android:text="创建寻客"
                 android:textColor="#FFFFFF"
@@ -169,6 +357,8 @@
 
         </LinearLayout>
     </ScrollView>
+
+
 
 
 </LinearLayout>

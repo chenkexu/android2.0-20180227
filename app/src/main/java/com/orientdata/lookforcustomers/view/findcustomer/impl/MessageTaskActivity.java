@@ -4,14 +4,17 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -21,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.ErrBean;
@@ -46,17 +50,41 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
+
+
 /**
  * Created by wy on 2017/11/27.
- * 短信任务
+ * 创建短信任务
  */
 
 public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskView>> implements ITaskView, View.OnClickListener {
+
+
+    @BindView(R.id.et_enterprise_signature)
+    EditText etEnterpriseSignature; //输入的签名
+
+    @BindView(R.id.tv_message_sign)
+    TextView tvMessageSign; //内容签名
+
+    @BindView(R.id.tv_unsubscribe)
+    TextView tvUnsubscribe; //退订
+
+//    @BindView(R.id.tv_hint)
+//    TextView tvhint; //企业签名hint
+
+    @BindView(R.id.tv_message_content_hint)
+    TextView tvMessageContentHint;//短信内容hint
+
+
     private MyTitle titleMsg;
     private EditText etMsgContent;
     private TextView tvCreate;
@@ -93,19 +121,22 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     private TextView tvCoverage;
     private Context mContext;
     private boolean isSubmitting = false;
+    private int numCount;//
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_msg_task);
+        ButterKnife.bind(this);
         this.mContext = this;
         initIntentData();
         initView();
         initTitle();
         initDate();
-        updateView();
+
     }
+
 
     private void initIntentData() {
         Intent intent = getIntent();
@@ -131,6 +162,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
             dimension = intent.getStringExtra("dimension");
             day = intent.getIntExtra("day", 0);
             mCityName = intent.getStringExtra("cityName");
+//            updateView();//后台传过来的数据
         }
     }
 
@@ -152,9 +184,92 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
         date_from.setOnClickListener(this);
         date_to.setOnClickListener(this);
         tvCreate.setOnClickListener(this);
-        etMsgContent.setFilters(new InputFilter[]{new EmojiExcludeFilter(), new InputFilter.LengthFilter(64)});
+
+
+        etEnterpriseSignature.setOnFocusChangeListener(new View.
+                OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // 此处为得到焦点时的处理内容
+
+
+                } else {
+                    // 此处为失去焦点时的处理内容
+                    int length = etEnterpriseSignature.getText().length();
+                    if (length < 4 || length > 6) {
+                        ToastUtils.showShort("企业签名只能输入2-4位汉字");
+                    }
+                }
+
+            }
+        });
+
+
+        etEnterpriseSignature.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Logger.d("count:" + count);
+                String signContent = s.toString();
+                Logger.d("返回企业签名字符串:" + signContent);
+                etEnterpriseSignature.removeTextChangedListener(this);
+                if (!signContent.startsWith("【")&&signContent.endsWith("】")) {
+                    Logger.d("没有【");
+                    etEnterpriseSignature.setText("【" + signContent);
+                } else if (!signContent.startsWith("【")&&!signContent.endsWith("】")) {
+                    Logger.d("没有【】");
+                    etEnterpriseSignature.setText("【" + signContent + "】");
+                } else if (signContent.startsWith("【")&&!signContent.endsWith("】")) {
+                    Logger.d("没有】");
+                    etEnterpriseSignature.setText(signContent+"】");
+                } else{
+                    Logger.d("都有");
+                    etEnterpriseSignature.setText(signContent);
+                }
+
+                etEnterpriseSignature.setSelection(etEnterpriseSignature.getText().toString().length()-1);
+
+                //设置只能输入2-4位汉字
+                String str = stringFilter1(signContent);
+                if (!signContent.equals(str)) {
+                    //设置内容
+                    etEnterpriseSignature.setText(str);
+                    etEnterpriseSignature.setSelection(str.length());
+                }
+
+                if (etEnterpriseSignature.getText().toString().equals("")) {
+                    Logger.d("企业签名为空");
+                    tvMessageSign.setText("【请输入企业签名2-4个汉字】");
+                } else {
+                    Logger.d("企业签名不为空");
+                    tvMessageSign.setText(etEnterpriseSignature.getText().toString());
+                }
+
+                //设置输入短信的长度
+                numCount = tvMessageSign.getText().length() + tvUnsubscribe.getText().length();
+                Logger.d("字数为：" + numCount);
+                tvNum.setText(numCount + "");
+                etMsgContent.setFilters(new InputFilter[]{new EmojiExcludeFilter(), new InputFilter.LengthFilter(70 - (Integer.valueOf(tvNum.getText().toString()).intValue()))});
+                etEnterpriseSignature.addTextChangedListener(this);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+
+            }
+        });
+
+
+        //输入短信内容时
         etMsgContent.addTextChangedListener(new TextWatcher() {
-            private CharSequence temp;
+            private int temp;
 
             @Override
             public void beforeTextChanged(CharSequence s/*之前的文字内容*/, int start/*添加文字的位置(从0开始)*/, int count, int after/*添加的文字总数*/) {
@@ -163,15 +278,54 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
             @Override
             public void onTextChanged(CharSequence s/*之后的文字内容 */, int start/*添加文字的位置(从0开始)*/, int before/*之前的文字总数*/, int count) {
-                temp = s;
+                if (s.toString() != null) {
+                    String messageContent = s.toString();
+                    Logger.d("返回的短信的内容：" + messageContent);
+                    int length = s.toString().length();
+                    etMsgContent.removeTextChangedListener(this);
+
+                    tvMessageContentHint.setVisibility(View.GONE);
+                    tvMessageSign.setVisibility(View.GONE);
+
+                    if (messageContent.equals(tvMessageSign.getText().toString())) { //如果只有企业签名
+                        tvMessageContentHint.setVisibility(View.VISIBLE);
+                        tvMessageSign.setVisibility(View.VISIBLE);
+                        etMsgContent.setText("");
+                        temp = numCount;
+                    } else if (!s.toString().contains(tvMessageSign.getText().toString())) { //如果没有企业签名
+                        etMsgContent.setText(tvMessageSign.getText().toString() + s.toString());
+                        etMsgContent.setSelection(etMsgContent.getText().toString().length());
+                        temp = length + numCount;
+                    } else {
+                        etMsgContent.setText(s.toString());
+                        etMsgContent.setSelection(etMsgContent.getText().toString().length());
+                        temp = length + numCount;
+                    }
+                    etMsgContent.addTextChangedListener(this);
+
+
+                }
             }
 
-            @Override
-            public void afterTextChanged(Editable s/*之后的文字内容*/) {
-                tvNum.setText("" + temp.length());
-            }
-        });
 
+
+                @Override
+                public void afterTextChanged (Editable s/*之后的文字内容*/){
+                    tvNum.setText("" + temp);
+                }
+            });
+        }
+
+
+
+
+
+    private String stringFilter1(String signContent) {
+        //只允许汉字
+        String regEx = "[^\u4E00-\u9FA5]{2,7}";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(signContent);
+        return m.replaceAll("").trim();
     }
 
     private void initTitle() {
@@ -270,7 +424,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                         isSubmitting = false;
                         ToastUtils.showShort("创建成功");
                         ACache.get(mContext).remove(SharedPreferencesTool.DIRECTION_HISTORY);
-//                    finish();
+//                      finish();
                         closeActivity(CreateFindCustomerActivity.class, MessageTaskActivity.class);
                         //showSubmitFeedbackDialog(response.getCode());
                     }
@@ -539,6 +693,8 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 },
                 0);
     }
+
+
 }
 
 class EmojiExcludeFilter implements InputFilter {
@@ -553,4 +709,5 @@ class EmojiExcludeFilter implements InputFilter {
         }
         return null;
     }
+
 }

@@ -14,20 +14,16 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.base.WangrunBaseFragment;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.MyInfoBean;
@@ -49,21 +45,15 @@ import com.orientdata.lookforcustomers.view.mine.imple.AccountBalanceActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.CommissionWithDrawActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.MyCommissionActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.SettingActivity;
-import com.orientdata.lookforcustomers.widget.CircleImageView;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
 import com.orientdata.lookforcustomers.widget.toggleButton.RoundImageView;
 
 import org.greenrobot.eventbus.Subscribe;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Random;
-import java.util.logging.Logger;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
@@ -181,12 +171,27 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                         if (!TextUtils.isEmpty(name)) {
                             tv_company_name.setText(name);
                         } else {
-//                            tv_company_name.setVisibility(View.GONE);
-                            tv_company_name.setText("未认证");
+//                            switch (c.getAuthStatus()) {
+//                                case 1:
+//                                    tv_status.setText("审核中");
+//                                    break;
+//                                case 2:
+//                                    tv_status.setText("已认证");
+//                                    break;
+//                                case 3:
+//                                    tv_status.setText("审核拒绝");
+//                                    break;
+//                                case 4:
+//                                    tv_status.setText("审核中");
+//                                    break;
+//                            }
+
+////                            tv_company_name.setVisibility(View.GONE);
+//                            tv_company_name.setText("未认证");
                         }
                     } else {
 //                        tv_company_name.setVisibility(View.GONE);
-                        tv_company_name.setText("未认证");
+                        tv_company_name.setText("账户未认证，去认证");
                     }
 
                     /*        userHead
@@ -488,16 +493,20 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
             remindString = getString(R.string.no_certified);
             imgResId = R.mipmap.no_certified;
             btText = getString(R.string.go_cer);
+//            账户未认证，去认证
+            tv_company_name.setText("账户未认证,认证");
         } else {
             //认证状态 1审核中 2审核通过 3审核拒绝
             authStatus = certificationOut.getAuthStatus();
             if (authStatus == 1 || authStatus == 4) {
                 //审核中
+                tv_company_name.setText("审核中");
                 cerStatus = getString(R.string.cer_ing);
                 remindString = getString(R.string.cer_waiting);
                 imgResId = R.mipmap.audit;
                 btText = getString(R.string.go_watch);
             } else if (authStatus == 3) {
+                tv_company_name.setText("审核失败");
                 //审核拒绝
                 cerStatus = getString(R.string.no_pass);
                 remindString = getString(R.string.not_pass);

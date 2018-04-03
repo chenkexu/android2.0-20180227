@@ -46,7 +46,7 @@ import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
- * 公告列表
+ * 公告列表界面
  */
 public class AnnouncementListActivity extends WangrunBaseActivity {
     private MyTitle title;
