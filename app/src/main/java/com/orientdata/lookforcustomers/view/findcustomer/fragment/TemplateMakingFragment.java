@@ -19,10 +19,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
+import com.orientdata.lookforcustomers.bean.Industry;
 import com.orientdata.lookforcustomers.bean.IndustryTemplate;
 import com.orientdata.lookforcustomers.bean.TradeSelfout;
 import com.orientdata.lookforcustomers.event.ImgClipResultEvent;
 import com.orientdata.lookforcustomers.presenter.ImgPresent;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.findcustomer.ImageMakingActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.AddAdvertiseImgActivity;
@@ -291,7 +293,9 @@ public class TemplateMakingFragment extends BaseFragment implements View.OnClick
                 holder = (ViewHolder) convertView.getTag();
             }
             IndustryTemplate industryTemplate = modelImgListChoose.get(position);
-            Glide.with(getContext()).load(industryTemplate.getImageId()).into(holder.img);
+
+//            Glide.with(getContext()).load(industryTemplate.getImageId()).into(holder.img);
+            GlideUtil.getInstance().loadAdImage(getContext(),holder.img, industryTemplate.getImageId(),true);
             if(selectPosition == position){
                 holder.radioButton.setChecked(true);
             }

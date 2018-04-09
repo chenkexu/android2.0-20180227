@@ -112,14 +112,16 @@ public class ImageWarehouseFragment extends Fragment implements View.OnClickList
             public void create(SwipeMenu menu) {
 
                 SwipeMenuItem openItem = new SwipeMenuItem(context);
-                openItem.setBackground(new ColorDrawable(Color.parseColor("#d9d9d9")));
+                openItem.setBackground(new ColorDrawable(Color.parseColor("#7A7C85")));
                 openItem.setWidth(dp2px(75));
                 openItem.setTitle("取消");
                 openItem.setTitleSize(14);
                 openItem.setTitleColor(Color.WHITE);
                 menu.addMenuItem(openItem);
+
+
                 SwipeMenuItem deleteItem = new SwipeMenuItem(context);
-                deleteItem.setBackground(new ColorDrawable(Color.parseColor("#09b6f1")));
+                deleteItem.setBackground(new ColorDrawable(Color.parseColor("#FF5C64")));
                 deleteItem.setWidth(dp2px(75));
                 deleteItem.setTitle("删除");
                 deleteItem.setTitleSize(14);

@@ -16,6 +16,7 @@ import android.widget.ToggleButton;
 import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.UserPicStore;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 
 import java.util.ArrayList;
@@ -105,7 +106,11 @@ public class AlbumGridViewAdapter extends BaseAdapter {
         }
         if (dataList != null && dataList.size() > position)
             path = dataList.get(position).getPicUrl();
-        Glide.with(mContext).load(path).into(viewHolder.imageView);
+
+//        Glide.with(mContext).load(path).into(viewHolder.imageView);
+
+        GlideUtil.getInstance().loadImage(mContext,viewHolder.imageView,path,R.mipmap.image_ggid_error,true);
+
         viewHolder.rl_toggle.setTag(position);
         viewHolder.rl_toggle.setOnClickListener(new ToggleClickListener(viewHolder.toggleButton));
         viewHolder.rl_toggle.setOnLongClickListener(new ToggleLongClickListener1(viewHolder.toggleButton));

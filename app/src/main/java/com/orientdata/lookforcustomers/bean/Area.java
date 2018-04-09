@@ -8,10 +8,14 @@ import java.io.Serializable;
  */
 
 public class Area implements Serializable{
-    private String name;
-    private String code;
-    private int status;
+    private String name; //省名
+    private String code;  //省Code
+    private int status; //是否开通业务
     private String areaId;
+
+
+
+
 
     public String getName() {
         return name;

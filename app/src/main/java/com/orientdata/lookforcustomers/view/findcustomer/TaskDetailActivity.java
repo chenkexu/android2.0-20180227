@@ -1,28 +1,12 @@
 package com.orientdata.lookforcustomers.view.findcustomer;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -32,27 +16,16 @@ import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.event.DeleteTaskEvent;
-import com.orientdata.lookforcustomers.event.ImgClipResultEvent;
 import com.orientdata.lookforcustomers.event.TaskInfoEvent;
-import com.orientdata.lookforcustomers.presenter.ImgPresent;
 import com.orientdata.lookforcustomers.presenter.TaskPresent;
 import com.orientdata.lookforcustomers.util.CommonUtils;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
-import com.orientdata.lookforcustomers.view.findcustomer.impl.AddAdvertiseImgActivity;
-import com.orientdata.lookforcustomers.view.home.fragment.TaskStatus;
-import com.orientdata.lookforcustomers.widget.ColorControlView;
-import com.orientdata.lookforcustomers.widget.ImageMakingView;
 import com.orientdata.lookforcustomers.widget.MyTitle;
-import com.orientdata.lookforcustomers.widget.toggleButton.zcw.togglebutton.ToggleButton;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 /**
  * Created by wy on 2017/11/25.
@@ -160,7 +133,8 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
                     tvImgUrl.setText("图片链接："+taskOut.getTemplateUrl());
                 }
                 if(!TextUtils.isEmpty(taskOut.getAdImgid())){
-                    Glide.with(this).load(taskOut.getAdImgid()).into(ivAd);
+//                    Glide.with(this).load(taskOut.getAdImgid()).into(ivAd);
+                    GlideUtil.getInstance().loadAdImage(this,ivAd,taskOut.getAdImgid(),true);
                 }
                 linearMessage.setVisibility(View.GONE);
                 linearPage.setVisibility(View.VISIBLE);

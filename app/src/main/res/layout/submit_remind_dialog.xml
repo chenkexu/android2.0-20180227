@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="提交成功！"
-        android:textColor="@color/c_09B6F2"
+        android:textColor="@color/dialog_color"
         android:textSize="18sp" />
     <TextView
         android:id="@+id/tvSubmitRemind"
@@ -37,12 +37,12 @@
     <TextView
         android:id="@+id/tvConfirm"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
-        android:background="@mipmap/bg_enterprise_certification_upload"
+        android:background="@drawable/bg_tv_round_gradient"
         android:gravity="center"
         android:text="确定"
         android:textColor="#FFFFFF"

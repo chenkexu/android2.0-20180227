@@ -42,6 +42,7 @@ import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.event.ImgClipResultEvent;
 import com.orientdata.lookforcustomers.presenter.ImgPresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.ImageTools;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.AddAdvertiseImgActivity;
@@ -115,7 +116,10 @@ public class ImageMakingActivity extends BaseActivity<IImgView, ImgPresent<IImgV
             url = getIntent().getStringExtra("url");
         }
         imgMake = (ImageMakingView) findViewById(R.id.imgMake);
-        Glide.with(this).load(url).into(imgMake);
+//        Glide.with(this).load(url).into(imgMake);
+
+        GlideUtil.getInstance().loadAdImage(this,imgMake,url,true);
+
         titleImg = (MyTitle) findViewById(R.id.titleImg);
         tvColor1 = (TextView) findViewById(R.id.tvColor1);
         tvColor2 = (TextView) findViewById(R.id.tvColor2);

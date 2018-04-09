@@ -17,10 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:background="@color/c_09B6F2"
+                android:background="@color/bg_white"
                 android:orientation="horizontal"
                 android:paddingBottom="2dp">
 
@@ -34,30 +35,29 @@
                     app:srcCompat="@mipmap/back_white" />
 
                 <!--<android.support.design.widget.TabLayout-->
-                    <!--android:id="@+id/tabs"-->
-                    <!--android:layout_width="280dp"-->
-                    <!--android:layout_height="44dp"-->
-                    <!--android:background="@color/c_09B6F2"-->
-                    <!--app:tabIndicatorColor="@color/c_ffffff"-->
-                    <!--app:tabSelectedTextColor="@color/c_ffffff"-->
-                    <!--app:tabTextAppearance="@style/img_text"-->
-                    <!--app:tabTextColor="@color/c_ffffff" />-->
+                <!--android:id="@+id/tabs"-->
+                <!--android:layout_width="280dp"-->
+                <!--android:layout_height="44dp"-->
+                <!--android:background="@color/c_09B6F2"-->
+                <!--app:tabIndicatorColor="@color/c_ffffff"-->
+                <!--app:tabSelectedTextColor="@color/c_ffffff"-->
+                <!--app:tabTextAppearance="@style/img_text"-->
+                <!--app:tabTextColor="@color/c_ffffff" />-->
                 <com.androidkun.xtablayout.XTabLayout
                     android:id="@+id/tabs"
                     android:layout_width="280dp"
                     android:layout_height="44dp"
-                    android:background="@color/c_09B6F2"
                     app:xTabDividerWidthWidthText="false"
-                    app:xTabIndicatorColor="@color/c_ffffff"
+                    app:xTabIndicatorColor="@color/dialog_color"
                     app:xTabIndicatorHeight="2dp"
-                    app:xTabSelectedTextColor="@color/c_ffffff"
+                    app:xTabIndicatorWidth="20dp"
+                    app:xTabSelectedTextColor="@color/dialog_color"
                     app:xTabTextAppearance="@style/img_text"
-                    app:xTabTextSize="15sp"
-                    app:xTabTextColor="@color/c_ffffff"
-                    app:xTabIndicatorWidth="20dp"/>
+                    app:xTabTextColor="@color/text_gray"
+                    app:xTabTextSize="15sp" />
 
             </LinearLayout>
-           <!-- <android.support.design.widget.TabLayout
+            <!-- <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:visibility="gone"
                 android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                 app:tabTextAppearance="@style/authentication_text"
                 app:tabTextColor="@color/c_ffffff" />-->
             <!--可滑动的布局内容-->
-           <!-- <android.support.v4.view.ViewPager
+            <!-- <android.support.v4.view.ViewPager
                 android:id="@+id/vp_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />-->

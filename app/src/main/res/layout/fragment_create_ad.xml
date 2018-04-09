@@ -70,7 +70,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="22dp"
                 android:text="[位置]"
-                android:textColor="#414141"
+                android:textColor="@color/text_gray"
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
@@ -88,7 +88,7 @@
                 android:hint="请输入电话"
                 android:inputType="phone"
                 android:paddingLeft="10dp"
-                android:textColor="#9c9c9c"
+                android:textColor="#9699A3"
                 android:textSize="14sp" />
 
             <TextView
@@ -107,8 +107,8 @@
 
             <ImageView
                 android:id="@+id/iv_nav"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
@@ -124,7 +124,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/iv_nav"
-                android:layout_marginRight="33dp"
+                android:layout_marginRight="25dp"
                 android:layout_marginTop="10dp"
                 android:text="前去商家"
                 android:textColor="#979797"
@@ -149,9 +149,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="任务名称:"
-                android:textColor="#1c1c1c"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textColor="#7A7C85"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/et_page_name"
@@ -173,7 +172,7 @@
                 android:layout_weight="1"
                 android:paddingLeft="10dp"
                 android:text="0/8"
-                android:textColor="#1c1c1c"
+                android:textColor="#7A7C85"
                 android:textSize="14sp" />
 
 
@@ -189,7 +188,7 @@
             android:id="@+id/tv_next_step"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_tv_round_gradient"
             android:gravity="center"
             android:text="下一步"
             android:textColor="#ffffff"

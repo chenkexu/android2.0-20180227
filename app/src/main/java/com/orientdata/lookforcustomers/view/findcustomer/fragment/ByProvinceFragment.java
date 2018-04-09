@@ -32,6 +32,8 @@ import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.util.map.LocationService;
 import com.orientdata.lookforcustomers.view.certification.EnterpriseCertificationUploadActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.ICityPickView;
+import com.orientdata.lookforcustomers.widget.abslistview.CommonAdapter;
+import com.orientdata.lookforcustomers.widget.abslistview.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,7 @@ import java.util.List;
 import vr.md.com.mdlibrary.UserDataManeger;
 
 import static android.app.Activity.RESULT_OK;
+import static com.orientdata.lookforcustomers.R.id.textView;
 
 /**
  * Created by wy on 2017/11/16.
@@ -47,6 +50,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class ByProvinceFragment extends BaseFragment implements View.OnClickListener, ICityPickView {
 
+    private int currentItem;
 
     private ListView lv_fm_by_province_left;
     private ListView lv_fm_by_province_right;
@@ -55,7 +59,11 @@ public class ByProvinceFragment extends BaseFragment implements View.OnClickList
 
 
     private List<AreaOut> mAreaOuts;
-    private ArrayAdapter<String> mLeftAdapter;
+
+//    private ArrayAdapter<String> mLeftAdapter;
+    private LeftAdapter mLeftAdapter;
+
+
     private List<String> mProvinceNames;
     List<CityListItemMode> mcityNames;
     private MyRightListViewAdapter mMyRightListViewAdapter;
@@ -97,8 +105,8 @@ public class ByProvinceFragment extends BaseFragment implements View.OnClickList
                 mProvinceNames.add(mAreaOuts.get(i).getName());
             }
             if (mLeftAdapter == null) {
-                mLeftAdapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_by_province_left_item, mProvinceNames);
-
+                mLeftAdapter = new LeftAdapter(getActivity(), R.layout.fragment_by_province_left_item, mProvinceNames);
+//                mLeftAdapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_by_province_left_item, mProvinceNames);
                 lv_fm_by_province_left.setAdapter(mLeftAdapter);
             } else {
                 //mLeftAdapter = (ArrayAdapter) lv_fm_by_province_left.getAdapter();
@@ -107,6 +115,8 @@ public class ByProvinceFragment extends BaseFragment implements View.OnClickList
             lv_fm_by_province_left.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    currentItem = position;
+                    mLeftAdapter.notifyDataSetChanged();
                     updateRightView(parent, view, position, id);
                     mProvinceName = mProvinceNames.get(position);
                 }
@@ -245,6 +255,28 @@ public class ByProvinceFragment extends BaseFragment implements View.OnClickList
             return area2;
         }
     }
+
+
+    //左边Adapter
+    class LeftAdapter extends CommonAdapter<String>{
+
+        public LeftAdapter(Context context, int layoutId, List<String> datas) {
+            super(context, layoutId, datas);
+        }
+
+        @Override
+        protected void convert(ViewHolder viewHolder, String item, int position) {
+            TextView textView = viewHolder.getView(R.id.tv_fm_by_province_left_item_id);
+            if (position == currentItem) {
+                textView.setTextColor(getResources().getColor(R.color.colorPrimary));
+            }else {
+                textView.setTextColor(getResources().getColor(R.color.text_gray));
+            }
+            viewHolder.setText(R.id.tv_fm_by_province_left_item_id, item);
+        }
+    }
+
+
 
     class MyRightListViewAdapter extends BaseAdapter {
 

@@ -13,6 +13,7 @@ import com.orientdata.lookforcustomers.R;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
+import static android.R.attr.id;
 
 
 public class GlideUtil {
@@ -66,6 +67,91 @@ public class GlideUtil {
                     .into(imageView);
         }
     }
+
+
+
+
+
+
+    /**
+     * 加载图片 支持自定义错误图片
+     * @param context
+     * @param imageView  图片容器
+     * @param imgUrl  图片地址 ，
+     * @param isFade  是否需要动画
+     */
+    public void loadImage(Context context, ImageView imageView,
+                              String imgUrl, int resourceId,boolean isFade) {
+        if (isFade) {
+            Glide.with(context)
+                    .load(imgUrl)
+                    .error(resourceId)
+                    .crossFade()
+                    .placeholder(resourceId)
+                    .priority(Priority.NORMAL) //下载的优先级
+                    //all:缓存源资源和转换后的资源 none:不作任何磁盘缓存
+                    //source:缓存源资源   result：缓存转换后的资源
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) //缓存策略
+                    .into(imageView);
+        } else {
+            Glide.with(context)
+                    .load(imgUrl)
+                    .error(resourceId)
+                    .into(imageView);
+        }
+    }
+
+
+
+    public void loadCertificateImageId(Context context, ImageView imageView,
+                                     String imgUrl, boolean isFade) {
+        if (isFade) {
+            Glide.with(context)
+                    .load(imgUrl)
+                  .error(R.mipmap.icon_id_error)
+                    .crossFade()
+                    .placeholder(R.mipmap.icon_id_error)
+                    .priority(Priority.NORMAL) //下载的优先级
+                    //all:缓存源资源和转换后的资源 none:不作任何磁盘缓存
+                    //source:缓存源资源   result：缓存转换后的资源
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) //缓存策略
+                    .into(imageView);
+        } else {
+            Glide.with(context)
+                    .load(imgUrl)
+                    .error(R.mipmap.icon_id_error)
+                    .into(imageView);
+        }
+    }
+
+    /**
+     * 加载广告图片
+     * @param context
+     * @param imageView  图片容器
+     * @param imgUrl  图片地址
+     * @param isFade  是否需要动画
+     */
+    public void loadCertificateImage(Context context, ImageView imageView,
+                            String imgUrl, boolean isFade) {
+        if (isFade) {
+            Glide.with(context)
+                    .load(imgUrl)
+                    .error(R.mipmap.icon_certifation_error)
+                    .crossFade()
+                    .placeholder(R.mipmap.icon_certifation_error)
+                    .priority(Priority.NORMAL) //下载的优先级
+                    //all:缓存源资源和转换后的资源 none:不作任何磁盘缓存
+                    //source:缓存源资源   result：缓存转换后的资源
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) //缓存策略
+                    .into(imageView);
+        } else {
+            Glide.with(context)
+                    .load(imgUrl)
+                    .error(R.mipmap.ad_error)
+                    .into(imageView);
+        }
+    }
+
 
 
     /**

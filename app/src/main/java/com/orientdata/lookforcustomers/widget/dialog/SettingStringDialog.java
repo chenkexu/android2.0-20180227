@@ -156,7 +156,7 @@ public class SettingStringDialog extends Dialog{
             String data = datas.get(position);
             viewHolder.areaName.setText(data);
             if (position == selectItem) {
-                viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.c_09B6F2));
+                viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.dialog_color));
             }else {
                 viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.c_414141));
             }

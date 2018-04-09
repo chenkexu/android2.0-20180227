@@ -11,9 +11,11 @@
         </shape>
     </item>-->
 
-    <item android:drawable="@drawable/bg_tv_round_gradient"  android:state_focused="false" />
+    <item android:drawable="@drawable/bg_tv_round_gradient"
+        android:state_focused="false" />
     <item android:drawable="@drawable/bg_tv_round_gradient"  android:state_checked="false" />
     <item android:drawable="@drawable/bg_tv_round_gradient"  android:state_pressed="false" />
+
 
 
     <!--  <item android:state_pressed="false">

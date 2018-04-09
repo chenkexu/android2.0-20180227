@@ -42,7 +42,7 @@
                 android:id="@+id/tvType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_1C1C1C"
+                android:textColor="@color/text_gray"
                 android:textSize="15sp"
                 android:textStyle="bold"/>
 
@@ -63,7 +63,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/ivDirection"
                 android:textSize="12sp"
-                android:textColor="@color/c_09B6F2"
+                android:textColor="#3660E5"
                 android:text="定向设置" />
 
         </RelativeLayout>
@@ -75,14 +75,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:text="任  务  ID ："
                 android:textSize="14sp"/>
             <TextView
                 android:id="@+id/taskId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:layout_marginLeft="10dp"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -94,14 +94,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:text="任务名称："
                 android:textSize="14sp"/>
             <TextView
                 android:id="@+id/taskName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:layout_marginLeft="10dp"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -113,14 +113,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:text="任务预算："
                 android:textSize="14sp"/>
             <TextView
                 android:id="@+id/taskBudget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:layout_marginLeft="10dp"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -132,14 +132,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:text="投放时间："
                 android:textSize="14sp"/>
             <TextView
                 android:id="@+id/runTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:layout_marginLeft="10dp"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -151,14 +151,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:text="投放地址："
                 android:textSize="14sp"/>
             <TextView
                 android:id="@+id/runAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:layout_marginLeft="10dp"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -170,14 +170,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:text="范围半径："
                 android:textSize="14sp"/>
             <TextView
                 android:id="@+id/runRadius"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/c_414141"
+                android:textColor="@color/text_gray"
                 android:layout_marginLeft="10dp"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -200,7 +200,7 @@
             android:layout_height="wrap_content"
             android:text="广告图片"
             android:layout_marginTop="10dp"
-            android:textColor="@color/c_1C1C1C"
+            android:textColor="@color/text_gray"
             android:textSize="15sp"
             android:textStyle="bold"/>
         <ImageView
@@ -216,7 +216,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColor="@color/c_414141"
+            android:textColor="@color/text_gray"
             android:textSize="14sp"
             android:text="图片链接：http://"/>
 
@@ -410,17 +410,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:textColor="@color/c_09B6F2"
+                android:textColor="@color/dialog_color"
                 android:textSize="12sp"
                 android:text="测试号"/>
             <TextView
                 android:id="@+id/tvDelete"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"
-                android:background="@mipmap/bg_enterprise_certification_upload"
+                android:background="@drawable/bg_tv_round_gradient"
                 android:gravity="center"
                 android:text="删除"
                 android:textColor="#FFFFFF"

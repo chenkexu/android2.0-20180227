@@ -235,7 +235,7 @@ public class EnterpriseCertificationFragment extends BaseFragment implements Vie
             ToastUtils.showShort("联系人电话不能为空");
             return;
         }
-        if (RegexUtils.isIDCard18(contactCard)) {
+        if (!RegexUtils.isIDCard18(contactCard)) {
             ToastUtils.showShort("身份证号不合法");
             return;
         }

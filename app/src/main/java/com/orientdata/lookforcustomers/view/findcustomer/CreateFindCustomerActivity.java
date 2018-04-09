@@ -71,6 +71,7 @@ import com.orientdata.lookforcustomers.util.map.LocationService;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.certification.impl.CertificationActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.DirectionalSettingActivity;
+import com.orientdata.lookforcustomers.view.findcustomer.impl.DirectionalSettingActivity2;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.MessageTaskActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.PageTaskActivity;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
@@ -92,6 +93,9 @@ import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 import static android.R.attr.data;
+import static com.baidu.location.h.k.ar;
+import static com.orientdata.lookforcustomers.R.id.area;
+import static com.orientdata.lookforcustomers.R.id.ascription;
 
 /**
  * 创建寻客页面
@@ -151,7 +155,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     private TextView tv_at_create_find_customer_location; //要选择的具体的城市
     private TextView tv_at_create_find_customer_type;//任务类型TextView
     private EditText et_ac_create_find_customer_name;//任务名称
-    private EditText et_ac_create_find_customer_budget; //任务预算
+//    private EditText et_ac_create_find_customer_budget; //任务预算
     private TextView tv_ac_create_find_customer_radius;//半径
     private TextView tv_ac_create_find_customer_set; //定向设置
     private TextView tv_at_create_find_customer_putlocation;//投放位置
@@ -189,13 +193,13 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     private String mTaskType;//任务类型。
     private String ageF;
     private String ageB;
-    private String educationLevelF;
-    private String educationLevelB;
+//    private String educationLevelF;
+//    private String educationLevelB;
     private String sex;
-    private String consumptionCapacityF;
-    private String consumptionCapacityB;
-    private String ascription;
-    private String phoneModelIds = "";
+//    private String consumptionCapacityF;
+//    private String consumptionCapacityB;
+//    private String ascription;
+//    private String phoneModelIds = "";
     private String interestIds = "";
     private int mFromAction;
     private UiSettings mUiSettings;
@@ -208,10 +212,11 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     private String mMoveCityCode;
     private Bitmap bm;
     private boolean isReCreate = false;//是否是寻客详情点进来的重新创建
-    private TaskOut mTaskOut = null;//寻客详情的内容
+    private TaskOut mTaskOut = null;//寻客详情的内容(上次常见的任务详情)
     private String mMapClippath;
     private String mThrowAddress;//投放地址
     private String mStrType;
+    private String mProvinceCode;
 
 
     @Override
@@ -296,7 +301,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             }
         });
         if (isReCreate) { //如果是点击详情的地址
-            Logger.d("点击详情进来以后——------");
+            Logger.d("任务详情页面，点击再次创建任务-------");
             //地址转坐标
             mSearch.geocode(new GeoCodeOption()
                     .city("中国")
@@ -340,7 +345,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         tv_at_create_find_customer_nextstep = (TextView) findViewById(R.id.tv_at_create_find_customer_nextstep);
         tv_at_create_find_customer_nextstep.setOnClickListener(this);
         et_ac_create_find_customer_name = findViewById(R.id.et_ac_create_find_customer_name);
-        et_ac_create_find_customer_budget = (EditText) findViewById(R.id.et_ac_create_find_customer_budget);
+//        et_ac_create_find_customer_budget = (EditText) findViewById(R.id.et_ac_create_find_customer_budget);
         tv_name2 = (TextView) findViewById(R.id.tv_name2);
         et_ac_create_find_customer_name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -396,21 +401,21 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             OrientationSettingsOut orientationSettingsOut = mTaskOut.getOrientationSettingsOut();
             ageF = orientationSettingsOut.getAgeF();
             ageB = orientationSettingsOut.getAgeB();
-            educationLevelF = orientationSettingsOut.getEducationLevelF();
-            educationLevelB = orientationSettingsOut.getEducationLevelB();
+//            educationLevelF = orientationSettingsOut.getEducationLevelF();
+//            educationLevelB = orientationSettingsOut.getEducationLevelB();
             sex = orientationSettingsOut.getSex();
-            consumptionCapacityF = orientationSettingsOut.getConsumptionCapacityF();
-            consumptionCapacityB = orientationSettingsOut.getConsumptionCapacityB();
-            ascription = orientationSettingsOut.getAscription();
+//            consumptionCapacityF = orientationSettingsOut.getConsumptionCapacityF();
+//            consumptionCapacityB = orientationSettingsOut.getConsumptionCapacityB();
+//            ascription = orientationSettingsOut.getAscription();
             List<String> jixing = orientationSettingsOut.getJixing();//机型数组
 
-            for (int i = 0; i < jixing.size(); i++) {
-                if (i == 0) {
-                    phoneModelIds = phoneModelIds + jixing.get(i);
-                } else {
-                    phoneModelIds = phoneModelIds + "," + jixing.get(i);
-                }
-            }
+//            for (int i = 0; i < jixing.size(); i++) {
+//                if (i == 0) {
+//                    phoneModelIds = phoneModelIds + jixing.get(i);
+//                } else {
+//                    phoneModelIds = phoneModelIds + "," + jixing.get(i);
+//                }
+//            }
             List<String> xingqu = orientationSettingsOut.getXingqu();//兴趣数组
             for (int i = 0; i < xingqu.size(); i++) {
                 if (i == 0) {
@@ -422,7 +427,9 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             // phoneModelIds = o.getJixing();
 //            interestIds = data.getStringExtra("interestIds");
             tv_ac_create_find_customer_set.setText("已设置");
-            mCityCode = mTaskOut.getCityCode().trim();
+            mCityCode = mTaskOut.getCityCode().trim();//上次创建的cityCode
+            //上次创建的cityCode
+            mProvinceCode = mTaskOut.getProvinceCode().trim();
             Logger.d("传过来的已经创建好的任务类型的详情：");
         }
     }
@@ -643,7 +650,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     ToastUtils.showShort(mCityName + "没有开通业务！");
                     return;
                 }
-                intent = new Intent(CreateFindCustomerActivity.this, DirectionalSettingActivity.class);
+                intent = new Intent(CreateFindCustomerActivity.this, DirectionalSettingActivity2.class);
                 intent.putExtra("cityCode", mCityCode);
                 intent.putExtra("isReCreate", isReCreate);
 
@@ -740,12 +747,12 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             return;
         }
         String rangeRadius = mCircleRadiusM[mCurrentScaleLevelPositon];
-        String budget = et_ac_create_find_customer_budget.getText().toString().trim();
-        if (TextUtils.isEmpty(budget)) {
-            ToastUtils.showShort("请填写任务预算");
-            return;
-        }
-        BigDecimal b_budget = BigDecimal.valueOf(Double.valueOf(budget));
+////        String budget = et_ac_create_find_customer_budget.getText().toString().trim();
+//        if (TextUtils.isEmpty(budget)) {
+//            ToastUtils.showShort("请填写任务预算");
+//            return;
+//        }
+//        BigDecimal b_budget = BigDecimal.valueOf(Double.valueOf(budget));
 
         String longitude = String.valueOf(mCurrentLatLng.longitude);
         if (TextUtils.isEmpty(longitude)) {
@@ -765,21 +772,16 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         BigDecimal b_latitude = BigDecimal.valueOf(Double.valueOf(latitude));
         if (TextUtils.isEmpty(ageF)
                 || TextUtils.isEmpty(ageB)
-                || TextUtils.isEmpty(educationLevelF)
-                || TextUtils.isEmpty(educationLevelB)
                 || TextUtils.isEmpty(sex)
-                || TextUtils.isEmpty(consumptionCapacityF)
-                || TextUtils.isEmpty(consumptionCapacityB)
-                || TextUtils.isEmpty(ascription)
-                || TextUtils.isEmpty(phoneModelIds)
-                || TextUtils.isEmpty(interestIds)
+//                || TextUtils.isEmpty(interestIds)
                 ) {
             ToastUtils.showShort("请设置定向设置");
             return;
         } else {
             MDBasicRequestMap map = new MDBasicRequestMap();
             map.put("userId", UserDataManeger.getInstance().getUserId());
-            map.put("money", b_budget + "");
+            // TODO: 2018/4/4 去掉了预算参数
+//            map.put("money", b_budget + "");
             map.put("longitude", b_longitude + "");
             map.put("latitude", b_latitude + "");
             map.put("cityCode", mCityCode);
@@ -793,29 +795,32 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             }
             intent.putExtra("ageF", ageF);
             intent.putExtra("ageB", ageB);
-            intent.putExtra("educationLevelF", educationLevelF);
-            intent.putExtra("educationLevelB", educationLevelB);
+//            intent.putExtra("educationLevelF", educationLevelF);
+//            intent.putExtra("educationLevelB", educationLevelB);
             intent.putExtra("sex", sex);
-            intent.putExtra("consumptionCapacityF", consumptionCapacityF);
-            intent.putExtra("consumptionCapacityB", consumptionCapacityB);
-            intent.putExtra("ascription", ascription);
-            intent.putExtra("phoneModelIds", phoneModelIds);
+//            intent.putExtra("consumptionCapacityF", consumptionCapacityF);
+//            intent.putExtra("consumptionCapacityB", consumptionCapacityB);
+//            intent.putExtra("ascription", ascription);
+//            intent.putExtra("phoneModelIds", phoneModelIds);
             intent.putExtra("interestIds", interestIds);
             intent.putExtra("cityCode", mCityCode);
             intent.putExtra("throwAddress", mThrowAddress);
             intent.putExtra("type", type);
             intent.putExtra("taskName", taskName);
             intent.putExtra("rangeRadius", rangeRadius);
-            intent.putExtra("budget", budget);
+//            intent.putExtra("budget", budget);
             intent.putExtra("longitude", longitude);
             intent.putExtra("dimension", latitude);
             intent.putExtra("address", mThrowAddress);
             intent.putExtra("cityName", mCityName);
             intent.putExtra("pagePrice", pagePrice);
             intent.putExtra("smsPrice", smsPrice);
+            intent.putExtra("mProvinceCode", mProvinceCode);
+
             final int type2 = type;
             //下一步验证
             showDefaultLoading();
+            // TODO: 2018/4/4 接口改了，参数少传了一个
             OkHttpClientManager.postAsyn(HttpConstant.SELECT_NEXT_STEP_CHECK, new OkHttpClientManager.ResultCallback<NextStepCheckBean>() {
                 @Override
                 public void onError(Exception e) {
@@ -1028,17 +1033,17 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         mTaskType = "";
         tv_at_create_find_customer_type.setText("--未设置--");
         et_ac_create_find_customer_name.setText("");
-        et_ac_create_find_customer_budget.setText("");
+//        et_ac_create_find_customer_budget.setText("");
         //定向设置清空
         ageF = "";
         ageB = "";
-        educationLevelF = "";
-        educationLevelB = "";
+//        educationLevelF = "";
+//        educationLevelB = "";
         sex = "";
-        consumptionCapacityF = "";
-        consumptionCapacityB = "";
-        ascription = "";
-        phoneModelIds = "";
+//        consumptionCapacityF = "";
+//        consumptionCapacityB = "";
+//        ascription = "";
+//        phoneModelIds = "";
         interestIds = "";
         tv_ac_create_find_customer_set.setText("--未设置--");
         ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
@@ -1102,18 +1107,19 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 break;
             case 3: //定向设置
                 if (data != null) {
-                    ageF = data.getStringExtra("ageF");
+                    // TODO: 2018/4/4 界面显示定向设置的内容 
+                    ageF = data.getStringExtra("ageF");//年龄
                     ageB = data.getStringExtra("ageB");
-                    educationLevelF = data.getStringExtra("educationLevelF");
-                    educationLevelB = data.getStringExtra("educationLevelB");
-                    sex = data.getStringExtra("sex");
-                    consumptionCapacityF = data.getStringExtra("consumptionCapacityF");
-                    consumptionCapacityB = data.getStringExtra("consumptionCapacityB");
-                    ascription = data.getStringExtra("ascription");
-                    phoneModelIds = data.getStringExtra("phoneModelIds");
-                    interestIds = data.getStringExtra("interestIds");
+                    sex = data.getStringExtra("sex");//性别
+                    interestIds = data.getStringExtra("interestIds");//兴趣爱好
                     tv_ac_create_find_customer_set.setText("已设置");
                     isReCreate = false;//将重新创建置false 定向 使用缓存的内容 更新界面
+//                    educationLevelF = data.getStringExtra("educationLevelF");
+//                    educationLevelB = data.getStringExtra("educationLevelB");
+//                    consumptionCapacityF = data.getStringExtra("consumptionCapacityF");
+//                    consumptionCapacityB = data.getStringExtra("consumptionCapacityB");
+//                    ascription = data.getStringExtra("ascription");
+//                    phoneModelIds = data.getStringExtra("phoneModelIds");
                 }
                 break;
             default:
@@ -1176,6 +1182,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         mAreaOuts = areaOuts;
         requestCityStatus(mCityName);
         mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
+        mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
         mLocCityCode = findLocCityCodeByName(mLocProvinceName, mLocCityName);
     }
 
@@ -1262,12 +1269,15 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             mLocCityName = addCom.city;
             mLocProvinceName = addCom.province;
             mLocCityCode = findLocCityCodeByName(mLocProvinceName, mLocCityName);
+            mProvinceCode = findLocProviceCodeByName(mLocProvinceName, mLocCityName);
+
             if (mLocCityName != null && !mLocCityName.equals(mCityName)) {
                 wipedata();
             }
             mCityName = addCom.city;
             mProvinceName = addCom.province;
             mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
+            mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
         } else if (mFromAction == 3) {
             Logger.d("获得了经纬度转换地址的回调（来自地图平移）");
             //来自地图平移
@@ -1276,11 +1286,13 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             mMoveCityName = addCom.city;
             mMoveProvinceName = addCom.province;
             mMoveCityCode = findLocCityCodeByName(mMoveProvinceName, mMoveCityName);
+            mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
         } else {
             Logger.d("获得了经纬度转换地址的回调（来自其他）");
             mCityName = addCom.city;
             mProvinceName = addCom.province;
             mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
+            mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
             tv_at_create_find_customer_putlocation.setText(address);
         }
 
@@ -1455,7 +1467,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     }
 
 
-    //通过城市名称找城市代码
+    //通过城市名称和省名找城市代码
     private String findLocCityCodeByName(String provinceName, String cityName) {
         if (TextUtils.isEmpty(provinceName) || TextUtils.isEmpty(cityName)) {
             return "";
@@ -1463,11 +1475,15 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         if (mAreaOuts != null && mAreaOuts.size() > 0) {
             for (AreaOut areaOut : mAreaOuts) {
                 if (areaOut.getName().equals(provinceName) || provinceName.contains(areaOut.getName())) {
+
+                    Logger.d("省名称："+areaOut.getName()+"省Code值："+areaOut.getCode());
+
                     for (Area area : areaOut.getList()) {
                         if (area.getName().equals(cityName) || cityName.contains(area.getName())) {
                             return area.getCode().trim();
                         }
                     }
+
                 }
             }
         }
@@ -1475,7 +1491,27 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     }
 
 
-    //根据城市名和省名获取城市代码
+    //通过城市名称和省名获得省代码
+    private String findLocProviceCodeByName(String provinceName, String cityName) {
+        if (TextUtils.isEmpty(provinceName) || TextUtils.isEmpty(cityName)) {
+            return "";
+        }
+        if (mAreaOuts != null && mAreaOuts.size() > 0) {
+            for (AreaOut areaOut : mAreaOuts) {
+                if (areaOut.getName().equals(provinceName) || provinceName.contains(areaOut.getName())) {
+
+                    Logger.d("省名称："+areaOut.getName()+"省Code值："+areaOut.getCode());
+                    return areaOut.getCode().trim();
+                }
+            }
+        }
+        return "";
+    }
+
+
+
+
+    //根据城市名和省名获取该城市是否开通业务。
     private int findLocCityStatusByName(String provinceName, String cityName) {
         if (TextUtils.isEmpty(provinceName) || TextUtils.isEmpty(cityName)) {
             return -666;
@@ -1530,21 +1566,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         return false;
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     //确认，生成图片

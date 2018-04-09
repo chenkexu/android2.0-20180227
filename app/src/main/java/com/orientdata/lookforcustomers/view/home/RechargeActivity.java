@@ -2,10 +2,9 @@ package com.orientdata.lookforcustomers.view.home;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,23 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
-import com.orientdata.lookforcustomers.bean.AnOutBean;
-import com.orientdata.lookforcustomers.bean.BannerBean;
-import com.orientdata.lookforcustomers.bean.BannerBeans;
 import com.orientdata.lookforcustomers.bean.ChargeMinMoneyBean;
+import com.orientdata.lookforcustomers.bean.MessageTypeBean;
 import com.orientdata.lookforcustomers.bean.MyInfoBean;
-import com.orientdata.lookforcustomers.bean.Order;
 import com.orientdata.lookforcustomers.bean.PayBean;
-import com.orientdata.lookforcustomers.bean.UserInfoBean;
-import com.orientdata.lookforcustomers.bean.WXBean;
-import com.orientdata.lookforcustomers.bean.ZFBBean;
+import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.event.MyMoneyEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
-import com.orientdata.lookforcustomers.util.DateTool;
+import com.orientdata.lookforcustomers.network.callback.WrCallback;
+import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.widget.FixedEditText;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -41,11 +37,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
@@ -63,14 +55,14 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
     private RadioButton rb_zhifubao;
     private TextView tv_recharge_btn;
     private TextView tv_recharge200;
-    private boolean is200Checked = false;
+    private boolean is200Checked = true;
     private TextView tv_recharge500;
     private boolean is500Checked = false;
     private TextView tv_recharge1000;
     private boolean is1000Checked = false;
     private TextView tv_recharge3000;
     private boolean is3000Checked = false;
-    private double cost;
+    private double cost = 1000;
     private static final int ZHIFUBAO = 1;
     private TextView tv_offline_recharge_btn;
     private Double mRechargeMinMoney = 0.0;
@@ -179,7 +171,33 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
         initView();
         initTitle();
         getData();
+
+
+
+
+
+
+
+
+//        NetWorkUtils.getSignAndId2("140000", new WrCallback<WrResponse<MessageTypeBean>>() {
+//            @Override
+//            public void onSuccess(Response<WrResponse<MessageTypeBean>> response) {
+//                Logger.d(response.body().getResult().getTdcontent());
+//            }
+//
+//            @Override
+//            public void onError(Response<WrResponse<MessageTypeBean>> response) {
+//                super.onError(response);
+//                ToastUtils.showShort(response.getException().getMessage());
+//            }
+//        });
+
     }
+
+
+
+
+
 
     private void getData() {
         showDefaultLoading();
@@ -316,7 +334,7 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                 break;
             case R.id.tv_recharge_btn://充值
                 //验证数据
-
+             
                 String fet_value = fet_recharge.getText().toString().trim();
                 Double value = null;
                 if (TextUtils.isEmpty(fet_value)) {
@@ -345,8 +363,7 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     map.put("userId", UserDataManeger.getInstance().getUserId());
                     map.put("cost", value + "");
                     map.put("payType", 2 + "");
-
-
+                    
                     OkHttpClientManager.postAsyn(HttpConstant.PAY_URL, new OkHttpClientManager.ResultCallback<PayBean>() {
                         @Override
                         public void onError(Exception e) {
@@ -426,7 +443,7 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
 
                 break;
             case R.id.tv_recharge200: //充1000元
-                cost = 200;
+                cost = 1000;
                 is200Checked = !is200Checked;
                 is500Checked = !is200Checked;
                 is1000Checked = !is200Checked;

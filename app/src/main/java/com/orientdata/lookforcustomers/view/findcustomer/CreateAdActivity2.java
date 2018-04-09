@@ -26,6 +26,7 @@ import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.event.AdEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.ImageUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.MyTitle;
@@ -106,13 +107,16 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
         }
         if (!TextUtils.isEmpty(imagePath)) {
             //iv_upload_show.setBackground(Drawable.createFromPath(imagePath));
-            Glide.with(this).load(imagePath).into(iv_upload_show);
+//            Glide.with(this).load(imagePath).into(iv_upload_show);
+            GlideUtil.getInstance().loadCertificateImage(this,iv_upload_show,imagePath,true);
         } else {
             iv_upload_show.setVisibility(View.GONE);
         }
         if (!TextUtils.isEmpty(baiduMapPath)) {
             //iv_show_baidumap.setBackground(Drawable.createFromPath(baiduMapPath));
-            Glide.with(this).load(baiduMapPath).into(iv_show_baidumap);
+//            Glide.with(this).load(baiduMapPath).into(iv_show_baidumap);
+            GlideUtil.getInstance().loadCertificateImage(this,iv_show_baidumap,baiduMapPath,true);
+
         }
         if (!TextUtils.isEmpty(sopsName)) {
             tv_shop_name.setText(sopsName);

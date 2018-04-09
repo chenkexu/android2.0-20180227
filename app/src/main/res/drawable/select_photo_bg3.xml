@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@mipmap/bg_enterprise_certification_industry_checked" android:state_checked="true"></item>
-    <item android:drawable="@mipmap/bg_enterprise_certification_industry_unchecked"></item>
+    <item android:drawable="@mipmap/icon_login_record_password_select" android:state_checked="true"/>
+    <item android:drawable="@mipmap/icon_login_record_password_unselect"/>
 </selector>

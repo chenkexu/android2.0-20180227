@@ -50,7 +50,7 @@ public class OfflineRechargeActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_recharge);
-        mOfflineRechargeBeans = new ArrayList<OfflineRechargeBean>();
+        mOfflineRechargeBeans = new ArrayList<>();
         initView();
         initTitle();
         //getData(mPage, mSize);

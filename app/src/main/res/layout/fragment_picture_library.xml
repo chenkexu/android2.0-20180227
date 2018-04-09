@@ -42,7 +42,7 @@
             android:layout_marginLeft="46dp"
             android:layout_marginStart="46dp"
             android:text="全选"
-            android:textColor="@color/c_09B6F2"
+            android:textColor="@color/dialog_color"
             android:textSize="16sp"/>
 
         <ImageView
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/xiazai" />
+            android:src="@mipmap/download" />
 
         <ImageView
             android:id="@+id/iv_delete"
@@ -61,7 +61,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="54dp"
             android:layout_marginRight="54dp"
-            android:src="@mipmap/lajixiang" />
+            android:src="@mipmap/image_delete" />
     </RelativeLayout>
 
 

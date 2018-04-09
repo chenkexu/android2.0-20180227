@@ -132,7 +132,7 @@
                             android:gravity="center"
                             android:text="--未设置--"
                             android:textColor="@color/text_gray"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -192,6 +192,7 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:textColor="@color/text_gray"
                         android:id="@+id/tv_name2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -205,8 +206,9 @@
                         android:text="0/12"
                         android:textSize="14sp" />
                 </RelativeLayout>
+
                 <!--任务预算-->
-                <RelativeLayout
+                <!--<RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginTop="10dp"
@@ -262,7 +264,8 @@
                         android:gravity="center"
                         android:text="&#160;&#160;&#160;&#160;元"
                         android:textSize="14sp" />
-                </RelativeLayout>
+                </RelativeLayout>-->
+
                 <!--范围半径-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -299,8 +302,8 @@
                             android:layout_weight="9.5"
                             android:gravity="center"
                             android:text="5KM"
-                            android:textColor="@color/c_414141"
-                            android:textSize="14sp" />
+                            android:textColor="@color/text_gray"
+                            android:textSize="12sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -348,8 +351,8 @@
                             android:layout_weight="9.5"
                             android:gravity="center"
                             android:text="--人群定向(未设置)--"
-                            android:textColor="@color/c_414141"
-                            android:textSize="14sp" />
+                            android:textColor="@color/text_gray"
+                            android:textSize="12sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"

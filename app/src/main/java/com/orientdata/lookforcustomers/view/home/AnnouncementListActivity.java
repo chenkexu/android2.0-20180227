@@ -2,44 +2,28 @@ package com.orientdata.lookforcustomers.view.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
-import com.orientdata.lookforcustomers.bean.AdPage;
 import com.orientdata.lookforcustomers.bean.AnnouncementBean;
 import com.orientdata.lookforcustomers.bean.AnnouncementListsBean;
-import com.orientdata.lookforcustomers.bean.UserInfoBean;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.util.DateTool;
-import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.findcustomer.fragment.ImageWarehouseFragment;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;

@@ -32,6 +32,10 @@ public class TaskPresent<T> extends BasePresenter<ITaskView> {
     public TaskPresent(ITaskView mPageTaskView) {
         this.mPageTaskView = mPageTaskView;
     }
+
+
+
+
     public void createCustomer(String code){
         if(mSelectSettingModel!=null){
             mPageTaskView.showLoading();
@@ -50,6 +54,7 @@ public class TaskPresent<T> extends BasePresenter<ITaskView> {
             },code);
         }
     }
+
     public void uploadImg(int type,String picPath){
         if(mImgModel!=null){
             mPageTaskView.showLoading();
@@ -74,6 +79,8 @@ public class TaskPresent<T> extends BasePresenter<ITaskView> {
             },type,picPath);
         }
     }
+
+
     public void getTaskDetail(int taskId){
         if(mSelectSettingModel!=null){
             mPageTaskView.showLoading();

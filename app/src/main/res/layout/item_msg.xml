@@ -32,8 +32,8 @@
             android:orientation="horizontal">
             <ToggleButton
                 android:id="@+id/toggle_button"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:background="@drawable/select_photo_bg3"
                 android:textOff=""
                 android:textOn=""

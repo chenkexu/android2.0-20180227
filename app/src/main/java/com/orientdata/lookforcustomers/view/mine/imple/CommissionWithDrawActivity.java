@@ -36,6 +36,7 @@ public class CommissionWithDrawActivity extends BaseActivity<ICommissionView, Co
     private String subCount;
     private TextView tvCommissionMoney,tvAllMoneyCommission,tvNext,tvRemind;
     private EditText etMoneyCommission,etPayAccount;
+    private String upMoney;
 
 
     @Override
@@ -59,10 +60,13 @@ public class CommissionWithDrawActivity extends BaseActivity<ICommissionView, Co
             commission1 = (int)commission;
         }else{
             BigDecimal b = new BigDecimal(commission);
-            commission = b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();
+            commission = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
         }
         subCount = getIntent().getStringExtra("subCount");
         moreMoney = getIntent().getStringExtra("moreMoney");
+        upMoney = getIntent().getStringExtra("upMoney");
+
+
         title = findViewById(R.id.my_title);
         tvRemind = findViewById(R.id.tvRemind);
         tvCommissionMoney = findViewById(R.id.tvCommissionMoney);
@@ -75,7 +79,7 @@ public class CommissionWithDrawActivity extends BaseActivity<ICommissionView, Co
     }
     private void updateView(){
 //        String str = "佣金超过"+moreMoney+"元可提现，今日还可提现"+subCount+"次";
-        String str = "今日可提现"+subCount+"次+"+moreMoney+"元起可体现，"+"单笔上限X元";
+        String str = "今日可提现" + subCount + "次，"+moreMoney+"元起可提现，"+"单笔上限"+upMoney+"元";
         if(commission1 == -1){
             tvCommissionMoney.setText(commission + "元");
         }else{
@@ -85,6 +89,7 @@ public class CommissionWithDrawActivity extends BaseActivity<ICommissionView, Co
         tvNext.setEnabled(true);
         if(moreMoney!=null && subCount != null){
             if( Integer.parseInt(moreMoney) > commission || Integer.parseInt(subCount) <1){
+                ToastUtils.showShort("不可以提现");
                 tvNext.setEnabled(false);
             }
         }
@@ -124,8 +129,8 @@ public class CommissionWithDrawActivity extends BaseActivity<ICommissionView, Co
             ToastUtils.showShort("请输入金额");
             return;
         }
-        if(TextUtils.isEmpty(payAccount)){
-            if(RegexUtils.isMobileExact(payAccount)||RegexUtils.isEmail(payAccount)){
+        if(!TextUtils.isEmpty(payAccount)){
+            if(!RegexUtils.isMobileExact(payAccount)&&!RegexUtils.isEmail(payAccount)){
                 ToastUtils.showShort("请输入有效的支付宝账号");
                 return;
             }

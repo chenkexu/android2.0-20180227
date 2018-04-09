@@ -96,7 +96,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     public static final String IMAGE_FILE_LOCATION_Path = Environment.getExternalStorageDirectory() + "/tempHeadPortrait.jpg";//剪切完的图片所存地址
     Uri imageUri = Uri.parse(IMAGE_FILE_LOCATION);
     private RelativeLayout ll_rv_balance_account;
-
+    private String upMoney;
 
     @Nullable
     @Override
@@ -149,6 +149,9 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
 
 
         OkHttpClientManager.postAsyn(HttpConstant.SELECT_SHOW_MY_INFO, new OkHttpClientManager.ResultCallback<MyInfoBean>() {
+
+
+
             @Override
             public void onError(Exception e) {
                 ToastUtils.showShort(e.getMessage());
@@ -235,18 +238,21 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                         subCount = (String) mMapInfoBeans.get("subCount");
                     }
 
-                    /*        balance
+                    /* balance
                     是 bigdecimal 余额*/
                     if (mMapInfoBeans.containsKey("balance")) {
                         balance = (Double) mMapInfoBeans.get("balance");
                     }
-                    /*        frozenAmount
-                    是 bigdecimal 冻结金额*/
 
+                    /* frozenAmount
+                    是 bigdecimal 冻结金额*/
                     if (mMapInfoBeans.containsKey("frozenAmount")) {
                         frozenAmount = (Double) mMapInfoBeans.get("frozenAmount");
                     }
 
+                    if (mMapInfoBeans.containsKey("upMoney")) {
+                        upMoney = (String) mMapInfoBeans.get("upMoney");
+                    }
 
                 }
                 hideDefaultLoading();
@@ -280,6 +286,8 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 intent.putExtra("moreMoney", moreMoney);
                 intent.putExtra("commission", commission);
                 intent.putExtra("subCount", subCount);
+                intent.putExtra("upMoney", upMoney);
+
                 startActivity(intent);
                 break;
             case R.id.rv_balance_account: //账户余额

@@ -20,8 +20,10 @@ public class OrientationSettingsOut implements Serializable {
     private String sex;//	是	String	性别
     private String consumptionCapacityF;//	是	String	消费能力1
     private String consumptionCapacityB;//	是	String	消费能力2
+
     private String ascription;//	是	STring	归属地
     private Map<String,List<String>> modeMap;
+
     private Map<String,List<String>> hobbyMap;
 
     public List<String> getJixing() {

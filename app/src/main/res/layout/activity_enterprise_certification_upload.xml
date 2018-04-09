@@ -50,7 +50,7 @@
                 android:layout_height="253dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:src="@mipmap/bg_img_at_enterprise_certification_upload" />
+                android:src="@mipmap/icon_license" />
             <!--灰色隔离区域-->
             <View
                 android:layout_width="match_parent"

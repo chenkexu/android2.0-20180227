@@ -45,6 +45,7 @@ public class MyChartView extends View {
 	// X,Y轴上面的显示文字
 	private String[] Xlabel = {"", "", "", "", "", ""};
 	private String[] Ylabel = {"0", "100", "200", "300", "400", "500"};
+
 	private int[] y = {0};
 
 	private Context context;
@@ -124,12 +125,18 @@ public class MyChartView extends View {
 		}else{
 			Xscale = (this.getWidth() - 4 * this.Margin) / (this.Xlabel.length - 1);//x轴每块的长度显示出来的长度
 		}
+
 		if(this.y.length-1 == 0){
 			xScale = (this.getWidth() - 4 * this.Margin) / 2;//x轴每个刻度代表的长度 可能有没显示出来的横坐标 按照纵坐标个数计算
 		}else{
 			xScale = (this.getWidth() - 4 * this.Margin) / (this.y.length-1);//x轴每个刻度代表的长度 可能有没显示出来的横坐标 按照纵坐标个数计算
 		}
+
+		//Y轴每块区域的长度 =（chartView的总高度 - 50)/5
 		Yscale = (this.getHeight() - 5 * this.Margin) / (this.Ylabel.length - 1);//y轴每块的长度
+
+		Logger.d("y轴每块区域的长度："+Yscale);
+
 
 		linePath = new Path();
 		int xCatch = 0;//最后一个不是0的x坐标
@@ -233,6 +240,7 @@ public class MyChartView extends View {
 		}catch(Exception e){
 			return 0;
 		}
+		Logger.d(Ypoint-((y-y0)*Yscale/(y1-y0))+"--calY-");
 		return Ypoint-((y-y0)*Yscale/(y1-y0));
 	}
 
@@ -289,7 +297,13 @@ public class MyChartView extends View {
 			canvas.drawPath(path, paint);
 
 			mPaint.setTextSize(this.Margin);
+			
+			Logger.e(this.Ylabel[i]+"---"+(3*this.Margin) / 8+"---"+startY + (3*this.Margin) / 4+"--");
+
+			// TODO: 2018/4/9  
 			canvas.drawText(this.Ylabel[i], (3*this.Margin) / 8, startY + (3*this.Margin) / 4, mPaint);//纵坐标的数字
+			
+			
 		}
 
 		mPaint.setTextSize(this.Margin-3);

@@ -256,10 +256,10 @@ public class MultipleSelectDialog extends Dialog implements View.OnClickListener
                 @Override
                 public void onClick(View v) {
                     if(data.isEnable()){
-                        if(((TextView)v).getCurrentTextColor() == context.getResources().getColor(R.color.c_09B6F2)){
+                        if(((TextView)v).getCurrentTextColor() == context.getResources().getColor(R.color.dialog_color)){
                             ((TextView)v).setTextColor(context.getResources().getColor(R.color.c_414141));
                         }else{
-                            ((TextView)v).setTextColor(context.getResources().getColor(R.color.c_09B6F2));
+                            ((TextView)v).setTextColor(context.getResources().getColor(R.color.dialog_color));
                         }
                         updateData(position);
                     }else{

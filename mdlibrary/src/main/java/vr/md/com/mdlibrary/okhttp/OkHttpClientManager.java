@@ -239,7 +239,7 @@ public class OkHttpClientManager {
             for (Map.Entry<String, String> entry : entries) {
                 res[i++] = new Param(entry.getKey(), entry.getValue());
             }
-            Logger.d(res);
+//            Logger.d(res);
             Request request = buildPostRequest(url, res);
             deliveryResult(callback, request);
         }
@@ -628,6 +628,7 @@ public class OkHttpClientManager {
 
     //文件上传
     private Request buildMultipartFormRequest(String url, File[] files, String fileKeys, Param[] params) {
+        Logger.d(params);
         params = validateParam(params);
         MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
         for (Param param : params) {
@@ -750,15 +751,15 @@ public class OkHttpClientManager {
             @Override
             public void onFailure(final Request request, final IOException e) {
                 sendFailedStringCallback(request, e, callback);
-                startError(102, "");
+                startError(102, ""); //看不懂
             }
 
             @Override
             public void onResponse(final Response response) {
                 try {
                     final String string = response.body().string();
-                    Log.d("请求返回参数",string);
-                    Logger.d("请求返回参数:"+string);
+                    Logger.d("请求返回Json:"+string);
+                    Logger.json(string);
                     if (callback.mType == String.class) {
                         sendSuccessResultCallback(string, callback);
                     } else {

@@ -26,8 +26,9 @@
             android:textSize="14sp"
             android:lineSpacingExtra="8dp"
             android:layout_marginTop="18dp"
-            android:textColor="@color/c_414141"
+            android:textColor="@color/text_gray"
             android:text="为了您的账户安全，需要向您注册绑定的手机号码发送验证码。"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,40 +40,40 @@
                 android:id="@+id/tvCode"
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:layout_toLeftOf="@+id/tvGetCode"
                 android:layout_marginRight="20dp"
-                android:padding="8dp"
+                android:layout_toLeftOf="@+id/tvGetCode"
                 android:background="@drawable/round_border"
-                android:textSize="14sp"
                 android:cursorVisible="true"
+                android:hint="输入验证码"
                 android:inputType="number"
-                android:textCursorDrawable="@drawable/cursor_style"
+                android:padding="8dp"
                 android:textColor="@color/c_9c9c9c"
-                android:hint="输入验证码" />
+                android:textCursorDrawable="@drawable/cursor_style"
+                android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/tvGetCode"
                 android:layout_width="110dp"
                 android:layout_height="35dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
-                android:gravity="center"
-                android:textColor="@color/c_ffffff"
-                android:textSize="14sp"
                 android:background="@drawable/bg_tv_round_gradient"
-                android:text="获取验证码" />
+                android:gravity="center"
+                android:text="获取验证码"
+                android:textColor="@color/c_ffffff"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tvPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:textColor="@color/c_414141"
-                android:textSize="13sp"
                 android:layout_marginTop="10dp"
                 android:paddingBottom="44dp"
-                />
+                android:textColor="@color/text_gray"
+                android:textSize="13sp" />
 
         </RelativeLayout>
 
@@ -80,7 +81,7 @@
     <TextView
         android:id="@+id/tvConfirm"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="30dp"

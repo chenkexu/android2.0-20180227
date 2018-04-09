@@ -18,7 +18,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_gravity="center"
-        android:background="#09b6f2"
+        android:background="@color/dialog_color"
         android:gravity="center"
         android:text="A"
         android:textColor="#ffffff"

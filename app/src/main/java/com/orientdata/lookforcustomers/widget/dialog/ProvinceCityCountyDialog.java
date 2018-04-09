@@ -157,7 +157,7 @@ public class ProvinceCityCountyDialog extends Dialog{
             if (null != area) {
                 viewHolder.areaName.setText(area.getName());
                 if (position == selectItem) {
-                    viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.c_09B6F2));
+                    viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.dialog_color));
                 }else {
                     viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.c_414141));
                 }

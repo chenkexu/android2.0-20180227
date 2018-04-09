@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.view.agreement.MyWebViewActivity;
 
 import java.util.List;
@@ -30,6 +31,8 @@ public class HomeViewPagerAdapterSucessful extends PagerAdapter {
     private List<String> imagerUrls;
     private List<String> imagerClickUrls;
     private Handler handler;
+
+
     public HomeViewPagerAdapterSucessful(Handler handler, FragmentActivity mActivity, List<String> imagerUrls) {
         this.handler = handler;
         this.imagerUrls = imagerUrls;
@@ -70,8 +73,10 @@ public class HomeViewPagerAdapterSucessful extends PagerAdapter {
         });
 
 
-        Glide.with(mActivity.getApplicationContext())
-                .load(imagerUrls.get(position)).into(mIcon);
+//        Glide.with(mActivity.getApplicationContext())
+//                .load(imagerUrls.get(position)).into(mIcon);
+
+        GlideUtil.getInstance().loadAdImage(mActivity.getApplicationContext(),mIcon,imagerUrls.get(position),true);
 
         container.addView(rootView);
 

@@ -28,6 +28,94 @@
                 android:layout_marginTop="10dp"
                 android:paddingBottom="15dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_marginLeft="15dp"
+                        android:text="添加广告位图片"
+                        android:textColor="@color/text_gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/addAd"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="7dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/upload_ad"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/c_ffffff"
+                    android:orientation="vertical"
+                    android:paddingTop="15dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="添加广告位链接："
+                        android:textColor="@color/text_gray"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <include
+                        android:id="@+id/input_img_url"
+                        layout="@layout/img_link_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp" />
+
+                    <LinearLayout
+                        android:id="@+id/linearImgMake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:paddingRight="15dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/dialog_color"
+                            android:text="没有落地页？点击"/>
+                        <TextView
+                            android:id="@+id/tv_create_ad_page"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/dialog_color"
+                            android:text="制作落地页"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/dialog_color"
+                            android:text="吧！"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
                 <!--开始日期-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,93 +164,52 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
                 </LinearLayout>
+
+                <!--任务预算-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="34dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:layout_marginLeft="15dp"
-                        android:text="添加广告位图片"
-                        android:textColor="@color/text_gray"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                    <ImageView
-                        android:id="@+id/addAd"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="7dp"
-                        android:layout_marginRight="7dp"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/upload_ad"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/c_ffffff"
-                android:orientation="vertical"
-                android:paddingTop="15dp"
-                android:layout_marginTop="10dp"
-                android:paddingBottom="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="添加广告位链接："
-                    android:textColor="@color/text_gray"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-                <include
-                    android:id="@+id/input_img_url"
-                    layout="@layout/img_link_view"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="30dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-                <LinearLayout
-                    android:id="@+id/linearImgMake"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingRight="15dp"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textView20"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/c_9c9c9c"
-                        android:text="没有落地页？点击"/>
-                    <TextView
-                        android:id="@+id/tv_create_ad_page"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/c_09B6F2"
-                        android:text="制作落地页"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/c_9c9c9c"
-                        android:text="吧！"/>
+                        android:gravity="center_horizontal"
+                        android:text="任务预算："
+                        android:textColor="@color/text_gray"
+                        android:textSize="14sp" />
+
+
+                    <EditText
+                        android:gravity="center"
+                        android:id="@+id/et_budget"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/shape_bg_gray_round_rec2"
+                        android:hint="请输入任务预算，1000元起"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/text_gray"
+                        android:textCursorDrawable="@drawable/cursor_style"
+                        android:textSize="12sp" />
+
                 </LinearLayout>
 
             </LinearLayout>
+
+
+
+
+
+
+
             <TextView
                 android:id="@+id/tvCoverage"
                 android:layout_width="wrap_content"

@@ -282,10 +282,6 @@
     </RelativeLayout>
 
 
-
-
-
-
     <include layout="@layout/line_gray"/>
     <!--开发票-->
     <RelativeLayout

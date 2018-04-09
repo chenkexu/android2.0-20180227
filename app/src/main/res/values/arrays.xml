@@ -49,4 +49,49 @@
         <item>海南</item>
     </string-array>
 
+
+    <!--年龄-->
+    <string-array name="ages_from">
+        <item>不限</item>
+        <item>0岁</item>
+        <item>18岁</item>
+        <item>20岁</item>
+        <item>25岁</item>
+        <item>30岁</item>
+        <item>35岁</item>
+        <item>40岁</item>
+        <item>45岁</item>
+        <item>50岁</item>
+        <item>55岁</item>
+        <item>60岁</item>
+        <item>65岁</item>
+        <item>65岁以上</item>
+    </string-array>
+
+
+    !--年龄-->
+    <string-array name="ages_to">
+        <item>不限</item>
+        <item>18岁</item>
+        <item>20岁</item>
+        <item>25岁</item>
+        <item>30岁</item>
+        <item>35岁</item>
+        <item>40岁</item>
+        <item>45岁</item>
+        <item>50岁</item>
+        <item>55岁</item>
+        <item>60岁</item>
+        <item>65岁</item>
+        <item>65岁以上</item>
+    </string-array>
+
+
+    <string-array name="sex">
+        <item>男</item>
+        <item>女</item>
+        <item>不限</item>
+
+    </string-array>
+
 </resources>

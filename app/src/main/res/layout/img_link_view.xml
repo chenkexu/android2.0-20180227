@@ -15,8 +15,11 @@
         android:layout_centerVertical="true"
         android:paddingLeft="15dp"
         android:text="http://"
-        android:textColor="#414141"
+        android:textColor="@color/text_gray"
         android:textSize="12sp" />
+
+
+
 
     <com.orientdata.lookforcustomers.util.XEditText
         android:id="@+id/et_http"

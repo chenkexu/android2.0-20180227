@@ -31,6 +31,7 @@ import com.orientdata.lookforcustomers.bean.TradeCategoryOut;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
@@ -740,7 +741,8 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
     public void setImageBitmap(Bitmap bitmap, String path) {
         if (bitmap != null) {
             companyBitmap = bitmap;
-            Glide.with(this).load(path).into((ImageView) currentImageView);
+//            Glide.with(this).load(path).into((ImageView) currentImageView);
+            GlideUtil.getInstance().loadCertificateImage(this,(ImageView) currentImageView,path,true);
         }
     }
 

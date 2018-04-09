@@ -201,6 +201,7 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         showDefaultLoading();
         MDBasicRequestMap map = new MDBasicRequestMap();
         map.put("userId", UserDataManeger.getInstance().getUserId());
+
         OkHttpClientManager.postAsyn(HttpConstant.SELECT_USER_INFO, new OkHttpClientManager.ResultCallback<UserInfoBean>() {
             @Override
             public void onError(Exception e) {
@@ -470,7 +471,8 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                     ToastUtils.showShort("账户异常，请联系客服");
                 } else {
                     ACache.get(getContext()).remove(SharedPreferencesTool.DIRECTION_HISTORY);
-                    startActivity(new Intent(getContext(), MessageTaskActivity.class));
+//                    startActivity(new Intent(getContext(), MessageTaskActivity.class));
+                    startActivity(new Intent(getContext(), CreateFindCustomerActivity.class));
                 }
 //                mPresent.getCertificateMsg(false);
                 break;

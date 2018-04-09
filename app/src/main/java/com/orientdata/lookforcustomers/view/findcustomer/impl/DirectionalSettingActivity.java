@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -20,7 +19,6 @@ import com.orientdata.lookforcustomers.bean.InterestTagImportOut;
 import com.orientdata.lookforcustomers.bean.OrientationSettingsOut;
 import com.orientdata.lookforcustomers.bean.PhoneModelTag;
 import com.orientdata.lookforcustomers.bean.SettingOut;
-import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.presenter.DirectionalSettingPresent;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
@@ -89,6 +87,13 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
     private Map<String, List<String>> hobbyMap = null;//存储商业兴趣
     private boolean isReCreate = false;//是否是再次创建寻客
 
+    private List<String> ages = new ArrayList<>();
+
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,14 +102,23 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
         ButterKnife.bind(this);
         initView();
         initTitle();
+        //获取后台数据
         mPresent.getSelectSetting(cityCode);
     }
 
     private void initView() {
+//        String[] stringArray = getResources().getStringArray(R.array.ages);
+//        ages = Arrays.asList(stringArray);//年龄集合
+
+
         aCache = ACache.get(this);
-        isReCreate = getIntent().getBooleanExtra("isReCreate", false);
+        if (getIntent()!=null) {
+            isReCreate = getIntent().getBooleanExtra("isReCreate", false);
+            cityCode = getIntent().getStringExtra("cityCode");
+        }
+
         getData();
-        cityCode = getIntent().getStringExtra("cityCode");
+
         if (modeMap == null) {
             modeMap = new HashMap<>();
         }
@@ -169,12 +183,11 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
      */
     private void getData() {
         if (isReCreate) {
-            Logger.d("点击详情的定向设置数据");
+            Logger.d("再次创建任务，用的是之前任务的数据");
             //再次创建 后台数据
             orientationSettingsOut = (OrientationSettingsOut) getIntent().getSerializableExtra("orientationSettingsOut");
             //想办法将 多出的list 修改
-        } else {
-            //缓存的数据
+        } else {  //不是点击详情进来，是缓存的数据
             ArrayList<OrientationSettingsOut> list = (ArrayList<OrientationSettingsOut>) aCache.getAsObject(SharedPreferencesTool.DIRECTION_HISTORY);
             if (list != null) {
                 Logger.d("缓存的定向设置的数据："+list.size());
@@ -185,7 +198,7 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
                     }
                 }
             }else {
-                Logger.d("没有任何数据，再次进行选择");
+                Logger.d("没有任何数据，重新进行输入数据");
             }
         }
     }
@@ -278,11 +291,13 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
             return;
         }
         switch (v.getId()) {
-            case R.id.age_from:
-                showAgeFromDialog(settingOuts.getAge(), tv_mAgeFrom);
+            case R.id.age_from: //选择用户起始年龄
+//                showAgeFromDialog(settingOuts.getAge(), tv_mAgeFrom);
+                showAgeFromDialog(ages, tv_mAgeFrom);
                 break;
-            case R.id.age_to:
-                showAgeToDialog(settingOuts.getAge(), tv_mAgeTo);
+            case R.id.age_to:  //选择用户结束年龄
+//                showAgeToDialog(settingOuts.getAge(), tv_mAgeTo);
+                showAgeToDialog(ages,tv_mAgeTo);
                 break;
             case R.id.sex:
                 showSexDialog(settingOuts.getSex(), tv_mSex);
@@ -376,7 +391,7 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
                     orientationSettingsOut.setHobbyMap(hobbyMap);
                     ArrayList<OrientationSettingsOut> list = (ArrayList<OrientationSettingsOut>) aCache.getAsObject(SharedPreferencesTool.DIRECTION_HISTORY);
                     if (list != null) {
-                        List<OrientationSettingsOut> templist = new ArrayList<OrientationSettingsOut>();
+                        List<OrientationSettingsOut> templist = new ArrayList<>();
                         for (OrientationSettingsOut direction : list) {
                             if (UserDataManeger.getInstance().getUserId().equals(direction.getUserId() + "")) {
                                 templist.add(direction);
@@ -463,7 +478,7 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
      * @param view
      */
     private void showAgeFromDialog(final List<String> listString, final TextView view) {
-        if (listString != null && listString.size() > 0) {
+        if (listString != null && listString.size() > 0) { //年龄有数据
             final SettingStringDialog dialog = new SettingStringDialog(this, R.style.Theme_Light_Dialog);
             dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
                 @Override
@@ -790,6 +805,8 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
         settingOuts.getIco().get(position).setChecked(data.get(position).isChecked());
     }
 
+
+
     /**
      * 更新兴趣数据
      *
@@ -825,6 +842,11 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
         }
 
     }
+
+
+
+
+
 
     private void updateHobbyFromData1(int position) {
         //重置 将一级的选择删掉
@@ -1219,13 +1241,14 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
         }
         this.settingOuts = settingOuts;
         if (settingOuts != null) {
+            Logger.d("获取到后台返回的数据");
             updateData();
             updateView();
         }
     }
 
     private void updateData() {
-        if (orientationSettingsOut == null) {
+        if (orientationSettingsOut == null) { //如果没有缓存数据，才去设置后台返回的数据
             //定向设置 无缓存信息
             ageFromPosition = -1;
             ageToPosition = -1;
@@ -1239,14 +1262,16 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
             hobbyFromPosition = -1;
             if(settingOuts!=null){
                 List<String> ageList = settingOuts.getAge();
-                if(ageList!=null && ageList.size()> -1){
+                if(ageList!=null && ageList.size()> -1){ //获取年龄的数据
                     ageFromPosition = 0;
                     ageToPosition = 0;
+
                     tv_mAgeFrom.setText(ageList.get(0));
                     tv_mAgeTo.setText(ageList.get(0));
+
                 }
                 List<String> sexList = settingOuts.getSex();
-                if(sexList!=null && sexList.size()> -1){
+                if(sexList!=null && sexList.size()> -1){ //获取性别
                     sexPosition = 0;
                     tv_mSex.setText(sexList.get(0));
                 }

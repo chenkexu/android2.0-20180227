@@ -15,7 +15,16 @@ public class ErrBean implements Serializable{
 
     private int code;
     private String msg;
-    private String eventId;
+    private String eventid;
+
+    public String getEventid() {
+        return eventid;
+
+    }
+
+    public void setEventid(String eventid) {
+        this.eventid = eventid;
+    }
 
     public int getCode() {
         return code;
@@ -33,11 +42,11 @@ public class ErrBean implements Serializable{
         this.msg = msg;
     }
 
-    public String getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }
+//    public String getEventId() {
+//        return eventId;
+//    }
+//
+//    public void setEventId(String eventId) {
+//        this.eventId = eventId;
+//    }
 }

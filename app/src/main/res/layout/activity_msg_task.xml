@@ -4,10 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <com.orientdata.lookforcustomers.widget.MyTitle
         android:id="@+id/titleMsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -39,21 +41,23 @@
                         android:text="企业签名："
                         android:textColor="@color/text_gray"
                         android:textSize="14sp" />
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:background="@drawable/shape_bg_gray_round_rec2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:visibility="gone"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_bg_gray_round_rec2"
                         android:gravity="center_vertical"
-                        android:id="@+id/left_text"
-                        android:text="【"
-                        android:textColor="@color/text_gray"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
-                  <!--  <TextView
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/left_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="【"
+                            android:textColor="@color/text_gray"
+                            android:visibility="gone" />
+                        <!--  <TextView
                         android:visibility="gone"
                         android:id="@+id/tv_hint"
                         android:gravity="center_vertical"
@@ -62,28 +66,29 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent" />-->
 
-                    <EditText
-                        android:hint="【请输入企业签名2-4个汉字】"
-                        android:visibility="visible"
-                        android:maxLength="6"
-                        android:singleLine="true"
-                        android:id="@+id/et_enterprise_signature"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:background="@null"
-                        android:maxLines="1"
-                        android:textColor="@color/text_gray"
-                        android:textCursorDrawable="@drawable/cursor_style"
-                        android:textSize="12sp" />
-                    <TextView
-                        android:visibility="gone"
-                        android:gravity="center_vertical"
-                        android:text="】"
-                        android:textColor="@color/text_gray"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
+                        <EditText
+                            android:id="@+id/et_enterprise_signature"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:background="@null"
+                            android:hint="【请输入企业签名2-4个汉字】"
+                            android:maxLength="6"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/text_gray"
+                            android:textCursorDrawable="@drawable/cursor_style"
+                            android:textSize="12sp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="】"
+                            android:textColor="@color/text_gray"
+                            android:visibility="gone" />
+                    </LinearLayout>
 
 
                 </LinearLayout>
@@ -123,14 +128,14 @@
                             android:textSize="12sp" />
 
                         <TextView
-                            android:visibility="visible"
-                            android:layout_toRightOf="@id/tv_message_sign"
                             android:id="@+id/tv_message_content_hint"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/tv_message_sign"
                             android:text="请输入短信内容"
                             android:textColor="@color/text_gray"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:visibility="visible" />
 
                         <EditText
                             android:id="@+id/etMsgContent"
@@ -251,7 +256,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="开始日期："
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp" />
 
                     <include
@@ -275,7 +280,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="结束日期："
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp" />
 
                     <include
@@ -300,11 +305,12 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="任务预算："
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textSize="14sp" />
 
 
                     <EditText
+                        android:gravity="center"
                         android:id="@+id/et_budget"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -336,7 +342,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:text="预计最大可覆盖人数(人)：10000"
+                android:text="预计最大可覆盖人数(人)：0"
                 android:textColor="@color/c_1C1C1C"
                 android:textSize="12sp" />
 
@@ -357,8 +363,6 @@
 
         </LinearLayout>
     </ScrollView>
-
-
 
 
 </LinearLayout>

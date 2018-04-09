@@ -323,7 +323,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/bg_img_at_personnal_certification_upload" />
+                android:src="@mipmap/icon_id_error" />
 
             <View
                 android:layout_width="match_parent"

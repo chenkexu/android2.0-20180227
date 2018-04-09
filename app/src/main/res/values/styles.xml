@@ -36,7 +36,9 @@
     </style>
     <style name="img_text">
         <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
+
     <style name="report_text">
         <item name="android:textSize">13sp</item>
     </style>

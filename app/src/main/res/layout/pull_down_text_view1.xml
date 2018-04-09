@@ -15,7 +15,7 @@
         android:paddingLeft="10dp"
         android:text="不限"
         android:gravity="center_vertical"
-        android:textColor="@color/c_414141"
+        android:textColor="@color/text_gray"
         android:textSize="12sp" />
     <ImageView
         android:id="@+id/imageView4"

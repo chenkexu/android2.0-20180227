@@ -20,6 +20,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/tv_show_info"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -27,7 +28,7 @@
             android:background="@color/c_ffffff"
             android:gravity="center_vertical"
             android:text="请添加(选择投放任务的城市)本地号码"
-            android:textColor="@color/c_1C1C1C"
+            android:textColor="@color/text_gray"
             android:textSize="15sp" />
 
 
@@ -43,9 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="移动电话："
-                android:textColor="@color/c_414141"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textColor="@color/text_gray"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/tvMove"
@@ -76,9 +76,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="联通电话："
-                android:textColor="@color/c_414141"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textColor="@color/text_gray"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/tvUnicom"
@@ -106,12 +105,12 @@
             android:paddingRight="15dp">
 
             <TextView
+                android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="电信电话："
-                android:textColor="@color/c_414141"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textColor="@color/text_gray"
+                android:textSize="14sp"/>
 
             <EditText
                 android:id="@+id/tvTelecom"
@@ -138,7 +137,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="20dp"
-            android:background="@mipmap/bt_bg"
+            android:background="@drawable/bg_tv_round_gradient"
             android:text="保存"
             android:textColor="@color/c_ffffff" />
 

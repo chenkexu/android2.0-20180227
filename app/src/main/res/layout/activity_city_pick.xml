@@ -82,8 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/c_ffffff"
-                app:tabIndicatorColor="@color/c_09B6F2"
-                app:tabSelectedTextColor="@color/c_09B6F2"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/colorPrimary"
                 app:tabTextAppearance="@style/authentication_text"
                 app:tabTextColor="@color/c_999999" />
             <!--可滑动的布局内容-->

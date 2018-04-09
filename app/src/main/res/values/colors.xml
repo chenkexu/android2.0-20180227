@@ -23,7 +23,7 @@
     <color name="c_1C1C1C">#1C1C1C</color>
     <color name="c_b1b1b1">#b1b1b1</color>
     <color name="c_fafafa">#fafafa</color>
-    <color name="c_414141">#414141</color>
+    <color name="c_414141">@color/text_gray</color>
     <color name="c_D8D8D8">#D8D8D8</color>
     <color name="c_eeeeee">#eeeeee</color>
     <color name="c_2b2b2b">#2b2b2b</color>
@@ -37,7 +37,7 @@
 
     <!--Home Fragment-->
     <color name="c_ffffff">#FFFFFF</color>
-    <color name="c_09B6F2">#09B6F2</color>
+    <color name="c_09B6F2">#3660E5</color>
     <color name="c_DB010B">#DB010B</color>
     <color name="c_cd4949">#cd4949</color>
     <color name="c_b31a1f">#b31a1f</color>
@@ -77,7 +77,8 @@
 
     <color name="blue">#4674EC</color>
 
-
+    <!--dialog颜色-->
+    <color name="dialog_color">#426FEA</color>
 
     <!--充值页面-->
     <color name="charge_text">#3F6AE8</color>

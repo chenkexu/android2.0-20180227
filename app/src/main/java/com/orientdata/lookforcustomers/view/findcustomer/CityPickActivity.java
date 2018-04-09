@@ -142,7 +142,7 @@ public class CityPickActivity extends BaseActivity<ICityPickView, CityPickPresen
      * 初始化Tab标签
      */
     private void initTab() {
-        mTitleList = new String[]{"按照省市选择", "按照拼音字母选择"};//页卡标题集合
+        mTitleList = new String[]{"按省市选择", "按拼音字母选择"};//页卡标题集合
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);//设置tab模式，当前为系统默认模式
         mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList[0]));
         mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList[1]));

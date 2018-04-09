@@ -4,17 +4,14 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -28,6 +25,7 @@ import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.ErrBean;
+import com.orientdata.lookforcustomers.bean.MyInfoBean;
 import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.network.HttpConstant;
@@ -50,6 +48,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,6 +58,8 @@ import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
+import static com.orientdata.lookforcustomers.R.id.et_http;
+import static com.orientdata.lookforcustomers.R.id.tv_message_sign;
 
 
 /**
@@ -72,7 +73,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     @BindView(R.id.et_enterprise_signature)
     EditText etEnterpriseSignature; //输入的签名
 
-    @BindView(R.id.tv_message_sign)
+    @BindView(tv_message_sign)
     TextView tvMessageSign; //内容签名
 
     @BindView(R.id.tv_unsubscribe)
@@ -83,6 +84,8 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
     @BindView(R.id.tv_message_content_hint)
     TextView tvMessageContentHint;//短信内容hint
+    @BindView(R.id.et_budget)
+    EditText etBudget;
 
 
     private MyTitle titleMsg;
@@ -96,16 +99,16 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     //From CreateFindCustomerActivity
     private String ageF;
     private String ageB;
-    private String educationLevelF;
-    private String educationLevelB;
-    private String sex;
-    private String consumptionCapacityF;
-    private String consumptionCapacityB;
-    private String ascription;
-    private String phoneModelIds;
-    private String interestIds;
-    private String cityCode;
-    private String throwAddress;
+    private String educationLevelF = "";
+    private String educationLevelB = "";
+    private String sex = "";
+    private String consumptionCapacityF = "";
+    private String consumptionCapacityB = "";
+    private String ascription = "";
+    private String phoneModelIds = "";
+    private String interestIds = "";
+    private String cityCode = "";
+    private String throwAddress = "";
     private int type;
     private String taskName;
     private String rangeRadius;
@@ -122,7 +125,11 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     private Context mContext;
     private boolean isSubmitting = false;
     private int numCount;//
-
+    private Map<String, Object> mMapInfoBeans;
+    private String mProvinceCode; //省Code
+    private String content;
+    private String enddate;
+    private String startdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +142,65 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
         initTitle();
         initDate();
 
+
+        //设置签名信息
+        intSignContent();
+
+
+    }
+
+
+    private void intSignContent() {
+        showDefaultLoading();
+        MDBasicRequestMap map = new MDBasicRequestMap();
+        map.put("userId", UserDataManeger.getInstance().getUserId());
+        map.put("provincecode", mProvinceCode);
+        OkHttpClientManager.postAsyn(HttpConstant.GET_SIGN_AND_TD, new OkHttpClientManager.ResultCallback<MyInfoBean>() {
+            @Override
+            public void onError(Exception e) {
+                ToastUtils.showShort(e.getMessage());
+                hideDefaultLoading();
+            }
+
+            @Override
+            public void onResponse(MyInfoBean response) {
+                if (response.getCode() == 0) {
+                    if (response.getResult() == null || response.getResult().size() <= 0) {
+                        hideDefaultLoading();
+                        return;
+                    }
+
+                    double id = (double) response.getResult().get("id");
+                    String provincecode = (String) response.getResult().get("provincecode");
+                    double signstate = (double) response.getResult().get("signstate");
+                    String tdcontent = (String) response.getResult().get("tdcontent");
+
+                    tvUnsubscribe.setText(tdcontent);
+
+                    if ((int) signstate == 0) { //自定义
+
+                    } else { //固定签名
+                        String sign = (String) response.getResult().get("sign");
+                        etEnterpriseSignature.setText(sign);
+                        setEnable();
+                        tvMessageSign.setText(sign);
+                    }
+
+
+//                    int idStr = (int) id;
+                    Logger.d("-----" + provincecode + signstate + tdcontent);
+
+                }
+                hideDefaultLoading();
+            }
+        }, map);
+
+    }
+
+    private void setEnable() {
+        etEnterpriseSignature.setEnabled(false);
+        etEnterpriseSignature.setFocusable(false);
+        etEnterpriseSignature.setKeyListener(null);//重点
     }
 
 
@@ -156,19 +222,25 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
             type = intent.getIntExtra("type", 1);
             taskName = intent.getStringExtra("taskName");
             rangeRadius = intent.getStringExtra("rangeRadius");
-            budget = intent.getStringExtra("budget");
+
+//            budget = intent.getStringExtra("budget");
+
             longitude = intent.getStringExtra("longitude");
             smsPrice = intent.getStringExtra("smsPrice");
             dimension = intent.getStringExtra("dimension");
             day = intent.getIntExtra("day", 0);
             mCityName = intent.getStringExtra("cityName");
+            mProvinceCode = intent.getStringExtra("mProvinceCode");
+            Logger.d("省Code:---" + mProvinceCode);
+            // TODO: 2018/4/7 这个地方先去掉单价 
 //            updateView();//后台传过来的数据
         }
     }
 
+
     private void updateView() {
         //预算／单价
-        tvCoverage.setText("预计最大可覆盖人数(人)：" + (int) (Integer.parseInt(budget) / Double.parseDouble(smsPrice)));
+//        tvCoverage.setText("预计最大可覆盖人数(人)：" + (int) (Integer.parseInt(budget) / Double.parseDouble(smsPrice)));
     }
 
     private void initView() {
@@ -192,7 +264,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     // 此处为得到焦点时的处理内容
-
 
                 } else {
                     // 此处为失去焦点时的处理内容
@@ -218,24 +289,36 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 Logger.d("count:" + count);
                 String signContent = s.toString();
                 Logger.d("返回企业签名字符串:" + signContent);
+                // TODO: 2018/4/8 缺少校验
+                if (!isChinese(signContent)) {
+
+                }
+
                 etEnterpriseSignature.removeTextChangedListener(this);
-                if (!signContent.startsWith("【")&&signContent.endsWith("】")) {
+                if (!signContent.startsWith("【") && signContent.endsWith("】")) {
                     Logger.d("没有【");
-                    etEnterpriseSignature.setText("【" + signContent);
-                } else if (!signContent.startsWith("【")&&!signContent.endsWith("】")) {
+                    etEnterpriseSignature.setText("【"+signContent);
+                } else if (!signContent.startsWith("【") && !signContent.endsWith("】")) {
                     Logger.d("没有【】");
-                    etEnterpriseSignature.setText("【" + signContent + "】");
-                } else if (signContent.startsWith("【")&&!signContent.endsWith("】")) {
+                    if (signContent.length() > 4) {
+                        signContent.substring(0, 4);
+                        etEnterpriseSignature.setText("【" + signContent.substring(0, 4) + "】");
+                    } else {
+                        etEnterpriseSignature.setText("【" + signContent + "】");
+                    }
+
+                } else if (signContent.startsWith("【") && !signContent.endsWith("】")) {
                     Logger.d("没有】");
-                    etEnterpriseSignature.setText(signContent+"】");
-                } else{
+                    etEnterpriseSignature.setText(signContent + "】");
+                } else {
                     Logger.d("都有");
                     etEnterpriseSignature.setText(signContent);
                 }
 
-                etEnterpriseSignature.setSelection(etEnterpriseSignature.getText().toString().length()-1);
+                etEnterpriseSignature.setSelection(etEnterpriseSignature.getText().toString().length() - 1);
 
-                //设置只能输入2-4位汉字
+
+//                设置只能输入2-4位汉字
                 String str = stringFilter1(signContent);
                 if (!signContent.equals(str)) {
                     //设置内容
@@ -249,6 +332,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 } else {
                     Logger.d("企业签名不为空");
                     tvMessageSign.setText(etEnterpriseSignature.getText().toString());
+                    // TODO: 2018/4/8 bug :只能先输入企业签名再输入短信内容 
                 }
 
                 //设置输入短信的长度
@@ -307,17 +391,26 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 }
             }
 
+            @Override
+            public void afterTextChanged(Editable s/*之后的文字内容*/) {
+                tvNum.setText("" + temp);
+            }
+        });
+    }
 
 
-                @Override
-                public void afterTextChanged (Editable s/*之后的文字内容*/){
-                    tvNum.setText("" + temp);
-                }
-            });
+
+    private boolean isChinese(String signContent){
+        signContent = signContent.substring(1, signContent.length() - 1);
+        //只允许汉字
+        String regEx = "[^\u4E00-\u9FA5]{2,7}";
+        boolean isMatch = Pattern.matches(regEx, signContent);
+        if (isMatch) {
+            return true;
+        }else{
+            return false;
         }
-
-
-
+    }
 
 
     private String stringFilter1(String signContent) {
@@ -325,6 +418,8 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
         String regEx = "[^\u4E00-\u9FA5]{2,7}";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(signContent);
+        boolean matches = m.matches();
+
         return m.replaceAll("").trim();
     }
 
@@ -352,19 +447,19 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
         if (!isSubmitting) {
             isSubmitting = true;
             MDBasicRequestMap map = new MDBasicRequestMap();
-            String startdate = tvDateFrom.getText().toString().trim();
-            String enddate = tvDateTo.getText().toString().trim();
-            String content = etMsgContent.getText().toString().trim();
-            if (TextUtils.isEmpty(startdate)
-                    || startdate.equals("开始日期")
-                    || TextUtils.isEmpty(enddate)
-                    || enddate.equals("结束日期")
-                    || TextUtils.isEmpty(content)
-                    ) {
-                ToastUtils.showShort("信息填写不完善");
-                isSubmitting = false;
-                return;
-            }
+//            startdate = tvDateFrom.getText().toString().trim();
+//            enddate = tvDateTo.getText().toString().trim();
+//            content = etMsgContent.getText().toString().trim();
+//            if (TextUtils.isEmpty(startdate)
+//                    || startdate.equals("开始日期")
+//                    || TextUtils.isEmpty(enddate)
+//                    || enddate.equals("结束日期")
+//                    || TextUtils.isEmpty(content)
+//                    ) {
+//                ToastUtils.showShort("信息填写不完善");
+//                isSubmitting = false;
+//                return;
+//            }
             map.put("userId", UserDataManeger.getInstance().getUserId());
             map.put("ageF", ageF);
             map.put("ageB", ageB);
@@ -443,6 +538,34 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvCreate:
+                startdate = tvDateFrom.getText().toString().trim();
+                enddate = tvDateTo.getText().toString().trim();
+                content = etMsgContent.getText().toString().trim();
+                budget = etBudget.getText().toString().trim();
+
+                if (TextUtils.isEmpty(content)) {
+                    ToastUtils.showShort("请输入短信内容");
+                    isSubmitting = false;
+                    return;
+                }
+                if (startdate.equals("开始日期")) {
+                    ToastUtils.showShort("请输入开始日期");
+                    isSubmitting = false;
+                    return;
+                }
+                if (enddate.equals("结束日期")) {
+                    ToastUtils.showShort("请输入结束日期");
+                    isSubmitting = false;
+                    return;
+                }
+                if (TextUtils.isEmpty(budget)) {
+                    ToastUtils.showShort("请输入任务预算");
+                    isSubmitting = false;
+                    return;
+                }
+
+                // TODO: 2018/4/8 返回敏感字符接口
+
                 if (CommonUtils.haveSDCard()) {
                     if (hasPermisson()) {
                         showRemindDialog();
@@ -481,6 +604,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
     /**
      * 开始日期
+     *
      * @param v
      */
     private void showDateFromDialog(View v) {
@@ -550,7 +674,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     }
 
     /**
-     * dialog
+     * 确认提示框dialog
      */
     private void showRemindDialog() {
         final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this, "确认提交？", "注：任务提交后不得再次修改，且审核通过后不得删除！");

@@ -7,7 +7,9 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -37,6 +39,7 @@ import com.orientdata.lookforcustomers.network.okhttp.progress.ProgressListener;
 import com.orientdata.lookforcustomers.network.util.AppConfig;
 import com.orientdata.lookforcustomers.presenter.TaskPresent;
 import com.orientdata.lookforcustomers.util.DateTool;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.util.XEditText;
@@ -65,6 +68,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
@@ -128,12 +133,14 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
     //private int mCurrentTaskPagePosition = -1;
     private Context mContext;
     private boolean isSubmitting = false;
-
+    @BindView(R.id.et_budget)
+    EditText etBudget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_task);
+        ButterKnife.bind(this);
         this.mContext = this;
         getData();
         initIntentData();
@@ -152,7 +159,8 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
 
     private void updateView() {
         //预算／单价
-        tvCoverage.setText("预计最大可覆盖人数(人)：" + (int) (Integer.parseInt(budget) / Double.parseDouble(pagePrice)));
+        // TODO: 2018/4/4 设置最大覆盖人数 
+//        tvCoverage.setText("预计最大可覆盖人数(人)：" + (int) (Integer.parseInt(budget) / Double.parseDouble(pagePrice)));
     }
 
     private void initIntentData() {
@@ -173,7 +181,8 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
             type = intent.getIntExtra("type", 2);
             taskName = intent.getStringExtra("taskName");
             rangeRadius = intent.getStringExtra("rangeRadius");
-            budget = intent.getStringExtra("budget");
+
+//            budget = intent.getStringExtra("budget");
             longitude = intent.getStringExtra("longitude");
             dimension = intent.getStringExtra("dimension");
             mapPath = intent.getStringExtra("mapPath");
@@ -192,6 +201,9 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
         date_to = (RelativeLayout) findViewById(R.id.date_to);
         addAd = (ImageView) findViewById(R.id.addAd);
         tvCoverage = (TextView) findViewById(R.id.tvCoverage);
+
+
+
         tvDateFrom = date_from.findViewById(R.id.tvLeftText);
         input_img_url = findViewById(R.id.input_img_url);
         tvDateTo = date_to.findViewById(R.id.tvLeftText);
@@ -226,6 +238,27 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
                 startActivityForResult(intent, 1);
             }
         });
+
+        //输入任务预算时：
+        etBudget.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                budget = s.toString().trim();
+                if (!TextUtils.isEmpty(budget)) {
+                    tvCoverage.setText("预计最大可覆盖人数(人)：" + (int) (Integer.parseInt(budget) / Double.parseDouble(pagePrice)));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     /**
@@ -238,7 +271,15 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
 
             String startdate = tvDateFrom.getText().toString().trim();
             String enddate = tvDateTo.getText().toString().trim();
+
+            budget = etBudget.getText().toString().trim();
+
             // String content = etMsgContent.getText().toString().trim();
+
+            if (TextUtils.isEmpty(budget)) {
+                ToastUtils.showShort("请输入任务预算");
+                return;
+            }
             if (TextUtils.isEmpty(startdate)
                     || startdate.equals("开始日期")
                     || TextUtils.isEmpty(enddate)
@@ -413,6 +454,7 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
      * @param view
      */
     private void showPageTaskFromDialog(List<String> listString, final TextView view) {
+
         if (listString != null && listString.size() > 0) {
             final SettingStringDialog dialog = new SettingStringDialog(this, R.style.Theme_Light_Dialog);
             dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
@@ -496,7 +538,10 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
 
         if (!TextUtils.isEmpty(imgClipResultEvent.library_url)) {
             showDefaultLoading();
-            Glide.with(this).load(imgClipResultEvent.library_url).into(addAd);
+//          Glide.with(this).load(imgClipResultEvent.library_url).into(addAd);
+
+            GlideUtil.getInstance().loadAdImage(this,addAd,imgClipResultEvent.library_url,true);
+
             adImgPath = imgClipResultEvent.path;
             hideDefaultLoading();
         }

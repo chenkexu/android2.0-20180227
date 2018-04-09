@@ -151,7 +151,7 @@ public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, Cit
 
     private TextView tv_at_create_find_customer_type;//任务类型TextView
     private EditText et_ac_create_find_customer_name;//任务名称
-    private EditText et_ac_create_find_customer_budget; //任务预算
+//    private EditText et_ac_create_find_customer_budget; //任务预算
     private TextView tv_ac_create_find_customer_radius;//半径
     private TextView tv_ac_create_find_customer_set; //定向设置
     private TextView tv_at_create_find_customer_putlocation;//投放位置
@@ -344,7 +344,7 @@ public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, Cit
         tv_at_create_find_customer_nextstep = (TextView) findViewById(R.id.tv_at_create_find_customer_nextstep);
         tv_at_create_find_customer_nextstep.setOnClickListener(this);
         et_ac_create_find_customer_name = findViewById(R.id.et_ac_create_find_customer_name);
-        et_ac_create_find_customer_budget = (EditText) findViewById(R.id.et_ac_create_find_customer_budget);
+//        et_ac_create_find_customer_budget = (EditText) findViewById(R.id.et_ac_create_find_customer_budget);
         tv_name2 = (TextView) findViewById(R.id.tv_name2);
         et_ac_create_find_customer_name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -694,12 +694,12 @@ public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, Cit
             return;
         }
         String rangeRadius = mCircleRadiusM[mCurrentScaleLevelPositon];
-        String budget = et_ac_create_find_customer_budget.getText().toString().trim();
-        if (TextUtils.isEmpty(budget)) {
-            ToastUtils.showShort("请填写任务预算");
-            return;
-        }
-        BigDecimal b_budget = BigDecimal.valueOf(Double.valueOf(budget));
+//        String budget = et_ac_create_find_customer_budget.getText().toString().trim();
+//        if (TextUtils.isEmpty(budget)) {
+//            ToastUtils.showShort("请填写任务预算");
+//            return;
+//        }
+//        BigDecimal b_budget = BigDecimal.valueOf(Double.valueOf(budget));
 
         String longitude = String.valueOf(mCurrentLatLng.longitude);
         if (TextUtils.isEmpty(longitude)) {
@@ -733,7 +733,7 @@ public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, Cit
         } else {
             MDBasicRequestMap map = new MDBasicRequestMap();
             map.put("userId", UserDataManeger.getInstance().getUserId());
-            map.put("money", b_budget + "");
+//            map.put("money", b_budget + "");
             map.put("longitude", b_longitude + "");
             map.put("latitude", b_dimension + "");
             map.put("cityCode", mCityCode);
@@ -760,7 +760,7 @@ public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, Cit
             data.putExtra("type", type);
             data.putExtra("taskName", taskName);
             data.putExtra("rangeRadius", rangeRadius);
-            data.putExtra("budget", budget);
+//            data.putExtra("budget", budget);
             data.putExtra("longitude", longitude);
             data.putExtra("dimension", dimension);
             data.putExtra("address", mThrowAddress);
@@ -957,7 +957,7 @@ public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, Cit
         mTaskType = "";
         tv_at_create_find_customer_type.setText("--未设置--");
         et_ac_create_find_customer_name.setText("");
-        et_ac_create_find_customer_budget.setText("");
+//        et_ac_create_find_customer_budget.setText("");
         //定向设置清空
         ageF = "";
         ageB = "";
@@ -1374,6 +1374,10 @@ public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, Cit
         }
         return "";
     }
+
+
+
+
 
     private int findLocCityStatusByName(String provinceName, String cityName) {
         if (TextUtils.isEmpty(provinceName) || TextUtils.isEmpty(cityName)) {

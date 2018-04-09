@@ -30,6 +30,8 @@ public class HttpConstant {
 
 
     public static final String SELECT_PROVINCE_CITY = HOST_URL + "pub/selectPinYinCity";
+
+
     /*我的认证信息*/
     public static final String QUERY_CERTIFICATION_MSG = HOST_URL + "app/user/selectCertificate";
     /*一级行业*/
@@ -40,6 +42,8 @@ public class HttpConstant {
     public static final String SUBMIT_CERTIFICATION_URL = HOST_URL + "app/user/insertcertificate";
     /*查询定向设置*/
     public static final String SELECT_SETTING = HOST_URL + "pub/selectSettingList";
+
+
     public static final String UPLOAD_PIC = HOST_URL + "app/user/uploadPic";
     /*展示模板行业列表*/
     public static final String SELECT_USER_MODEL_LIST = HOST_URL + "pub/selectusermubanList";
@@ -47,8 +51,17 @@ public class HttpConstant {
     public static final String USER_PIC_LIST = HOST_URL + "app/user/selectUserPicList";
     /*删除图库*/
     public static final String DELETE_USER_PIC = HOST_URL + "app/user/delpicList";
+
+ // TODO: 2018/4/4 v2.0.1改版
+//    public static final String SELECT_NEXT_STEP_CHECK = HOST_URL + "app/selectPretask";
     /*下一步验证*/
-    public static final String SELECT_NEXT_STEP_CHECK = HOST_URL + "app/selectPretask";
+    public static final String SELECT_NEXT_STEP_CHECK = HOST_URL + "app/v1.1/selectPretask";
+
+    //获取签名信息
+    public static final String GET_SIGN_AND_TD = HOST_URL + "pub/v1.1/getSignAndTd";
+
+
+
     /*创建任务*/
     public static final String INSERT_CREATE_TASK = HOST_URL + "app/task/insertTask";//app/task/insertTask
     /*落地页提交*/
@@ -145,5 +158,13 @@ public class HttpConstant {
 
     /*发票详情*/
     public static final String SELECT_ANNOUNCEMENT_INFO = HOST_URL + "app/announcement/selectAnnouncementInfo";
+
+
+
+
+
+
+
+
 
 }

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:text="选择行业:"
-            android:textColor="@color/c_1C1C1C"
+            android:textColor="@color/text_gray"
             android:textSize="11sp" />
 
         <include
@@ -46,8 +46,8 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="行业模板："
-            android:textColor="@color/c_1C1C1C"
-            android:textSize="15sp"
+            android:textColor="@color/text_gray"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <ListView
@@ -57,7 +57,7 @@
             android:divider="@null"
             android:dividerHeight="0dp"
             android:choiceMode="singleChoice"
-            android:layout_below="@+id/tvMode"></ListView>
+            android:layout_below="@+id/tvMode"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,7 +84,8 @@
                     android:drawablePadding="5dp"
                     android:drawableLeft="@mipmap/change"
                     android:text="换一换"
-                    android:textColor="@color/c_09B6F2" />
+                    android:textStyle="bold"
+                    android:textColor="@color/dialog_color" />
 
                 <View
                     android:layout_width="1px"
@@ -96,7 +97,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/c_09B6F2"
+                    android:background="@drawable/bg_tv_round_gradient"
                     android:gravity="center"
                     android:text="图片制作"
                     android:textColor="@color/c_ffffff" />

@@ -134,13 +134,14 @@ public class HobbyMultipleSelectDialog extends Dialog implements View.OnClickLis
         updateEnableStatus();
         adapter = new MyAdapter(mContext,0,data);
         mStringView.setAdapter(adapter);
-//        mStringView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mStringView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
 //                updateData(position);
 //                adapter.notifyDataSetInvalidated();
-//            }
-//        });
+            }
+        });
     }
     private void updateData(int position){
         data.get(position).setClicked(!(data.get(position).isClicked()));
@@ -254,7 +255,7 @@ public class HobbyMultipleSelectDialog extends Dialog implements View.OnClickLis
             final InterestCategory data = datas.get(position);
             viewHolder.areaName.setText(data.getIndustryName());
             if (position == selectItem || data.isClicked()) {
-                viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.c_09B6F2));
+                viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.dialog_color));
             }else {
                 viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.c_414141));
             }

@@ -41,7 +41,7 @@
                 android:paddingStart="15dp"
                 android:paddingTop="10dp"
                 android:text="《营业执照》或《组织机构代码证》/身份证照片"
-                android:textColor="#1c1c1c"
+                android:textColor="@color/text_gray"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -71,7 +71,7 @@
                 android:paddingStart="15dp"
                 android:paddingTop="10dp"
                 android:text="所属行业"
-                android:textColor="#1c1c1c"
+                android:textColor="@color/text_gray"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -104,7 +104,7 @@
                 android:paddingStart="15dp"
                 android:paddingTop="10dp"
                 android:text="资质证件"
-                android:textColor="#1c1c1c"
+                android:textColor="@color/text_gray"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 

@@ -3,44 +3,32 @@ package com.orientdata.lookforcustomers.view.home.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.base.WangrunBaseFragment;
 import com.orientdata.lookforcustomers.bean.MsgListBean;
 import com.orientdata.lookforcustomers.bean.Result;
-import com.orientdata.lookforcustomers.bean.UserPicStore;
-import com.orientdata.lookforcustomers.event.ImgClipResultEvent;
 import com.orientdata.lookforcustomers.event.MsgListEvent;
 import com.orientdata.lookforcustomers.event.MsgUpdateEvent;
 import com.orientdata.lookforcustomers.presenter.MsgPresent;
-import com.orientdata.lookforcustomers.presenter.ReportPresent;
-import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.findcustomer.fragment.AlbumGridViewAdapter;
 import com.orientdata.lookforcustomers.view.home.IMsgView;
 import com.orientdata.lookforcustomers.view.home.imple.MsgDetailActivity;
 import com.orientdata.lookforcustomers.view.xlistview.XListView;
 import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import vr.md.com.mdlibrary.UserDataManeger;
 
 /**
  * Created by wy on 2017/10/30.
@@ -57,6 +45,7 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
     private MsgListAdapter adapter = null;
     private LinearLayout rl_bottom;
     private TextView tvChoose,tvDelete;
+    private LinearLayout ll_no_content;
 
 
     @Nullable
@@ -76,6 +65,7 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
         tvChoose = view.findViewById(R.id.tvChoose);
         tvDelete = view.findViewById(R.id.tvDelete1);
         rl_bottom = view.findViewById(R.id.rl_bottom);
+        ll_no_content = view.findViewById(R.id.ll_no_content);
         tvDelete.setOnClickListener(this);
         tvChoose.setOnClickListener(this);
         xListView.setPullRefreshEnable(false);
@@ -114,13 +104,13 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
         title.setTitleName("消息");
     }
 
+
     @Subscribe
     public void msgList(MsgListEvent msgListEvent){
         MsgListBean msgListBean = msgListEvent.msgListBean;
+
         if(msgListBean!=null) {
             xListView.setLoadState(XListViewFooter.STATE_NO_MORE);
-
-
             /*---------------------------假数据开始----------------------------*/
             if(results == null){
                 results = new ArrayList<>();
@@ -145,36 +135,45 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
             /*---------------------------假数据结束----------------------------*/
             results = msgListBean.getResult();
 
-            if(results!=null && isEdit){
-                //编辑状态
-                for(Result result:results){
-                    result.setEdit(true);
-                }
-            }
-            if(results!=null && results.size()>0){
-                if(isEdit){
-                    title.setRightText("取消");
-                    updateDeleteView();
-                }else{
-                    title.setRightText("编辑");
-                }
-                title.setRightTextClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(resultChoose!=null){
-                            resultChoose.clear();
-                        }
-                        if(!isEdit){
-                            updateEditStatus(true);
-                        }else{
-                            updateEditStatus(false);
-                        }
-                    }
-                });
+            if (results==null) {  //消息数据为空
+                ll_no_content.setVisibility(View.VISIBLE);
+                xListView.setVisibility(View.GONE);
+                Logger.d("results消息数据为空2");
             }else{
-                title.setRightText("");
-                rl_bottom.setVisibility(View.GONE);
+                ll_no_content.setVisibility(View.GONE);
+                xListView.setVisibility(View.VISIBLE);
+                if(results!=null && isEdit){
+                    //编辑状态
+                    for(Result result:results){
+                        result.setEdit(true);
+                    }
+                }
+                if(results!=null && results.size()>0){
+                    if(isEdit){
+                        title.setRightText("取消");
+                        updateDeleteView();
+                    }else{
+                        title.setRightText("编辑");
+                    }
+                    title.setRightTextClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(resultChoose!=null){
+                                resultChoose.clear();
+                            }
+                            if(!isEdit){
+                                updateEditStatus(true);
+                            }else{
+                                updateEditStatus(false);
+                            }
+                        }
+                    });
+                }else{
+                    title.setRightText("");
+                    rl_bottom.setVisibility(View.GONE);
+                }
             }
+
         }
         adapter = new MsgListAdapter(getContext(),results,resultChoose);
         xListView.setAdapter(adapter);

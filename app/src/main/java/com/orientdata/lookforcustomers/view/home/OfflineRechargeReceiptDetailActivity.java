@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.bean.OfflineRechargeBean;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
 /**
@@ -64,7 +65,8 @@ public class OfflineRechargeReceiptDetailActivity extends WangrunBaseActivity {
                     tv_money.setText(mBean.getMoney() + "");
                 }
                 if (!TextUtils.isEmpty(mBean.getVoucherImgid().trim())) {
-                    Glide.with(this).load(mBean.getVoucherImgid().trim()).into(iv_upload);
+//                    Glide.with(this).load(mBean.getVoucherImgid().trim()).into(iv_upload);
+                    GlideUtil.getInstance().loadImage(this,iv_upload,mBean.getVoucherImgid().trim(),R.mipmap.icon_id_error,true);
                 }
                 if (!TextUtils.isEmpty(mBean.getMoney() + "")) {
                     tv_money.setText(mBean.getMoney() + "");

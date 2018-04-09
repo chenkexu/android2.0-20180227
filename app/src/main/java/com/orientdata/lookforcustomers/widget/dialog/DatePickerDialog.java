@@ -177,7 +177,7 @@ public class DatePickerDialog extends Dialog {
                 if (pf.getName().equals("mSelectionDivider")) {
                     pf.setAccessible(true);
                     try {
-                        pf.set(picker, new ColorDrawable(mContext.getResources().getColor(R.color.c_09B6F2)));
+                        pf.set(picker, new ColorDrawable(mContext.getResources().getColor(R.color.dialog_color)));
                     } catch (IllegalArgumentException e) {
                         e.printStackTrace();
                     } catch (Resources.NotFoundException e) {

@@ -2,14 +2,12 @@ package com.orientdata.lookforcustomers.view.mine.imple;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
-import com.orientdata.lookforcustomers.event.MyMoneyEvent;
 import com.orientdata.lookforcustomers.event.UpdateSmsTimeEvent;
 import com.orientdata.lookforcustomers.event.UpdateToBalanceEvent;
 import com.orientdata.lookforcustomers.presenter.CommissionPresent;
@@ -18,7 +16,6 @@ import com.orientdata.lookforcustomers.view.mine.ICommissionView;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.SubmitFeedBackDialog;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
@@ -134,12 +131,14 @@ public class PhoneCodeActivity extends BaseActivity<ICommissionView, CommissionP
     public void updateSmsState(UpdateSmsTimeEvent updateSmsTimeEvent) {
         codeId = updateSmsTimeEvent.codeId;
         if (updateSmsTimeEvent.isCall) {
-            tvGetCode.setText("再次获取验(60)");
+            tvGetCode.setText("再次获取(60)");
             tvGetCode.setClickable(true);
-            tvCode.setBackground(getResources().getDrawable(R.drawable.bg_tv_round_gradient));
+            tvGetCode.setBackground(getResources().getDrawable(R.drawable.bg_tv_round_gradient));
+//            tvCode.setBackground(getResources().getDrawable(R.drawable.bg_tv_round_gradient));
         } else {
             tvGetCode.setText(updateSmsTimeEvent.surplusTime);
-            tvCode.setBackground(getResources().getDrawable(R.drawable.round_border1));
+            tvGetCode.setBackground(getResources().getDrawable(R.drawable.round_border_code));
+//            tvCode.setBackground(getResources().getDrawable(R.drawable.round_border1));
             tvGetCode.setClickable(false);
         }
     }

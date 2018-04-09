@@ -16,6 +16,7 @@ import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.QualificationCertificationUser;
 import com.orientdata.lookforcustomers.presenter.CertificatePresent;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
 import java.util.List;
@@ -102,8 +103,10 @@ public class WathchCertificationActivity extends BaseActivity<ICertificateView, 
                             q = ulist.get(i);
                             view = LayoutInflater.from(this).inflate(R.layout.customize_creadential_watch_view2, null, true);
                             imageView = view.findViewById(R.id.iv_customize_creadential_upload);
-                            setImageBitmap(imageView, q.getCertificationImgid());
+//                            setImageBitmap(imageView, q.getCertificationImgid());
+                            setImageBitmapPersonId(imageView,q.getCertificationImgid());
                             ll_id_certification_container.addView(view);
+
                         }
                         if (ulist.size() >= 4) {
                             tv_certification_topic.setVisibility(View.VISIBLE);
@@ -112,7 +115,8 @@ public class WathchCertificationActivity extends BaseActivity<ICertificateView, 
                                 q = ulist.get(i);
                                 view = LayoutInflater.from(this).inflate(R.layout.customize_creadential_watch_view, null, true);
                                 imageView = view.findViewById(R.id.iv_customize_creadential_upload);
-                                setImageBitmap(imageView, q.getCertificationImgid());
+//                                setImageBitmap(imageView, q.getCertificationImgid());
+                                setImageBitmapPersonId(imageView,q.getCertificationImgid());
                                 ll_industry_certification_container.addView(view);
                             }
                         } else {
@@ -128,9 +132,17 @@ public class WathchCertificationActivity extends BaseActivity<ICertificateView, 
         }
     }
 
+    public void setImageBitmapPersonId(ImageView imageView, String path) {
+        if (!TextUtils.isEmpty(path)) {
+            GlideUtil.getInstance().loadCertificateImageId(this,imageView,path,true);
+//            Glide.with(this).load(path).into(imageView);
+        }
+    }
+
     public void setImageBitmap(ImageView imageView, String path) {
         if (!TextUtils.isEmpty(path)) {
-            Glide.with(this).load(path).into(imageView);
+            GlideUtil.getInstance().loadCertificateImage(this,imageView,path,true);
+//            Glide.with(this).load(path).into(imageView);
         }
     }
 
@@ -142,6 +154,7 @@ public class WathchCertificationActivity extends BaseActivity<ICertificateView, 
         ll_id_certification_container = findViewById(R.id.ll_id_certification_container);
         ll_industry_certification_container = findViewById(R.id.ll_industry_certification_container);
         tv_certification_topic = findViewById(R.id.tv_certification_topic);
+
     }
 
     /**

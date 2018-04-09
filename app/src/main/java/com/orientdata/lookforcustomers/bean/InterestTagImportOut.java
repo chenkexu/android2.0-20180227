@@ -64,6 +64,15 @@ public class InterestTagImportOut implements Serializable {
         this.interestIndustryId = interestIndustryId;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "InterestTagImportOut{" +
+                "eri=" + eri +
+                ", industryName='" + industryName + '\'' +
+                ", parentId=" + parentId +
+                ", areaId=" + areaId +
+                ", interestIndustryId=" + interestIndustryId +
+                ", isChecked=" + isChecked +
+                '}';
+    }
 }
