@@ -15,7 +15,7 @@ public class SelectSettingModelImple implements ISelectSettingModel {
 
     @Override
     public void getSelectSetting(final Complete complete,String code) {
-        String url = HttpConstant.SELECT_SETTING;
+        String url = HttpConstant.SELECT_SETTING2;
         MDBasicRequestMap map = new MDBasicRequestMap();
         map.put("code",code);
         OkHttpClientManager.postAsyn(url, new OkHttpClientManager.ResultCallback<SelectSettingBean>() {

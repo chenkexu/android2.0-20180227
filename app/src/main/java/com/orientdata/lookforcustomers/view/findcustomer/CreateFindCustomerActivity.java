@@ -217,6 +217,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     private String mThrowAddress;//投放地址
     private String mStrType;
     private String mProvinceCode;
+    private String industryMark;
+    private String industryNameStr;
 
 
     @Override
@@ -373,9 +375,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             mTaskOut = (TaskOut) getIntent().getSerializableExtra("taskOut");
         }
 
-        if (isReCreate) {
-            //不需要再次创建
-
+        if (isReCreate) { //再次创建的TaskOut
             mThrowAddress = mTaskOut.getThrowAddress();//上一次的投放地址
 //            BigDecimal latitude = mTaskOut.getDimension();//纬度
 //            BigDecimal longitude = mTaskOut.getDimension();//经度
@@ -401,21 +401,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             OrientationSettingsOut orientationSettingsOut = mTaskOut.getOrientationSettingsOut();
             ageF = orientationSettingsOut.getAgeF();
             ageB = orientationSettingsOut.getAgeB();
-//            educationLevelF = orientationSettingsOut.getEducationLevelF();
-//            educationLevelB = orientationSettingsOut.getEducationLevelB();
             sex = orientationSettingsOut.getSex();
-//            consumptionCapacityF = orientationSettingsOut.getConsumptionCapacityF();
-//            consumptionCapacityB = orientationSettingsOut.getConsumptionCapacityB();
-//            ascription = orientationSettingsOut.getAscription();
             List<String> jixing = orientationSettingsOut.getJixing();//机型数组
-
-//            for (int i = 0; i < jixing.size(); i++) {
-//                if (i == 0) {
-//                    phoneModelIds = phoneModelIds + jixing.get(i);
-//                } else {
-//                    phoneModelIds = phoneModelIds + "," + jixing.get(i);
-//                }
-//            }
             List<String> xingqu = orientationSettingsOut.getXingqu();//兴趣数组
             for (int i = 0; i < xingqu.size(); i++) {
                 if (i == 0) {
@@ -424,9 +411,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     interestIds = interestIds + "," + xingqu.get(i);
                 }
             }
-            // phoneModelIds = o.getJixing();
-//            interestIds = data.getStringExtra("interestIds");
-            tv_ac_create_find_customer_set.setText("已设置");
+            tv_ac_create_find_customer_set.setText("已设置--"+orientationSettingsOut.getIndustryName());
+            
             mCityCode = mTaskOut.getCityCode().trim();//上次创建的cityCode
             //上次创建的cityCode
             mProvinceCode = mTaskOut.getProvinceCode().trim();
@@ -656,6 +642,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
                 if (isReCreate) {
                     Logger.d("打开详情已经创建好的：cityCode:"+mCityCode+" "+mTaskOut.getOrientationSettingsOut().toString());
+                    // TODO: 2018/4/10  
                     intent.putExtra("orientationSettingsOut", mTaskOut.getOrientationSettingsOut());
                 }
 
@@ -816,6 +803,10 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             intent.putExtra("pagePrice", pagePrice);
             intent.putExtra("smsPrice", smsPrice);
             intent.putExtra("mProvinceCode", mProvinceCode);
+
+            intent.putExtra("industryMark", industryMark);
+            intent.putExtra("industryNameStr", industryNameStr);
+
 
             final int type2 = type;
             //下一步验证
@@ -1107,13 +1098,25 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 break;
             case 3: //定向设置
                 if (data != null) {
-                    // TODO: 2018/4/4 界面显示定向设置的内容 
+                    // TODO: 2018/4/4 界面显示定向设置的内容
+//                    data.putExtra("interestIds", interestIds); //兴趣点。
+//                    data.putExtra("industryMark", industryMark);
+//                    data.putExtra("industryNameStr", industryNameStr);
+
                     ageF = data.getStringExtra("ageF");//年龄
                     ageB = data.getStringExtra("ageB");
                     sex = data.getStringExtra("sex");//性别
+
                     interestIds = data.getStringExtra("interestIds");//兴趣爱好
-                    tv_ac_create_find_customer_set.setText("已设置");
+                    industryMark = data.getStringExtra("industryMark");
+                    industryNameStr = data.getStringExtra("industryNameStr");
+
+
+                    tv_ac_create_find_customer_set.setText("已设置--"+ industryNameStr);
+
                     isReCreate = false;//将重新创建置false 定向 使用缓存的内容 更新界面
+
+
 //                    educationLevelF = data.getStringExtra("educationLevelF");
 //                    educationLevelB = data.getStringExtra("educationLevelB");
 //                    consumptionCapacityF = data.getStringExtra("consumptionCapacityF");

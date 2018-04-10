@@ -18,13 +18,13 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
-        app:srcCompat="@mipmap/add_search" />
+        app:srcCompat="@mipmap/bg_img_fm_home_create_xunke1" />
 
     <TextView
         android:id="@+id/textView8"
@@ -35,7 +35,7 @@
         android:layout_toEndOf="@+id/imageView5"
         android:layout_toRightOf="@+id/imageView5"
         android:textSize="20sp"
-        android:textColor="@color/c_1C1C1C"
+        android:textColor="@color/text_gray"
         android:textStyle="bold"
         android:text="创建寻客" />
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.bean.OrientationSettingsOut;
+import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public class DirectionDetailActivity extends WangrunBaseActivity{
     private MyTitle myTitle;
     private TextView userAge,sex,edu,ascription,consumptionCapacity,model,hobby;
     private OrientationSettingsOut orientationSetting = null;
+    private TaskOut taskout;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +31,10 @@ public class DirectionDetailActivity extends WangrunBaseActivity{
         updateView();
     }
     private void initView(){
-        orientationSetting = (OrientationSettingsOut) getIntent().getSerializableExtra("orientationSetting");
+        taskout = (TaskOut) getIntent().getSerializableExtra("taskOut");
+        orientationSetting = taskout.getOrientationSettingsOut();
+//        orientationSetting = (OrientationSettingsOut) getIntent().getSerializableExtra("orientationSetting");
+
         myTitle = findViewById(R.id.myTitle);
         userAge = findViewById(R.id.userAge);
         sex = findViewById(R.id.sex);
@@ -44,6 +50,10 @@ public class DirectionDetailActivity extends WangrunBaseActivity{
     }
     private void updateView(){
         if(orientationSetting!=null){
+
+            int customFlag = taskout.getCustomFlag();
+
+
             userAge.setText(orientationSetting.getAgeF()+"-"+orientationSetting.getAgeB());
             sex.setText(orientationSetting.getSex());
             edu.setText(orientationSetting.getEducationLevelF()+"-"+orientationSetting.getEducationLevelB());
@@ -64,7 +74,12 @@ public class DirectionDetailActivity extends WangrunBaseActivity{
                     hobbyStr.append((i==hobbyList.size()-1)?hobbyList.get(i):hobbyList.get(i)+"、");
                 }
             }
-            hobby.setText(hobbyStr.toString());
+            if (customFlag==0) {  //使用行业
+                hobby.setText(taskout.getIndustryName());
+            }else{ //使用自定义
+                hobby.setText("自定义："+hobbyStr.toString());
+            }
+
         }
     }
 }

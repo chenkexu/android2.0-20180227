@@ -123,6 +123,7 @@
                             android:id="@+id/tv_message_sign"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:padding="5dp"
                             android:text="【请输入企业签名2-4个汉字】"
                             android:textColor="@color/text_gray"
                             android:textSize="12sp" />
@@ -132,6 +133,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@id/tv_message_sign"
+                            android:padding="5dp"
                             android:text="请输入短信内容"
                             android:textColor="@color/text_gray"
                             android:textSize="12sp"
@@ -310,12 +312,12 @@
 
 
                     <EditText
-                        android:gravity="center"
                         android:id="@+id/et_budget"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:background="@drawable/shape_bg_gray_round_rec2"
+                        android:gravity="center"
                         android:hint="请输入任务预算，1000元起"
                         android:inputType="number"
                         android:maxLines="1"

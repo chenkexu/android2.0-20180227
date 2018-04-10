@@ -360,6 +360,7 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
 
                 String interestIds = "";//兴趣名称数组,以逗号隔开的 如 "教育,学前教育,东磁教育"
 
+                //设置一堆兴趣点。。。
                 for (Map.Entry<String, List<String>> map : hobbyMap.entrySet()) {
                     String key = map.getKey();
                     List<String> listStr = map.getValue();
@@ -368,6 +369,7 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
                         interestIds += str + ",";
                     }
                 }
+
                 if (!TextUtils.isEmpty(interestIds)) {
                     //去掉最后一个,
                     interestIds = interestIds.substring(0, interestIds.length() - 1);
@@ -388,7 +390,11 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
                     orientationSettingsOut.setXingqu(hobbyList);
                     orientationSettingsOut.setUserId(Integer.parseInt(UserDataManeger.getInstance().getUserId()));
                     orientationSettingsOut.setModeMap(modeMap);
+
+
+                    //缓存机型数据
                     orientationSettingsOut.setHobbyMap(hobbyMap);
+
                     ArrayList<OrientationSettingsOut> list = (ArrayList<OrientationSettingsOut>) aCache.getAsObject(SharedPreferencesTool.DIRECTION_HISTORY);
                     if (list != null) {
                         List<OrientationSettingsOut> templist = new ArrayList<>();
@@ -401,6 +407,7 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
                     } else {
                         list = new ArrayList<>();
                     }
+
                     list.add(orientationSettingsOut);
                     aCache.put(SharedPreferencesTool.DIRECTION_HISTORY, list);
 

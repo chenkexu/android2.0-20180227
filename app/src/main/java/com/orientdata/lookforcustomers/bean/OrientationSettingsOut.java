@@ -26,6 +26,36 @@ public class OrientationSettingsOut implements Serializable {
 
     private Map<String,List<String>> hobbyMap;
 
+    private String industryMark;
+    private String industryName;
+
+    private int customFlag;
+
+
+    public int getCustomFlag() {
+        return customFlag;
+    }
+
+    public void setCustomFlag(int customFlag) {
+        this.customFlag = customFlag;
+    }
+
+    public String getIndustryMark() {
+        return industryMark;
+    }
+
+    public void setIndustryMark(String industryMark) {
+        this.industryMark = industryMark;
+    }
+
+    public String getIndustryName() {
+        return industryName;
+    }
+
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName;
+    }
+
     public List<String> getJixing() {
         return jixing;
     }

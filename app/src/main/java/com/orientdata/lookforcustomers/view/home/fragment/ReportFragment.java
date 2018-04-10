@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.base.WangrunBaseFragment;
@@ -68,7 +69,6 @@ import vr.md.com.mdlibrary.utils.DisplayUtil;
  * Created by wy on 2017/10/30.
  * 报表Fragment
  */
-
 public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPresent<IReportView>> implements IReportView, MyChartView.ClickListener, View.OnClickListener {
     private TabLayout tabs;
     private String[] mTitleList;
@@ -410,7 +410,10 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
             lastMonthMsgConView.startDrawLine(0);
             lastMonthMsgConView.setId(R.id.lastmonth_line_msgcon);
 
+
+            Logger.d(lastMonthMsgIssuedY);
             lastMonthMsgIssuedView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthMsgIssuedY, msgIssuedColor);
+
             lastMonthMsgIssuedView.setClickListener(this);
             lastMonthMsgIssuedView.startDrawLine(0);
             lastMonthMsgIssuedView.setId(R.id.lastmonth_line_msgissued);
@@ -608,6 +611,8 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
             initChartView();
         }
     }
+
+
 
     private void setData1(int type, List<Report> list,boolean isErro) {
         if (list != null) {
@@ -1306,6 +1311,8 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
         curveRl.addView(v);
         updatePageDisplayBtn(true);
     }
+
+
     private void addPageDisplay(){
         View v = getPageDisplayRemoveView();
 

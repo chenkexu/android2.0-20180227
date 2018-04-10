@@ -654,6 +654,7 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
             } else {
                 ACache.get(getContext()).remove(SharedPreferencesTool.DIRECTION_HISTORY);
                 startActivity(new Intent(getContext(), CreateFindCustomerActivity.class));
+
             }
         }
     }

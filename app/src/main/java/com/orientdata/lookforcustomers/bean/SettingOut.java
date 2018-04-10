@@ -16,6 +16,16 @@ public class SettingOut implements Serializable {
     private List<String> xiaofei;//消费能力
     private List<BaseTagImportOut> jixing;//机型
     private List<InterestTagImportOut> ico;//兴趣
+    private boolean visibility;
+
+
+    public boolean isVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
+    }
 
     public List<String> getAge() {
         return age;

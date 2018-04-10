@@ -12,7 +12,7 @@
         android:layout_height="30dp"
         android:text="全部类型"
         android:gravity="center_vertical"
-        android:textColor="@color/c_1C1C1C"
+        android:textColor="@color/text_gray"
         android:textStyle="bold"
         android:textSize="14sp" />
     <ImageView

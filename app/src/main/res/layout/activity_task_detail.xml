@@ -237,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:text="短信内容"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/c_1C1C1C"
+                android:textColor="@color/text_gray"
                 android:textSize="15sp"
                 android:textStyle="bold"/>
             <TextView

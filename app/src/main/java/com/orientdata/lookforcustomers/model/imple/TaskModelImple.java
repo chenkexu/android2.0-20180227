@@ -19,7 +19,7 @@ public class TaskModelImple implements ITaskModel {
 
     @Override
     public void createCustomer(final Complete complete, String code) {
-        String url = HttpConstant.SELECT_SETTING;
+        String url = HttpConstant.SELECT_SETTING2;
         MDBasicRequestMap map = new MDBasicRequestMap();
         map.put("code",code);
         OkHttpClientManager.postAsyn(url, new OkHttpClientManager.ResultCallback<SelectSettingBean>() {
@@ -38,7 +38,7 @@ public class TaskModelImple implements ITaskModel {
     }
     @Override
     public void getTaskDetail(final TaskInfoComplete complete, int taskId) {
-        String url = HttpConstant.USER_TASK_INFO;
+        String url = HttpConstant.USER_TASK_INFO2;
         MDBasicRequestMap map = new MDBasicRequestMap();
         map.put("userId", UserDataManeger.getInstance().getUserId());
         map.put("taskId",taskId+"");

@@ -251,7 +251,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_recharge_tv_checked2"
                         android:gravity="center"
-                        android:text="3c"
+                        android:text="3C数码"
                         android:textColor="@drawable/button_color"
                         android:textSize="14sp" />
 
@@ -262,7 +262,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_recharge_tv_checked2"
                         android:gravity="center"
-                        android:text="日百"
+                        android:text="日用百货"
                         android:textColor="@drawable/button_color"
                         android:textSize="14sp" />
 
@@ -285,7 +285,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_recharge_tv_checked2"
                         android:gravity="center"
-                        android:text="母婴"
+                        android:text="母婴用品"
                         android:textColor="@drawable/button_color"
                         android:textSize="14sp" />
 
@@ -331,7 +331,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_recharge_tv_checked2"
                         android:gravity="center"
-                        android:text="汽车"
+                        android:text="汽车用品"
                         android:textColor="@drawable/button_color"
                         android:textSize="14sp" />
 

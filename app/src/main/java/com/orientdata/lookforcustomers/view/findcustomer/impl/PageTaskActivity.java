@@ -40,6 +40,7 @@ import com.orientdata.lookforcustomers.network.util.AppConfig;
 import com.orientdata.lookforcustomers.presenter.TaskPresent;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.GlideUtil;
+import com.orientdata.lookforcustomers.util.RegexUtils;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.util.XEditText;
@@ -135,6 +136,11 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
     private boolean isSubmitting = false;
     @BindView(R.id.et_budget)
     EditText etBudget;
+    private String industryMark ="";
+    private String industryNameStr="";
+    private String adLink;
+    private String enddate;
+    private String startdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,13 +174,13 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
         if (intent != null) {
             ageF = intent.getStringExtra("ageF");
             ageB = intent.getStringExtra("ageB");
-            educationLevelF = intent.getStringExtra("educationLevelF");
-            educationLevelB = intent.getStringExtra("educationLevelB");
+//            educationLevelF = intent.getStringExtra("educationLevelF");
+//            educationLevelB = intent.getStringExtra("educationLevelB");
             sex = intent.getStringExtra("sex");
-            consumptionCapacityF = intent.getStringExtra("consumptionCapacityF");
-            consumptionCapacityB = intent.getStringExtra("consumptionCapacityB");
-            ascription = intent.getStringExtra("ascription");
-            phoneModelIds = intent.getStringExtra("phoneModelIds");
+//            consumptionCapacityF = intent.getStringExtra("consumptionCapacityF");
+//            consumptionCapacityB = intent.getStringExtra("consumptionCapacityB");
+//            ascription = intent.getStringExtra("ascription");
+//            phoneModelIds = intent.getStringExtra("phoneModelIds");
             interestIds = intent.getStringExtra("interestIds");
             cityCode = intent.getStringExtra("cityCode");
             throwAddress = intent.getStringExtra("throwAddress");
@@ -190,6 +196,9 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
             pagePrice = intent.getStringExtra("pagePrice");
             day = intent.getIntExtra("day", 0);
             mCityName = intent.getStringExtra("cityName");
+
+            industryMark = intent.getStringExtra("industryMark");
+            industryNameStr = intent.getStringExtra("industryNameStr");
 
         }
     }
@@ -221,6 +230,27 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
         addAd.setOnClickListener(this);
         textView3.setOnClickListener(this);
         imageView4.setOnClickListener(this);
+
+        et_http.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (TextUtils.isEmpty(s.toString())) {
+                    iv_close.setVisibility(View.GONE);
+                }else {
+                    iv_close.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void initTitle() {
@@ -269,37 +299,6 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
             isSubmitting = true;
             MDBasicRequestMap map = new MDBasicRequestMap();
 
-            String startdate = tvDateFrom.getText().toString().trim();
-            String enddate = tvDateTo.getText().toString().trim();
-
-            budget = etBudget.getText().toString().trim();
-
-            // String content = etMsgContent.getText().toString().trim();
-
-            if (TextUtils.isEmpty(budget)) {
-                ToastUtils.showShort("请输入任务预算");
-                return;
-            }
-            if (TextUtils.isEmpty(startdate)
-                    || startdate.equals("开始日期")
-                    || TextUtils.isEmpty(enddate)
-                    || enddate.equals("结束日期")) {
-                ToastUtils.showShort("请选择开始/结束日期！");
-                isSubmitting = false;
-                return;
-            }
-            if (TextUtils.isEmpty(adImgPath)) {
-                ToastUtils.showShort("请选择广告位图片！");
-                isSubmitting = false;
-                return;
-            }
-
-            String adLink = et_http.getText().toString().trim();
-            if (TextUtils.isEmpty(adLink) && pageTaskFromPosition == -1) {
-                ToastUtils.showShort("请选择落地页或者输入图片链接！");
-                isSubmitting = false;
-                return;
-            }
             if (!TextUtils.isEmpty(adLink)) {
                 map.put("adLink", adLink);
             }
@@ -310,13 +309,13 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
             map.put("userId", UserDataManeger.getInstance().getUserId());
             map.put("ageF", ageF);
             map.put("ageB", ageB);
-            map.put("educationLevelF", educationLevelF);
-            map.put("educationLevelB", educationLevelB);
+//            map.put("educationLevelF", educationLevelF);
+//            map.put("educationLevelB", educationLevelB);
             map.put("sex", sex);
-            map.put("consumptionCapacityF", consumptionCapacityF);
-            map.put("consumptionCapacityB", consumptionCapacityB);
-            map.put("ascription", ascription);
-            map.put("phoneModelIds", phoneModelIds);
+//            map.put("consumptionCapacityF", consumptionCapacityF);
+//            map.put("consumptionCapacityB", consumptionCapacityB);
+//            map.put("ascription", ascription);
+//            map.put("phoneModelIds", phoneModelIds);
             map.put("interestIds", interestIds);
             map.put("cityCode", cityCode);
             map.put("throwAddress", throwAddress);
@@ -330,6 +329,8 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
             map.put("testCuPhone", testCuPhone);
             map.put("testCtPhone", testCtPhone);
 
+            map.put("industryMark",industryMark ); //是否自定义行业
+            map.put("industry", industryNameStr); //行业名称
 
 
         /*map.put("adImgid", "");
@@ -345,9 +346,10 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
             submitFileKeys[0] = 1 + "";
             List<File> fileList = new ArrayList<>();
             fileList.add(new File(adImgPath));
+
             try {
                 showDefaultLoading();
-                OkHttpClientManager.postAsyn(HttpConstant.INSERT_CREATE_TASK, new OkHttpClientManager.ResultCallback<ErrBean>() {
+                OkHttpClientManager.postAsyn(HttpConstant.INSERT_CREATE_TASK2, new OkHttpClientManager.ResultCallback<ErrBean>() {
                     @Override
                     public void onError(Exception e) {
                         hideDefaultLoading();
@@ -385,6 +387,45 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvCreate://创建任务
+                startdate = tvDateFrom.getText().toString().trim();
+                enddate = tvDateTo.getText().toString().trim();
+                adLink = et_http.getText().toString().trim();
+                budget = etBudget.getText().toString().trim();
+
+                // String content = etMsgContent.getText().toString().trim();
+                if (TextUtils.isEmpty(adImgPath)) {
+                    ToastUtils.showShort("请选择广告位图片！");
+                    isSubmitting = false;
+                    return;
+                }
+
+                if (TextUtils.isEmpty(adLink) && pageTaskFromPosition == -1) {
+                    ToastUtils.showShort("请选择落地页或者输入图片链接！");
+                    isSubmitting = false;
+                    return;
+                }
+
+                if (!RegexUtils.isURL(adLink)){
+                    ToastUtils.showShort("请输入有效的图片链接！");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(startdate)
+                        || startdate.equals("开始日期")
+                        || TextUtils.isEmpty(enddate)
+                        || enddate.equals("结束日期")) {
+                    ToastUtils.showShort("请选择开始/结束日期！");
+                    isSubmitting = false;
+                    return;
+                }
+
+                if (TextUtils.isEmpty(budget)) {
+                    ToastUtils.showShort("请输入任务预算");
+                    return;
+                }
+
+
+
                 showRemindDialog();
                 break;
             case R.id.date_from:
@@ -418,6 +459,7 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
                 break;
             case R.id.iv_close:
                 tv_http.setText("http://");
+                et_http.setText("");
                 et_http.setFocusableInTouchMode(true);
                 et_http.setFocusable(true);
                 et_http.requestFocus();
@@ -473,6 +515,8 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
             dialog.setUpData(listString);
             dialog.setSelect(pageTaskFromPosition);
             dialog.show();
+        }else{
+            ToastUtils.showShort("没有落地页可选择，请先创建");
         }
     }
 

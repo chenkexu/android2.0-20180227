@@ -46,6 +46,25 @@ public class TaskOut implements Serializable{
     private String testCuPhone;
     private String testCtPhone;
 
+    private int customFlag;
+    private String industryName;
+
+    public String getIndustryName() {
+        return industryName;
+    }
+
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName;
+    }
+
+    public int getCustomFlag() {
+        return customFlag;
+    }
+
+    public void setCustomFlag(int customFlag) {
+        this.customFlag = customFlag;
+    }
+
     public BigDecimal getXunMoney() {
         return xunMoney;
     }

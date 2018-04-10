@@ -8,8 +8,8 @@ public class HttpConstant {
    // public static final String HOST_URL = "http://wrtest.geekdana.com:1580/netrun-app/";
 //    public static final String HOST_URL = "http://wrc.geekdana.com/netrun-app/";
 //   public static final String HOST_URL = "http://wrtest.geekdana.com:1580/netrun-app/";
-//    public static final String HOST_URL = "http://172.31.12.2:8080/netrun-app/";
-    public static final String HOST_URL = "http://sms2.qisu100.com:8090/netrun-app/";
+    public static final String HOST_URL = "http://172.31.9.51:8080/netrun-app/";
+//    public static final String HOST_URL = "http://sms2.qisu100.com:8090/netrun-app/";
 
 
     /*发短信*/
@@ -40,9 +40,12 @@ public class HttpConstant {
     public static final String SELECT_SUB_STRY = HOST_URL + "pub/selectTradeTwoList";
     /*创建认证*/
     public static final String SUBMIT_CERTIFICATION_URL = HOST_URL + "app/user/insertcertificate";
+
     /*查询定向设置*/
     public static final String SELECT_SETTING = HOST_URL + "pub/selectSettingList";
 
+    /*查询定向设置*/
+    public static final String SELECT_SETTING2= HOST_URL + "pub/v1.1/selectSettingList";
 
     public static final String UPLOAD_PIC = HOST_URL + "app/user/uploadPic";
     /*展示模板行业列表*/
@@ -64,13 +67,26 @@ public class HttpConstant {
 
     /*创建任务*/
     public static final String INSERT_CREATE_TASK = HOST_URL + "app/task/insertTask";//app/task/insertTask
+
+
+    //v2.0.1 创建任务
+
+    public static final String INSERT_CREATE_TASK2 = HOST_URL + "app/v1.1/task/insertTask";//app/task/insertTask
+
+
     /*落地页提交*/
     public static final String INSERT_USER_PAGE = HOST_URL + "app/user/inserUserPage";
 
     /*寻客列表*/
     public static final String USER_TASK_LIST = HOST_URL + "app/task/usertasklist";
+
     /*寻客详情*/
     public static final String USER_TASK_INFO = HOST_URL + "app/task/userXunTaskInfo";
+    //v2.0.1
+    public static final String USER_TASK_INFO2 = HOST_URL + "app/v1.1/task/taskInfo";
+
+
+
     /*删除寻客任务*/
     public static final String DELETE_TASK = HOST_URL + "app/task/delTask";
     /*报表数据*/

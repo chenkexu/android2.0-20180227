@@ -180,7 +180,9 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
             case R.id.tvDirection:
                 //定向设置页面
                 Intent intent = new Intent(this,DirectionDetailActivity.class);
-                intent.putExtra("orientationSetting",taskOut.getOrientationSettingsOut());
+//                intent.putExtra("orientationSetting",taskOut.getOrientationSettingsOut());
+                intent.putExtra("taskOut",taskOut);
+
                 startActivity(intent);
                 break;
             case R.id.tvTestNum:
@@ -222,6 +224,7 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
     protected TaskPresent<ITaskView> createPresent() {
         return new TaskPresent<>(this);
     }
+
     @Subscribe
     public void taskInfoReslt(TaskInfoEvent taskInfoEvent){
         if(taskInfoEvent.taskInfoBean.getCode() == 0){

@@ -25,6 +25,10 @@ import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.DensityUtils;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 报表 折线
  */
@@ -69,13 +73,50 @@ public class MyChartView extends View {
 	private boolean isVisble = false;//纵向的指示线是否显示
 
 
+    //求数组的最大值和最小值
+    private void maxY(int[] A){
+        int i,min,max;
+//        int A[]={74,48,30,17,62};  // 声明整数数组A,并赋初值
+
+        min=max=A[0];
+        System.out.print("数组A的元素包括：");
+        for(i=0;i<A.length;i++) {
+            System.out.print(A[i]+" ");
+            if(A[i]>max)   // 判断最大值
+                max=A[i];
+            if(A[i]<min)   // 判断最小值
+                min=A[i];
+        }
+        Logger.e("Y轴最大值为："+max);
+
+		if (max!=0) {
+			Logger.e("图表初始化啦-----------------------");
+			Logger.e("maxY:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
+			int length = (max / 5);
+			Ylabel[5] = max + "";
+			Ylabel[4] = length * 4+"";
+			Ylabel[3] = length * 3+"";
+			Ylabel[2] = length * 2+"";
+			Ylabel[1] = length + "";
+		}
+
+
+
+    }
+
+
+
+
 	// 曲线数据
 	public MyChartView(Context context, String[] xlabel, String title, int[] y, int lineColor){
 		super(context);
 
-		for (int i=0;i<y.length;i++) {
-			Logger.d("y轴数据为："+y[i]);
-		}
+		Logger.d("alable:"+xlabel);
+		Logger.d("y的值:"+y);
+
+//		for (int i=0;i<y.length;i++) {
+//			Logger.e("y轴数据为："+y[i]);
+//		}
 
 		this.mContext = context;
 		Margin = CommonUtils.dipToPx(context,10);
@@ -83,9 +124,14 @@ public class MyChartView extends View {
 			this.Xlabel = xlabel;
 		}
 		this.Title = title;
+
+
 		if (null != y) {
+			//求出最大值
+			maxY(y);
 			this.y = y;
-		}
+        }
+
 		this.context = context;
 		this.lineColor = lineColor;
 		mBitmap = ((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.dot)).getBitmap();
@@ -95,6 +141,9 @@ public class MyChartView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+
+		maxY(y);
+
 		init(canvas);
 //		this.drawXLine(canvas, p1);
 //		this.drawYLine(canvas, p1);
@@ -116,8 +165,10 @@ public class MyChartView extends View {
 		}
 
 	}
+
 	// 初始化数据值
 	public void init(Canvas canvas) {
+		Logger.e("onDraw:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
 		Xpoint = 3*this.Margin;
 		Ypoint = this.getHeight() - 3*this.Margin;
 		if(this.Xlabel.length - 1 == 0){
@@ -135,7 +186,7 @@ public class MyChartView extends View {
 		//Y轴每块区域的长度 =（chartView的总高度 - 50)/5
 		Yscale = (this.getHeight() - 5 * this.Margin) / (this.Ylabel.length - 1);//y轴每块的长度
 
-		Logger.d("y轴每块区域的长度："+Yscale);
+		Logger.e("y轴每块区域的长度："+Yscale);
 
 
 		linePath = new Path();
@@ -209,9 +260,11 @@ public class MyChartView extends View {
 	 * @return
 	 */
 	private int calY1(int y){
+
 		if(y>-1 && y<51){
 			//0-50
 			return calY(y,Ylabel[0],Ylabel[1]);//0,25
+
 		}else if(y>50 && y<151){
 			//51-150
 			return calY(y,Ylabel[2],Ylabel[3])-2*Yscale;
@@ -223,6 +276,8 @@ public class MyChartView extends View {
 			y = 500;
 			return calY(y,Ylabel[4],Ylabel[5])-4*Yscale;
 		}
+
+
 		return 0;
 	}
 		
@@ -237,10 +292,11 @@ public class MyChartView extends View {
 		try{
 			y0 = Integer.parseInt(label1);
 			y1 = Integer.parseInt(label2);
+			Logger.e("calY1:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
 		}catch(Exception e){
 			return 0;
 		}
-		Logger.d(Ypoint-((y-y0)*Yscale/(y1-y0))+"--calY-");
+//		Logger.d(Ypoint-((y-y0)*Yscale/(y1-y0))+"--calY-");
 		return Ypoint-((y-y0)*Yscale/(y1-y0));
 	}
 
@@ -254,6 +310,9 @@ public class MyChartView extends View {
 	public void setMargin(int margin) {
 		Margin = margin;
 	}
+
+
+
 
 
 
@@ -297,13 +356,11 @@ public class MyChartView extends View {
 			canvas.drawPath(path, paint);
 
 			mPaint.setTextSize(this.Margin);
-			
-			Logger.e(this.Ylabel[i]+"---"+(3*this.Margin) / 8+"---"+startY + (3*this.Margin) / 4+"--");
 
-			// TODO: 2018/4/9  
+			Logger.e("drawTable:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
+//			Logger.e("纵坐标数值："+this.Ylabel[i]+"---"+(3*this.Margin) / 8+"---"+startY + (3*this.Margin) / 4+"--");
+            // TODO: 2018/4/9
 			canvas.drawText(this.Ylabel[i], (3*this.Margin) / 8, startY + (3*this.Margin) / 4, mPaint);//纵坐标的数字
-			
-			
 		}
 
 		mPaint.setTextSize(this.Margin-3);

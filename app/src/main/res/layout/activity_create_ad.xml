@@ -27,12 +27,12 @@
 
                 <ImageView
                     android:id="@+id/imgBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="20dp"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="16dp"
-                    app:srcCompat="@mipmap/back_white" />
+                    app:srcCompat="@drawable/bg_back_btn" />
 
                 <!--<android.support.design.widget.TabLayout-->
                 <!--android:id="@+id/tabs"-->

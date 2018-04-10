@@ -1524,6 +1524,7 @@ public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, Cit
     @Override
     public void onBackPressed() {
         //返回的时候 清除 定向缓存
+        // TODO: 2018/4/10 确定返回的时候删除定向缓存？？？？？
         ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
         super.onBackPressed();
     }

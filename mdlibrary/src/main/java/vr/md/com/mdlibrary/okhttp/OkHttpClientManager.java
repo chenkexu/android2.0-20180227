@@ -230,6 +230,8 @@ public class OkHttpClientManager {
         if (params == null)
             return;
         MDSecureRequestMap mdSecureRequestMap = new MDSecureRequestMap(params);
+        Logger.d("url地址是："+url);
+        Logger.d(mdSecureRequestMap);
         if (checkNeedLogin(mdSecureRequestMap)) {
             Logger.d("url地址是: "+url);
             int size = mdSecureRequestMap.size();
@@ -278,6 +280,8 @@ public class OkHttpClientManager {
      */
     private void _postAsyn(String url, ResultCallback callback, File[] files, String[] fileKeys, Param... params) throws IOException {
         MDSecureRequestMap mdSecureRequestMap = new MDSecureRequestMap(new HashMap());
+        Logger.d("url地址是："+url);
+        Logger.d(mdSecureRequestMap);
         if (checkNeedLogin(mdSecureRequestMap)) {
             int size = mdSecureRequestMap.size();
             Param[] res = new Param[size +  params.length];
@@ -295,6 +299,8 @@ public class OkHttpClientManager {
     }
     private void _postAsyn(String url, ResultCallback callback, File[] files, String[] fileKeys, Map<String,String> params) throws IOException {
         MDSecureRequestMap mdSecureRequestMap = new MDSecureRequestMap(params);
+        Logger.d("url地址是："+url);
+        Logger.d(mdSecureRequestMap);
         if (checkNeedLogin(mdSecureRequestMap)) {
             int size = mdSecureRequestMap.size();
             Param[] res = new Param[size];
@@ -309,6 +315,8 @@ public class OkHttpClientManager {
     }
     private void _postAsyn(String url, ResultCallback callback, File[] files, String fileKeys, Map<String,String> params) throws IOException {
         MDSecureRequestMap mdSecureRequestMap = new MDSecureRequestMap(params);
+        Logger.d("url地址是："+url);
+        Logger.d(mdSecureRequestMap);
         if (checkNeedLogin(mdSecureRequestMap)) {
             int size = mdSecureRequestMap.size();
             Param[] res = new Param[size];
@@ -348,6 +356,8 @@ public class OkHttpClientManager {
      */
     private void _postAsyn(String url, ResultCallback callback, File file, String fileKey, Map<String, String> map) throws IOException {
         MDSecureRequestMap mdSecureRequestMap = new MDSecureRequestMap(map);
+        Logger.d("url地址是："+url);
+        Logger.d(mdSecureRequestMap);
         OkHttpClientManager.Param[] params = new OkHttpClientManager.Param[mdSecureRequestMap.size()];
         int i = 0;
         for (Object key : mdSecureRequestMap.keySet()) {
@@ -554,6 +564,8 @@ public class OkHttpClientManager {
         if (params == null)
             return;
         MDSecureRequestMap mdSecureRequestMap = new MDSecureRequestMap(params);
+        Logger.d("url地址是："+url);
+        Logger.d("参数是："+mdSecureRequestMap);
         if (checkNeedLogin(mdSecureRequestMap)) {
             int size = mdSecureRequestMap.size();
             Param[] res = new Param[size];
