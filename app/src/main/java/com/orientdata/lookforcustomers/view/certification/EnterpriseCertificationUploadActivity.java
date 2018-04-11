@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -254,10 +255,13 @@ public class EnterpriseCertificationUploadActivity extends ImageActivity impleme
 
         Industry submitIndustry = industries.get(industryPosition);
         TradeCategoryOut submitTCO = subIndustries.get(subPosition);
+
+
         map.put("tradeOneId", submitIndustry.getTradeId() + "");
         map.put("tradeTwoId", submitTCO.getTradeId() + "");
         map.put("tradeOneName", submitIndustry.getName());
         map.put("tradeTwoName", submitTCO.getName());
+
         File[] submitfiles = new File[filePaths.size()];
         String[] submitFileKeys = new String[filePaths.size()];
         for (int i = 0; i < filePaths.size(); i++) {
@@ -371,7 +375,7 @@ public class EnterpriseCertificationUploadActivity extends ImageActivity impleme
     }
 
     /**
-     * 二级行业
+     * 得到二级行业的数据
      */
     private void getSubData() {
 //        showWaitDialog();
@@ -460,8 +464,10 @@ public class EnterpriseCertificationUploadActivity extends ImageActivity impleme
                         name = name.replace("||", "#");
                         String[] names = name.split("#");
                         RadioGroup radioGroup = tempView.initRadioGroup(this, names);
-
+                        // TODO: 2018/4/11 默认第二个 
+                        ((RadioButton)radioGroup.getChildAt(0)).setChecked(true);
                         radioGroups.add(radioGroup);
+
                         tempView.setUploadOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -545,6 +551,7 @@ public class EnterpriseCertificationUploadActivity extends ImageActivity impleme
                                             name = name.replace("||", "#");
                                             String[] names = name.split("#");
                                             RadioGroup radioGroup = tempView.initRadioGroup(EnterpriseCertificationUploadActivity.this, names);
+                                            ((RadioButton)radioGroup.getChildAt(0)).setChecked(true);
                                             radioGroups.add(radioGroup);
                                             tempView.setUploadOnClickListener(new View.OnClickListener() {
                                                 @Override

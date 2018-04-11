@@ -16,7 +16,7 @@ import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
 /**
- * 上传充值凭证
+ * 上传充值凭证详情
  */
 public class OfflineRechargeReceiptDetailActivity extends WangrunBaseActivity {
     private MyTitle title;
@@ -123,7 +123,7 @@ public class OfflineRechargeReceiptDetailActivity extends WangrunBaseActivity {
     }
 
     private void initTitle() {
-        title.setTitleName("线下充值");
+        title.setTitleName("上传凭证");
         title.setImageBack(this);
        /* title.setRightText("上传充值凭证");
         title.setRightTextClickListener(new View.OnClickListener() {

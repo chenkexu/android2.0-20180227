@@ -36,7 +36,7 @@
             app:leftText="@string/contact_name"
             app:leftTextColor="@color/text_gray" />
 
-        <com.orientdata.lookforcustomers.widget.EditTextView
+        <com.orientdata.lookforcustomers.widget.EditTextViewNumBer
             android:id="@+id/contactPhone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -44,13 +44,31 @@
             app:leftText="@string/contact_phone"
             app:leftTextColor="@color/text_gray" />
 
-        <com.orientdata.lookforcustomers.widget.EditTextView
+        <com.orientdata.lookforcustomers.widget.EditTextViewIdCode
             android:id="@+id/contactIdNum"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:hintText="@string/contact_id_num_hint"
             app:leftText="@string/contact_id_num"
             app:leftTextColor="@color/text_gray" />
+
+
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="50dp">-->
+            <!--<TextView-->
+                <!--android:text="联系人电话"-->
+                <!--android:textColor="@color/text_gray"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+            <!--<EditText-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp" />-->
+        <!--</LinearLayout>-->
+
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -76,8 +94,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:text="@string/enterprise_locate"
-                android:textColor="@color/text_gray"
-                android:textSize="18sp" />
+                android:textColor="#7F7F7F"
+                android:textSize="16sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"

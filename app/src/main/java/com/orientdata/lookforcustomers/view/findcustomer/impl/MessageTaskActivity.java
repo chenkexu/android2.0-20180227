@@ -33,6 +33,7 @@ import com.orientdata.lookforcustomers.presenter.TaskPresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.DateTool;
+import com.orientdata.lookforcustomers.util.RegexUtils;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
@@ -59,6 +60,7 @@ import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 import static com.baidu.location.h.k.ab;
+import static com.orientdata.lookforcustomers.R.id.et_budget;
 
 
 /**
@@ -83,7 +85,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
     @BindView(R.id.tv_message_content_hint)
     TextView tvMessageContentHint;//短信内容hint
-    @BindView(R.id.et_budget)
+    @BindView(et_budget)
     EditText etBudget;
 
 
@@ -133,6 +135,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     private String startdate;
     private String industryMark;
     private String industryNameStr;
+    private double minMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,6 +239,9 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
             industryMark = intent.getStringExtra("industryMark");
             industryNameStr = intent.getStringExtra("industryNameStr");
 
+            minMoney = intent.getDoubleExtra("minMoney",1000);
+
+
 
 
             Logger.d("省Code:---" + mProvinceCode);
@@ -265,6 +271,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
         tvCreate.setOnClickListener(this);
 
 
+        etBudget.setHint("请输入任务预算"+minMoney+"元起");
 
         etEnterpriseSignature.setOnFocusChangeListener(new View.
                 OnFocusChangeListener() {
@@ -475,10 +482,12 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
 
     private boolean isChinese(String signContent){
-        signContent = signContent.substring(1, signContent.length() - 1);
+        String substring = signContent.substring(1, signContent.length() - 1);
         //只允许汉字
-        String regEx = "[^\u4E00-\u9FA5]{2,7}";
-        boolean isMatch = Pattern.matches(regEx, signContent);
+        String regEx = "[^\u4E00-\u9FA5]{2,4}";
+
+        String regEx2 = "/^([\\u4e00-\\u9fa5]){2,7}$";
+        boolean isMatch = Pattern.matches(regEx, substring);
         if (isMatch) {
             return true;
         }else{
@@ -526,8 +535,8 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
             // TODO: 2018/4/9 加上退订 
             content = etMsgContent.getText().toString().trim()+tvUnsubscribe.getText().toString();
 
-            if (TextUtils.isEmpty(content)) {
-                ToastUtils.showShort("请填写短信内容");
+            if (TextUtils.isEmpty(etEnterpriseSignature.getText().toString())) {
+                ToastUtils.showShort("企业签名只能输入2-4位汉字");
                 return;
             }
 
@@ -632,12 +641,24 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 enddate = tvDateTo.getText().toString().trim();
                 content = etMsgContent.getText().toString().trim();
                 budget = etBudget.getText().toString().trim();
+                String signStr = etEnterpriseSignature.getText().toString().trim();
+                String substring = signStr.substring(1, signStr.length() - 1);
+                Logger.d("substring:"+substring);
+                int length = etEnterpriseSignature.getText().length();
 
                 if (TextUtils.isEmpty(content)) {
                     ToastUtils.showShort("请输入短信内容");
                     isSubmitting = false;
                     return;
                 }
+
+
+                if (!RegexUtils.isZh(substring)||length < 4 || length > 6) {
+                    ToastUtils.showShort("企业签名只能输入2-4位汉字");
+                    isSubmitting = false;
+                    return;
+                }
+
                 if (startdate.equals("开始日期")) {
                     ToastUtils.showShort("请输入开始日期");
                     isSubmitting = false;
@@ -650,6 +671,11 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 }
                 if (TextUtils.isEmpty(budget)) {
                     ToastUtils.showShort("请输入任务预算");
+                    isSubmitting = false;
+                    return;
+                }
+                if (Double.parseDouble(budget)<minMoney) {
+                    ToastUtils.showShort("任务预算需"+minMoney+"起");
                     isSubmitting = false;
                     return;
                 }

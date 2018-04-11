@@ -13,6 +13,15 @@ public class PreOut implements Serializable {
     private int day;
     private BigDecimal longitude;
     private BigDecimal latitude;
+    private double minMoney;
+
+    public double getMinMoney() {
+        return minMoney;
+    }
+
+    public void setMinMoney(double minMoney) {
+        this.minMoney = minMoney;
+    }
 
     public int getDay() {
         return day;

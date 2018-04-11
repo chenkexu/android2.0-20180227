@@ -75,6 +75,8 @@ import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
+import static com.orientdata.lookforcustomers.R.id.et_budget;
+
 /**
  * Created by wy on 2017/11/27.
  * 创建页面任务
@@ -134,13 +136,14 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
     //private int mCurrentTaskPagePosition = -1;
     private Context mContext;
     private boolean isSubmitting = false;
-    @BindView(R.id.et_budget)
+    @BindView(et_budget)
     EditText etBudget;
     private String industryMark ="";
     private String industryNameStr="";
     private String adLink;
     private String enddate;
     private String startdate;
+    private double minMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,6 +202,7 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
 
             industryMark = intent.getStringExtra("industryMark");
             industryNameStr = intent.getStringExtra("industryNameStr");
+            minMoney = intent.getDoubleExtra("minMoney", 1000);
 
         }
     }
@@ -211,7 +215,7 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
         addAd = (ImageView) findViewById(R.id.addAd);
         tvCoverage = (TextView) findViewById(R.id.tvCoverage);
 
-
+        etBudget.setHint("请输入任务预算"+minMoney+"元起");
 
         tvDateFrom = date_from.findViewById(R.id.tvLeftText);
         input_img_url = findViewById(R.id.input_img_url);
@@ -230,6 +234,7 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
         addAd.setOnClickListener(this);
         textView3.setOnClickListener(this);
         imageView4.setOnClickListener(this);
+
 
         et_http.addTextChangedListener(new TextWatcher() {
             @Override
@@ -423,9 +428,11 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
                     ToastUtils.showShort("请输入任务预算");
                     return;
                 }
-
-
-
+                if (Double.parseDouble(budget)<minMoney) {
+                    ToastUtils.showShort("任务预算需"+minMoney+"起");
+                    isSubmitting = false;
+                    return;
+                }
                 showRemindDialog();
                 break;
             case R.id.date_from:

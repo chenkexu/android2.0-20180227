@@ -16,14 +16,14 @@ import com.orientdata.lookforcustomers.R;
  * Created by wy on 2017/11/16.
  * 字+输入框
  */
-public class EditTextView extends RelativeLayout {
+public class EditTextViewIdCode extends RelativeLayout {
 
     private EditText etContent;
     private TextView tvLeftText;
 
-    public EditTextView(Context context, AttributeSet attrs) {
+    public EditTextViewIdCode(Context context, AttributeSet attrs) {
         super(context, attrs);
-        LayoutInflater.from(context).inflate(R.layout.my_edit_text_view, this, true);
+        LayoutInflater.from(context).inflate(R.layout.my_edit_text_view_id_code, this, true);
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.MyEditTextView);
         initView(attributes);
     }

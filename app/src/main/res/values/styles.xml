@@ -49,6 +49,7 @@
         <attr name="leftTextColor" format="color" />
         <attr name="hintTextColor" format="color" />
         <attr name="leftTextSize" format="integer" />
+
     </declare-styleable>
 
     <style name="Theme.Light.Dialog" parent="android:style/Theme.Dialog">

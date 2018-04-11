@@ -84,12 +84,12 @@
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable-mdpi-v4\\abc_ic_go_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable-mdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
-    },
-    {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable-mdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable-mdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\abc_ic_search_api_mtrl_alpha.png",

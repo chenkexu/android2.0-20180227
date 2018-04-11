@@ -26,6 +26,7 @@ import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.ImageTools;
 import com.orientdata.lookforcustomers.util.SystemUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
@@ -91,7 +92,7 @@ public class UploadOfflineRechargeReceiptActivity extends WangrunBaseActivity im
     }
 
     private void initTitle() {
-        title.setTitleName("线下充值");
+        title.setTitleName("上传凭证");
         title.setImageBack(this);
        /* title.setRightText("上传充值凭证");
         title.setRightTextClickListener(new View.OnClickListener() {
@@ -197,7 +198,8 @@ public class UploadOfflineRechargeReceiptActivity extends WangrunBaseActivity im
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Glide.with(UploadOfflineRechargeReceiptActivity.this).load(savePath1).into(iv_upload);
+                                    GlideUtil.getInstance().loadAdImage(UploadOfflineRechargeReceiptActivity.this,iv_upload,savePath1,true);
+//                                  Glide.with(UploadOfflineRechargeReceiptActivity.this).load(savePath1).into(iv_upload);
                                     hideDefaultLoading();
                                 }
                             });
@@ -205,7 +207,8 @@ public class UploadOfflineRechargeReceiptActivity extends WangrunBaseActivity im
                     }).start();
                 } else {
                     savePath1 = path;
-                    Glide.with(UploadOfflineRechargeReceiptActivity.this).load(savePath1).into(iv_upload);
+//                    Glide.with(UploadOfflineRechargeReceiptActivity.this).load(savePath1).into(iv_upload);
+                    GlideUtil.getInstance().loadAdImage(UploadOfflineRechargeReceiptActivity.this,iv_upload,savePath1,true);
                 }
                 break;
         }
@@ -218,15 +221,38 @@ public class UploadOfflineRechargeReceiptActivity extends WangrunBaseActivity im
         accountName = et_account_name.getText().toString().trim();
         accountNumber = et_account_number.getText().toString().trim();
         money = et_money.getText().toString().trim();
-        if (TextUtils.isEmpty(openAccountBank)
-                || TextUtils.isEmpty(serialNumber)
-                || TextUtils.isEmpty(accountName)
-                || TextUtils.isEmpty(accountNumber)
-                || TextUtils.isEmpty(money)
-                ) {
-            ToastUtils.showShort("信息填写不完整！");
+//
+//        if (TextUtils.isEmpty(openAccountBank)
+//                || TextUtils.isEmpty(serialNumber)
+//                || TextUtils.isEmpty(accountName)
+//                || TextUtils.isEmpty(accountNumber)
+//                || TextUtils.isEmpty(money)
+//                ) {
+//            ToastUtils.showShort("信息填写不完整！");
+//            return;
+//        }
+        if (TextUtils.isEmpty(openAccountBank)) {
+            ToastUtils.showShort("开户行不能为空！");
             return;
         }
+        if (TextUtils.isEmpty(serialNumber)) {
+            ToastUtils.showShort("流水号不能为空！");
+            return;
+        }
+        if (TextUtils.isEmpty(accountName)) {
+            ToastUtils.showShort("账户名不能为空！");
+            return;
+        }
+        if (TextUtils.isEmpty(accountNumber)) {
+            ToastUtils.showShort("账号不能为空！");
+            return;
+        }
+        if (TextUtils.isEmpty(money)) {
+            ToastUtils.showShort("金额不能为空！");
+            return;
+        }
+
+
         if (TextUtils.isEmpty(savePath1)) {
             ToastUtils.showShort("请上传凭证！");
             return;

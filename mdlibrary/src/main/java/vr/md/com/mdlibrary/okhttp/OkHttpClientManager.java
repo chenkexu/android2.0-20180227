@@ -53,6 +53,8 @@ import java.util.concurrent.TimeUnit;
 
 import vr.md.com.mdlibrary.MyApp;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDSecureRequestMap;
+import vr.md.com.mdlibrary.utils.ImageUtils2;
+import vr.md.com.mdlibrary.utils.image.ImageUtil;
 
 
 /**
@@ -650,8 +652,11 @@ public class OkHttpClientManager {
             RequestBody fileBody = null;
             for (int i = 0; i < files.length; i++) {
                 File file = files[i];
+                // TODO: 2018/4/11 文件压缩下：
+//                imageutcompressFile
+                File compressFile = ImageUtils2.compressFile(file.getPath());
                 String fileName = file.getName();
-                fileBody = RequestBody.create(MediaType.parse(guessMimeType(fileName)), file);
+                fileBody = RequestBody.create(MediaType.parse(guessMimeType(fileName)), compressFile);
                 builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + fileKeys + "\"; filename=\"" + fileName + "\""), fileBody);
             }
         }

@@ -13,6 +13,256 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/bg_imaginary_line"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:text="线下支付流程:"
+            android:textColor="#7F7F7F"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/iv_zhuanzhang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_toLeftOf="@+id/iv_arrow"
+                android:layout_toStartOf="@+id/iv_arrow"
+                app:srcCompat="@mipmap/zhuanzhang" />
+
+            <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="7dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_toLeftOf="@+id/iv_shangchuan"
+                android:layout_toStartOf="@+id/iv_shangchuan"
+                app:srcCompat="@mipmap/jiantou" />
+
+            <ImageView
+                android:id="@+id/iv_shangchuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+
+                app:srcCompat="@mipmap/shangchaun" />
+
+            <ImageView
+                android:id="@+id/iv_arrow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_toEndOf="@+id/iv_shangchuan"
+                android:layout_toRightOf="@+id/iv_shangchuan"
+                app:srcCompat="@mipmap/jiantou" />
+
+            <ImageView
+                android:id="@+id/iv_chongzhi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_toEndOf="@+id/iv_arrow2"
+                android:layout_toRightOf="@+id/iv_arrow2"
+                app:srcCompat="@mipmap/chongzhi" />
+
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_shangchuan"
+                android:layout_centerHorizontal="true"
+                android:text="上传凭证"
+                android:layout_marginTop="30dp"
+                android:textColor="#1c1c1c"
+                android:textSize="14sp" />-->
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:layout_toLeftOf="@+id/tv_shangchuan"
+                android:layout_toStartOf="@+id/tv_shangchuan"
+                android:text="线下转账"
+                android:textColor="@color/text_gray"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:id="@+id/tv_shangchuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="上传凭证"
+                android:textColor="@color/text_gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_chongzhi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_toEndOf="@+id/tv_shangchuan"
+                android:layout_toRightOf="@+id/tv_shangchuan"
+                android:text="账户充值"
+                android:textColor="@color/text_gray"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:background="#fafafa"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingEnd="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="5dp"
+            android:paddingStart="15dp"
+            android:text="注意：线下转账，目前暂不受理转账金额低于1000的订单，为避免您的损失，请确保转账金额大于1000。"
+            android:textColor="#FF5C64"
+            android:textSize="12sp" />
+        <!--收款人-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="转账信息："
+            android:textColor="#7F7F7F"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <!--开户行-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="收款人:"
+                android:textColor="@color/text_charge"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingEnd="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="5dp"
+                android:paddingStart="3dp"
+                android:text="中国农业银行股份有限公司北京清河支行"
+                android:textColor="@color/text_charge"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+        <!--账户名-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="收款人开户行:"
+                android:textColor="@color/text_charge"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingEnd="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="5dp"
+                android:paddingStart="3dp"
+                android:text="北京东方网润科技有限公司"
+                android:textColor="@color/text_charge"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+        <!--账号-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="收款人账号:"
+                android:textColor="@color/text_charge"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingEnd="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="5dp"
+                android:paddingStart="3dp"
+                android:text="11250201040016413"
+                android:textColor="@color/text_charge"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
 
     <com.orientdata.lookforcustomers.view.xlistview.XListView1
         android:id="@+id/xListView"

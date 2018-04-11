@@ -33,6 +33,7 @@ public class ImgPresent<T> extends BasePresenter<IImgView> {
     public ImgPresent(IImgView mImgView) {
         this.mImgView = mImgView;
     }
+
     public void uploadImg(int type, String picPath){
         uploadImg(type,picPath,true);
     }

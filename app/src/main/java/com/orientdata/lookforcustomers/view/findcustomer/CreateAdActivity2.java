@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.ErrBean;
@@ -27,7 +26,6 @@ import com.orientdata.lookforcustomers.event.AdEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.GlideUtil;
-import com.orientdata.lookforcustomers.util.ImageUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
@@ -43,6 +41,7 @@ import java.util.List;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
+import vr.md.com.mdlibrary.utils.ImageUtils2;
 
 
 /**
@@ -202,7 +201,7 @@ public class CreateAdActivity2 extends AppCompatActivity implements View.OnClick
                 if (!TextUtils.isEmpty(imagePath)) { //如果上传的图片不为空
                     fileLists = new ArrayList<>();
                     //  TODO 文件压缩
-                    fileLists.add(ImageUtils.compressFile(imagePath));
+                    fileLists.add(ImageUtils2.compressFile(imagePath));
 //                  fileLists.add(new File(imagePath));
                     submitfiles = new File[fileLists.size()];
                     //fileLists.add(new File(adImagePath));

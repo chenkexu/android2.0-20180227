@@ -8,7 +8,7 @@ public class HttpConstant {
    // public static final String HOST_URL = "http://wrtest.geekdana.com:1580/netrun-app/";
 //    public static final String HOST_URL = "http://wrc.geekdana.com/netrun-app/";
 //   public static final String HOST_URL = "http://wrtest.geekdana.com:1580/netrun-app/";
-    public static final String HOST_URL = "http://172.31.9.51:8080/netrun-app/";
+    public static final String HOST_URL = "http://172.31.15.54:8080/netrun-app/";
 //    public static final String HOST_URL = "http://sms2.qisu100.com:8090/netrun-app/";
 
 
@@ -48,6 +48,7 @@ public class HttpConstant {
     public static final String SELECT_SETTING2= HOST_URL + "pub/v1.1/selectSettingList";
 
     public static final String UPLOAD_PIC = HOST_URL + "app/user/uploadPic";
+
     /*展示模板行业列表*/
     public static final String SELECT_USER_MODEL_LIST = HOST_URL + "pub/selectusermubanList";
     /*图片库列表*/

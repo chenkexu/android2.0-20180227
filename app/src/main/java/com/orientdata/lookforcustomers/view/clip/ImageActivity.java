@@ -22,13 +22,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import vr.md.com.mdlibrary.myView.alertview.AlertView;
 import vr.md.com.mdlibrary.myView.alertview.OnItemClickListener;
 
-import static com.orientdata.lookforcustomers.R.style.loadingDialog;
 
 /**
  * Created by hlj on 3/7/17.

@@ -8,12 +8,12 @@
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_tab_indicator_material.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_tab_indicator_material.xml"
-    },
-    {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_holo_light.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_tab_indicator_material.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_cab_background_top_material.xml",
@@ -36,12 +36,12 @@
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_text_cursor_material.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_thumb_material.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_seekbar_thumb_material.xml"
-    },
-    {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_dialog_material_background_light.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_dialog_material_background_light.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_seekbar_thumb_material.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\vpi__tab_indicator.xml",

@@ -25,6 +25,8 @@ import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.EnterpriseCertificationUploadActivity;
 import com.orientdata.lookforcustomers.view.certification.ICertificateView;
 import com.orientdata.lookforcustomers.widget.EditTextView;
+import com.orientdata.lookforcustomers.widget.EditTextViewIdCode;
+import com.orientdata.lookforcustomers.widget.EditTextViewNumBer;
 import com.orientdata.lookforcustomers.widget.dialog.CityDialog;
 import com.orientdata.lookforcustomers.widget.dialog.ProvinceCityDialog;
 
@@ -52,8 +54,8 @@ public class EnterpriseCertificationFragment extends BaseFragment implements Vie
     private EditTextView enterpriseName;
     private EditTextView businessNum;
     private EditTextView contact;
-    private EditTextView contactPhone;
-    private EditTextView contactIdNum;
+    private EditTextViewNumBer contactPhone;
+    private EditTextViewIdCode contactIdNum;
     private EditTextView enterpriseAddress;
 
     private List<AreaOut> areaOuts;
@@ -108,8 +110,10 @@ public class EnterpriseCertificationFragment extends BaseFragment implements Vie
      */
     private void getData(){
         areaOuts = (List<AreaOut>) SharedPreferencesTool.getInstance().getObjectFromShare(SharedPreferencesTool.AREA_KEY);
+
         //使用getAsObject()，直接进行强转
         dataListCatch = (ArrayList<CertificationBean>) aCache.getAsObject(SharedPreferencesTool.CERTIFICATE_KEY);
+
         if(dataListCatch!=null){
             for(int i=0;i<dataListCatch.size();i++){
                 String id = dataListCatch.get(i).getUserId()+"";

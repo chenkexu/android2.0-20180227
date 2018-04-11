@@ -42,8 +42,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vr.md.com.mdlibrary.UserDataManeger;
 
-import static android.R.attr.visibility;
-import static com.baidu.location.h.k.S;
 
 
 /**
@@ -128,7 +126,7 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
     private String industryNameStr = ""; //选择的行业
 
     private String[] industrysStr = {"餐饮","3C数码","汽车用品","母婴用品","美容美发","鲜花礼品","汽车用品","自定义"};
-
+    private String industryName;
 
 
     @Override
@@ -226,6 +224,9 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
         if (isReCreate) {
             Logger.d("再次创建任务，用的是之前任务的数据");
             orientationSettingsOut = (OrientationSettingsOut) getIntent().getSerializableExtra("orientationSettingsOut");
+            industryName = getIntent().getStringExtra("industryName");//行业名称
+            industryMark = getIntent().getStringExtra("customFlag");//是否自定义
+
         } else {  //不是点击详情进来，是缓存的数据
             ArrayList<OrientationSettingsOut> list = (ArrayList<OrientationSettingsOut>) aCache.getAsObject(SharedPreferencesTool.DIRECTION_HISTORY);
             if (list != null) {
@@ -236,9 +237,13 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
                         break;
                     }
                 }
+                industryName = orientationSettingsOut.getIndustryName();//行业名称
+                industryMark = orientationSettingsOut.getIndustryMark();//是否自定义
             } else {
                 Logger.d("没有任何数据，重新进行输入数据");
             }
+
+
         }
     }
 
@@ -272,10 +277,8 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
             String ageB = orientationSettingsOut.getAgeB();
             String sex = orientationSettingsOut.getSex();
 
-            String industryMark = orientationSettingsOut.getIndustryMark();
-
             if (industryMark.equals("0")) { //行业
-                String industryName = orientationSettingsOut.getIndustryName();
+
                 switch (industryName){
                     case "餐饮":
                         industrys.get(0).setSelected(true);
@@ -303,7 +306,6 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
                 industrys.get(7).setSelected(true);
                 llUserHobby.setVisibility(View.VISIBLE);
             }
-
 
             ageFromPosition = getIndex(agesFrom, ageF); //获取年龄在集合中的位置
             ageToPosition = getIndex(agesTo, ageB) - ageFromPosition;
@@ -355,9 +357,11 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
         List<InterestTagImportOut> interestTagImportOuts = settingOuts.getIco();
         for (int i = 0; i < interestTagImportOuts.size(); i++) {
             InterestTagImportOut interestTagImportOut = interestTagImportOuts.get(i);
-            String name = interestTagImportOut.getIndustryName();
-            for (String str : orientationSettingsOut.getXingqu()) {
-                if (name.equals(str)) {
+
+            String name = interestTagImportOut.getIndustryName();//返回兴趣的名称
+
+            for (String str : orientationSettingsOut.getXingqu()) {  //从提交的兴趣名称数组里面查询
+                if (name.equals(str)) { //如果找到了一样的名称
                     //查找 相应的List
                     List<String> listIntrest = new ArrayList<>();
                     List<InterestCategory> erps = interestTagImportOut.getEri();
@@ -378,8 +382,6 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
                 }
             }
         }
-
-
         orientationSettingsOut.setHobbyMap(hobbyMap);
     }
 
@@ -415,6 +417,10 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
                 showSexDialog(sexs, tv_mSex);
                 break;
             case R.id.hobby_from://兴趣爱好
+                if (settingOuts.getIco()==null) {
+                    ToastUtils.showShort("请检查网络连接");
+                    return;
+                }
                 showHobbyFromDialog(settingOuts.getIco(), tv_mHobbyOne);
                 break;
             case R.id.hobby_to: // 兴趣爱好
@@ -434,8 +440,8 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
                 String interestIds = "";//兴趣名称数组,以逗号隔开的 如 "教育,学前教育,东磁教育"
 
                 for (Map.Entry<String, List<String>> map : hobbyMap.entrySet()) {
-                    String key = map.getKey();
-                    List<String> listStr = map.getValue();
+                    String key = map.getKey(); //查到的兴趣名称
+                    List<String> listStr = map.getValue();//查到的兴趣二级标签
                     interestIds += key + ",";
                     for (String str : listStr) {
                         interestIds += str + ",";
@@ -784,7 +790,7 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
             //更新settingOuts.getXingqu
             for (Map.Entry<String, List<String>> map : hobbyMap.entrySet()) {
                 String key = map.getKey();
-                tv_mHobbyOne.setText(key);
+                tv_mHobbyOne.setText(key); //设置用户偏好起始
                 List<String> listStr = map.getValue();
                 for (int i = 0; i < settingOuts.getIco().size(); i++) {
                     if (settingOuts.getIco().get(i).getIndustryName().equals(key)) {
@@ -952,11 +958,10 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
     }
 
     /**
-     * 兴趣 一级
+     * 兴趣 一级Dialog
      * @param listString
      * @param view
      */
-
     private void showHobbyFromDialog(List<InterestTagImportOut> listString, final TextView view) {
         Logger.d("返回的兴趣爱好是："+listString.get(0).toString());
         if (listString != null && listString.size() > 0) {
@@ -981,7 +986,6 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
 
     /**
      * 兴趣二级dialog
-     *
      * @param listString
      * @param view
      */
@@ -1041,12 +1045,12 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
     }
     /**
      * 更新兴趣数据
-     *
      * @param position
      */
     private void updateHobbyFromData(int position) {
         //重置 将一级的选择删掉
         InterestTagImportOut interestTagImportOut = settingOuts.getIco().get(position);
+
         if(interestTagImportOut!=null){
             interestTagImportOut.setChecked(false);
             //将二级相应的true 置城false

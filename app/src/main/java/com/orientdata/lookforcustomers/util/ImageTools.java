@@ -130,7 +130,7 @@ public final class ImageTools {
      * @param maxSize target will be compressed to be smaller than this size.(kb)
      * @throws IOException
      */
-    public static final Bitmap compassBitmap(Bitmap bitmap, int maxSize, String path) {
+    public static final Bitmap  compassBitmap(Bitmap bitmap, int maxSize, String path) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         // scale
         int options = 100;

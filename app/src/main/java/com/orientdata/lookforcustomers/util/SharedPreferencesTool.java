@@ -42,6 +42,8 @@ public class SharedPreferencesTool {
     private static SharedPreferences sp;
     public static final String  CERTIFICATE_KEY ="certificate_enterprise";//存储企业认证信息的
     public static final String AREA_KEY ="Area";//存储获取的省市信息
+
+
     public static final String CERTIFICATE_KEY_PER ="certificate_per";//存储个人认证信息的
     private SharedPreferences.Editor editor;
     private static SharedPreferencesTool INSTANCE = null;

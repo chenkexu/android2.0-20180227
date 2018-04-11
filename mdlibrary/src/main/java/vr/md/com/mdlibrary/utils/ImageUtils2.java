@@ -1,4 +1,4 @@
-package com.orientdata.lookforcustomers.util;
+package vr.md.com.mdlibrary.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,7 +19,7 @@ import static vr.md.com.mdlibrary.utils.ImageFileUtils.compressImage;
 /**
 * Created by Administrator on 2016/7/7 0007.
 */
-public class ImageUtils {
+public class ImageUtils2 {
 
     private static final String TAG = "image";
 
@@ -154,10 +154,14 @@ public class ImageUtils {
 
     //文件压缩
     public static File compressFile(String filePath){
+
         Logger.d("压缩前图片的大小为："+new File(filePath).length());
-        Bitmap smallBitmap = getSmallBitmap(filePath);
+        Bitmap smallBitmap = getimage(filePath);
+
+//        Bitmap smallBitmap = getSmallBitmap(filePath);
         return saveBitmapFile(smallBitmap, filePath);
     }
+
 
     /**
      * 把batmap 转file
@@ -166,7 +170,6 @@ public class ImageUtils {
      */
     public static File saveBitmapFile(Bitmap bitmap, String filepath){
         File file=new File(filepath);//将要保存图片的路径
-        Logger.d("压缩后图片的大小为："+file.length());
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
@@ -175,6 +178,7 @@ public class ImageUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Logger.d("压缩后图片的大小为："+file.length());
         return file;
     }
 

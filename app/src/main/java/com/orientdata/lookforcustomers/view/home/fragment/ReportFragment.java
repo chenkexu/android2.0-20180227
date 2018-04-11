@@ -75,14 +75,16 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     String chooseText = "最近七天";
     private String today = "";
     private MyTitle title;
-    private List<Report> reportYesterDay = null;
-    private List<Report> reportLatestSeven = null;
-    private List<Report> reportLastWeek = null;
-    private List<Report> reportMonth = null;
-    private List<Report> reportLastMonth = null;
+
+    //所有数据
+    private List<Report> reportYesterDay = null; //昨天
+    private List<Report> reportLatestSeven = null; //最近七天
+    private List<Report> reportLastWeek = null; //上周
+    private List<Report> reportMonth = null; //本月
+    private List<Report> reportLastMonth = null;//上个月
 
     //昨日
-    private String[] yesterDayX = null;
+    private String[] yesterDayX = null; //横轴上显示的数字
     private String[] yesterDayXText = null;
 
     private int[] yesterDayMoneyY = null;
@@ -251,6 +253,9 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     MyChartView yesturdayPageClickView = null;
     MyChartView yesturdayMsgConView = null;
     MyChartView yesturdayMsgIssuedView = null;
+
+
+
     private int moneyColor = R.color.c_18C8E6;
     private int pageConColor = R.color.c_53CAC3;
     private int pageDisplayColor = R.color.c_FFA6A8;

@@ -411,7 +411,12 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     interestIds = interestIds + "," + xingqu.get(i);
                 }
             }
-            tv_ac_create_find_customer_set.setText("已设置--"+orientationSettingsOut.getIndustryName());
+            if (mTaskOut.getCustomFlag()==1) {
+                tv_ac_create_find_customer_set.setText("已设置(自定义)");
+            }else {
+                tv_ac_create_find_customer_set.setText("已设置("+mTaskOut.getIndustryName()+")");
+            }
+
             
             mCityCode = mTaskOut.getCityCode().trim();//上次创建的cityCode
             //上次创建的cityCode
@@ -644,6 +649,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     Logger.d("打开详情已经创建好的：cityCode:"+mCityCode+" "+mTaskOut.getOrientationSettingsOut().toString());
                     // TODO: 2018/4/10  
                     intent.putExtra("orientationSettingsOut", mTaskOut.getOrientationSettingsOut());
+                    intent.putExtra("industryName", mTaskOut.getIndustryName());
+                    intent.putExtra("customFlag", mTaskOut.getCustomFlag()+"");
                 }
 
                 startActivityForResult(intent, 3); //打开定向设置页面
@@ -806,9 +813,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
             intent.putExtra("industryMark", industryMark);
             intent.putExtra("industryNameStr", industryNameStr);
-
-
             final int type2 = type;
+
             //下一步验证
             showDefaultLoading();
             // TODO: 2018/4/4 接口改了，参数少传了一个
@@ -831,6 +837,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                             return;
                         }
                         intent.putExtra("day", preOut.getDay());//限制天数
+                        intent.putExtra("minMoney", preOut.getMinMoney());//限制天数
+
                         if (type2 == 1) {//短信
                             startActivity(intent);
                         } else if (type2 == 2) {//页面
@@ -1112,7 +1120,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     industryNameStr = data.getStringExtra("industryNameStr");
 
 
-                    tv_ac_create_find_customer_set.setText("已设置--"+ industryNameStr);
+                    tv_ac_create_find_customer_set.setText("已设置("+ industryNameStr+")");
 
                     isReCreate = false;//将重新创建置false 定向 使用缓存的内容 更新界面
 

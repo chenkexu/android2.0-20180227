@@ -90,7 +90,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     private RelativeLayout rl_service;
     private RelativeLayout rl_share;
     private RelativeLayout linear_company;
-    private RoundImageView iv_head_portrait; //用户头像
+    private ImageView iv_head_portrait; //用户头像
     private static final int CROP_SMALL_PICTURE = 103;
     public static final String IMAGE_FILE_LOCATION = "file:///sdcard/tempHeadPortrait.jpg";//剪切完的图片所存地址
     public static final String IMAGE_FILE_LOCATION_Path = Environment.getExternalStorageDirectory() + "/tempHeadPortrait.jpg";//剪切完的图片所存地址
@@ -204,15 +204,11 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                     }
                     if (!TextUtils.isEmpty(userHead)) {
                         L.e("头像地址是："+userHead);
-//                        Glide.with(getContext()).load(userHead).bitmapTransform(new BlurTransformation(getContext(), 25),
-//                                new CenterCrop(getContext())).into(blur);
-//                        Glide.with(getContext()).load(userHead).into(iv_head_portrait);
+//
                         GlideUtil.getInstance().loadHeadImage(getContext(),iv_head_portrait,userHead,true);
-//                        Glide.with(getContext()).load(userHead).bitmapTransform(new CropCircleTransformation(getContext()))
-//                                .into(iv_head_portrait);
+//
                     } else {
-                        Glide.with(getContext()).load(R.mipmap.head_default)
-                                .into(iv_head_portrait);
+                        Glide.with(getContext()).load(R.mipmap.head_default).into(iv_head_portrait);
                     }
                     /*        phone
                     是 String 手机号*/
@@ -423,7 +419,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 if (data == null) {
                     return;
                 }
-                cropImageUri(data.getData(), 720, 422, CROP_SMALL_PICTURE);
+                cropImageUri(data.getData(), 720, 720, CROP_SMALL_PICTURE);
                 break;
 
             case CROP_SMALL_PICTURE:
@@ -431,6 +427,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 //可以参照裁剪方法，里面已经指定了uri，所以在这里，直接可以从里面取uri，然后获取bitmap，并且设置到imageview
                 try {
                     bitmap1 = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
+                    // TODO: 2018/4/11 压缩图片
 //                    compressImg(bitmap1);
                     //上传图片
                     if (bitmap1 != null) {
@@ -448,6 +445,8 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+
+
     private void cropImageUri(Uri uri, int outputX, int outputY, int requestCode) {
 //        File file = new File(IMAGE_FILE_LOCATION);
 //        if(file.exists()){
@@ -461,8 +460,8 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
 //        intent.putExtra("aspectX", 72);
 //        intent.putExtra("aspectY", 42);
         //设置输出的宽高
-//        intent.putExtra("outputX", outputX);
-//        intent.putExtra("outputY", outputY);
+        intent.putExtra("outputX", outputX);
+        intent.putExtra("outputY", outputY);
         //是否缩放
         intent.putExtra("scale", false);
         //输入图片的Uri，指定以后，可以在这个uri获得图片
@@ -478,6 +477,8 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     }
 
 
+
+
     @Override
     public void showLoading() {
         showDefaultLoading();
@@ -490,6 +491,10 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
 
     @Override
     public void getCertificateMsg(CertificationOut certificationOut, boolean isCertificate) {
+
+        // TODO: 2018/4/11 测试一下：
+//        startActivity(new Intent(getContext(), CertificationActivity.class));
+
         String cerStatus = "";
         String remindString = "";
         int imgResId = 0;
@@ -543,6 +548,8 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         }
     }
 
+
+    //头像上传完成之后
     @Subscribe
     public void uploadHeadPortrait(UploadImgEvent uploadImgEvent) {
         if (uploadImgEvent != null) {

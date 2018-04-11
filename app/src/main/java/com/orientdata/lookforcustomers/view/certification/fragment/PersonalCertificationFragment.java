@@ -25,6 +25,8 @@ import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.ICertificateView;
 import com.orientdata.lookforcustomers.view.certification.PersonalCertificationUploadActivity;
 import com.orientdata.lookforcustomers.widget.EditTextView;
+import com.orientdata.lookforcustomers.widget.EditTextViewIdCode;
+import com.orientdata.lookforcustomers.widget.EditTextViewNumBer;
 import com.orientdata.lookforcustomers.widget.dialog.CityDialog;
 import com.orientdata.lookforcustomers.widget.dialog.ProvinceCityDialog;
 import java.util.ArrayList;
@@ -38,8 +40,8 @@ import vr.md.com.mdlibrary.UserDataManeger;
 
 public class PersonalCertificationFragment extends BaseFragment implements View.OnClickListener,ICertificateView {
     private EditTextView perName;
-    private EditTextView perCard;
-    private EditTextView perPhone;
+    private EditTextViewIdCode perCard;
+    private EditTextViewNumBer perPhone;
     private EditTextView perAddress;
     private TextView tvChooseProvince;
     private ImageView ivChooseProvince;

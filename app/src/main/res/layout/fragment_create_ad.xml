@@ -70,13 +70,13 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="22dp"
                 android:text="[位置]"
-                android:textColor="@color/text_gray"
+                android:textColor="#7F7F7F"
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/et_phone_no"
-                android:layout_width="115dp"
+                android:layout_width="130dp"
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="7dp"

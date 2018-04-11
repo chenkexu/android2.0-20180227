@@ -38,7 +38,6 @@ public class ImgModelImple implements IImgModel {
         File[] submitfiles = new File[1];
         submitfiles[0] = new File(path);
 
-
         try {
             OkHttpClientManager.postAsyn(url, new OkHttpClientManager.ResultCallback<UploadPicBean>() {
                 @Override

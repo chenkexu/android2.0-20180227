@@ -729,12 +729,12 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
                 closeActivity(PersonalCertificationUploadActivity.class, CertificationActivity.class);
             }
         });
-        title.setLeftImage(R.mipmap.back_white, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+//        title.setLeftImage(R.mipmap.back_white, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
     }
 
     @Override
