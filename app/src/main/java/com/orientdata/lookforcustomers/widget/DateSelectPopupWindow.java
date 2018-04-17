@@ -3,7 +3,6 @@ package com.orientdata.lookforcustomers.widget;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.util.DateTool;
-import com.orientdata.lookforcustomers.view.findcustomer.impl.MessageTaskActivity;
 
 import java.lang.reflect.Field;
 import java.util.Calendar;

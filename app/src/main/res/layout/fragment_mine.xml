@@ -12,6 +12,7 @@
         android:layout_height="wrap_content" />-->
 
     <RelativeLayout
+        android:id="@+id/rl_title"
         android:padding="10dp"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
@@ -159,6 +160,7 @@
             android:src="@mipmap/head_default"
             app:type="round" />-->
         <ImageView
+            android:scaleType="centerCrop"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:id="@+id/iv_head_portrait"

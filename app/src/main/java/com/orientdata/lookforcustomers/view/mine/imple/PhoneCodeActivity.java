@@ -147,7 +147,7 @@ public class PhoneCodeActivity extends BaseActivity<ICommissionView, CommissionP
         if(updateToBalanceEvent.err.getCode() == 0){
             mPresent.getCommission();
             final SubmitFeedBackDialog submitFeedBackDialog = new SubmitFeedBackDialog(this,"操作成功！",
-                    "确定",R.mipmap.submit_suc,"温馨提示：款项会在1～3个工作日内到账。");
+                    "确定",R.mipmap.icon_dialog_success,"温馨提示：款项会在1～3个工作日内到账。");
             submitFeedBackDialog.setClickListenerInterface(new SubmitFeedBackDialog.ClickListenerInterface() {
                 @Override
                 public void doCertificate() {

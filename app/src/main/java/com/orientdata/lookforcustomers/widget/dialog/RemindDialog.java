@@ -16,7 +16,6 @@ import com.orientdata.lookforcustomers.R;
  * Created by wy on 2017/11/21.
  * 提示认证的dialog
  */
-
 public class RemindDialog extends Dialog {
     private String cerStatus;//认证状态
     private String remindString;//提示语
@@ -64,7 +63,13 @@ public class RemindDialog extends Dialog {
 
         tvCerRemind.setText(remindString);
         ivCerStatus.setImageResource(imgResId);
-        tvCerStatus.setText(cerStatus);
+        if (cerStatus.equals("")){
+            tvCerStatus.setVisibility(View.GONE);
+        }else{
+            tvCerStatus.setVisibility(View.VISIBLE);
+            tvCerStatus.setText(cerStatus);
+        }
+
         tvToCert.setText(btText);
         tvToCert.setOnClickListener(new clickListener());
 

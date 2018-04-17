@@ -1,23 +1,20 @@
 package com.orientdata.lookforcustomers.view.home;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
-import com.orientdata.lookforcustomers.bean.An;
 import com.orientdata.lookforcustomers.bean.AnnouncementBean;
 import com.orientdata.lookforcustomers.bean.AnnouncementBeanOut;
-import com.orientdata.lookforcustomers.bean.AnnouncementListsBean;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**

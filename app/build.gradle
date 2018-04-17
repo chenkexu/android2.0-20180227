@@ -7,8 +7,8 @@ android {
         applicationId "com.orientdata.lookforcustomers"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 202
-        versionName "2.0.2"
+        versionCode 210
+        versionName "2.1.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         aaptOptions.cruncherEnabled = false
@@ -82,5 +82,10 @@ dependencies {
     //网络请求框架https://github.com/jeasonlzy/okhttp-OkGo
     compile 'com.lzy.net:okgo:3.0.4'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    //rx1.1
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
 
+    //沉浸式
+    compile 'com.gyf.barlibrary:barlibrary:2.3.0'
 }

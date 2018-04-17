@@ -12,28 +12,23 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.ImageTools;
 import com.orientdata.lookforcustomers.util.SystemUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.certification.EnterpriseCertificationUploadActivity;
-import com.orientdata.lookforcustomers.view.certification.impl.CertificationActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;
-import com.orientdata.lookforcustomers.widget.dialog.ConfirmSubmitDialog;
 import com.orientdata.lookforcustomers.widget.dialog.OfflineRechargeConfirmSubmitDialog;
 import com.orientdata.lookforcustomers.widget.dialog.SubmitFeedBackDialog;
 
@@ -41,12 +36,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
@@ -330,13 +323,13 @@ public class UploadOfflineRechargeReceiptActivity extends WangrunBaseActivity im
             //成功
             submitStatus = getString(R.string.sub_suc);
             confirmText = getString(R.string.sub_confirm);
-            imgRes = R.mipmap.submit_suc;
+            imgRes = R.mipmap.icon_dialog_success;
 
         } else {
             //失败
             submitStatus = getString(R.string.sub_fail);
             confirmText = getString(R.string.sub_fail_txt);
-            imgRes = R.mipmap.sub_fail;
+            imgRes = R.mipmap.icon_dialog_error;
 
         }
         final SubmitFeedBackDialog submitFeedBackDialog = new SubmitFeedBackDialog(this, submitStatus, confirmText, imgRes);

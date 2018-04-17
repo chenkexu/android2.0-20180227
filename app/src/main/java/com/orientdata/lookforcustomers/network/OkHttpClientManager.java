@@ -1,5 +1,8 @@
-package vr.md.com.mdlibrary.okhttp;
+package com.orientdata.lookforcustomers.network;
 
+import android.app.ActivityManager;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +16,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.$Gson$Types;
 import com.orhanobut.logger.Logger;
+import com.orientdata.lookforcustomers.app.MyApplication;
+import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -23,7 +28,6 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,9 +56,9 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import vr.md.com.mdlibrary.MyApp;
+import vr.md.com.mdlibrary.okhttp.ImageUtils;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDSecureRequestMap;
 import vr.md.com.mdlibrary.utils.ImageUtils2;
-import vr.md.com.mdlibrary.utils.image.ImageUtil;
 
 
 /**
@@ -379,6 +383,7 @@ public class OkHttpClientManager {
      *
      * @param url
      * @param destFileDir 本地文件存储的文件夹
+     *                    没用到
      * @param callback
      */
     private void _downloadAsyn(final String url, final String destFileDir, final ResultCallback callback) {
@@ -502,6 +507,28 @@ public class OkHttpClientManager {
     //*************对外公布的方法************
 
 
+    //这个用到了
+    public static void getAsyn(String url, final ResultCallback callback, Map<String, String> params) {
+        getInstance()._getAsyn(url, callback, params);
+    }
+
+    //这个用的最多
+    public static void postAsyn(String url, final ResultCallback callback, Param... params) {
+        getInstance()._postAsyn(url, callback, params);
+    }
+
+    //图片上传，用到了
+    public static void postAsyn(String url, ResultCallback callback, File[] files, String fileKeys, Map<String, String> params) throws IOException {
+        getInstance()._postAsyn(url, callback, files, fileKeys, params);
+    }
+    //用到了
+    public static void postAsyn(String url, final ResultCallback callback, Map<String, String> params) {
+        getInstance()._postAsyn(url, callback, params);
+    }
+
+
+
+
     public static Response getAsyn(String url) throws IOException {
         return getInstance()._getAsyn(url);
     }
@@ -510,9 +537,9 @@ public class OkHttpClientManager {
     public static void getAsyn(String url, ResultCallback callback) {
         getInstance()._getAsyn(url, callback);
     }
-    public static void getAsyn(String url, final ResultCallback callback, Map<String, String> params) {
-        getInstance()._getAsyn(url, callback, params);
-    }
+
+
+
 
     public static Response post(String url, Param... params) throws IOException {
         return getInstance()._post(url, params);
@@ -520,15 +547,6 @@ public class OkHttpClientManager {
 
     public static String postAsString(String url, Param... params) throws IOException {
         return getInstance()._postAsString(url, params);
-    }
-
-    public static void postAsyn(String url, final ResultCallback callback, Param... params) {
-        getInstance()._postAsyn(url, callback, params);
-    }
-
-
-    public static void postAsyn(String url, final ResultCallback callback, Map<String, String> params) {
-        getInstance()._postAsyn(url, callback, params);
     }
 
 
@@ -551,17 +569,12 @@ public class OkHttpClientManager {
         getInstance()._postAsyn(url, callback, files, fileKeys, params);
     }
 
-
-
-    //图片上传
-    public static void postAsyn(String url, ResultCallback callback, File[] files, String fileKeys, Map<String, String> params) throws IOException {
-        getInstance()._postAsyn(url, callback, files, fileKeys, params);
-    }
-
-
     public static void postAsyn(String url, ResultCallback callback, File file, String fileKey) throws IOException {
         getInstance()._postAsyn(url, callback, file, fileKey);
     }
+
+
+
     private void _getAsyn(String url, final ResultCallback callback, Map<String, String> params) {
         if (params == null)
             return;
@@ -580,6 +593,9 @@ public class OkHttpClientManager {
             deliveryResult(callback, request);
         }
     }
+
+
+    //// TODO: 2018/4/13
     private Request buildGetRequest(String url, Param[] params) {
         if (params == null) {
             params = new Param[0];
@@ -653,7 +669,6 @@ public class OkHttpClientManager {
             for (int i = 0; i < files.length; i++) {
                 File file = files[i];
                 // TODO: 2018/4/11 文件压缩下：
-//                imageutcompressFile
                 File compressFile = ImageUtils2.compressFile(file.getPath());
                 String fileName = file.getName();
                 fileBody = RequestBody.create(MediaType.parse(guessMimeType(fileName)), compressFile);
@@ -763,17 +778,23 @@ public class OkHttpClientManager {
 
     private Map<String, String> mSessions = new HashMap<String, String>();
 
+
+
+
+    // TODO: 2018/4/13 重要
     private void deliveryResult(final ResultCallback callback, final Request request) {
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(final Request request, final IOException e) {
+                //网络不通的话
                 sendFailedStringCallback(request, e, callback);
                 startError(102, ""); //看不懂
             }
-
             @Override
             public void onResponse(final Response response) {
                 try {
+                    // TODO: 2018/4/12 测试广播
+                    startError(102, "");
                     final String string = response.body().string();
                     Logger.d("请求返回Json:"+string);
                     Logger.json(string);
@@ -798,11 +819,11 @@ public class OkHttpClientManager {
                                     RuntimeException runtimeException = new RuntimeException(msg);
                                     sendFailedStringCallback(response.request(), runtimeException, callback);
                                     if(error_code == -100){
+
                                         //重新登陆
                                         startError(101, msg);
                                     }
                                 }
-
 
                             } catch (Exception e) {
                                 sendFailedStringCallback(null, e, callback);
@@ -820,6 +841,54 @@ public class OkHttpClientManager {
             }
         });
     }
+
+    // TODO: 2018/4/13 自定义callback
+    public static abstract class ResultCallback<T> {
+        Type mType;
+
+        public ResultCallback() {
+            mType = getSuperclassTypeParameter(getClass());
+        }
+
+        static Type getSuperclassTypeParameter(Class<?> subclass) {
+            Type superclass = subclass.getGenericSuperclass();
+            if (superclass instanceof Class) {
+                throw new RuntimeException("Missing type parameter.");
+            }
+            ParameterizedType parameterized = (ParameterizedType) superclass;
+            return $Gson$Types.canonicalize(parameterized.getActualTypeArguments()[0]);
+        }
+
+        public abstract void onError(Exception e);
+
+        public abstract void onResponse(T response);
+    }
+
+
+
+
+
+//
+//    private Intent intent;
+//
+//    /**
+//     * 跳转登录页面
+//     */
+//    private void reStartLogin() {
+//        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+//        ActivityManager.RunningTaskInfo info = manager.getRunningTasks(1).get(0);
+//        String shortClassName = info.topActivity.getShortClassName(); //类名
+//        if (!".ui.login.LoginActivity".equals(shortClassName)) {
+//            intent.setClass(getInstance(), LoginAndRegisterActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            intent.putExtra("isReLogin",true);
+//            intent.putExtra("isNoBack",true);
+//            context.startActivity(intent);
+//        }
+//    }
+
+
+
 
     /**
      * 查询个人认证接口 result 有两种情况的返回值 单独处理
@@ -842,6 +911,8 @@ public class OkHttpClientManager {
         return result;
     }
 
+
+    //失败的回调
     private void sendFailedStringCallback(final Request request, final Exception e, final ResultCallback callback) {
         mDelivery.post(new Runnable() {
             @Override
@@ -852,6 +923,7 @@ public class OkHttpClientManager {
         });
     }
 
+    //成功回调
     private void sendSuccessResultCallback(final Object object, final ResultCallback callback) {
         mDelivery.post(new Runnable() {
             @Override
@@ -880,26 +952,9 @@ public class OkHttpClientManager {
     }
 
 
-    public static abstract class ResultCallback<T> {
-        Type mType;
 
-        public ResultCallback() {
-            mType = getSuperclassTypeParameter(getClass());
-        }
 
-        static Type getSuperclassTypeParameter(Class<?> subclass) {
-            Type superclass = subclass.getGenericSuperclass();
-            if (superclass instanceof Class) {
-                throw new RuntimeException("Missing type parameter.");
-            }
-            ParameterizedType parameterized = (ParameterizedType) superclass;
-            return $Gson$Types.canonicalize(parameterized.getActualTypeArguments()[0]);
-        }
 
-        public abstract void onError(Exception e);
-
-        public abstract void onResponse(T response);
-    }
 
 
     public static class Param {
@@ -938,14 +993,39 @@ public class OkHttpClientManager {
         return false;
     }
 
+
+    /**
+     * 跳转登录页面
+     */
+    private void reStartLogin() {
+        Intent intent = new Intent(MyApplication.getContext(), LoginAndRegisterActivity.class);
+//        MyApplication.getContext().startActivity(intent1);
+        ActivityManager manager = (ActivityManager) MyApplication.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager.RunningTaskInfo info = manager.getRunningTasks(1).get(0);
+        String shortClassName = info.topActivity.getShortClassName(); //类名
+        if (!".ui.login.LoginActivity".equals(shortClassName)) {
+            intent.setClass(MyApplication.getContext(), LoginAndRegisterActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("isReLogin",true);
+            intent.putExtra("isNoBack",true);
+            MyApplication.getContext().startActivity(intent);
+        }
+    }
+
     /**
      * 开启登录页面
      */
     private void startError(int code, String msg) {
-        Intent intent = new Intent("com.microdreams.timeprints.error");
-        intent.putExtra("error_code", code);
-        intent.putExtra("msg", msg);
-        MyApp.getContext().sendBroadcast(intent);
+        if(code == 101){
+            reStartLogin();
+        }
+
+
+//        Logger.d("需要重新登录");
+//        Intent intent = new Intent("com.microdreams.timeprints.error");
+//        intent.putExtra("error_code", code);
+//        intent.putExtra("msg", msg);
+//        MyApplication.getContext().sendBroadcast(intent);
     }
 
     /**

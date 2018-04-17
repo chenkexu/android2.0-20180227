@@ -7,11 +7,11 @@ import com.orientdata.lookforcustomers.bean.CommissionListBean;
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.model.ICommissionModel;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 
 import java.math.BigDecimal;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**

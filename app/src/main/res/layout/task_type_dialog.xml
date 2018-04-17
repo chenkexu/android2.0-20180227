@@ -20,7 +20,7 @@
             android:layout_marginLeft="27dp"
             android:layout_marginTop="21dp"
             android:text="短信任务"
-            android:textColor="@color/c_1C1C1C"
+            android:textColor="@color/text_gray"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -47,21 +47,37 @@
             android:layout_marginRight="15dp"
             android:button="@drawable/bg_customize_creadential_upload_selector" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_alignLeft="@+id/textView"
             android:layout_below="@+id/textView"
-            android:layout_marginTop="21dp"
-            app:srcCompat="@mipmap/message_group" />
+            android:id="@+id/ll_msg"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/icon_msg" />
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/jiantou" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_person" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="235dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView2"
-            android:layout_below="@id/imageView2"
+            android:layout_alignLeft="@+id/ll_msg"
+            android:layout_below="@id/ll_msg"
             android:layout_marginTop="21dp"
             android:text="您可以通过短信下发的方式，点对点的精准触达有效用户。"
             android:textColor="@color/c_414141"
@@ -89,7 +105,7 @@
             android:layout_marginLeft="27dp"
             android:layout_marginTop="21dp"
             android:text="页面任务"
-            android:textColor="@color/c_1C1C1C"
+            android:textColor="@color/text_gray"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -116,25 +132,54 @@
             android:layout_marginRight="15dp"
             android:button="@drawable/bg_customize_creadential_upload_selector" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_alignBottom="@+id/rbPage"
             android:layout_alignLeft="@+id/textView1"
-            android:layout_below="@+id/textView1"
-            android:layout_marginTop="21dp"
-            app:srcCompat="@mipmap/page_group" />
+            android:layout_alignStart="@+id/textView1"
+            android:layout_marginTop="20dp"
+            android:id="@+id/ll_page"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_page" />
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/jiantou" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_pic" />
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/jiantou" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_person" />
+        </LinearLayout>
+
+
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="235dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView3"
-            android:layout_below="@+id/imageView3"
             android:layout_marginTop="20dp"
             android:text="您可以通过页面嵌入广告的方式，吸引用户点击并精准的触达有效用户。"
             android:textColor="@color/c_414141"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_below="@+id/ll_page"
+            android:layout_alignLeft="@+id/ll_page"
+            android:layout_alignStart="@+id/ll_page" />
 
 
     </RelativeLayout>
@@ -144,7 +189,7 @@
         android:layout_height="1dp"
         android:background="@color/c_eeeeee" />
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true">
@@ -169,7 +214,7 @@
             android:text="确定"
             android:textColor="@color/c_ffffff"
             android:textSize="20sp" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 
 </LinearLayout>

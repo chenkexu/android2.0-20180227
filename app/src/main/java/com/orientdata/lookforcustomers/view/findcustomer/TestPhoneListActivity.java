@@ -38,6 +38,8 @@ public class TestPhoneListActivity extends WangrunBaseActivity{
         tvMove.setText(testCmPhone);
         tvUnicom.setText(testCuPhone);
         tvTelecom.setText(testCtPhone);
+
+
     }
     private void initTitle(){
         myTitle.setTitleName("测试号查看");

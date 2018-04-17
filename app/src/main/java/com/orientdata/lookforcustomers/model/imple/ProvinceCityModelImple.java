@@ -4,7 +4,8 @@ import com.orientdata.lookforcustomers.bean.ProvinceBean;
 import com.orientdata.lookforcustomers.bean.ProvinceCityBean;
 import com.orientdata.lookforcustomers.model.IProvinceCityModel;
 import com.orientdata.lookforcustomers.network.HttpConstant;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
+
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**

@@ -1,6 +1,5 @@
 package com.orientdata.lookforcustomers.view.home;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,30 +12,22 @@ import android.widget.TextView;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.bean.Area;
-import com.orientdata.lookforcustomers.bean.BannerBean;
-import com.orientdata.lookforcustomers.bean.BannerBeans;
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.bean.InvoiceAreaOut;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.InvoiceConfirmSubmitDialog;
-import com.orientdata.lookforcustomers.widget.dialog.OfflineRechargeConfirmSubmitDialog;
 import com.orientdata.lookforcustomers.widget.dialog.ProvinceCityCountyDialog;
 import com.orientdata.lookforcustomers.widget.dialog.SubmitFeedBackDialog;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
-
-import static com.orientdata.lookforcustomers.R.id.tvChooseCity;
 /**
  * 发票下一步
  */
@@ -351,13 +342,13 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
         switch (v.getId()) {
             case R.id.rl_e_invoice:
                 isEOrP = 1;
-                rl_e_invoice.setBackgroundResource(R.mipmap.kuang_invoice_checked);
-                iv_e_invoice.setBackgroundResource(R.mipmap.xuanzhong_invoice);
-                tv_e_invoice.setTextColor(Color.parseColor("#09b6f2"));
+                rl_e_invoice.setBackground(getResources().getDrawable(R.drawable.bac_rec_border));
+                iv_e_invoice.setBackgroundResource(R.mipmap.check_invoice);
+                tv_e_invoice.setTextColor(getResources().getColor(R.color.colorPrimary));
 
                 rl_p_invoice.setBackgroundResource(R.mipmap.kuang_invoice_unchecked);
-                iv_p_invoice.setBackgroundResource(R.mipmap.weixuanzhong_invoice);
-                tv_p_invoice.setTextColor(Color.parseColor("#9c9c9c"));
+                iv_p_invoice.setBackgroundResource(R.mipmap.no_check_invoice);
+                tv_p_invoice.setTextColor(getResources().getColor(R.color.text_gray));
                 ll_main.setVisibility(View.VISIBLE);
                 ll_e_consignee_information.setVisibility(View.VISIBLE);
                 ll_p_consignee_information.setVisibility(View.GONE);
@@ -365,13 +356,13 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
                 break;
             case R.id.rl_p_invoice:
                 isEOrP = 2;
-                rl_p_invoice.setBackgroundResource(R.mipmap.kuang_invoice_checked);
-                iv_p_invoice.setBackgroundResource(R.mipmap.xuanzhong_invoice);
-                tv_p_invoice.setTextColor(Color.parseColor("#09b6f2"));
+                rl_p_invoice.setBackground(getResources().getDrawable(R.drawable.bac_rec_border));
+                iv_p_invoice.setBackgroundResource(R.mipmap.check_invoice);
+                tv_p_invoice.setTextColor(getResources().getColor(R.color.colorPrimary));
 
                 rl_e_invoice.setBackgroundResource(R.mipmap.kuang_invoice_unchecked);
-                iv_e_invoice.setBackgroundResource(R.mipmap.weixuanzhong_invoice);
-                tv_e_invoice.setTextColor(Color.parseColor("#9c9c9c"));
+                iv_e_invoice.setBackgroundResource(R.mipmap.no_check_invoice);
+                tv_e_invoice.setTextColor(getResources().getColor(R.color.text_gray));
                 ll_main.setVisibility(View.VISIBLE);
                 ll_e_consignee_information.setVisibility(View.GONE);
                 ll_p_consignee_information.setVisibility(View.VISIBLE);
@@ -394,17 +385,17 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
                 break;
             case R.id.rl_invoice_title_personal:
                 isEnterpriseOrpersonal = 2;
-                iv_invoice_title_personal.setBackgroundResource(R.mipmap.xuanzhong_invoice2);
-                tv_invoice_title_personal.setTextColor(Color.parseColor("#09b6f2"));
-                iv_invoice_title_enterprise.setBackgroundResource(R.mipmap.weixuanzhong_invoice2);
-                tv_invoice_title_enterprise.setTextColor(Color.parseColor("#9c9c9c"));
+                iv_invoice_title_personal.setBackgroundResource(R.mipmap.check_invoice);
+                tv_invoice_title_personal.setTextColor(getResources().getColor(R.color.colorPrimary));
+                iv_invoice_title_enterprise.setBackgroundResource(R.mipmap.no_check_invoice);
+                tv_invoice_title_enterprise.setTextColor(getResources().getColor(R.color.text_gray));
                 break;
             case R.id.rl_invoice_title_enterprise:
                 isEnterpriseOrpersonal = 1;
-                iv_invoice_title_personal.setBackgroundResource(R.mipmap.weixuanzhong_invoice2);
-                tv_invoice_title_personal.setTextColor(Color.parseColor("#9c9c9c"));
-                iv_invoice_title_enterprise.setBackgroundResource(R.mipmap.xuanzhong_invoice2);
-                tv_invoice_title_enterprise.setTextColor(Color.parseColor("#09b6f2"));
+                iv_invoice_title_personal.setBackgroundResource(R.mipmap.no_check_invoice);
+                tv_invoice_title_personal.setTextColor(getResources().getColor(R.color.text_gray));
+                iv_invoice_title_enterprise.setBackgroundResource(R.mipmap.check_invoice);
+                tv_invoice_title_enterprise.setTextColor(getResources().getColor(R.color.colorPrimary));
                 break;
             case R.id.tv_submit:
                 showRemindDialog();
@@ -552,13 +543,13 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
             //成功
             submitStatus = getString(R.string.sub_suc);
             confirmText = getString(R.string.sub_confirm);
-            imgRes = R.mipmap.submit_suc;
+            imgRes = R.mipmap.icon_dialog_success;
 
         } else {
             //失败
             submitStatus = getString(R.string.sub_fail);
             confirmText = getString(R.string.sub_fail_txt);
-            imgRes = R.mipmap.sub_fail;
+            imgRes = R.mipmap.icon_dialog_error;
 
         }
         final SubmitFeedBackDialog submitFeedBackDialog = new SubmitFeedBackDialog(this, submitStatus, confirmText, imgRes);

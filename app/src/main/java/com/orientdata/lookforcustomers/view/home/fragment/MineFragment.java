@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseFragment;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
@@ -30,6 +31,7 @@ import com.orientdata.lookforcustomers.bean.MyInfoBean;
 import com.orientdata.lookforcustomers.bean.URLBean;
 import com.orientdata.lookforcustomers.event.UploadImgEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
@@ -55,7 +57,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 import static android.app.Activity.RESULT_OK;
@@ -97,14 +98,25 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     Uri imageUri = Uri.parse(IMAGE_FILE_LOCATION);
     private RelativeLayout ll_rv_balance_account;
     private String upMoney;
+    private RelativeLayout rl_title;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
         initView(view);
+//        ImmersionBar.setTitleBar(getActivity(), rl_title);
         getData();
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ImmersionBar.with(getActivity())
+                 //使用该属性,必须指定状态栏颜色
+                .statusBarColor(R.color.colorPrimary)
+                .init();
     }
 
     /*@Override
@@ -129,9 +141,10 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         rl_share = view.findViewById(R.id.rl_share);
         rl_service = view.findViewById(R.id.rl_service);
         ll_rv_balance_account = view.findViewById(R.id.rv_balance_account);
+        rl_title = view.findViewById(R.id.rl_title);
 
         rl_commission_withdraw.setOnClickListener(this);
-        tv_balance_account.setOnClickListener(this);
+//        tv_balance_account.setOnClickListener(this);
         iv_setting.setOnClickListener(this);
         rl_share.setOnClickListener(this);
         linear_company.setOnClickListener(this);
@@ -504,7 +517,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
             //未认证
             cerStatus = getString(R.string.no_cer);
             remindString = getString(R.string.no_certified);
-            imgResId = R.mipmap.no_certified;
+            imgResId = R.mipmap.go_pass;
             btText = getString(R.string.go_cer);
 //            账户未认证，去认证
             tv_company_name.setText("账户未认证,认证");
@@ -516,19 +529,19 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 tv_company_name.setText("审核中");
                 cerStatus = getString(R.string.cer_ing);
                 remindString = getString(R.string.cer_waiting);
-                imgResId = R.mipmap.audit;
+                imgResId = R.mipmap.pass_ing;
                 btText = getString(R.string.go_watch);
             } else if (authStatus == 3) {
                 tv_company_name.setText("审核失败");
                 //审核拒绝
                 cerStatus = getString(R.string.no_pass);
                 remindString = getString(R.string.not_pass);
-                imgResId = R.mipmap.not_pass;
+                imgResId = R.mipmap.no_pass;
                 btText = getString(R.string.re_go_cer);
             }
         }
         if (authStatus != 2) {
-            final RemindDialog dialog = new RemindDialog(getContext(), cerStatus, remindString, imgResId, btText);
+            final RemindDialog dialog = new RemindDialog(getContext(), "", remindString, imgResId, btText);
             dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
                 @Override
                 public void doCertificate() {

@@ -4,8 +4,9 @@ import com.orientdata.lookforcustomers.bean.ReportListBean;
 import com.orientdata.lookforcustomers.bean.ReportUrlBean;
 import com.orientdata.lookforcustomers.model.IReportModel;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
+
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**

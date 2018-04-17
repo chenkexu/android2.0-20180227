@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.gyf.barlibrary.ImmersionBar;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
@@ -58,12 +59,15 @@ import java.math.BigDecimal;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.utils.DisplayUtil;
+
+import static com.orientdata.lookforcustomers.R.mipmap.more;
 
 /**
  * Created by wy on 2017/10/30.
@@ -161,6 +165,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
         initView(view);
         initTab();
         initTitle();
+//        ImmersionBar.setTitleBar(getActivity(), title);
         updateData();
         screenWidth = DisplayUtil.getPortraitScreenWidth(getActivity());
         return view;
@@ -266,165 +271,204 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     private void initChartView() {
         curveRl.removeAllViews();
         if (chooseType == 1) {
-            yesturdayMoneyView = new MyChartView(getContext(), yesterDayX, "", yesterDayMoneyY, moneyColor);
+            int maxY = maxResult(yesterDayMoneyY, yesterDayPageConY, yesterDayPageDisplayY, yesterDayPageClickY, yesterDayMsgConY, yesterDayMsgIssuedY);
+            Logger.d("more:"+maxY);
+            yesturdayMoneyView = new MyChartView(getContext(), yesterDayX, "", yesterDayMoneyY, moneyColor,maxY);
             yesturdayMoneyView.setClickListener(this);
             curveRl.addView(yesturdayMoneyView);
             yesturdayMoneyView.startDrawLine(0);
 
-            yesturdayPageConView = new MyChartView(getContext(), yesterDayX, "", yesterDayPageConY, pageConColor);
+            yesturdayPageConView = new MyChartView(getContext(), yesterDayX, "", yesterDayPageConY, pageConColor,maxY);
             yesturdayPageConView.setClickListener(this);
             yesturdayPageConView.startDrawLine(0);
             yesturdayPageConView.setId(R.id.yesterday_line_pagecon);
 
-            yesturdayPageDisplayView = new MyChartView(getContext(), yesterDayX, "", yesterDayPageDisplayY, pageDisplayColor);
+            yesturdayPageDisplayView = new MyChartView(getContext(), yesterDayX, "", yesterDayPageDisplayY, pageDisplayColor,maxY);
             yesturdayPageDisplayView.setClickListener(this);
             yesturdayPageDisplayView.startDrawLine(0);
             yesturdayPageDisplayView.setId(R.id.yesterday_line_pagedisplay);
 
-            yesturdayPageClickView = new MyChartView(getContext(), yesterDayX, "", yesterDayPageClickY, pageClickColor);
+            yesturdayPageClickView = new MyChartView(getContext(), yesterDayX, "", yesterDayPageClickY, pageClickColor,maxY);
             yesturdayPageClickView.setClickListener(this);
             yesturdayPageClickView.startDrawLine(0);
             yesturdayPageClickView.setId(R.id.yesterday_line_pageclick);
 
-            yesturdayMsgConView = new MyChartView(getContext(), yesterDayX, "", yesterDayMsgConY, msgConColor);
+            yesturdayMsgConView = new MyChartView(getContext(), yesterDayX, "", yesterDayMsgConY, msgConColor,maxY);
             yesturdayMsgConView.setClickListener(this);
             yesturdayMsgConView.startDrawLine(0);
             yesturdayMsgConView.setId(R.id.yesterday_line_msgcon);
 
-            yesturdayMsgIssuedView = new MyChartView(getContext(), yesterDayX, "", yesterDayMsgIssuedY, msgIssuedColor);
+            yesturdayMsgIssuedView = new MyChartView(getContext(), yesterDayX, "", yesterDayMsgIssuedY, msgIssuedColor,maxY);
             yesturdayMsgIssuedView.setClickListener(this);
             yesturdayMsgIssuedView.startDrawLine(0);
             yesturdayMsgIssuedView.setId(R.id.yesterday_line_msgissued);
         } else if (chooseType == 2) {
-
-            latestSevenMoneyView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenMoneyY, moneyColor);
+            int maxY = maxResult(latestSevenMoneyY, latestSevenPageConY, latestSevenPageDisplayY, latestSevenPageClickY, latestSevenMsgConY, latestSevenMsgIssuedY);
+            Logger.d("more:"+maxY);
+            latestSevenMoneyView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenMoneyY, moneyColor,maxY);
             latestSevenMoneyView.setClickListener(this);
             curveRl.addView(latestSevenMoneyView);
             latestSevenMoneyView.startDrawLine(0);
 
-            latestSevenPageConView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenPageConY, pageConColor);
+            latestSevenPageConView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenPageConY, pageConColor,maxY);
             latestSevenPageConView.setClickListener(this);
             latestSevenPageConView.startDrawLine(0);
             latestSevenPageConView.setId(R.id.latestseven_line_pagecon);
 
-            latestSevenPageDisplayView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenPageDisplayY, pageDisplayColor);
+            latestSevenPageDisplayView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenPageDisplayY, pageDisplayColor,maxY);
             latestSevenPageDisplayView.setClickListener(this);
             latestSevenPageDisplayView.startDrawLine(0);
             latestSevenPageDisplayView.setId(R.id.latestseven_line_pagedisplay);
 
-            latestSevenPageClickView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenPageClickY, pageClickColor);
+            latestSevenPageClickView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenPageClickY, pageClickColor,maxY);
             latestSevenPageClickView.setClickListener(this);
             latestSevenPageClickView.startDrawLine(0);
             latestSevenPageClickView.setId(R.id.latestseven_line_pageclick);
 
-            latestSevenMsgConView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenMsgConY, msgConColor);
+            latestSevenMsgConView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenMsgConY, msgConColor,maxY);
             latestSevenMsgConView.setClickListener(this);
             latestSevenMsgConView.startDrawLine(0);
             latestSevenMsgConView.setId(R.id.latestseven_line_msgcon);
 
-            latestSevenMsgIssuedView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenMsgIssuedY, msgIssuedColor);
+            latestSevenMsgIssuedView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenMsgIssuedY, msgIssuedColor,maxY);
             latestSevenMsgIssuedView.setClickListener(this);
             latestSevenMsgIssuedView.startDrawLine(0);
             latestSevenMsgIssuedView.setId(R.id.latestseven_line_msgissued);
 
         } else if (chooseType == 3) {
-            lastWeekMoneyView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekMoneyY, moneyColor);
+            int maxY = maxResult(lastWeekMoneyY, lastWeekPageConY, lastWeekPageDisplayY, lastWeekPageClickY, lastWeekMsgConY, lastWeekMsgIssuedY);
+            Logger.d("more:"+maxY);
+            lastWeekMoneyView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekMoneyY, moneyColor,maxY);
             lastWeekMoneyView.setClickListener(this);
             curveRl.addView(lastWeekMoneyView);
             lastWeekMoneyView.startDrawLine(0);
 
-            lastWeekPageConView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekPageConY, pageConColor);
+            lastWeekPageConView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekPageConY, pageConColor,maxY);
             lastWeekPageConView.setClickListener(this);
             lastWeekPageConView.startDrawLine(0);
             lastWeekPageConView.setId(R.id.lastweek_line_pagecon);
 
-            lastWeekPageDisplayView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekPageDisplayY, pageDisplayColor);
+            lastWeekPageDisplayView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekPageDisplayY, pageDisplayColor,maxY);
             lastWeekPageDisplayView.setClickListener(this);
             lastWeekPageDisplayView.startDrawLine(0);
             lastWeekPageDisplayView.setId(R.id.lastweek_line_pagedisplay);
 
-            lastWeekPageClickView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekPageClickY, pageClickColor);
+            lastWeekPageClickView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekPageClickY, pageClickColor,maxY);
             lastWeekPageClickView.setClickListener(this);
             lastWeekPageClickView.startDrawLine(0);
             lastWeekPageClickView.setId(R.id.lastweek_line_pageclick);
 
-            lastWeekMsgConView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekMsgConY, msgConColor);
+            lastWeekMsgConView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekMsgConY, msgConColor,maxY);
             lastWeekMsgConView.setClickListener(this);
             lastWeekMsgConView.startDrawLine(0);
             lastWeekMsgConView.setId(R.id.lastweek_line_msgcon);
 
-            lastWeekMsgIssuedView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekMsgIssuedY, msgIssuedColor);
+            lastWeekMsgIssuedView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekMsgIssuedY, msgIssuedColor,maxY);
             lastWeekMsgIssuedView.setClickListener(this);
             lastWeekMsgIssuedView.startDrawLine(0);
             lastWeekMsgIssuedView.setId(R.id.lastweek_line_msgissued);
 
         } else if (chooseType == 4) {
-            monthMoneyView = new MyChartView(getContext(), monthMoneyX, "", monthMoneyY, moneyColor);
+            int maxY = maxResult(monthMoneyY, monthPageConY, monthPageDisplayY, monthPageClickY, monthMsgConY, monthMsgIssuedY);
+            Logger.d("more:"+maxY);
+            monthMoneyView = new MyChartView(getContext(), monthMoneyX, "", monthMoneyY, moneyColor,maxY);
             monthMoneyView.setClickListener(this);
             curveRl.addView(monthMoneyView);
             monthMoneyView.startDrawLine(0);
 
-            monthPageConView = new MyChartView(getContext(), monthMoneyX, "", monthPageConY, pageConColor);
+            monthPageConView = new MyChartView(getContext(), monthMoneyX, "", monthPageConY, pageConColor,maxY);
             monthPageConView.setClickListener(this);
             monthPageConView.startDrawLine(0);
             monthPageConView.setId(R.id.month_line_pagecon);
 
-            monthPageDisplayView = new MyChartView(getContext(), monthMoneyX, "", monthPageDisplayY, pageDisplayColor);
+            monthPageDisplayView = new MyChartView(getContext(), monthMoneyX, "", monthPageDisplayY, pageDisplayColor,maxY);
             monthPageDisplayView.setClickListener(this);
             monthPageDisplayView.startDrawLine(0);
             monthPageDisplayView.setId(R.id.month_line_pagedisplay);
 
-            monthPageClickView = new MyChartView(getContext(), monthMoneyX, "", monthPageClickY, pageClickColor);
+            monthPageClickView = new MyChartView(getContext(), monthMoneyX, "", monthPageClickY, pageClickColor,maxY);
             monthPageClickView.setClickListener(this);
             monthPageClickView.startDrawLine(0);
             monthPageClickView.setId(R.id.month_line_pageclick);
 
-            monthMsgConView = new MyChartView(getContext(), monthMoneyX, "", monthMsgConY, msgConColor);
+            monthMsgConView = new MyChartView(getContext(), monthMoneyX, "", monthMsgConY, msgConColor,maxY);
             monthMsgConView.setClickListener(this);
             monthMsgConView.startDrawLine(0);
             monthMsgConView.setId(R.id.month_line_msgcon);
 
-            monthMsgIssuedView = new MyChartView(getContext(), monthMoneyX, "", monthMsgIssuedY, msgIssuedColor);
+            monthMsgIssuedView = new MyChartView(getContext(), monthMoneyX, "", monthMsgIssuedY, msgIssuedColor,maxY);
             monthMsgIssuedView.setClickListener(this);
             monthMsgIssuedView.startDrawLine(0);
             monthMsgIssuedView.setId(R.id.month_line_msgissued);
 
         } else if (chooseType == 5) {
-            lastMonthMoneyView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthMoneyY, moneyColor);
+            //数组合并
+            int maxY = maxResult(lastMonthMoneyY, lastMonthPageConY, lastMonthPageDisplayY, lastMonthPageClickY, lastMonthMsgConY, lastMonthMsgIssuedY);
+            Logger.d("more:"+maxY);
+
+
+            lastMonthMoneyView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthMoneyY, moneyColor,maxY);
             lastMonthMoneyView.setClickListener(this);
             curveRl.addView(lastMonthMoneyView);
             lastMonthMoneyView.startDrawLine(0);
 
-            lastMonthPageConView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthPageConY, pageConColor);
+
+
+            lastMonthPageConView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthPageConY, pageConColor,maxY);
             lastMonthPageConView.setClickListener(this);
             lastMonthPageConView.startDrawLine(0);
             lastMonthPageConView.setId(R.id.lastmonth_line_pagecon);
 
-            lastMonthPageDisplayView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthPageDisplayY, pageDisplayColor);
+            lastMonthPageDisplayView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthPageDisplayY, pageDisplayColor,maxY);
             lastMonthPageDisplayView.setClickListener(this);
             lastMonthPageDisplayView.startDrawLine(0);
             lastMonthPageDisplayView.setId(R.id.lastmonth_line_pagedisplay);
 
-            lastMonthPageClickView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthPageClickY, pageClickColor);
+            lastMonthPageClickView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthPageClickY, pageClickColor,maxY);
             lastMonthPageClickView.setClickListener(this);
             lastMonthPageClickView.startDrawLine(0);
             lastMonthPageClickView.setId(R.id.lastmonth_line_pageclick);
 
-            lastMonthMsgConView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthMsgConY, msgConColor);
+            lastMonthMsgConView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthMsgConY, msgConColor,maxY);
             lastMonthMsgConView.setClickListener(this);
             lastMonthMsgConView.startDrawLine(0);
             lastMonthMsgConView.setId(R.id.lastmonth_line_msgcon);
 
 
-            Logger.d(lastMonthMsgIssuedY);
-            lastMonthMsgIssuedView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthMsgIssuedY, msgIssuedColor);
-
+//            Logger.d(lastMonthMsgIssuedY);
+            lastMonthMsgIssuedView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthMsgIssuedY, msgIssuedColor,maxY);
             lastMonthMsgIssuedView.setClickListener(this);
             lastMonthMsgIssuedView.startDrawLine(0);
             lastMonthMsgIssuedView.setId(R.id.lastmonth_line_msgissued);
 
         }
 
+    }
+
+
+    //求数组的最大值和最小值
+    private int maxY(int[] A){
+        int i,min,max;
+        min=max=A[0];
+        System.out.print("数组A的元素包括：");
+        for(i=0;i<A.length;i++) {
+            System.out.print(A[i]+" ");
+            if(A[i]>max)   // 判断最大值
+                max=A[i];
+            if(A[i]<min)   // 判断最小值
+                min=A[i];
+        }
+        Logger.e("Y轴最大值为："+max);
+        return max;
+//        if (max!=0) {
+//            int length = (max / 5);
+//            Ylabel[5] = max + "";
+//            Ylabel[4] = length * 4+"";
+//            Ylabel[3] = length * 3+"";
+//            Ylabel[2] = length * 2+"";
+//            Ylabel[1] = length + "";
+//            Logger.e("maxY:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
+//        }
     }
 
     /**
@@ -1498,6 +1542,21 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
                         Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS},
                 0);
     }
+
+
+    private  int  maxResult(int[] aa, int[] bb, int[] cc,int[] dd,int[] ee,int[] ff){
+        int maxAll[] = {maxY(aa),maxY(bb),maxY(cc),maxY(dd),maxY(ee),maxY(ff)};
+        int maxResult = maxY(maxAll);
+//        Logger.d("maxresult: "+maxResult);
+        return maxResult;
+    }
+
+
+
+
+
+        //数组合并
+
 
 
 

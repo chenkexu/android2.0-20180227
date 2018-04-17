@@ -9,6 +9,7 @@
 
 
 
+
     <color name="color_09B6F2">#09B6F2</color>
     <color name="color_FFFFFF">#FFFFFF</color>
     <color name="color_81D9F7">#81D9F7</color>
@@ -16,7 +17,7 @@
     <color name="color_888888">#888888</color>
     <!--认证-->
     <color name="c_999999">#999999</color>
-    <color name="c_9c9c9c">#9c9c9c</color>
+    <color name="c_9c9c9c">#9699A3</color>
     <color name="c_09b6f1">#09b6f1</color>
     <color name="c_e8e8e8">#e8e8e8</color>
     <color name="c_D9D9D9">#D9D9D9</color>
@@ -38,7 +39,7 @@
     <!--Home Fragment-->
     <color name="c_ffffff">#FFFFFF</color>
     <color name="c_09B6F2">#3660E5</color>
-    <color name="c_DB010B">#DB010B</color>
+    <color name="c_DB010B">#FF5C64</color>
     <color name="c_cd4949">#cd4949</color>
     <color name="c_b31a1f">#b31a1f</color>
     <color name="c_f1f1f1">#f1f1f1</color>
@@ -47,12 +48,18 @@
     <color name="c_53e5d5">#53e5d5</color>
     <color name="c_fda32b">#fda32b</color>
     <color name="c_000000">#000000</color>
-    <color name="c_C3ABDF">#C3ABDF</color>
-    <color name="c_888888">#888888</color>
-    <color name="c_FFA6A8">#FFA6A8</color>
-    <color name="c_FDA32C">#FDA32C</color>
-    <color name="c_18C8E6">#18C8E6</color>
+
+    <color name="c_C3ABDF">#02ab9a</color>
+
+    <color name="c_888888">#7F7F7F</color>
+
+    <color name="c_FFA6A8">#F03869</color>
+
+    <color name="c_FDA32C">#6a55b9</color>
+
+    <color name="c_18C8E6">#588EE9</color>
     <color name="c_DC0100">#DC0100</color>
+
     <color name="c_53CAC3">#53CAC3</color>
     <color name="c_05A822">#05A822</color>
 
@@ -83,5 +90,9 @@
     <!--充值页面-->
     <color name="charge_text">#3F6AE8</color>
 
+    <!--<color name="charge_text">#3F6AE8</color>-->
 
+    <color name="dialog_text2">#7f7f7f</color>
+
+    <color name="dialog_text">#7a7c85</color>
 </resources>

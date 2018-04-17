@@ -14,15 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
+import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.bean.OfflineRechargeBean;
 import com.orientdata.lookforcustomers.bean.OfflineRechargeListBean;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.home.fragment.MyAdapter;
-import com.orientdata.lookforcustomers.view.xlistview.XListView;
 import com.orientdata.lookforcustomers.view.xlistview.XListView1;
-import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter;
 import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter1;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
@@ -31,13 +30,12 @@ import java.util.Date;
 import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
  * 线下充值
  */
-public class OfflineRechargeActivity extends AppCompatActivity implements View.OnClickListener, XListView1.IXListViewListener {
+public class OfflineRechargeActivity extends WangrunBaseActivity implements View.OnClickListener, XListView1.IXListViewListener {
     private MyTitle title;
     private XListView1 mListView;
     int mPage = 1;

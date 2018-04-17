@@ -6,11 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.FutureTarget;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.AdPage;
@@ -31,12 +27,7 @@ import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.event.AdEvent;
 import com.orientdata.lookforcustomers.event.ImgClipResultEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
-import com.orientdata.lookforcustomers.network.okhttp.bean.OkError;
-import com.orientdata.lookforcustomers.network.okhttp.callback.IResponseCallback;
-import com.orientdata.lookforcustomers.network.okhttp.manager.OkClient;
-import com.orientdata.lookforcustomers.network.okhttp.manager.ParamManager;
-import com.orientdata.lookforcustomers.network.okhttp.progress.ProgressListener;
-import com.orientdata.lookforcustomers.network.util.AppConfig;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.TaskPresent;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.GlideUtil;
@@ -49,7 +40,6 @@ import com.orientdata.lookforcustomers.view.findcustomer.CreateAdActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.CreateFindCustomerActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.ITaskView;
 import com.orientdata.lookforcustomers.view.findcustomer.TestPhoneSettingActivity;
-import com.orientdata.lookforcustomers.view.findcustomer.fragment.ImageWarehouseFragment;
 import com.orientdata.lookforcustomers.view.mine.CleanMessageUtil;
 import com.orientdata.lookforcustomers.widget.DateSelectPopupWindow;
 import com.orientdata.lookforcustomers.widget.MyTitle;
@@ -67,12 +57,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 import static com.orientdata.lookforcustomers.R.id.et_budget;
@@ -270,6 +258,8 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
                 intent.putExtra("testCuPhone", testCuPhone);
                 intent.putExtra("testCtPhone", testCtPhone);
                 intent.putExtra("cityName", mCityName);
+                intent.putExtra("type", type);
+                intent.putExtra("cityCode", cityCode);
                 startActivityForResult(intent, 1);
             }
         });
@@ -498,14 +488,14 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
     }
 
     /**
-     * 落地页
+     * 选择落地页
      * @param listString
      * @param view
      */
     private void showPageTaskFromDialog(List<String> listString, final TextView view) {
 
         if (listString != null && listString.size() > 0) {
-            final SettingStringDialog dialog = new SettingStringDialog(this, R.style.Theme_Light_Dialog);
+            final SettingStringDialog dialog = new SettingStringDialog(this,"请选择落地页", R.style.Theme_Light_Dialog);
             dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
                 @Override
                 public void onChangeListener(String data, int position) {
@@ -554,12 +544,12 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
                         return;
                     }
                     if (mPageNameLists == null) {
-                        mPageNameLists = new ArrayList<String>();
+                        mPageNameLists = new ArrayList<>();
                     } else {
                         mPageNameLists.clear();
                     }
                     for (AdPage adPage : mAdPages) {
-                        mPageNameLists.add(adPage.getName());
+                        mPageNameLists.add(adPage.getName()+"_"+DateTool.parseDate2Str(adPage.getCreateDate(),DateTool.FORMAT_DATE_TIME)+"");
                     }
                     /*  if (mAdapter == null) {
                         mAdPageLists = mAdPageBeans.getResult();
@@ -713,7 +703,7 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
      * 提示dialog
      */
     private void showRemindDialog() {
-        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this, "确认提交？", "注：任务提交后不得再次修改，且审核通过后不得删除！");
+        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this, "确认提交？", getResources().getString(R.string.submit_remind));
         dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
             @Override
             public void doCancel() {

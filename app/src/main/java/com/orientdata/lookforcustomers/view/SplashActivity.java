@@ -67,7 +67,6 @@ public class SplashActivity extends BasePermissionActivity {
                         mPointWidth = llPointGroup.getChildAt(1).getLeft()
                                 - llPointGroup.getChildAt(0).getLeft();
 
-                        System.out.println("间距: " + mPointWidth);
                     }
                 });
 

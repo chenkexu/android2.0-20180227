@@ -22,6 +22,7 @@ import com.orientdata.lookforcustomers.bean.InvoiceDetail;
 import com.orientdata.lookforcustomers.bean.InvoiceList;
 import com.orientdata.lookforcustomers.bean.InvoiceOut;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.MyTitle;
@@ -31,7 +32,6 @@ import java.util.Date;
 import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**

@@ -3,7 +3,8 @@ package com.orientdata.lookforcustomers.model.imple;
 import com.orientdata.lookforcustomers.bean.SelectSettingBean;
 import com.orientdata.lookforcustomers.model.ISelectSettingModel;
 import com.orientdata.lookforcustomers.network.HttpConstant;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
+
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**

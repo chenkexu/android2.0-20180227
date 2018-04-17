@@ -33,7 +33,13 @@ import vr.md.com.mdlibrary.MyApp;
 public class MyApplication extends MyApp {
 
     private static MyApplication instance;
+
+
+    private static Context sContext;
+
     public LocationService locationService;
+
+
     public Vibrator mVibrator;
     public boolean isFirstLocation = true;
 
@@ -49,6 +55,7 @@ public class MyApplication extends MyApp {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        sContext = getApplicationContext();
         //PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
         //PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         //UMShareAPI.get(this);
@@ -105,10 +112,10 @@ public class MyApplication extends MyApp {
 
 
 
-
-    public static MyApplication getInstance() {
-        return instance;
-    }
+//
+//    public static MyApplication getInstance() {
+//        return instance;
+//    }
 
     public static Context getContext() {
         return instance.getApplicationContext();

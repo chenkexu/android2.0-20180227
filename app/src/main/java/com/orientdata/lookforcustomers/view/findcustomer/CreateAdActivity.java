@@ -2,16 +2,11 @@ package com.orientdata.lookforcustomers.view.findcustomer;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,9 +14,7 @@ import android.widget.LinearLayout;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.util.SystemUtils;
-import com.orientdata.lookforcustomers.view.certification.EnterpriseCertificationUploadActivity;
-import com.orientdata.lookforcustomers.view.certification.impl.CertificationActivity;
+import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.fragment.CreateAdFragment;
 import com.orientdata.lookforcustomers.view.findcustomer.fragment.ImageWarehouseFragment;
 
@@ -31,7 +24,7 @@ import java.util.List;
 /**
  * 创建落地页
  */
-public class CreateAdActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreateAdActivity extends WangrunBaseActivity implements View.OnClickListener {
     private LinearLayout linearCertific;//
     private XTabLayout mTabLayout;
     private ViewPagerCompat mViewPager;
@@ -127,6 +120,11 @@ public class CreateAdActivity extends AppCompatActivity implements View.OnClickL
 
     public void setCurrentItem(int i) {
         mViewPager.setCurrentItem(i);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 
 

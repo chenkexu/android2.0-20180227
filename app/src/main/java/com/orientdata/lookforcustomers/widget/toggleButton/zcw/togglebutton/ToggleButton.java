@@ -30,7 +30,7 @@ public class ToggleButton extends View {
 	/** */
 	private float radius;
 	/** 开启颜色*/
-	private int onColor = Color.parseColor("#09b6f1");//#00a0e9 蓝色   #4ebb7f 绿色  #53d2b0
+	private int onColor = Color.parseColor("#3660E5");//#00a0e9 蓝色   #4ebb7f 绿色  #53d2b0
 	/** 关闭颜色*/
 	private int offBorderColor = Color.parseColor("#dadbda");
 	/** 灰色带颜色*/

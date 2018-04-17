@@ -29,7 +29,6 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -62,6 +61,7 @@ import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.bean.TaskTypeBean;
 import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.CityPickPresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
@@ -70,7 +70,6 @@ import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.util.map.LocationService;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.certification.impl.CertificationActivity;
-import com.orientdata.lookforcustomers.view.findcustomer.impl.DirectionalSettingActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.DirectionalSettingActivity2;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.MessageTaskActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.PageTaskActivity;
@@ -89,13 +88,7 @@ import java.util.List;
 import java.util.Map;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
-
-import static android.R.attr.data;
-import static com.baidu.location.h.k.ar;
-import static com.orientdata.lookforcustomers.R.id.area;
-import static com.orientdata.lookforcustomers.R.id.ascription;
 
 /**
  * 创建寻客页面
@@ -105,7 +98,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     private LocationService locationService;
     // 定位相关
     LocationClient mLocClient;
-    public CreateFindCustomerActivity.MyLocationListenner myListener = new CreateFindCustomerActivity.MyLocationListenner();
+    public CreateFindCustomerActivity.MyLocationListenner myListener;
     private MyLocationConfiguration.LocationMode mCurrentMode;
     private String mCityName = "";
     private String mProvinceName = "";
@@ -161,7 +154,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     private TextView tv_at_create_find_customer_putlocation;//投放位置
 
 
-
+    private int locationFlag;
     private LinearLayout ll_ac_create_find_customer_set;
 
     private TextView tv_at_create_find_customer_nextstep;
@@ -281,8 +274,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 //        mLocClient.setLocOption(option);
 //        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 高精度（GPS+基站+WiFi）
 
-
-
+        myListener = new MyLocationListenner();
 
         getProvinceCity();
         // 初始化搜索模块，注册事件监听
@@ -306,7 +298,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             Logger.d("任务详情页面，点击再次创建任务-------");
             //地址转坐标
             mSearch.geocode(new GeoCodeOption()
-                    .city("中国")
+                    .city(mThrowAddress)
                     .address(mThrowAddress));
             //mLocClient.start();
         } else {
@@ -315,6 +307,37 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             LbsManager.getInstance().getLocation(myListener);
 //            mLocClient.start();
         }
+
+
+        mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
+            @Override
+            public void onMapStatusChangeStart(MapStatus mapStatus) {
+
+            }
+
+            @Override
+            public void onMapStatusChangeStart(MapStatus mapStatus, int i) {
+
+            }
+
+            @Override
+            public void onMapStatusChange(MapStatus mapStatus) {
+//                marker.setPosition(mapStatus.target);
+            }
+
+            @Override
+            public void onMapStatusChangeFinish(MapStatus mapStatus) {
+                //开始坐标转地址
+                mFromAction = 3;//来自地图移动
+                mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+                        .location(mapStatus.target)
+                        .newVersion(0));
+                mIsShowDialog = false;
+
+            }
+        });
+
+
     }
 
     /**
@@ -416,13 +439,13 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             }else {
                 tv_ac_create_find_customer_set.setText("已设置("+mTaskOut.getIndustryName()+")");
             }
-
-            
             mCityCode = mTaskOut.getCityCode().trim();//上次创建的cityCode
             //上次创建的cityCode
             mProvinceCode = mTaskOut.getProvinceCode().trim();
             Logger.d("传过来的已经创建好的任务类型的详情：");
         }
+
+
     }
 
     /**
@@ -584,7 +607,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     public void onError(Exception e) {
                         ToastUtils.showShort(e.getMessage());
                     }
-
                     @Override
                     public void onResponse(TaskTypeBean response) {
                         if (response.getCode() == 0) {
@@ -603,6 +625,9 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                                 ToastUtils.showShort("短信页面和页面任务都未开通");
                                 return;
                             }
+                            String mTaskTypeStr = tv_at_create_find_customer_type.getText().toString();
+
+
                             final TaskTypeDialog dialog = new TaskTypeDialog(CreateFindCustomerActivity.this,
                                     "单价(元):" + smsPrice,
                                     "单价(元):" + pagePrice,
@@ -616,18 +641,11 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                                     tv_at_create_find_customer_type.setText(mTaskType);
                                     dialog.dismiss();
                                 }
-
-                                @Override
-                                public void doCancel() {
-                                    ToastUtils.showShort("任务类型为必选！");
-                                    dialog.dismiss();
-                                }
                             });
-
                             //dialog.setCancelable(true);
                             dialog.show();
+                            dialog.setRioButtonStatus(mTaskTypeStr);
                         }
-
                     }
                 }, map);
                 break;
@@ -1082,9 +1100,9 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     if (!TextUtils.isEmpty(mCityName)) {
                         tv_at_create_find_customer_location.setText(mCityName.trim().toCharArray(), 0, 3);
                         tvMore.setVisibility(View.GONE);
-                        //开始城市转坐标
+                        //地址转坐标
                         mSearch.geocode(new GeoCodeOption()
-                                .city(mCityName).address("人民政府"));
+                                .city(mCityName).address(mCityName));
                     }
                 }
                 break;
@@ -1094,14 +1112,13 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     if (!TextUtils.isEmpty(mCityName)) {
                         //地址转坐标
                         mSearch.geocode(new GeoCodeOption()
-                                .city("中国")
+                                .city(mSearchValue)
                                 .address(mSearchValue));
                     } else {
                         mSearch.geocode(new GeoCodeOption()
-                                .city("中国")
+                                .city(mSearchValue)
                                 .address(mSearchValue));
                     }
-
                 }
                 break;
             case 3: //定向设置
@@ -1110,7 +1127,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 //                    data.putExtra("interestIds", interestIds); //兴趣点。
 //                    data.putExtra("industryMark", industryMark);
 //                    data.putExtra("industryNameStr", industryNameStr);
-
                     ageF = data.getStringExtra("ageF");//年龄
                     ageB = data.getStringExtra("ageB");
                     sex = data.getStringExtra("sex");//性别
@@ -1118,13 +1134,9 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     interestIds = data.getStringExtra("interestIds");//兴趣爱好
                     industryMark = data.getStringExtra("industryMark");
                     industryNameStr = data.getStringExtra("industryNameStr");
-
-
                     tv_ac_create_find_customer_set.setText("已设置("+ industryNameStr+")");
 
                     isReCreate = false;//将重新创建置false 定向 使用缓存的内容 更新界面
-
-
 //                    educationLevelF = data.getStringExtra("educationLevelF");
 //                    educationLevelB = data.getStringExtra("educationLevelB");
 //                    consumptionCapacityF = data.getStringExtra("consumptionCapacityF");
@@ -1200,7 +1212,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
 
 
-    //地址转坐标的结果
+    //地址转坐标的结果(手动选择城市，点击详情，搜索)
     @Override
     public void onGetGeoCodeResult(GeoCodeResult result) {
         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
@@ -1219,8 +1231,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         final Marker marker = (Marker) mBaiduMap.addOverlay(new MarkerOptions()
                 .position(mCurrentLatLng).alpha(0.0f)
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.bg_ac_create_find_customer_location)));
-        mBaiduMap.animateMapStatus(MapStatusUpdateFactory
-                .newMapStatus(builder.build()));
+        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
 
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
             @Override
@@ -1260,7 +1271,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 .newVersion(0));
     }
 
-    ////根据经纬度获得地址的回调
+
+    //根据经纬度获得地址的回调()
     @Override
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
 
@@ -1269,12 +1281,15 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 //                    .show();
             return;
         }
+
         ReverseGeoCodeResult.AddressComponent addCom = result.getAddressDetail();
         String address = result.getAddress();
+
         if (mFromAction == 1) {//手动选择
             Logger.d("获得了经纬度转换地址的回调(手动选择)");
             tv_at_create_find_customer_putlocation.setText(address);
-        } else if (mFromAction == 2) {//定位
+        } else if (locationFlag == 2) {//定位
+
             Logger.d("获得了经纬度转换地址的回调（定位获得的）");
             tv_at_create_find_customer_putlocation.setText(address);
             mLocCityName = addCom.city;
@@ -1289,6 +1304,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             mProvinceName = addCom.province;
             mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
             mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
+            locationFlag = 100;
         } else if (mFromAction == 3) {
             Logger.d("获得了经纬度转换地址的回调（来自地图平移）");
             //来自地图平移
@@ -1307,20 +1323,18 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             tv_at_create_find_customer_putlocation.setText(address);
         }
 
-        //mCityCode = addCom.adcode + "";
         mCurrentLatLng = result.getLocation();
-
-        if (!TextUtils.isEmpty(mCityName)) { //百度定位的结果
-            Logger.d("mCityName:"+mCityName);
+        if (!TextUtils.isEmpty(mCityName)) {
+            Logger.d("最终获得的mCityName是:"+mCityName);
             tv_at_create_find_customer_location.setText(mCityName.trim().toCharArray(), 0, 3);
             tvMore.setVisibility(View.GONE);
+            //根据城市名称查看是否有业务
             requestCityStatus(mCityName);
         }
         //手动拖动地图后的地址
         if (result.getAddressDetail() != null) {
             tv_at_create_find_customer_putlocation.setText(result.getAddress());
         }
-
 
        /* Toast.makeText(CreateFindCustomerActivity.this, result.getAddress() + " adcode: " + result.getAdcode(),
                 Toast.LENGTH_LONG).show();*/
@@ -1349,6 +1363,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
      */
     public class MyLocationListenner implements BDLocationListener {
 
+
+
         @Override
         public void onReceiveLocation(BDLocation location) {
             Logger.d("定位了"+location.getProvince()+location.getCity());
@@ -1366,12 +1382,21 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     .direction(mCurrentDirection).latitude(location.getLatitude())
                     .longitude(location.getLongitude()).build();
             mBaiduMap.setMyLocationData(locData);
-            if (isFirstLoc) {
 
+//            mFromAction = 2;//来自定位
+            // TODO: 2018/4/17 加上关于定位的Flag
+            locationFlag = 2;
+            LatLng ll = new LatLng(location.getLatitude(),
+                    location.getLongitude());
+            mCurrentLatLng = ll;
+            //开始坐标转地址
+            mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+                    .location(mCurrentLatLng)
+                    .newVersion(0));
+
+            if (isFirstLoc) {
+                Logger.d("首次定位。。。");
                 isFirstLoc = false;
-                LatLng ll = new LatLng(location.getLatitude(),
-                        location.getLongitude());
-                mCurrentLatLng = ll;
                 MapStatus.Builder builder = new MapStatus.Builder();
                 mCurrentScaleLevelPositon = 0;
                 builder.target(ll).zoom(mScaleLevel[mCurrentScaleLevelPositon]);//21-3===5m-1000km  15-500m,14-1km,13-2km,12.5-3km,12-5km,11,10km
@@ -1384,44 +1409,12 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 final Marker marker = (Marker) mBaiduMap.addOverlay(new MarkerOptions()
                         .position(mCurrentLatLng).alpha(0.0f)
                         .icon(BitmapDescriptorFactory.fromResource(R.mipmap.bg_ac_create_find_customer_location)));
+
                 tv_ac_create_find_customer_radius.setText(mCircleRadiusKM[mCurrentScaleLevelPositon]);
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
 
-                //// TODO: 2017/12/24
-                mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
-                    @Override
-                    public void onMapStatusChangeStart(MapStatus mapStatus) {
+                //// TODO: 2017/12/24 加上地图平移的设置
 
-                    }
-
-                    @Override
-                    public void onMapStatusChangeStart(MapStatus mapStatus, int i) {
-
-                    }
-
-                    @Override
-                    public void onMapStatusChange(MapStatus mapStatus) {
-                        marker.setPosition(mapStatus.target);
-                    }
-
-                    @Override
-                    public void onMapStatusChangeFinish(MapStatus mapStatus) {
-                        //开始坐标转地址
-                        mFromAction = 3;//来自地图移动
-                        mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-                                .location(mapStatus.target)
-                                .newVersion(0));
-                        mIsShowDialog = false;
-
-                    }
-                });
-
-                mFromAction = 2;//来自定位
-                Logger.e("第一次定位"+mCurrentLatLng.latitude+"---"+mCurrentLatLng.longitude);
-                //开始坐标转地址
-                mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-                        .location(mCurrentLatLng)
-                        .newVersion(0));
             }
         }
 
@@ -1554,7 +1547,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                         if (area.getName().equals(mCityName)) {
                             if (area.getStatus() == 0) {
                                 if (mIsShowDialog) {
-                                    final RemindDialog dialog = new RemindDialog(this, "", "抱歉," + cityName + "未开通此业务~", R.mipmap.weikaitongyewu, "知道了");
+                                    final RemindDialog dialog = new RemindDialog(this, "", "抱歉," + cityName + "未开通此业务~", R.mipmap.null_pass, "已了解");
                                     dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
                                         @Override
                                         public void doCertificate() {

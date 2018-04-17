@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
@@ -40,6 +41,7 @@ public class CommissionListActivity extends BaseActivity<ICommissionView, Commis
     private static List<Bh> bhList = null;
     private MyCommissionListItemAdapter adapter = null;
     private String date = "";
+    private LinearLayout ll_no_content;
 
 
     @Override
@@ -54,6 +56,7 @@ public class CommissionListActivity extends BaseActivity<ICommissionView, Commis
     private void initView() {
         title = findViewById(R.id.my_title);
         xListView = findViewById(R.id.xListView);
+        ll_no_content = findViewById(R.id.ll_no_content);
         xListView.setPullLoadEnable(true);
         xListView.setXListViewListener(this);
     }
@@ -61,7 +64,7 @@ public class CommissionListActivity extends BaseActivity<ICommissionView, Commis
     private void initTitle() {
         title.setTitleName("佣金明细");
         title.setImageBack(this);
-        title.setRightImage(R.mipmap.calendar, new View.OnClickListener() {
+        title.setRightImage(R.mipmap.blue_calendar, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //选择日期的dialog
@@ -110,7 +113,18 @@ public class CommissionListActivity extends BaseActivity<ICommissionView, Commis
     @Subscribe
     public void commissionList(CommissionListEvent commissionListEvent){
         CommissionListBean commissionListBean = commissionListEvent.commissionListBean;
-        if(commissionListBean!=null) {
+        // TODO: 2018/4/17 如果列表为空，就显示空内容状态
+        if (commissionListBean.getResult()==null || commissionListBean.getResult().size()<=0){
+            ll_no_content.setVisibility(View.VISIBLE);
+            xListView.setVisibility(View.GONE);
+        }else{
+            ll_no_content.setVisibility(View.GONE);
+            xListView.setVisibility(View.VISIBLE);
+        }
+
+
+
+        if(commissionListBean!=null ) {
             if(commissionListBean.isHasMore()){
                 xListView.setLoadState(XListViewFooter.STATE_NORMAL);
             }else{
@@ -124,6 +138,7 @@ public class CommissionListActivity extends BaseActivity<ICommissionView, Commis
                 bhList.addAll(bhList.size(),commissionListBean.getResult());
             }
         }
+
         adapter = new MyCommissionListItemAdapter(this,bhList);
         xListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

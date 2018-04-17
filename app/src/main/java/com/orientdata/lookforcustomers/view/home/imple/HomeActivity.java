@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+
+import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
@@ -21,6 +23,8 @@ import com.orientdata.lookforcustomers.view.home.fragment.MineFragment;
 import com.orientdata.lookforcustomers.view.home.fragment.ReportFragment;
 import com.orientdata.lookforcustomers.view.home.fragment.SearchFragment;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
+
+
 
 //主界面
 public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>>
@@ -43,6 +47,14 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initView();
+
+    }
+
+
+    @Override
+    protected void initImmersionBar() {
+        super.initImmersionBar();
+        mImmersionBar.keyboardEnable(true).init();
     }
 
     @Override
@@ -98,6 +110,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
         transaction.add(R.id.container, mHomeFragment).commit();
     }
 
+
     private void switchFragment(Fragment to) {
         try {
             if (mFragmentBefor != to) {
@@ -136,6 +149,8 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
         }
     }
 
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -151,6 +166,10 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
                     mHomeFragment.getUserData();
                 }
                 switchFragment(mHomeFragment);
+//                mImmersionBar.fitsSystemWindows(true).statusBarColor(R.color.colorPrimary).init();
+                mImmersionBar.statusBarDarkFont(true, 0.2f)
+                        .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
+                        .statusBarColor(R.color.bg_white).init();
                 break;
             case R.id.rl_main_search:
                 rlHome.setSelected(false);
@@ -164,6 +183,9 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
                     mSearchFragment.updateData();
                 }
                 switchFragment(mSearchFragment);
+               /* mImmersionBar.statusBarDarkFont(true, 0.2f)
+                        .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
+                        .statusBarColor(R.color.bg_white).init();*/
                 break;
             case R.id.rl_main_report:
                 rlHome.setSelected(false);
@@ -177,6 +199,9 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
                     mReportFragment.updateData(true);
                 }
                 switchFragment(mReportFragment);
+               /* mImmersionBar.statusBarDarkFont(true, 0.2f)
+                        .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
+                        .statusBarColor(R.color.bg_white).init();*/
                 break;
             case R.id.rl_main_message:
                 rlHome.setSelected(false);
@@ -190,6 +215,9 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
                     mMessageFragment.updateData();
                 }
                 switchFragment(mMessageFragment);
+                /*mImmersionBar.statusBarDarkFont(true, 0.2f)
+                        .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
+                        .statusBarColor(R.color.bg_white).init();*/
                 break;
             case R.id.rl_main_me:
                 rlHome.setSelected(false);
@@ -203,9 +231,32 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
                     mMineFragment.getData();
                 }
                 switchFragment(mMineFragment);
+                mImmersionBar.statusBarDarkFont(true, 0.2f)
+                        .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
+                        .statusBarColor(R.color.colorPrimary).init();
                 break;
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void showLoading() {
@@ -228,27 +279,29 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
             //未认证
             cerStatus = getString(R.string.no_cer);
             remindString = getString(R.string.no_certified);
-            imgResId = R.mipmap.no_certified;
+            imgResId = R.mipmap.go_pass;
             btText = getString(R.string.go_cer);
         } else {
             //认证状态 1审核中 2审核通过 3审核拒绝
             authStatus = certificationOut.getAuthStatus();
+
+            // TODO: 2018/4/17 测试弹窗
             if (authStatus == 1 || authStatus == 4) {
                 //审核中
                 cerStatus = getString(R.string.cer_ing);
                 remindString = getString(R.string.cer_waiting);
-                imgResId = R.mipmap.audit;
+                imgResId = R.mipmap.pass_ing;
                 btText = getString(R.string.go_watch);
             } else if (authStatus == 3) {
                 //审核拒绝
                 cerStatus = getString(R.string.no_pass);
                 remindString = getString(R.string.not_pass);
-                imgResId = R.mipmap.not_pass;
+                imgResId = R.mipmap.no_pass;
                 btText = getString(R.string.re_go_cer);
             }
         }
         if (authStatus != 2) {
-            final RemindDialog dialog = new RemindDialog(this, cerStatus, remindString, imgResId, btText);
+            final RemindDialog dialog = new RemindDialog(this, "", remindString, imgResId, btText);
             dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
                 @Override
                 public void doCertificate() {

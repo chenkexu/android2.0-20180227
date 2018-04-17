@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
     android:orientation="vertical"
     tools:context=".view.home.InvoiceActivity">
+
 
     <com.orientdata.lookforcustomers.widget.MyTitle
         android:id="@+id/my_title"
@@ -33,7 +33,7 @@
                 android:paddingLeft="15dp"
                 android:paddingTop="15dp"
                 android:text="请选择发票类型"
-                android:textColor="#1c1c1c"
+                android:textColor="@color/text_gray"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -60,7 +60,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:layout_marginStart="15dp"
-                        android:background="@mipmap/weixuanzhong_invoice" />
+                        android:background="@mipmap/no_check_invoice" />
 
                     <TextView
                         android:id="@+id/tv_e_invoice"
@@ -92,7 +92,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:layout_marginStart="15dp"
-                        android:background="@mipmap/weixuanzhong_invoice" />
+                        android:background="@mipmap/no_check_invoice" />
 
                     <TextView
                         android:id="@+id/tv_p_invoice"
@@ -114,15 +114,14 @@
                 android:id="@+id/ll_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
 
-                <View
+                <!--  <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="#fafafa" />
+                    android:background="#fafafa" />-->
 
                 <TextView
                     android:layout_width="match_parent"
@@ -130,7 +129,7 @@
                     android:paddingLeft="15dp"
                     android:paddingTop="15dp"
                     android:text="发票详情"
-                    android:textColor="#1c1c1c"
+                    android:textColor="@color/text_gray"
                     android:textSize="15sp"
                     android:textStyle="bold" />
                 <!--抬头类型-->
@@ -154,7 +153,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="25dp"
                         android:layout_marginStart="25dp">
-                            <!--公司抬头-->
+                        <!--公司抬头-->
                         <ImageView
                             android:id="@+id/iv_invoice_title_enterprise"
                             android:layout_width="wrap_content"
@@ -162,7 +161,7 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:background="@mipmap/xuanzhong_invoice2" />
+                            android:background="@mipmap/no_check_invoice" />
 
                         <TextView
                             android:id="@+id/tv_invoice_title_enterprise"
@@ -194,7 +193,7 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:background="@mipmap/weixuanzhong_invoice2" />
+                            android:background="@mipmap/no_check_invoice" />
 
                         <TextView
                             android:id="@+id/tv_invoice_title_personal"
@@ -214,11 +213,11 @@
 
                 </LinearLayout>
 
-                <View
+                <!-- <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_marginTop="30dp"
-                    android:background="#fafafa" />
+                    android:background="#fafafa" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -242,20 +241,20 @@
                         android:layout_marginRight="15dp"
                         android:background="@mipmap/chang"
                         android:cursorVisible="true"
-                        android:textCursorDrawable="@drawable/cursor_style"
-                        android:textColor="#414141"
                         android:maxLines="1"
                         android:paddingLeft="5dp"
                         android:paddingStart="5dp"
+                        android:textColor="#414141"
+                        android:textCursorDrawable="@drawable/cursor_style"
                         android:textSize="14sp" />
 
                 </LinearLayout>
 
-                <View
+                <!--  <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginTop="10dp"
-                    android:background="#d9d9d9" />
+                    android:background="#d9d9d9" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -278,12 +277,12 @@
                         android:layout_marginEnd="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@mipmap/chang"
+                        android:cursorVisible="true"
                         android:maxLines="1"
                         android:paddingLeft="5dp"
                         android:paddingStart="5dp"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@drawable/cursor_style"
                         android:textColor="#414141"
+                        android:textCursorDrawable="@drawable/cursor_style"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -378,7 +377,7 @@
                     android:paddingLeft="15dp"
                     android:paddingTop="15dp"
                     android:text="收件信息"
-                    android:textColor="#1c1c1c"
+                    android:textColor="@color/text_gray"
                     android:textSize="15sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -412,13 +411,13 @@
                         android:layout_marginEnd="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@mipmap/chang"
+                        android:cursorVisible="true"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:paddingLeft="5dp"
                         android:paddingStart="5dp"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@drawable/cursor_style"
                         android:textColor="#414141"
+                        android:textCursorDrawable="@drawable/cursor_style"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -459,12 +458,12 @@
                         android:layout_marginEnd="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@mipmap/chang"
+                        android:cursorVisible="true"
                         android:maxLines="1"
                         android:paddingLeft="5dp"
                         android:paddingStart="5dp"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@drawable/cursor_style"
                         android:textColor="#414141"
+                        android:textCursorDrawable="@drawable/cursor_style"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -496,13 +495,13 @@
                         android:layout_marginEnd="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@mipmap/chang"
+                        android:cursorVisible="true"
                         android:inputType="phone"
                         android:maxLines="1"
                         android:paddingLeft="5dp"
                         android:paddingStart="5dp"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@drawable/cursor_style"
                         android:textColor="#414141"
+                        android:textCursorDrawable="@drawable/cursor_style"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -682,12 +681,12 @@
                         android:layout_marginEnd="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@mipmap/chang"
+                        android:cursorVisible="true"
                         android:maxLines="1"
                         android:paddingLeft="5dp"
                         android:paddingStart="5dp"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@drawable/cursor_style"
                         android:textColor="#414141"
+                        android:textCursorDrawable="@drawable/cursor_style"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -713,7 +712,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="25dp"
-                    android:background="@drawable/shape_bg_primary_round_rec"
+                    android:background="@drawable/bg_tv_round_gradient"
                     android:gravity="center"
                     android:text="提交"
                     android:textColor="#ffffff"
@@ -723,6 +722,7 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 
     <TextView
         android:id="@+id/province_position"

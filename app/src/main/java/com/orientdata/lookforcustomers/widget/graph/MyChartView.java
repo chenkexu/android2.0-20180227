@@ -29,6 +29,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static android.R.attr.max;
+
 /**
  * 报表 折线
  */
@@ -76,8 +78,6 @@ public class MyChartView extends View {
     //求数组的最大值和最小值
     private void maxY(int[] A){
         int i,min,max;
-//        int A[]={74,48,30,17,62};  // 声明整数数组A,并赋初值
-
         min=max=A[0];
         System.out.print("数组A的元素包括：");
         for(i=0;i<A.length;i++) {
@@ -90,30 +90,54 @@ public class MyChartView extends View {
         Logger.e("Y轴最大值为："+max);
 
 		if (max!=0) {
-			Logger.e("图表初始化啦-----------------------");
-			Logger.e("maxY:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
 			int length = (max / 5);
 			Ylabel[5] = max + "";
 			Ylabel[4] = length * 4+"";
 			Ylabel[3] = length * 3+"";
 			Ylabel[2] = length * 2+"";
 			Ylabel[1] = length + "";
+			Logger.e("maxY:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
 		}
-
-
-
     }
 
 
+    //设置Y轴显示的数据
+    private void setYlabel(int maxFloat){
+		if (maxFloat<1000) {
+			maxFloat=(maxFloat/100+1)*100;
+		}else if (1000<maxFloat&&maxFloat<5000){
+			maxFloat=(maxFloat/100+5)*100;
+		}
+		else if (5000<maxFloat&&maxFloat<10000){
+			maxFloat=(maxFloat/1000+1)*1000;
+		}
+		else if (10000<maxFloat&&maxFloat<50000){
+			maxFloat=(maxFloat/1000+5)*1000;
+		}
+		else if (50000<maxFloat&&maxFloat<100000){
+			maxFloat=(maxFloat/10000+1)*10000;
+		}
+		else if (maxFloat>100000){
+			maxFloat=(maxFloat/10000+2)*10000;
+		}
+
+		if (maxFloat!=0) {
+			int length = (maxFloat / 5);
+			Ylabel[5] = maxFloat + "";
+			Ylabel[4] = length * 4+"";
+			Ylabel[3] = length * 3+"";
+			Ylabel[2] = length * 2+"";
+			Ylabel[1] = length + "";
+			Logger.e("maxY:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
+		}
+	}
 
 
 	// 曲线数据
-	public MyChartView(Context context, String[] xlabel, String title, int[] y, int lineColor){
+	public MyChartView(Context context, String[] xlabel, String title, int[] y, int lineColor,int max){
 		super(context);
 
-		Logger.d("alable:"+xlabel);
-		Logger.d("y的值:"+y);
-
+		setYlabel(max);
 //		for (int i=0;i<y.length;i++) {
 //			Logger.e("y轴数据为："+y[i]);
 //		}
@@ -128,7 +152,7 @@ public class MyChartView extends View {
 
 		if (null != y) {
 			//求出最大值
-			maxY(y);
+//			maxY(y);
 			this.y = y;
         }
 
@@ -142,13 +166,20 @@ public class MyChartView extends View {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 
-		maxY(y);
+//		maxY(y);
 
 		init(canvas);
 //		this.drawXLine(canvas, p1);
 //		this.drawYLine(canvas, p1);
 		this.drawTable(canvas);
+//		PathEffect effects = new DashPathEffect(new float[] { 1, 2, 4, 8}, 1);
+//		linePaint.setPathEffect(effects);
+
+		Path dst = new Path();
+//		postInvalidateasure.getSegment(0, currentValue * measure.getLength(), dst, true);
+		//画图
 		canvas.drawPath(linePath,linePaint);
+
 		if(isVisble){
 			mRect.left = eventX-mBitmap.getWidth()/2;
 			mRect.right = eventX+mBitmap.getWidth()/2;
@@ -161,6 +192,7 @@ public class MyChartView extends View {
 			linePaint1.setStrokeWidth(5);//笔宽5像素
 			linePaint1.setColor(context.getResources().getColor(R.color.c_D9D9D9));
 
+			//画线
 			canvas.drawLine(eventX,Ypoint-this.getHeight(),eventX,Ypoint-mBitmap.getWidth()/2,linePaint1);
 		}
 
@@ -168,8 +200,8 @@ public class MyChartView extends View {
 
 	// 初始化数据值
 	public void init(Canvas canvas) {
-		Logger.e("onDraw:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
 		Xpoint = 3*this.Margin;
+		//初始化Y轴的原点
 		Ypoint = this.getHeight() - 3*this.Margin;
 		if(this.Xlabel.length - 1 == 0){
 			Xscale = (this.getWidth() - 4 * this.Margin) / 2;//x轴每块的长度显示出来的长度
@@ -184,10 +216,7 @@ public class MyChartView extends View {
 		}
 
 		//Y轴每块区域的长度 =（chartView的总高度 - 50)/5
-		Yscale = (this.getHeight() - 5 * this.Margin) / (this.Ylabel.length - 1);//y轴每块的长度
-
-		Logger.e("y轴每块区域的长度："+Yscale);
-
+		Yscale = (this.getHeight() - 2 * this.Margin) / (this.Ylabel.length - 1);//y轴每块的长度
 
 		linePath = new Path();
 		int xCatch = 0;//最后一个不是0的x坐标
@@ -226,10 +255,45 @@ public class MyChartView extends View {
 			linePaint.setPathEffect(cornerPathEffect);
 		}else{
 			if(y!=null && y.length>0){
+				// TODO: 2018/4/12
 				canvas.drawPoint((Xpoint +  xScale), calY1(y[0]),linePaint);
 			}
 		}
 	}
+
+
+
+	/**
+	 * 获取value值所占的view高度
+	 *
+	 * @param value
+	 * @return
+	 */
+//	private int getValueHeight(int value) {
+//		float valuePercent = Math.abs(value - minValue) * 100f / (Math.abs(maxValue - minValue) * 100f);//计算value所占百分比
+//		return (int) (getViewDrawHeight() * valuePercent + bottomSpace + 0.5f);//底部加上间隔
+//	}
+
+
+	private float heightPercent = 0.618f;
+
+	/**
+	 * 获取绘制区域高度
+	 *
+	 * @return
+	 */
+	private float getViewDrawHeight() {
+		return getMeasuredHeight() * heightPercent;
+	}
+
+
+
+
+
+
+
+
+
 
 	/**
 	 * 开始绘制动画
@@ -237,7 +301,7 @@ public class MyChartView extends View {
 	public void startDrawLine(int durationTime){
 		phase = 0.0f;
 		ObjectAnimator animator = ObjectAnimator.ofFloat(MyChartView.this, "phase", 0.0f, 1.0f);
-		animator.setDuration(durationTime);
+		animator.setDuration(5);
 		animator.start();
 	}
 
@@ -261,23 +325,22 @@ public class MyChartView extends View {
 	 */
 	private int calY1(int y){
 
-		if(y>-1 && y<51){
-			//0-50
-			return calY(y,Ylabel[0],Ylabel[1]);//0,25
+		int baseNum = (Integer.parseInt(Ylabel[1])) / 2;
 
-		}else if(y>50 && y<151){
+		if(y>-1 && y<baseNum+1){
+			//0-50
+			return calY(y,Ylabel[0],Ylabel[1]) ; //0,25
+		}else if(y>baseNum && y<baseNum*3){
 			//51-150
-			return calY(y,Ylabel[2],Ylabel[3])-2*Yscale;
-		}else if(y>150 && y<301){
+			return (calY(y,Ylabel[2],Ylabel[3])-2*Yscale) ;
+		}else if(y>baseNum*3 && y<baseNum*6+1){
 			return calY(y,Ylabel[3],Ylabel[4])-3*Yscale;
-		}else if(y>300 && y<501){
+		}else if(y>baseNum*6 && y<baseNum*10+1){
 			return calY(y,Ylabel[4],Ylabel[5])-4*Yscale;
-		}else if(y>500){
-			y = 500;
+		}else if(y>baseNum*10){
+			y = baseNum*10;
 			return calY(y,Ylabel[4],Ylabel[5])-4*Yscale;
 		}
-
-
 		return 0;
 	}
 		
@@ -290,14 +353,16 @@ public class MyChartView extends View {
 		int y0 = 0 ;
 		int y1 = 0 ;
 		try{
-			y0 = Integer.parseInt(label1);
-			y1 = Integer.parseInt(label2);
-			Logger.e("calY1:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
+			//Y是传过来的值
+			y0 = Integer.parseInt(label1); //纵轴的一个值
+			y1 = Integer.parseInt(label2); //纵轴的一个值
 		}catch(Exception e){
 			return 0;
 		}
-//		Logger.d(Ypoint-((y-y0)*Yscale/(y1-y0))+"--calY-");
-		return Ypoint-((y-y0)*Yscale/(y1-y0));
+		//Y是传过来的值。Yscale是间距
+		int i = Ypoint - ((y - y0) * Yscale / (y1 - y0));
+		Logger.d("Ypoint-((y-y0)*Yscale/(y1-y0))值:"+ i);
+		return (Ypoint-((y-y0)*Yscale/(y1-y0)));
 	}
 
 
@@ -356,9 +421,6 @@ public class MyChartView extends View {
 			canvas.drawPath(path, paint);
 
 			mPaint.setTextSize(this.Margin);
-
-			Logger.e("drawTable:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
-//			Logger.e("纵坐标数值："+this.Ylabel[i]+"---"+(3*this.Margin) / 8+"---"+startY + (3*this.Margin) / 4+"--");
             // TODO: 2018/4/9
 			canvas.drawText(this.Ylabel[i], (3*this.Margin) / 8, startY + (3*this.Margin) / 4, mPaint);//纵坐标的数字
 		}

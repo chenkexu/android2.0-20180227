@@ -1,29 +1,10 @@
 package com.orientdata.lookforcustomers.presenter;
 
-import android.os.CountDownTimer;
-import android.text.TextUtils;
-
-import com.orientdata.lookforcustomers.bean.BalanceDetailBean;
-import com.orientdata.lookforcustomers.bean.CommissionListBean;
-import com.orientdata.lookforcustomers.bean.ErrBean;
-import com.orientdata.lookforcustomers.event.BalanceDetailEvent;
-import com.orientdata.lookforcustomers.event.BalanceListEvent;
-import com.orientdata.lookforcustomers.event.CommissionListEvent;
-import com.orientdata.lookforcustomers.event.CommissionVertificateEvent;
-import com.orientdata.lookforcustomers.event.UpdateSmsTimeEvent;
-import com.orientdata.lookforcustomers.event.UpdateToBalanceEvent;
 import com.orientdata.lookforcustomers.model.ICommissionModel;
 import com.orientdata.lookforcustomers.model.ISendSmsModel;
 import com.orientdata.lookforcustomers.model.imple.CommissionModelImple;
 import com.orientdata.lookforcustomers.model.imple.SendSmsModelImple;
-import com.orientdata.lookforcustomers.util.CommonUtils;
-import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.mine.ICommissionView;
 import com.orientdata.lookforcustomers.view.mine.ISetView;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.math.BigDecimal;
 
 /**
  * Created by wy on 2017/11/18.

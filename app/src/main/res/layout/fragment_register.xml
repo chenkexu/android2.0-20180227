@@ -55,7 +55,7 @@
             layout="@layout/item_account_label"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             />
 
         <include
@@ -63,21 +63,21 @@
             layout="@layout/item_auth_code_label"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="10dp" />
 
         <include
             android:id="@+id/auth_code_label"
             layout="@layout/item_reset_password_label"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             />
 
         <Button
             android:id="@+id/btn_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/bg_tv_round_gradient"
             android:text="用户注册"
             android:textColor="@color/white"
@@ -94,35 +94,34 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         >
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:text="注册即代表您已已同意并接受"
+                android:textColor="@color/color_838383"
+                android:textSize="@dimen/text_size_10" />
+
+            <TextView
+                android:id="@+id/tv_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="《网润寻客APP用户协议》"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_10" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_agree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/select_login_record_password"
-            android:drawablePadding="5dp"
-            android:text="我已阅读声明并接受"
-            android:textColor="@color/color_838383"
-            android:textSize="@dimen/text_size_10"
-            />
-
-        <TextView
-            android:id="@+id/tv_agreement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="网润寻客APP用户协议"
-            android:textColor="@color/color_838383"
-            android:textSize="@dimen/text_size_10"
-            />
-
-        <TextView
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Copyright@2017东方网润"
             android:textColor="@color/color_838383"
-            android:textSize="@dimen/text_size_10"
-            />
+            android:textSize="@dimen/text_size_10" />
     </LinearLayout>
 
 </RelativeLayout>

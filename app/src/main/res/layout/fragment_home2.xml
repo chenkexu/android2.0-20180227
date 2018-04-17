@@ -3,30 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c_ffffff"
     android:orientation="vertical">
     <!--ID Title-->
     <LinearLayout
+        android:id="@+id/title"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bg_shape_title"
         android:gravity="center"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:src="@mipmap/id_icon"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
-        <TextView
-            android:layout_marginLeft="5dp"
-            android:id="@+id/tv_useId"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
-            android:text="设置"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@mipmap/id_icon"
+                android:textSize="18sp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:id="@+id/tv_useId"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimary"
+                android:text="设置"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <!--<com.orientdata.lookforcustomers.widget.MyTitle
@@ -47,10 +56,12 @@
         android:visibility="gone" />
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_marginTop="5dp"
         android:id="@+id/refreshLayout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
         <ScrollView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -60,6 +71,8 @@
                 android:orientation="vertical">
                 <!--账户信息-->
                 <RelativeLayout
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
                     android:paddingTop="@dimen/h10"
                     android:paddingBottom="@dimen/h10"
                     android:layout_width="match_parent"
@@ -75,7 +88,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:orientation="vertical">
-
+                        
 
                         <!--账户余额-->
                         <LinearLayout
@@ -275,7 +288,10 @@
                 </LinearLayout>
 
                 <!--页面信息-->
+
                 <TextView
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@mipmap/rectangle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FAFAFA"
@@ -381,6 +397,8 @@
                     android:background="#ede7e7" />
                 <!--短信-->
                 <TextView
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@mipmap/rectangle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FAFAFA"

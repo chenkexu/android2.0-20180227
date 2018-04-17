@@ -17,12 +17,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseFragment;
 import com.orientdata.lookforcustomers.bean.AnOutBean;
@@ -34,9 +35,9 @@ import com.orientdata.lookforcustomers.bean.URLBean;
 import com.orientdata.lookforcustomers.bean.UserInfoBean;
 import com.orientdata.lookforcustomers.event.MyMoneyEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
-import com.orientdata.lookforcustomers.test.TestActivity;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
@@ -65,7 +66,6 @@ import java.util.List;
 import java.util.Map;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
@@ -114,6 +114,7 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     private boolean isCertificateNext = false;
     private TextView tv_useId; //标题栏中的id
     private SwipeRefreshLayout refreshLayout;
+    private LinearLayout titleView;
 
 
     @Nullable
@@ -124,6 +125,7 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         mActivity = getActivity();
         addDefultUrl();
         initTitle();
+//        ImmersionBar.setTitleBar(mActivity, titleView);
         getUserData();
         //添加下拉刷新
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -427,6 +429,7 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         tv_useId = view.findViewById(R.id.tv_useId);
 
         tv_fm_home_accountBalance = view.findViewById(R.id.tv_fm_home_accountBalance);
+        titleView = view.findViewById(R.id.title);
         tv_fm_home_blockBalance = view.findViewById(R.id.tv_fm_home_blockBalance);
         tv_fm_home_PageTodayConsumeCoins = view.findViewById(R.id.tv_fm_home_PageTodayConsumeCoins);
         tv_fm_home_PageTodayExposureVolume = view.findViewById(R.id.tv_fm_home_PageTodayExposureVolume);
@@ -617,27 +620,29 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
             //未认证
             cerStatus = getString(R.string.no_cer);
             remindString = getString(R.string.no_certified);
-            imgResId = R.mipmap.no_certified;
+            imgResId = R.mipmap.go_pass;
             btText = getString(R.string.go_cer);
         } else {
             //认证状态 1审核中 2审核通过 3审核拒绝
             authStatus = certificationOut.getAuthStatus();
+            Logger.d("authStatus:"+authStatus);
+            // TODO: 2018/4/17 测试弹窗
             if (authStatus == 1 || authStatus == 4) {
                 //审核中
                 cerStatus = getString(R.string.cer_ing);
                 remindString = getString(R.string.cer_waiting);
-                imgResId = R.mipmap.audit;
+                imgResId = R.mipmap.pass_ing;
                 btText = getString(R.string.go_watch);
             } else if (authStatus == 3) {
                 //审核拒绝
                 cerStatus = getString(R.string.no_pass);
                 remindString = getString(R.string.not_pass);
-                imgResId = R.mipmap.not_pass;
+                imgResId = R.mipmap.no_pass;
                 btText = getString(R.string.re_go_cer);
             }
         }
         if (authStatus != 2) {
-            final RemindDialog dialog = new RemindDialog(getContext(), cerStatus, remindString, imgResId, btText);
+            final RemindDialog dialog = new RemindDialog(getContext(), "", remindString, imgResId, btText);
             dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
                 @Override
                 public void doCertificate() {

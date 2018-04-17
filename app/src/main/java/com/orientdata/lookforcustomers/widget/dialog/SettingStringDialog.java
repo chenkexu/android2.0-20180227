@@ -3,6 +3,7 @@ package com.orientdata.lookforcustomers.widget.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,10 @@ public class SettingStringDialog extends Dialog{
     private ListView mStringView;
     private ChangeListener changeListener;
     MyAdapter adapter;
-//    private TextView tvChooseRemind;
+    private TextView tv_title;
+    private String title;
+
+    //    private TextView tvChooseRemind;
 //    private String remindString = "";
 
 
@@ -39,6 +43,12 @@ public class SettingStringDialog extends Dialog{
 
     protected SettingStringDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
+        init(context);
+    }
+
+    public SettingStringDialog(Context context, String title,int themeResId) {
+        super(context, themeResId);
+        this.title = title;
         init(context);
     }
 
@@ -59,6 +69,13 @@ public class SettingStringDialog extends Dialog{
         setWindow();
         setUpViews();
         setUpListener();
+        if (!TextUtils.isEmpty(title)) {
+            tv_title.setVisibility(View.VISIBLE);
+            tv_title.setText(title);
+        }else{
+            tv_title.setVisibility(View.GONE);
+        }
+
     }
     public interface ChangeListener{
         void onChangeListener(String data, int position);
@@ -79,6 +96,9 @@ public class SettingStringDialog extends Dialog{
 
     private void setUpViews() {
         mStringView = (ListView) findViewById(R.id.area);
+        tv_title = findViewById(R.id.tv_title);
+
+
 //        tvChooseRemind = (TextView) findViewById(R.id.tvChooseRemind);
 //        tvChooseRemind.setText(remindString);
     }

@@ -20,14 +20,15 @@
         android:id="@+id/radioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/img"
-        android:layout_alignRight="@+id/img"
-        android:layout_alignTop="@+id/img"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="11dp"
         android:checked="false"
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:button="@drawable/bg_customize_creadential_upload_selector"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp"
+        android:layout_alignTop="@+id/img"
+        android:layout_alignRight="@+id/img"
+        android:layout_alignEnd="@+id/img"
+        android:layout_marginEnd="10dp" />
 </RelativeLayout>

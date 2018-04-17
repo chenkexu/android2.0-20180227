@@ -12,6 +12,7 @@ import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.model.IImgModel;
 import com.orientdata.lookforcustomers.model.ITaskModel;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 
 import java.io.File;
@@ -19,7 +20,6 @@ import java.io.IOException;
 import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**

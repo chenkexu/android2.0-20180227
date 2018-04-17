@@ -24,6 +24,7 @@ import com.orientdata.lookforcustomers.model.ISendSmsModel;
 import com.orientdata.lookforcustomers.model.imple.CommissionModelImple;
 import com.orientdata.lookforcustomers.model.imple.SendSmsModelImple;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.mine.ICommissionView;
@@ -35,7 +36,6 @@ import java.util.Map;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**

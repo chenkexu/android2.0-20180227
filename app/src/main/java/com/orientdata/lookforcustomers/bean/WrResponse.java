@@ -17,6 +17,7 @@ public class WrResponse<T> extends ErrBean {
     private T result;
 
 
+
     public T getResult() {
         return result;
     }

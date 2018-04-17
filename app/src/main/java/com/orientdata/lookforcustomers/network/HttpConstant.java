@@ -8,8 +8,8 @@ public class HttpConstant {
    // public static final String HOST_URL = "http://wrtest.geekdana.com:1580/netrun-app/";
 //    public static final String HOST_URL = "http://wrc.geekdana.com/netrun-app/";
 //   public static final String HOST_URL = "http://wrtest.geekdana.com:1580/netrun-app/";
-    public static final String HOST_URL = "http://172.31.15.54:8080/netrun-app/";
-//    public static final String HOST_URL = "http://sms2.qisu100.com:8090/netrun-app/";
+//    public static final String HOST_URL = "http://172.31.12.167:8080/netrun-app/";
+    public static final String HOST_URL = "http://sms2.qisu100.com:8090/netrun-app/";
 
 
     /*发短信*/
@@ -69,10 +69,18 @@ public class HttpConstant {
     /*创建任务*/
     public static final String INSERT_CREATE_TASK = HOST_URL + "app/task/insertTask";//app/task/insertTask
 
+    /**
+     * 判断是否包含敏感词
+     */
+    public static final String selectWord = HOST_URL + "app/task/selectWord";//app/task/insertTask
+
 
     //v2.0.1 创建任务
-
     public static final String INSERT_CREATE_TASK2 = HOST_URL + "app/v1.1/task/insertTask";//app/task/insertTask
+
+
+    //获取测试号
+    public static final String getOperateState = HOST_URL + "pub/v1/getOperateState";//app/task/insertTask
 
 
     /*落地页提交*/

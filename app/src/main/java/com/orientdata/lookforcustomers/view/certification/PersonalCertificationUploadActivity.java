@@ -29,6 +29,7 @@ import com.orientdata.lookforcustomers.bean.MustQualify;
 import com.orientdata.lookforcustomers.bean.SubIndustryBean;
 import com.orientdata.lookforcustomers.bean.TradeCategoryOut;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.GlideUtil;
@@ -53,7 +54,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
@@ -313,7 +313,7 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
             //成功
             submitStatus = getString(R.string.sub_suc);
             confirmText = getString(R.string.sub_confirm);
-            imgRes = R.mipmap.submit_suc;
+            imgRes = R.mipmap.icon_dialog_success;
             //清掉此用户的认证缓存数据
 //            if(curCatch!=-1){
 //                dataListCatch.remove(curCatch);
@@ -323,7 +323,7 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
             //失败
             submitStatus = getString(R.string.sub_fail);
             confirmText = getString(R.string.sub_fail_txt);
-            imgRes = R.mipmap.sub_fail;
+            imgRes = R.mipmap.icon_dialog_error;
 
         }
         final SubmitFeedBackDialog submitFeedBackDialog = new SubmitFeedBackDialog(this, submitStatus, confirmText, imgRes);

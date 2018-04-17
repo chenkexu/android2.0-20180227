@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:textColor="@color/text_gray"
             android:textSize="35sp"
             android:textStyle="bold"/>
@@ -48,8 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="10dp"
             android:textColor="@color/text_gray"
             android:textSize="15sp"/>
     </LinearLayout>
@@ -92,9 +92,4 @@
         android:layout_height="match_parent"
         android:divider="@null"
         android:dividerHeight="0dp" />
-
-
-
-
-
 </LinearLayout>

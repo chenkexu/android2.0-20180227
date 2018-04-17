@@ -49,7 +49,7 @@ public class ShareManager {
         this.activity = activity;
         UMImage image = null;
         if (TextUtils.isEmpty(entity.getPicUrl())) {
-            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher));
+            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.icon_share));
         } else {
             image = new UMImage(activity, entity.getPicUrl());
         }
@@ -80,7 +80,7 @@ public class ShareManager {
         this.activity = activity;
         UMImage image = null;
         if (TextUtils.isEmpty(entity.getPicUrl())) {
-            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher));
+            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.icon_share));
         } else {
             image = new UMImage(activity, entity.getPicUrl());
         }
@@ -110,7 +110,7 @@ public class ShareManager {
         this.activity = activity;
         UMImage image = null;
         if (TextUtils.isEmpty(entity.getPicUrl())) {
-            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher));
+            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.icon_share));
         } else {
             image = new UMImage(activity, entity.getPicUrl());
         }
@@ -140,7 +140,7 @@ public class ShareManager {
         this.activity = activity;
         UMImage image = null;
         if (TextUtils.isEmpty(entity.getPicUrl())) {
-            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher));
+            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.icon_share));
         } else {
             image = new UMImage(activity, entity.getPicUrl());
         }
@@ -170,7 +170,7 @@ public class ShareManager {
         this.activity = activity;
         UMImage image = null;
         if (TextUtils.isEmpty(entity.getPicUrl())) {
-            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher));
+            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.icon_share));
         } else {
             image = new UMImage(activity, entity.getPicUrl());
         }
@@ -203,7 +203,7 @@ public class ShareManager {
         UMShareAPI.get(activity).setShareConfig(config);
         UMImage image = null;
         if (TextUtils.isEmpty(entity.getPicUrl())) {
-            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher));
+            image = new UMImage(activity, BitmapFactory.decodeResource(activity.getResources(), R.mipmap.icon_share));
         } else {
             image = new UMImage(activity, entity.getPicUrl());
         }

@@ -32,7 +32,7 @@
             android:layout_marginLeft="21dp"
             android:layout_marginStart="21dp"
             android:text="清除缓存"
-            android:textColor="@color/c_1C1C1C"
+            android:textColor="@color/text_gray"
             android:textSize="16sp" />
 
         <ImageView
@@ -68,7 +68,7 @@
             android:layout_marginLeft="23dp"
             android:layout_marginStart="23dp"
             android:text="推送通知"
-            android:textColor="@color/c_1C1C1C"
+            android:textColor="@color/text_gray"
             android:textSize="16sp" />
         <com.orientdata.lookforcustomers.widget.toggleButton.zcw.togglebutton.ToggleButton
             android:id="@+id/toggleBold"
@@ -101,7 +101,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="21dp"
             android:textSize="16sp"
-            android:textColor="@color/c_1C1C1C"
+            android:textColor="@color/text_gray"
             android:layout_marginStart="21dp"
             android:text="重置密码" />
         <ImageView
@@ -136,7 +136,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="21dp"
             android:textSize="16sp"
-            android:textColor="@color/c_1C1C1C"
+            android:textColor="@color/text_gray"
             android:layout_marginStart="21dp"
             android:text="关于我们" />
         <ImageView
@@ -170,7 +170,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="21dp"
             android:textSize="16sp"
-            android:textColor="@color/c_1C1C1C"
+            android:textColor="@color/text_gray"
             android:layout_marginStart="21dp"
             android:text="意见反馈" />
         <ImageView

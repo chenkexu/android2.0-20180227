@@ -215,6 +215,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
 
     @Subscribe
     public void loginResult(LoginResultEvent loginResultEvent) {
+        
+        //移除是否退出的标志位
+        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.USER_LOGOUT);
+
         if (!reLogin && loginResultEvent.isLogin) {//正常登录成功打开主页   重新登录不需要
             MyOpenActivityUtils.openHomeActivity(getActivity(),loginResultEvent.isNewUser);
         }else if(reLogin){

@@ -189,8 +189,8 @@ public class CertificationActivity extends BaseActivity<ICertificateView, Certif
      */
     @Override
     public void getCertificateMsg(CertificationOut certificationOut) {
-        // TODO: 2018/4/11 测试，一会删除
-        certificationOut.setAuthStatus(3);
+//        // TODO: 2018/4/11 测试，一会删除
+//        certificationOut.setAuthStatus(3);
         if (certificationOut == null || certificationOut.getAuthStatus() == 3) {
 
             //未认证 拒绝

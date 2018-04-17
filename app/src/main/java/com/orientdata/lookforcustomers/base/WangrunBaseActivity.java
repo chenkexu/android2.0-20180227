@@ -2,11 +2,16 @@ package com.orientdata.lookforcustomers.base;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+
+import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,13 +25,38 @@ import java.util.ArrayList;
  * V 是视图接口
  */
 
-public abstract class WangrunBaseActivity extends Activity {
+public abstract class WangrunBaseActivity extends AppCompatActivity {
     private Dialog progressDialog;
+    protected ImmersionBar mImmersionBar;
+    private InputMethodManager imm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        //初始化沉浸式
+        if (isImmersionBarEnabled())
+            initImmersionBar();
+    }
+
+
+    /**
+     * 是否可以使用沉浸式
+     * Is immersion bar enabled boolean.
+     *
+     * @return the boolean
+     */
+    protected boolean isImmersionBarEnabled() {
+        return true;
+    }
+
+    protected void initImmersionBar() {
+        //在BaseActivity里初始化
+        mImmersionBar = ImmersionBar.with(this)
+                .statusBarDarkFont(true, 0.2f)
+                .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
+                .statusBarColor(R.color.bg_white);
+        mImmersionBar.init();
     }
 
 
@@ -34,6 +64,24 @@ public abstract class WangrunBaseActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);//反注册EventBus
+        this.imm = null;
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();  //在BaseActivity里销毁
+    }
+
+    public void finish() {
+        super.finish();
+        hideSoftKeyBoard();
+    }
+
+    public void hideSoftKeyBoard() {
+        View localView = getCurrentFocus();
+        if (this.imm == null) {
+            this.imm = ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE));
+        }
+        if ((localView != null) && (this.imm != null)) {
+            this.imm.hideSoftInputFromWindow(localView.getWindowToken(), 2);
+        }
     }
 
     @Override

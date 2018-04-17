@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:gravity="center_horizontal"
     android:background="@drawable/shape_circle_white_bg"
     android:orientation="vertical">
     <TextView
@@ -12,7 +14,7 @@
         android:gravity="center"
         android:textColor="@color/c_ffffff"
         android:textSize="16sp"
-        android:background="@drawable/textview_round_border"/>
+        android:background="@drawable/bg_tv_round_gradient"/>
     <ImageView
         android:id="@+id/ivCerStatus"
         android:layout_width="wrap_content"
@@ -20,34 +22,30 @@
         android:layout_marginTop="17dp"
         android:layout_gravity="center"
         android:layout_marginBottom="24dp"
-        android:src="@mipmap/not_pass"/>
+        android:src="@mipmap/no_pass"/>
     <TextView
         android:id="@+id/tvCerRemind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textColor="@color/c_9c9c9c"
         android:layout_gravity="center"
-        android:text="简单快乐分"
-        />
+        android:text="简单快乐分" />
+
     <TextView
         android:id="@+id/tvToCert"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:background="@mipmap/bg_enterprise_certification_upload"
+        android:layout_height="45dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_tv_round_gradient"
         android:gravity="center"
         android:text="零零落落"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         android:textStyle="bold" />
-
-
-
-
 
 
 </LinearLayout>

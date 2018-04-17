@@ -8,6 +8,7 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
@@ -24,23 +26,33 @@ import com.orientdata.lookforcustomers.bean.ChargeMinMoneyBean;
 import com.orientdata.lookforcustomers.bean.MessageTypeBean;
 import com.orientdata.lookforcustomers.bean.MyInfoBean;
 import com.orientdata.lookforcustomers.bean.PayBean;
+import com.orientdata.lookforcustomers.bean.SelectWordBean;
 import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.event.MyMoneyEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.network.callback.WrCallback;
 import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
+import com.orientdata.lookforcustomers.util.NoDoubleClickUtils;
+import com.orientdata.lookforcustomers.util.RxUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.MyTitle;
+import com.orientdata.lookforcustomers.widget.dialog.RechargeDialog;
+import com.orientdata.lookforcustomers.wxapi.WXPayEntryActivity;
+import com.squareup.okhttp.OkHttpClient;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import rx.functions.Action1;
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
@@ -80,7 +92,16 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     String resultStatus = payResult.getResultStatus();              //支付结果状态
 
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
-                    if (TextUtils.equals(resultStatus, "9000")) {
+                    if (TextUtils.equals(resultStatus, "9000")) {  //支付成功
+                        final RechargeDialog rechargeDialog = new RechargeDialog(RechargeActivity.this, "充值成功", "确定", R.mipmap.icon_dialog_success);
+                        rechargeDialog.setClickListenerInterface(new RechargeDialog.ClickListenerInterface() {
+                            @Override
+                            public void doCertificate() {
+                                rechargeDialog.dismiss();
+                            }
+                        });
+                        rechargeDialog.show();
+                        //更新个人信息
                         getCommission();
                         Toast.makeText(RechargeActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                     } else {
@@ -88,7 +109,18 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                         if (TextUtils.equals(resultStatus, "8000")) {
                             Toast.makeText(RechargeActivity.this, "支付结果确认中", Toast.LENGTH_SHORT).show();
+                        } else if(TextUtils.equals(resultStatus, "6001")) {		//支付取消
+                           ToastUtils.showShort("取消支付");
                         } else {
+                             //弹出充值失败的dialog
+                            final RechargeDialog rechargeDialog = new RechargeDialog(RechargeActivity.this, "充值失败", "返回", R.mipmap.icon_dialog_error);
+                            rechargeDialog.setClickListenerInterface(new RechargeDialog.ClickListenerInterface() {
+                                @Override
+                                public void doCertificate() {
+                                    rechargeDialog.dismiss();
+                                }
+                            });
+                            rechargeDialog.show();
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             Toast.makeText(RechargeActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
                         }
@@ -98,6 +130,8 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
             }
         }
     };
+    private RechargeDialog rechargeDialog;
+
     /**
      * 获取账号 佣金 和 余额
      */
@@ -171,26 +205,14 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
         initView();
         initTitle();
         getData();
-
-
-
-
-
-
-
-
-//        NetWorkUtils.getSignAndId2("140000", new WrCallback<WrResponse<MessageTypeBean>>() {
-//            @Override
-//            public void onSuccess(Response<WrResponse<MessageTypeBean>> response) {
-//                Logger.d(response.body().getResult().getTdcontent());
-//            }
-//
-//            @Override
-//            public void onError(Response<WrResponse<MessageTypeBean>> response) {
-//                super.onError(response);
-//                ToastUtils.showShort(response.getException().getMessage());
-//            }
-//        });
+        RxUtils.clickView(tv_recharge_btn)
+                .throttleFirst(1000, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        toCharge();
+                    }
+                });
 
     }
 
@@ -299,6 +321,180 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
         });*/
     }
 
+    private  void toCharge(){
+
+        //验证数据
+        String fet_value = fet_recharge.getText().toString().trim();
+        Double value = null;
+        if (TextUtils.isEmpty(fet_value)) {
+            //输入数字为空
+            if (!is200Checked && !is500Checked && !is3000Checked && !is1000Checked) {
+                ToastUtils.showShort("请选择或者输入金额");
+                return;
+            }
+            value = cost;
+        } else {
+            value = Double.valueOf(fet_value);
+            if (value < mRechargeMinMoney) {
+                ToastUtils.showShort("请输入正确金额,大于" + mRechargeMinMoney);
+                return;
+            }
+        }
+        if (!rb_zhifubao.isChecked() && !rb_weixin.isChecked()) {
+            ToastUtils.showShort("请选择支付方式！");
+            return;
+        }
+        //String  cost = fet_recharge.get
+        if (rb_zhifubao.isChecked()) {
+            ToastUtils.showShort("支付宝支付:" + value);
+            //支付宝支付
+            MDBasicRequestMap map = new MDBasicRequestMap();
+            map.put("userId", UserDataManeger.getInstance().getUserId());
+            map.put("cost", value + "");
+            map.put("payType", 2 + "");
+
+            OkHttpClientManager.postAsyn(HttpConstant.PAY_URL, new OkHttpClientManager.ResultCallback<PayBean>() {
+                @Override
+                public void onError(Exception e) {
+                    ToastUtils.showShort(e.getMessage());
+                }
+
+                @Override
+                public void onResponse(PayBean response) {
+                    if (response.getCode() == 0) {
+                        Map<Object, Object> result = response.getResult();
+                        Map<String, String> order = (Map<String, String>) result.get("order");
+                        Map<String, String> zfb = (Map<String, String>) result.get("zfb");
+                        final String payInfo = zfb.get("signedString");
+                        Runnable payRunnable = new Runnable() {
+
+                            @Override
+                            public void run() {
+                                PayTask alipay = new PayTask(RechargeActivity.this);
+                                String result = alipay.pay(payInfo, true);
+
+                                //创建message对象,设置msg属性
+                                Message msg = new Message();
+                                msg.what = ZHIFUBAO;             //属性:支付宝
+                                msg.obj = result;                //结果
+                                mHandler.sendMessage(msg);
+                            }
+                        };
+                        // 必须异步调用
+                        Thread payThread = new Thread(payRunnable);
+                        payThread.start();
+
+                    }
+                }
+            }, map);
+        }
+        if (rb_weixin.isChecked()) {
+            //微信支付
+            ToastUtils.showShort("微信支付:" + value);
+
+            MDBasicRequestMap map = new MDBasicRequestMap();
+            map.put("userId", UserDataManeger.getInstance().getUserId());
+            map.put("cost", value + "");
+            map.put("payType", 1 + "");
+
+
+            OkHttpClientManager.postAsyn(HttpConstant.PAY_URL, new OkHttpClientManager.ResultCallback<PayBean>() {
+                @Override
+                public void onError(Exception e) {
+                    ToastUtils.showShort(e.getMessage());
+                }
+
+                @Override
+                public void onResponse(PayBean response) {
+                    if (response.getCode() == 0) {
+                        Map<Object, Object> result = response.getResult();
+                        Map<String, String> order = (Map<String, String>) result.get("order");
+                        Map<String, String> wx = (Map<String, String>) result.get("wx");
+                        // 将该app注册到微信
+                        final IWXAPI msgApi = WXAPIFactory.createWXAPI(getApplication(), null);
+                        boolean isRegister = msgApi.registerApp("wx94a5977e9ef0661b");
+                        //调起支付
+                        //IWXAPI api;
+                        PayReq request = new PayReq();
+                        request.appId = wx.get("appid").toString().trim();
+                        request.partnerId = wx.get("partnerId");
+                        request.prepayId = wx.get("prepayId");//"1101000000140415649af9fc314aa427";
+                        request.packageValue = wx.get("_package");// "Sign=WXPay";
+                        request.nonceStr = wx.get("nonceStr");// "1101000000140429eb40476f8896f4c9";
+                        request.timeStamp = wx.get("timeStamp"); // "1398746574";
+                        request.sign = wx.get("sign");//"7FFECB600D7157C5AA49810D2D8F28BC2811827B";
+                        msgApi.sendReq(request);
+                    }
+                }
+            }, map);
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //微信支付的回调
+   //在ui线程执行
+    @Subscribe
+    public void onEventMainThread(WXPayEntryActivity.wxPayResult payResultResult) {
+//        Log.d("", payResultResult + "");
+        Logger.d("收到了微信支付的回调"+payResultResult);
+        if (this == null)
+            return;
+
+        switch (payResultResult) {
+            case success:
+                Toast.makeText(this, "成功", Toast.LENGTH_SHORT).show();
+                rechargeDialog = new RechargeDialog(RechargeActivity.this, "充值成功", "确定", R.mipmap.icon_dialog_success);
+                rechargeDialog.setClickListenerInterface(new RechargeDialog.ClickListenerInterface() {
+                    @Override
+                    public void doCertificate() {
+                        rechargeDialog.dismiss();
+                    }
+                });
+                rechargeDialog.show();
+                break;
+            case cancle:
+                Toast.makeText(this, "取消支付", Toast.LENGTH_SHORT).show();
+                break;
+            case fail:
+                //弹出充值失败的dialog
+                rechargeDialog = new RechargeDialog(RechargeActivity.this, "充值失败", "返回", R.mipmap.icon_dialog_error);
+                rechargeDialog.setClickListenerInterface(new RechargeDialog.ClickListenerInterface() {
+                    @Override
+                    public void doCertificate() {
+                        rechargeDialog.dismiss();
+                    }
+                });
+                rechargeDialog.show();
+                // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
+                Toast.makeText(RechargeActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
+                break;
+            case error:
+                Toast.makeText(this, "未知", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+    }
+
+
+
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -333,113 +529,8 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                 rb_zhifubao.setChecked(true);
                 break;
             case R.id.tv_recharge_btn://充值
-                //验证数据
-             
-                String fet_value = fet_recharge.getText().toString().trim();
-                Double value = null;
-                if (TextUtils.isEmpty(fet_value)) {
-                    //输入数字为空
-                    if (!is200Checked && !is500Checked && !is3000Checked && !is1000Checked) {
-                        ToastUtils.showShort("请选择或者输入金额");
-                        return;
-                    }
-                    value = cost;
-                } else {
-                    value = Double.valueOf(fet_value);
-                    if (value < mRechargeMinMoney) {
-                        ToastUtils.showShort("请输入正确金额,大于" + mRechargeMinMoney);
-                        return;
-                    }
-                }
-                if (!rb_zhifubao.isChecked() && !rb_weixin.isChecked()) {
-                    ToastUtils.showShort("请选择支付方式！");
-                    return;
-                }
-                //String  cost = fet_recharge.get
-                if (rb_zhifubao.isChecked()) {
-                    ToastUtils.showShort("支付宝支付:" + value);
-                    //支付宝支付
-                    MDBasicRequestMap map = new MDBasicRequestMap();
-                    map.put("userId", UserDataManeger.getInstance().getUserId());
-                    map.put("cost", value + "");
-                    map.put("payType", 2 + "");
-                    
-                    OkHttpClientManager.postAsyn(HttpConstant.PAY_URL, new OkHttpClientManager.ResultCallback<PayBean>() {
-                        @Override
-                        public void onError(Exception e) {
-                            ToastUtils.showShort(e.getMessage());
-                        }
-
-                        @Override
-                        public void onResponse(PayBean response) {
-                            if (response.getCode() == 0) {
-                                Map<Object, Object> result = response.getResult();
-                                Map<String, String> order = (Map<String, String>) result.get("order");
-                                Map<String, String> zfb = (Map<String, String>) result.get("zfb");
-                                final String payInfo = zfb.get("signedString");
-                                Runnable payRunnable = new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        PayTask alipay = new PayTask(RechargeActivity.this);
-                                        String result = alipay.pay(payInfo, true);
-
-                                        //创建message对象,设置msg属性
-                                        Message msg = new Message();
-                                        msg.what = ZHIFUBAO;             //属性:支付宝
-                                        msg.obj = result;                //结果
-                                        mHandler.sendMessage(msg);
-                                    }
-                                };
-                                // 必须异步调用
-                                Thread payThread = new Thread(payRunnable);
-                                payThread.start();
-
-                            }
-                        }
-                    }, map);
-                }
-                if (rb_weixin.isChecked()) {
-                    //微信支付
-                    ToastUtils.showShort("微信支付:" + value);
-
-                    MDBasicRequestMap map = new MDBasicRequestMap();
-                    map.put("userId", UserDataManeger.getInstance().getUserId());
-                    map.put("cost", value + "");
-                    map.put("payType", 1 + "");
 
 
-                    OkHttpClientManager.postAsyn(HttpConstant.PAY_URL, new OkHttpClientManager.ResultCallback<PayBean>() {
-                        @Override
-                        public void onError(Exception e) {
-                            ToastUtils.showShort(e.getMessage());
-                        }
-
-                        @Override
-                        public void onResponse(PayBean response) {
-                            if (response.getCode() == 0) {
-                                Map<Object, Object> result = response.getResult();
-                                Map<String, String> order = (Map<String, String>) result.get("order");
-                                Map<String, String> wx = (Map<String, String>) result.get("wx");
-                                // 将该app注册到微信
-                                final IWXAPI msgApi = WXAPIFactory.createWXAPI(getApplication(), null);
-                                boolean isRegister = msgApi.registerApp("wx94a5977e9ef0661b");
-                                //调起支付
-                                //IWXAPI api;
-                                PayReq request = new PayReq();
-                                request.appId = wx.get("appid").toString().trim();
-                                request.partnerId = wx.get("partnerId");
-                                request.prepayId = wx.get("prepayId");//"1101000000140415649af9fc314aa427";
-                                request.packageValue = wx.get("_package");// "Sign=WXPay";
-                                request.nonceStr = wx.get("nonceStr");// "1101000000140429eb40476f8896f4c9";
-                                request.timeStamp = wx.get("timeStamp"); // "1398746574";
-                                request.sign = wx.get("sign");//"7FFECB600D7157C5AA49810D2D8F28BC2811827B";
-                                msgApi.sendReq(request);
-                            }
-                        }
-                    }, map);
-
-                }
 
                 break;
             case R.id.tv_recharge200: //充1000元

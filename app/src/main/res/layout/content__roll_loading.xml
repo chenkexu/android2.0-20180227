@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:background="@drawable/shape_circle_white_load_bg"
         android:layerType="software"
-        app:point_color="#09B6F2"
+        app:point_color="@color/colorPrimary"
         app:point_radius="10dp"
         app:point_space="50dp"
         />

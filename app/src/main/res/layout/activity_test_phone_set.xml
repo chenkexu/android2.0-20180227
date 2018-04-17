@@ -33,6 +33,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_cmcc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -65,6 +66,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_cucc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -97,6 +99,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_ctc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

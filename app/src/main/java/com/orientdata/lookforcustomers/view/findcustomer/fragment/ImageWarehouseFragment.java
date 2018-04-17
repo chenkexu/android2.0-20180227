@@ -2,11 +2,9 @@ package com.orientdata.lookforcustomers.view.findcustomer.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,51 +12,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.baidu.mapapi.map.BaiduMap;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.bean.AdPage;
 import com.orientdata.lookforcustomers.bean.AdPagesBean;
-import com.orientdata.lookforcustomers.bean.Area;
-import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.ErrBean;
-import com.orientdata.lookforcustomers.bean.NextStepCheckBean;
-import com.orientdata.lookforcustomers.bean.PreOut;
 import com.orientdata.lookforcustomers.network.HttpConstant;
-import com.orientdata.lookforcustomers.presenter.CityPickPresent;
-import com.orientdata.lookforcustomers.util.CommonUtils;
-import com.orientdata.lookforcustomers.util.MyOpenActivityUtils;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.agreement.MyWebViewActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.CreateAdActivity;
-import com.orientdata.lookforcustomers.view.findcustomer.CreateFindCustomerActivity;
-import com.orientdata.lookforcustomers.view.findcustomer.ICityPickView;
-import com.orientdata.lookforcustomers.view.findcustomer.impl.MessageTaskActivity;
-import com.orientdata.lookforcustomers.view.findcustomer.impl.PageTaskActivity;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by wy on 2017/11/16.

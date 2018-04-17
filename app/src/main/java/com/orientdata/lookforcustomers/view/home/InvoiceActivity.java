@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.bean.CanInvoiceBean;
 import com.orientdata.lookforcustomers.bean.InvoiceBean;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
@@ -34,7 +36,6 @@ import java.util.List;
 import java.util.Map;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
@@ -53,6 +54,7 @@ public class InvoiceActivity extends WangrunBaseActivity implements View.OnClick
     private InvoicesListAdapter mAdapter;
 
     private TextView tv_next_step;
+    private LinearLayout ll_no_content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,6 @@ public class InvoiceActivity extends WangrunBaseActivity implements View.OnClick
         MDBasicRequestMap map = new MDBasicRequestMap();
         map.put("userId", UserDataManeger.getInstance().getUserId());
 
-
         OkHttpClientManager.postAsyn(HttpConstant.SELECT_CAN_INVOICES, new OkHttpClientManager.ResultCallback<CanInvoiceBean>() {
             @Override
             public void onError(Exception e) {
@@ -91,14 +92,19 @@ public class InvoiceActivity extends WangrunBaseActivity implements View.OnClick
                         cb_choose_all.setFocusable(false);
                         cb_choose_all.setClickable(false);
                         cb_choose_all.setFocusableInTouchMode(false);
+                        lv_show_invoices.setVisibility(View.GONE);
+                        ll_no_content.setVisibility(View.VISIBLE);
                         return;
+                    }else{
+                        lv_show_invoices.setVisibility(View.VISIBLE);
+                        ll_no_content.setVisibility(View.GONE);
                     }
                     cb_choose_all.setFocusable(true);
                     cb_choose_all.setClickable(true);
                     cb_choose_all.setFocusableInTouchMode(true);
                     mInvoiceBeenLists = response.getResult();
                     if (mStatus2InvoiceBeans == null) {
-                        mStatus2InvoiceBeans = new ArrayList<InvoiceBean>();
+                        mStatus2InvoiceBeans = new ArrayList<>();
                     } else {
                         mStatus2InvoiceBeans.clear();
                     }
@@ -107,14 +113,18 @@ public class InvoiceActivity extends WangrunBaseActivity implements View.OnClick
                             mStatus2InvoiceBeans.add(bean);
                         }
                     }
-                    if (mStatus2InvoiceBeans.size() <= 0) {
+                    if (mStatus2InvoiceBeans.size() <= 0) {  //没有数据
                         cb_choose_all.setFocusable(false);
                         cb_choose_all.setClickable(false);
                         cb_choose_all.setFocusableInTouchMode(false);
+//                        lv_show_invoices.setVisibility(View.GONE);
+//                        ll_no_content.setVisibility(View.VISIBLE);
                     } else {
                         cb_choose_all.setFocusable(true);
                         cb_choose_all.setClickable(true);
                         cb_choose_all.setFocusableInTouchMode(true);
+//                        lv_show_invoices.setVisibility(View.VISIBLE);
+//                        ll_no_content.setVisibility(View.GONE);
                     }
                     mMapChecked.clear();
                     for (int i = 0; i < mStatus2InvoiceBeans.size(); i++) {
@@ -140,6 +150,8 @@ public class InvoiceActivity extends WangrunBaseActivity implements View.OnClick
         mMapChecked = new HashMap<Integer, Boolean>();
         title = findViewById(R.id.my_title);
         lv_show_invoices = findViewById(R.id.lv_show_invoices);
+        ll_no_content = findViewById(R.id.ll_no_content);
+
         Log.e("==", "jjjhj");
         lv_show_invoices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

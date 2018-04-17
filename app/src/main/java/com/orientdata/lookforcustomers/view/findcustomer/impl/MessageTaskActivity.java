@@ -21,14 +21,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
+import com.orientdata.lookforcustomers.bean.ChargeMinMoneyBean;
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.bean.MyInfoBean;
+import com.orientdata.lookforcustomers.bean.SelectWordBean;
 import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
+import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
+import com.orientdata.lookforcustomers.network.callback.WrCallback;
+import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
 import com.orientdata.lookforcustomers.presenter.TaskPresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
@@ -43,6 +50,7 @@ import com.orientdata.lookforcustomers.view.findcustomer.TestPhoneSettingActivit
 import com.orientdata.lookforcustomers.widget.DateSelectPopupWindow;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmSubmitDialog;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +64,6 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 import static com.baidu.location.h.k.ab;
@@ -312,7 +319,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 Logger.d("返回企业签名字符串:" + signContent);
 
                 etEnterpriseSignature.removeTextChangedListener(this);
-                if (!signContent.startsWith("【") && signContent.endsWith("】")) {
+                if (!signContent.startsWith("【") && signContent.endsWith("】") && !signContent.contains("【")) {
                     Logger.d("没有【");
                     etEnterpriseSignature.setText("【"+signContent);
                 } else if (!signContent.startsWith("【") && !signContent.endsWith("】")) {
@@ -324,14 +331,21 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                         etEnterpriseSignature.setText("【" + signContent + "】");
                     }
 
-                } else if (signContent.startsWith("【") && !signContent.endsWith("】")) {
+                } else if (signContent.startsWith("【") && !signContent.endsWith("】") && !signContent.contains("】")) {
                     Logger.d("没有】");
                     etEnterpriseSignature.setText(signContent + "】");
                 } else if(signContent.equals("【】")){
                     etEnterpriseSignature.setText("");
                 } else {
                     Logger.d("都有");
-                    etEnterpriseSignature.setText(signContent);
+                    signContent = signContent.replace("【", "");
+                    signContent = signContent.replace("】", "");
+                    if (signContent.length() > 4) {
+                        signContent.substring(0, 4);
+                        etEnterpriseSignature.setText("【" + signContent.substring(0, 4) + "】");
+                    } else {
+                        etEnterpriseSignature.setText("【" + signContent + "】");
+                    }
                 }
                 if (etEnterpriseSignature.getText().toString().length()>1) {
                     etEnterpriseSignature.setSelection(etEnterpriseSignature.getText().toString().length() - 1);
@@ -350,31 +364,43 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                     Logger.d("企业签名为空");
                     tvMessageSign.setText("【请输入企业签名2-4个汉字】");
                     String content = etMsgContent.getText().toString();
-                    if (content.contains("【")) {
-                        String s2 = content.split("】")[1];
+                    if (content.contains("【")) { //短信有内容
+                        String s2 = content.split("】")[1]; //后面的短信正文内容
                         String s1 = tvMessageSign.getText().toString() + s2.toString();
                         etMsgContent.setText(s1);
+                        numCount = s2.length() + tvUnsubscribe.getText().length();
+                    }else{ //短信没内容
+                        numCount = tvUnsubscribe.getText().length();
                     }
                 } else {
                     Logger.d("企业签名不为空");
                     tvMessageSign.setText(etEnterpriseSignature.getText().toString());
                     // TODO: 2018/4/8 bug :只能先输入企业签名再输入短信内容
                     String content = etMsgContent.getText().toString();
-                    if (content.contains("【")) {
+                    if (content.contains("【")) { //短信有内容
                         String[] split = content.split("】");
                         String s2 = split[1];
                         String s1 = etEnterpriseSignature.getText().toString() + s2.toString();
                         etMsgContent.setText(s1);
+                        numCount = s1.length() + tvUnsubscribe.getText().length();
+                    }else { //短信没内容
+                        numCount = tvMessageSign.getText().length() + tvUnsubscribe.getText().length();
                     }
-
                 }
 
                 //设置输入短信的长度
-                numCount = tvMessageSign.getText().length() + tvUnsubscribe.getText().length();
+//                numCount = tvMessageSign.getText().length() + tvUnsubscribe.getText().length()+etMsgContent.getText().length() ;
+                // TODO: 2018/4/17 这里字数统计有bug
                 Logger.d("字数为：" + numCount);
                 tvNum.setText(numCount + "");
-                etMsgContent.setFilters(new InputFilter[]{new EmojiExcludeFilter(), new InputFilter.LengthFilter(70 - (Integer.valueOf(tvNum.getText().toString()).intValue()))});
+                etMsgContent.setFilters(new InputFilter[]{new EmojiExcludeFilter()});
                 etEnterpriseSignature.addTextChangedListener(this);
+
+                if (numCount>70){
+                    ToastUtils.showShort("您输入的短信内容超出字数限制");
+                }else{
+
+                }
             }
 
             @Override
@@ -430,19 +456,48 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                                 tvMessageContentHint.setVisibility(View.VISIBLE);
                                 tvMessageSign.setVisibility(View.VISIBLE);
                                 etMsgContent.setText("");
-                                temp = numCount;
+//                                temp = numCount;
                             } else if (!s.toString().contains(tvMessageSign.getText().toString())) { //如果不包含企业签名（第一次输入）
                                 etMsgContent.setText(tvMessageSign.getText().toString() + s.toString());
                                 etMsgContent.setSelection(etMsgContent.getText().toString().length());
-                                temp = length + numCount;
+//                                temp = length + numCount;
                             } else { //如果包含企业签名和其他的内容
                                 etMsgContent.setText(s.toString());
                                 etMsgContent.setSelection(etMsgContent.getText().toString().length());
-                                temp = length + numCount;
+//                                temp = length + numCount;
                             }
                     }
 
+
+
+                    //// TODO: 2018/4/17 为了统计字数
+                    if (etEnterpriseSignature.getText().toString().equals("")) {
+                        Logger.d("企业签名为空");
+                        String content = etMsgContent.getText().toString();
+                        if (content.contains("【")) { //短信有内容
+                            String s2 = content.split("】")[1]; //后面的短信正文内容
+                            numCount = s2.length() + tvUnsubscribe.getText().length();
+                        }else{ //短信没内容
+                            numCount = tvUnsubscribe.getText().length();
+                        }
+                    } else {
+                        Logger.d("企业签名不为空");
+                        // TODO: 2018/4/8 bug :只能先输入企业签名再输入短信内容
+                        String content = etMsgContent.getText().toString();
+                        if (content.contains("【")) { //短信有内容
+                            String[] split = content.split("】");
+                            String s2 = split[1];
+                            String s1 = etEnterpriseSignature.getText().toString() + s2.toString();
+                            numCount = s1.length() + tvUnsubscribe.getText().length();
+                        }else { //短信没内容
+                            numCount = tvMessageSign.getText().length() + tvUnsubscribe.getText().length();
+                        }
+                    }
+
+
+
                     etMsgContent.addTextChangedListener(this);
+
 
 
                 }
@@ -450,7 +505,12 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
             @Override
             public void afterTextChanged(Editable s/*之后的文字内容*/) {
-                tvNum.setText("" + temp);
+                if (numCount>70){
+                    ToastUtils.showShort("您输入的短信内容超出字数限制");
+                }else{
+
+                }
+                tvNum.setText("" + numCount);
             }
         });
 
@@ -518,6 +578,8 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 intent.putExtra("testCuPhone", testCuPhone);
                 intent.putExtra("testCtPhone", testCtPhone);
                 intent.putExtra("cityName", mCityName);
+                intent.putExtra("type", type);
+                intent.putExtra("cityCode", cityCode);
                 startActivityForResult(intent, 1);
             }
         });
@@ -582,7 +644,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
 
 
-
             File[] submitfiles = new File[1];
             String[] submitFileKeys = new String[1];
             String path = Environment.getExternalStorageDirectory().getPath() + "/ClipPhoto/cache/";// + System.currentTimeMillis() + ".png";
@@ -642,9 +703,33 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 content = etMsgContent.getText().toString().trim();
                 budget = etBudget.getText().toString().trim();
                 String signStr = etEnterpriseSignature.getText().toString().trim();
-                String substring = signStr.substring(1, signStr.length() - 1);
-                Logger.d("substring:"+substring);
-                int length = etEnterpriseSignature.getText().length();
+
+                String contentAll = content + tvUnsubscribe.getText().toString();
+
+                if (signStr.length()>2){
+                    String substring = signStr.substring(1, signStr.length() - 1);
+                    Logger.d("substring:"+substring);
+                    int length = etEnterpriseSignature.getText().length();
+
+                    if (!RegexUtils.isZh(substring)||length < 4 || length > 6) {
+                        ToastUtils.showShort("企业签名只能输入2-4位汉字");
+                        isSubmitting = false;
+                        return;
+                    }
+                }
+
+                if ( contentAll.length() > 70 ) {
+                    ToastUtils.showShort("您输入的短信内容超出字数限制");
+                    return;
+                }
+//
+//                String substring = signStr.substring(1, signStr.length() - 1);
+//
+//                Logger.d("substring:"+substring);
+//                int length = etEnterpriseSignature.getText().length();
+
+
+
 
                 if (TextUtils.isEmpty(content)) {
                     ToastUtils.showShort("请输入短信内容");
@@ -652,12 +737,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                     return;
                 }
 
-
-                if (!RegexUtils.isZh(substring)||length < 4 || length > 6) {
-                    ToastUtils.showShort("企业签名只能输入2-4位汉字");
-                    isSubmitting = false;
-                    return;
-                }
 
                 if (startdate.equals("开始日期")) {
                     ToastUtils.showShort("请输入开始日期");
@@ -680,20 +759,37 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                     return;
                 }
 
+                content = etMsgContent.getText().toString().trim()+tvUnsubscribe.getText().toString();
                 // TODO: 2018/4/8 返回敏感字符接口
+                showDefaultLoading();
+                MDBasicRequestMap map = new MDBasicRequestMap();
+                map.put("userId", UserDataManeger.getInstance().getUserId());
+                map.put("content", content);
 
-
-                if (CommonUtils.haveSDCard()) {
-                    if (hasPermisson()) {
-                        showRemindDialog();
-                    } else {
-                        requestPermission();
+                OkHttpClientManager.postAsyn(HttpConstant.selectWord, new OkHttpClientManager.ResultCallback<SelectWordBean>() {
+                    @Override
+                    public void onError(Exception e) {
+                        hideDefaultLoading();
+                        isSubmitting = false;
+                        ToastUtils.showShort(e == null ? "服务器小哥正在修复，请稍后重试..." : e.getMessage());
                     }
-                } else {
-                    Toast.makeText(this, "没有SD卡!", Toast.LENGTH_SHORT).show();
-                }
+
+                    @Override
+                    public void onResponse(SelectWordBean response) {
+                        isSubmitting = false;
+                        hideDefaultLoading();
+                        Logger.d(response.getErr().getMsg());
+                        if (response.getResult()==0) {
+                            ToastUtils.showShort(response.getErr().getMsg());
+                            return;
+                        }else{
+                            showRemindDialog();
+                        }
+                    }
+                },map);
 
                 break;
+
             case R.id.date_from:
                 if (getCurrentFocus() != null) {
                     ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
@@ -794,7 +890,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
      * 确认提示框dialog
      */
     private void showRemindDialog() {
-        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this, "确认提交？", "注：任务提交后不得再次修改，且审核通过后不得删除！");
+        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this, "确认提交？", getResources().getString(R.string.submit_remind));
         dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
             @Override
             public void doCancel() {

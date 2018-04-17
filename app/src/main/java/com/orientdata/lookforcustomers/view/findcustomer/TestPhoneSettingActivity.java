@@ -7,20 +7,34 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.Response;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
+import com.orientdata.lookforcustomers.bean.WrResponse;
+import com.orientdata.lookforcustomers.network.callback.WrCallback;
+import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by wy on 2017/12/6.
- * 测试号设置
+ * 测试号设置，，请求接口
  */
 
 public class TestPhoneSettingActivity extends WangrunBaseActivity {
+    @BindView(R.id.ll_cmcc)
+    LinearLayout llCmcc;
+    @BindView(R.id.ll_cucc)
+    LinearLayout llCucc;
+    @BindView(R.id.ll_ctc)
+    LinearLayout llCtc;
     private MyTitle myTitle;
     private EditText tvMove, tvUnicom, tvTelecom;
     private Button btSave;
@@ -35,6 +49,7 @@ public class TestPhoneSettingActivity extends WangrunBaseActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_phone_set);
+        ButterKnife.bind(this);
         initView();
         initTitle();
         updateView();
@@ -45,6 +60,33 @@ public class TestPhoneSettingActivity extends WangrunBaseActivity {
         testCuPhone = getIntent().getStringExtra("testCuPhone");
         testCtPhone = getIntent().getStringExtra("testCtPhone");
         String mCityName = getIntent().getStringExtra("cityName");
+        String cityCode = getIntent().getStringExtra("cityCode");
+        int type = getIntent().getIntExtra("type", 0);
+
+
+        NetWorkUtils.getOperateState(cityCode, type, new WrCallback<WrResponse<String>>() {
+            @Override
+            public void onSuccess(Response<WrResponse<String>> response) {
+                String result = response.body().getResult();
+                if (!result.contains("1")) {
+                    llCmcc.setVisibility(View.GONE);
+                }
+                if (!result.contains("2")) {
+                    llCucc.setVisibility(View.GONE);
+                }
+                if (!result.contains("3")) {
+                    llCtc.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onError(Response<WrResponse<String>> response) {
+                super.onError(response);
+                ToastUtils.showShort(response.getException().getMessage());
+            }
+        });
+
+
         tv_show_info = findViewById(R.id.tv_show_info);
         tv_show_info.setText("请添加" + mCityName + "本地号码");
         myTitle = findViewById(R.id.myTitle);
@@ -86,12 +128,7 @@ public class TestPhoneSettingActivity extends WangrunBaseActivity {
                         return;
                     }
                 }
-                /*if (TextUtils.isEmpty(testCmPhone)
-                        && TextUtils.isEmpty(testCuPhone)
-                        && TextUtils.isEmpty(testCtPhone)) {
-                    ToastUtils.showShort("请完善信息");
-                    return;
-                }*/
+
                 Intent intent = new Intent();
                 intent.putExtra("testCmPhone", testCmPhone);
                 intent.putExtra("testCuPhone", testCuPhone);

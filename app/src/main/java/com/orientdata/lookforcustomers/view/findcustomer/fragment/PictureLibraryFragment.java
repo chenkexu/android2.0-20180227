@@ -315,7 +315,7 @@ public class PictureLibraryFragment extends BaseFragment implements IImgView, Vi
     }
 
     private void showRemindDialog(final String strDelete){
-        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(getContext(),"确定删除？","注：删除后将无法找回！");
+        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(getContext(),"确定删除？","删除后将无法找回");
         dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
             @Override
             public void doCancel() {

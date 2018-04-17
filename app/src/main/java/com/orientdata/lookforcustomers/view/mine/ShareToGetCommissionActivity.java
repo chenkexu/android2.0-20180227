@@ -27,7 +27,6 @@ import java.io.File;
 import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
@@ -124,7 +123,7 @@ public class ShareToGetCommissionActivity extends WangrunBaseActivity implements
                 ShareManager.getInstance().shareQQZONE(this, shareEntity);
                 break;
             case R.id.tvActivityDescription:
-                MyOpenActivityUtils.openCommonWebView(this, "活动说明", "http://www.orientdata.cn/protocol.html");
+                MyOpenActivityUtils.openCommonWebView(this, "活动说明", "http://www.orientdata.cn/activity.htm");
                 break;
         }
 

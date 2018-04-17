@@ -146,7 +146,7 @@ public class DownLoadImgActivity extends WangrunBaseActivity {
     };
 
     private void showDialog() {
-        final SubmitFeedBackDialog submitFeedBackDialog = new SubmitFeedBackDialog(this, "下载完成！", "确定", R.mipmap.submit_suc);
+        final SubmitFeedBackDialog submitFeedBackDialog = new SubmitFeedBackDialog(this, "下载完成！", "确定", R.mipmap.icon_dialog_success);
         submitFeedBackDialog.show();
         submitFeedBackDialog.setClickListenerInterface(new SubmitFeedBackDialog.ClickListenerInterface() {
             @Override

@@ -3,33 +3,21 @@ package com.orientdata.lookforcustomers.view.mine.imple;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.BalanceDetailBean;
 import com.orientdata.lookforcustomers.bean.BalanceHistory;
-import com.orientdata.lookforcustomers.bean.Bh;
-import com.orientdata.lookforcustomers.bean.CommissionListBean;
 import com.orientdata.lookforcustomers.event.BalanceDetailEvent;
-import com.orientdata.lookforcustomers.event.BalanceListEvent;
 import com.orientdata.lookforcustomers.presenter.CommissionPresent;
 import com.orientdata.lookforcustomers.util.CommonUtils;
-import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.view.home.RechargeActivity;
-import com.orientdata.lookforcustomers.view.mine.BalanceListItemAdapter;
 import com.orientdata.lookforcustomers.view.mine.ICommissionView;
 import com.orientdata.lookforcustomers.view.mine.TransactionType;
-import com.orientdata.lookforcustomers.view.xlistview.XListView;
-import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter;
 import com.orientdata.lookforcustomers.widget.MyTitle;
-import com.orientdata.lookforcustomers.widget.dialog.DatePickerDialog;
 
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.List;
 
 /**
  * 账户余额详情页

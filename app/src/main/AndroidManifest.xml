@@ -212,7 +212,8 @@
 
         <receiver
             android:name=".receiver.ExceptionBroadCast"
-            android:exported="false">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.microdreams.timeprints.error" />
             </intent-filter>

@@ -52,9 +52,9 @@
     <string name="go_cer">去认证</string>
     <string name="go_watch">去查看</string>
     <string name="re_go_cer">重新认证</string>
-    <string name="no_certified">抱歉，您的账户还未认证，快去认证吧～</string>
-    <string name="not_pass">抱歉，您的账户审核未通过，快去看看吧～</string>
-    <string name="cer_waiting">您的账户认证正在审核中，请耐心等待。。。</string>
+    <string name="no_certified">您的账户还未认证，快去认证吧～</string>
+    <string name="not_pass">抱歉，您的账户审核未通过</string>
+    <string name="cer_waiting">您的账户正在审核中，请耐心等待...</string>
     <string name="sub_suc">提交成功！</string>
     <string name="sub_confirm">确定</string>
     <string name="sub_fail">提交失败！</string>
@@ -67,7 +67,7 @@
     <string name="test">测试号</string>
     <string name="hobby_set_remind">注：兴趣标签至少选择1个，最多选择6个</string>
     <string name="hobby_set_remind2">按行业投放：是系统根据行业的特征，选择投放效果最佳的标签投放</string>
-    <string name="submit_remind">注：任务提交后不得进行修改，且审核通过后不得删除！</string>
+    <string name="submit_remind">任务提交后不得再次修改，且审核通过后不可删除</string>
     <string name="local_upload">本地上传</string>
     <string name="template_making">模板制作</string>
     <string name="img_making">图片制作</string>

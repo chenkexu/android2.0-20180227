@@ -93,19 +93,20 @@ public class LoginAndRegisterActivity extends BaseActivity<ILoginAndRegisterView
 //        return false;
 //    }
 
-    private long exitTime;
-    @Override
-    public void onBackPressed() {
-        //显示在：发现Fragment
-        long nowTime = System.currentTimeMillis();
-        if((nowTime - exitTime) <= 2000){
-            finish();
-            AppManager.getAppManager().AppExit(this);
-        }else{
-            ToastUtils.showLong("再按一次后退键退出程序！");
-            exitTime = nowTime;
-        }
-    }
+
+
+//    private long exitTime;
+//    @Override
+//    public void onBackPressed() {
+//        long nowTime = System.currentTimeMillis();
+//        if((nowTime - exitTime) <= 2000){
+//            finish();
+//            AppManager.getAppManager().AppExit(this);
+//        }else{
+//            ToastUtils.showLong("再按一次后退键退出程序！");
+//            exitTime = nowTime;
+//        }
+//    }
 
 
 }

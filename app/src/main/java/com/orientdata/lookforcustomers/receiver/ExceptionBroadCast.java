@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.event.ReLoginEvent;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
@@ -32,6 +33,7 @@ public class ExceptionBroadCast extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Logger.d("接收到了重新登录的返回信息");
         this.context = context;
         this.intent = intent;
         error_code = intent.getIntExtra("error_code", 0);
@@ -40,6 +42,7 @@ public class ExceptionBroadCast extends BroadcastReceiver {
         if(error_code == 101){
             reStartLogin();
         }
+
     }
 
     /**

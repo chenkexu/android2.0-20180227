@@ -62,6 +62,7 @@ import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.bean.TaskTypeBean;
 import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.CityPickPresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
@@ -88,7 +89,6 @@ import java.util.List;
 import java.util.Map;
 
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.OkHttpClientManager;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
@@ -577,11 +577,7 @@ public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, Cit
                                     dialog.dismiss();
                                 }
 
-                                @Override
-                                public void doCancel() {
-                                    ToastUtils.showShort("任务类型为必选！");
-                                    dialog.dismiss();
-                                }
+
                             });
                             dialog.show();
                         }

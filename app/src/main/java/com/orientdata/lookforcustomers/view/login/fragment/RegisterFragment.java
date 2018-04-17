@@ -96,9 +96,10 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         tvAgree = view.findViewById(R.id.tv_agree);
         tvAgree.setSelected(true);
         tvAgreement = view.findViewById(R.id.tv_agreement);
+        tvAgreement.setOnClickListener(this);
         String agreement = tvAgreement.getText().toString();
         SpannableString ss = new SpannableString(agreement);
-        ss.setSpan(new AgreementClick(0), 0, "东方网润产品注册协议".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        ss.setSpan(new AgreementClick(0), 0, "东方网润产品注册协议".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 //        ss.setSpan(new AgreementClick(1), "东方网润产品注册协议与".length(), agreement.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvAgreement.setText(ss);
         tvAgreement.setHighlightColor(Color.parseColor("#00FFFFFF"));
@@ -144,15 +145,19 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             case R.id.iv_clear:
                 etAccount.setText("");
                 break;
+            case R.id.tv_agreement:
+                MyOpenActivityUtils.openCommonWebView(getActivity(),
+                        "东方网润商品产品注册协议", "http://www.orientdata.cn/protocol.html");
+                break;
             case R.id.tv_call_code:
                 String phone = etAccount.getText().toString().trim();
                 mLoginAndRegisterPresent.sendSms(phone);
                 break;
             case R.id.btn_submit:
-                if (!tvAgree.isSelected()) {
-                    ToastUtils.showShort("请先同意协议");
-                    return;
-                }
+//                if (!tvAgree.isSelected()) {
+//                    ToastUtils.showShort("请先同意协议");
+//                    return;
+//                }
                 String account = etAccount.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
                 String code = etAuthCode.getText().toString().trim();
