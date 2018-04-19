@@ -158,6 +158,8 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     private ShareEntity shareEntity;
     private int screenWidth;
 
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -259,14 +261,15 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     MyChartView yesturdayMsgConView = null;
     MyChartView yesturdayMsgIssuedView = null;
 
-
-
     private int moneyColor = R.color.c_18C8E6;
     private int pageConColor = R.color.c_53CAC3;
     private int pageDisplayColor = R.color.c_FFA6A8;
     private int pageClickColor = R.color.c_888888;
     private int msgConColor = R.color.c_FDA32C;
     private int msgIssuedColor = R.color.c_C3ABDF;
+
+
+
 
     private void initChartView() {
         curveRl.removeAllViews();

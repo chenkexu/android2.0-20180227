@@ -1,6 +1,5 @@
 package com.orientdata.lookforcustomers.view.login.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,11 +18,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.base.CloseEvent;
+import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.event.ResetPasswordResultEvent;
 import com.orientdata.lookforcustomers.event.UpdateSmsStateEvent;
+import com.orientdata.lookforcustomers.network.callback.WrCallback;
+import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
@@ -104,8 +108,34 @@ public class ResetPasswordFragment extends BaseFragment implements View.OnClickL
                 etAccount.setText("");
                 break;
             case R.id.tv_call_code:
-                String phone = etAccount.getText().toString().trim();
-                mLoginAndRegisterPresent.sendSms(phone);
+                final String phone = etAccount.getText().toString().trim();
+                showDefaultLoading();
+                NetWorkUtils.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
+                    @Override
+                    public void onSuccess(Response<WrResponse<Integer>> response) {
+                        int result = response.body().getResult();
+                        Logger.d(result==0);
+                        if (result==0) { //已经注册
+                            mLoginAndRegisterPresent.sendSms(phone);
+                        }else{  //没有注册
+                            ToastUtils.showShort("该手机号未注册，请先注册");
+                            return;
+                        }
+                    }
+                    @Override
+                    public void onError(Response<WrResponse<Integer>> response) {
+                        super.onError(response);
+                        ToastUtils.showShort(response.getException().getMessage());
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        hideDefaultLoading();
+                    }
+                });
+
+
                 break;
             case R.id.iv_password_hint:
                 if (ivPasswordHint.isSelected()) {

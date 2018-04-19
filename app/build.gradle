@@ -88,4 +88,5 @@ dependencies {
 
     //沉浸式
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
+    compile 'com.blankj:utilcode:1.13.14'
 }

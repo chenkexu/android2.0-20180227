@@ -6,9 +6,15 @@
     android:background="@color/c_fafafa"
     android:paddingBottom="20dp"
     android:orientation="vertical">
+    <View
+        android:background="@color/bg_white"
+        android:layout_alignParentTop="true"
+        android:id="@+id/margin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"/>
     <com.orientdata.lookforcustomers.widget.MyTitle
         android:id="@+id/titleSearch"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout

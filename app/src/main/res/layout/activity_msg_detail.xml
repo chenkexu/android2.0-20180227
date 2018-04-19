@@ -27,7 +27,7 @@
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginTop="10dp"
-            android:textColor="@color/c_1C1C1C"/>
+            android:textColor="@color/text_gray"/>
         <TextView
             android:id="@+id/tvContent"
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             android:textSize="14sp"
             android:lineSpacingExtra="2dp"
             android:layout_marginTop="10dp"
-            android:textColor="@color/c_2a2a2a"
+            android:textColor="@color/text_gray_small"
             />
     </RelativeLayout>
 
@@ -51,6 +51,6 @@
         android:paddingRight="15dp"
         android:textSize="12sp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/c_999999"/>
+        android:textColor="@color/text_gray_small"/>
 
 </LinearLayout>

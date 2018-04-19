@@ -6,13 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.orhanobut.logger.Logger;
-import com.orientdata.lookforcustomers.event.ReLoginEvent;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
-
-import org.greenrobot.eventbus.EventBus;
-
-import vr.md.com.mdlibrary.UserDataManeger;
 
 /**
  * Created by Mr.Z on 16/7/12.

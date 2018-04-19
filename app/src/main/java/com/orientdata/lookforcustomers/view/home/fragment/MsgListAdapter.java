@@ -107,6 +107,7 @@ public class MsgListAdapter extends BaseAdapter implements View.OnClickListener{
             }
             viewHolder.relative.setTag(position);
             viewHolder.relative.setOnClickListener(new ToggleClickListener(viewHolder.toggleButton));
+
             viewHolder.tvTitle.setText(result.getTitle());
             if(!TextUtils.isEmpty(result.getCreateTime())){
                 viewHolder.tvDate.setText(CommonUtils.getTimeInterval(result.getCreateTime(),"yyyy-MM-dd HH:mm:ss","yyyy.MM.dd HH:mm:ss"));

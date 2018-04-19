@@ -19,17 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.event.ImgClipResultEvent;
-import com.orientdata.lookforcustomers.event.LoginResultEvent;
-import com.orientdata.lookforcustomers.presenter.ImgPresent;
 import com.orientdata.lookforcustomers.util.ImageTools;
-import com.orientdata.lookforcustomers.view.findcustomer.IImgView;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;

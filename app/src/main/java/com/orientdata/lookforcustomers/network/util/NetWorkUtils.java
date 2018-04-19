@@ -33,6 +33,15 @@ public class NetWorkUtils {
                 .execute(callback);
     }
 
+    //获取要展示的测试号
+    public static void phoneIsRegiste(String phone,WrCallback<WrResponse<Integer>> callback){
+
+        OkGo.<WrResponse<Integer>>post(HttpConstant.phone_is_register)
+                .params("userId",UserDataManeger.getInstance().getUserId())
+                .params("phone",phone)
+                .execute(callback);
+    }
+
 
 
     //获取敏感词

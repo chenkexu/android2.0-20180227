@@ -90,7 +90,7 @@ public class LaunchActivity extends AppCompatActivity {
             point.setBackgroundResource(R.drawable.shape_guide_point_default);
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    DensityUtils.dp2px(this, 10), DensityUtils.dp2px(this, 10));
+                    DensityUtils.dp2px(this, 7), DensityUtils.dp2px(this, 7));
 
             if (i != 0) {
                 params.leftMargin = DensityUtils.dp2px(this, 10);

@@ -3,6 +3,7 @@ package com.orientdata.lookforcustomers.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -14,25 +15,18 @@ import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.login.ILoginAndRegisterView;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 
+import static com.blankj.utilcode.util.ActivityUtils.startActivity;
+
 
 /**
  * 欢迎界面、快闪页面
  */
-public class GuideActivity extends BaseActivity<ILoginAndRegisterView, LoginAndRegisterPresent<ILoginAndRegisterView>>
-        implements ILoginAndRegisterView{
-//    private TextView tvVersion;
+public class GuideActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //取消标题栏
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //取消状态栏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        setContentView(R.layout.activity_guide);
-//        tvVersion = findViewById(R.id.tvVersion);
-//        tvVersion.setText("V"+AppConfig.VER);
+
 
         boolean isfirstenter = SharedPreferencesTool.getInstance().getBooleanValue(SharedPreferencesTool.ISFIRSTENTER, true);
         if (isfirstenter) {
@@ -40,30 +34,29 @@ public class GuideActivity extends BaseActivity<ILoginAndRegisterView, LoginAndR
             startActivity(new Intent(GuideActivity.this, LaunchActivity.class));
             finish();
         } else {
+            //取消标题栏
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+            //取消状态栏
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
             setContentView(R.layout.activity_guide);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    boolean loginout = SharedPreferencesTool.getInstance().getBooleanValue(SharedPreferencesTool.USER_LOGOUT, false);
+                    boolean loginout = SharedPreferencesTool.getInstance().getBooleanValue(SharedPreferencesTool.USER_LOGOUT, true);
 
-                    if (loginout) { //已经退出,进入登录界面
+                    if (loginout) {   //已经退出,进入登录界面，或者找不到该变量（默认为true）
                         startActivity(new Intent(GuideActivity.this, LoginAndRegisterActivity.class));
-                        //移除是否退出的标志位
-                        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.USER_LOGOUT);
                         finish();
-                    }else{
+                    }else{ //false进入主页面
                         startActivity(new Intent(GuideActivity.this, HomeActivity.class));
                         finish();
                     }
-
-
-
                 }
             }, 2000);
 
         }
-
-
 
       /*
         new Handler() {
@@ -92,20 +85,7 @@ public class GuideActivity extends BaseActivity<ILoginAndRegisterView, LoginAndR
         }.sendEmptyMessageDelayed(1, 2000);*/
     }
 
-    @Override
-    protected LoginAndRegisterPresent<ILoginAndRegisterView> createPresent() {
-        return new LoginAndRegisterPresent<>(this);
-    }
 
-    @Override
-    public void showLoading() {
-//        showDefaultLoading();
-    }
-
-    @Override
-    public void hideLoading() {
-//        hideDefaultLoading();
-    }
 //    @Subscribe
 //    public void loginResult(LoginResultEvent loginResultEvent) {
 //        if (loginResultEvent.isLogin) {//登录成功

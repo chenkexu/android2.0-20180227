@@ -49,6 +49,7 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.bumptech.glide.Glide;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
@@ -65,6 +66,7 @@ import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.CityPickPresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.util.map.LocationService;
@@ -89,6 +91,10 @@ import java.util.Map;
 
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
+import vr.md.com.mdlibrary.utils.ImageUtils2;
+import vr.md.com.mdlibrary.utils.image.ImageUtil;
+
+import static android.R.attr.data;
 
 /**
  * 创建寻客页面
@@ -399,10 +405,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         }
 
         if (isReCreate) { //再次创建的TaskOut
+            Logger.d("传过来的已经创建好的任务类型的详情：");
             mThrowAddress = mTaskOut.getThrowAddress();//上一次的投放地址
-//            BigDecimal latitude = mTaskOut.getDimension();//纬度
-//            BigDecimal longitude = mTaskOut.getDimension();//经度
-
             String rangeRadius = mTaskOut.getRangeRadius();//上次的投放半径
             if (!TextUtils.isEmpty(rangeRadius)) {
                 for (int i = 0; i < mCircleRadiusKM.length; i++) {
@@ -425,8 +429,10 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             ageF = orientationSettingsOut.getAgeF();
             ageB = orientationSettingsOut.getAgeB();
             sex = orientationSettingsOut.getSex();
-            List<String> jixing = orientationSettingsOut.getJixing();//机型数组
+
+
             List<String> xingqu = orientationSettingsOut.getXingqu();//兴趣数组
+
             for (int i = 0; i < xingqu.size(); i++) {
                 if (i == 0) {
                     interestIds = interestIds + xingqu.get(i);
@@ -434,6 +440,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     interestIds = interestIds + "," + xingqu.get(i);
                 }
             }
+            Logger.d("再次创建任务返回的兴趣数组："+interestIds);
+
             if (mTaskOut.getCustomFlag()==1) {
                 tv_ac_create_find_customer_set.setText("已设置(自定义)");
             }else {
@@ -442,7 +450,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             mCityCode = mTaskOut.getCityCode().trim();//上次创建的cityCode
             //上次创建的cityCode
             mProvinceCode = mTaskOut.getProvinceCode().trim();
-            Logger.d("传过来的已经创建好的任务类型的详情：");
+
         }
 
 
@@ -598,17 +606,20 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     ToastUtils.showShort(mCityName + "没有开通业务！");
                     return;
                 }
-                //TODO
+                //TODO 加载框
+                showDefaultLoading();
                 map = new MDBasicRequestMap();
                 map.put("userId", UserDataManeger.getInstance().getUserId());
                 map.put("cityCode", mCityCode);
                 OkHttpClientManager.postAsyn(HttpConstant.SELECT_TASK_TYPE, new OkHttpClientManager.ResultCallback<TaskTypeBean>() {
                     @Override
                     public void onError(Exception e) {
+                        hideDefaultLoading();
                         ToastUtils.showShort(e.getMessage());
                     }
                     @Override
                     public void onResponse(TaskTypeBean response) {
+                        hideDefaultLoading();
                         if (response.getCode() == 0) {
                             Map<String, String> result = response.getResult();
                             smsPrice = result.get("smsPrice");
@@ -626,7 +637,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                                 return;
                             }
                             String mTaskTypeStr = tv_at_create_find_customer_type.getText().toString();
-
 
                             final TaskTypeDialog dialog = new TaskTypeDialog(CreateFindCustomerActivity.this,
                                     "单价(元):" + smsPrice,
@@ -861,78 +871,27 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                             startActivity(intent);
                         } else if (type2 == 2) {//页面
                             //截图   // 截图，在SnapshotReadyCallback中保存图片到 sd 卡
-                            showDefaultLoading();
                             mMapClippath = Environment.getExternalStorageDirectory().getPath() + "/ClipPhoto/cache/";
                             File dir = new File(mMapClippath);
                             if (!dir.exists()) {
                                 dir.mkdirs();
                             }
                             mMapClippath = mMapClippath + "map.png";
-                            intent.putExtra("mapPath", mMapClippath);
                             if (CommonUtils.haveSDCard()) {
-                                if (hasPermisson()) {
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                                    /*confirm(mMapView,path);
-                                                    runOnUiThread(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            hideDefaultLoading();
-                                                        }
-                                                    });
-                                                    startActivity(data);
-                                                    finish();
-
-                                                    Log.d("截图", "屏幕截图成功，图片存在: " + path);*/
-
-                                            mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
-                                                public void onSnapshotReady(Bitmap snapshot) {
-                                                    File file = new File(mMapClippath);
-                                                    if (!file.exists()) {
-                                                        try {
-                                                            file.createNewFile();
-                                                        } catch (IOException e) {
-                                                            Log.e("截图", e.getMessage());
-                                                        }
-                                                    }
-                                                    FileOutputStream out;
-                                                    try {
-                                                        out = new FileOutputStream(file);
-                                                        if (snapshot.compress(
-                                                                Bitmap.CompressFormat.PNG, 100, out)) {
-                                                            out.flush();
-                                                            out.close();
-                                                        }
-                                                        runOnUiThread(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                hideDefaultLoading();
-                                                            }
-                                                        });
-                                                        startActivity(intent);
-                                                        //finish();
-
-                                                        Log.d("截图", "屏幕截图成功，图片存在: " + file.toString());
-                                                    } catch (FileNotFoundException e) {
-                                                        Log.e("截图", e.getMessage());
-                                                    } catch (IOException e) {
-                                                        Log.e("截图", e.getMessage());
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }).start();
-                                } else {
-                                    hideDefaultLoading();
-                                    requestPermission();
-                                }
+                               mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
+                                   @Override
+                                   public void onSnapshotReady(Bitmap bitmap) {
+                                       String baiduMapPath = ImageUtils2.saveBitmap(CreateFindCustomerActivity.this, bitmap);
+                                       intent.putExtra("mapPath", baiduMapPath);
+                                       Logger.d("百度地图截图路径为："+baiduMapPath);
+                                       startActivity(intent);
+                                   }
+                               });
                             } else {
                                 ToastUtils.showShort("没有SD卡!");
                             }
                         }
-                                /*startActivity(data);
-                                finish();*/
+
                     }
 
                 }
@@ -958,7 +917,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             public void run() {
                 mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
                     public void onSnapshotReady(Bitmap snapshot) {
-                        File file = new File(path);
+                        File  file = new File(path);
                         FileOutputStream out;
                         try {
                             out = new FileOutputStream(file);
@@ -967,9 +926,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                                 out.flush();
                                 out.close();
                             }
-
-                            Log.e("截图", "屏幕截图成功，图片存在: " + file.toString());
-                            ToastUtils.showLong("屏幕截图成功，图片存在: " + file.toString());
+                            Log.e("截图", "屏幕截图成功，图片存在: " + file.getPath());
+                            ToastUtils.showLong("屏幕截图成功，图片存在: " + file.getPath());
                         } catch (FileNotFoundException e) {
                             Log.e("截图", e.getMessage());
                         } catch (IOException e) {
@@ -1019,7 +977,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
 
     private void showDialog() {
-        final ConfirmDialog dialog = new ConfirmDialog(this, "您的地域有变动，请重新设置任务", "", "确定");
+        final ConfirmDialog dialog = new ConfirmDialog(this, "您的地域有变动，请重新设置任务", "确定");
         dialog.show();
         dialog.setConfirmVisibility(View.GONE);
         dialog.setClickListenerInterface(new ConfirmDialog.ClickListenerInterface() {
@@ -1064,7 +1022,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         interestIds = "";
         tv_ac_create_find_customer_set.setText("--未设置--");
         ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
-
     }
 
 
@@ -1131,11 +1088,10 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     ageB = data.getStringExtra("ageB");
                     sex = data.getStringExtra("sex");//性别
 
-                    interestIds = data.getStringExtra("interestIds");//兴趣爱好
+                    interestIds = data.getStringExtra("interestIds");//二级兴趣点
                     industryMark = data.getStringExtra("industryMark");
                     industryNameStr = data.getStringExtra("industryNameStr");
                     tv_ac_create_find_customer_set.setText("已设置("+ industryNameStr+")");
-
                     isReCreate = false;//将重新创建置false 定向 使用缓存的内容 更新界面
 //                    educationLevelF = data.getStringExtra("educationLevelF");
 //                    educationLevelB = data.getStringExtra("educationLevelB");
@@ -1232,6 +1188,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 .position(mCurrentLatLng).alpha(0.0f)
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.bg_ac_create_find_customer_location)));
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+
 
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
             @Override

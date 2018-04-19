@@ -183,6 +183,7 @@
                     android:textStyle="normal" />
 
                 <EditText
+                    android:hint="最低1000元起充"
                     android:id="@+id/et_money"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -257,7 +258,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:text="账户名:"
-                    android:textColor="#414141"
+                    android:textColor="@color/text_gray"
                     android:textSize="14sp"
                     android:textStyle="normal" />
 
@@ -286,8 +287,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="流水号:"
-                    android:textColor="#414141"
+                    android:text="账号:"
+                    android:textColor="@color/text_gray"
                     android:textSize="14sp"
                     android:textStyle="normal" />
 

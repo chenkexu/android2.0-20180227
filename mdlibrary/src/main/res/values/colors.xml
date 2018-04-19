@@ -82,6 +82,7 @@
     <!--Version Code2.1以上的颜色-->
     <color name="gray">#B5B5B5</color>
     <color name="text_gray">#7A7C85</color>
+    <color name="text_gray_small">#7A7C85</color>
 
 
     <color name="bd_blue">#3660E5 </color>

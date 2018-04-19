@@ -28,6 +28,9 @@ import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
+
+import static com.orientdata.lookforcustomers.R.array.city;
+
 /**
  * 发票下一步
  */
@@ -39,7 +42,7 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
     private RelativeLayout rl_p_invoice;
     private TextView tv_p_invoice;
     private ImageView iv_p_invoice;
-    private int isEOrP = 0;//1电子发票，2，纸质发票。
+    private int isEOrP = 1;//1电子发票，2，纸质发票。默认选择电子发票
 
     private LinearLayout ll_p_consignee_information;//纸质发票收件信息
     private LinearLayout ll_e_consignee_information;//电子发票收件信息
@@ -72,7 +75,7 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
     private RelativeLayout rl_invoice_title_personal;
     private ImageView iv_invoice_title_personal;
     private TextView tv_invoice_title_personal;
-    private int isEnterpriseOrpersonal = 1;//1 企业 2 个人
+    private int isEnterpriseOrpersonal = 1;//1 企业 2 个人 ，默认选择公司抬头
 
     private EditText et_title;//发票抬头
     private EditText et_id;//纳税人识别号
@@ -340,7 +343,7 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.rl_e_invoice:
+            case R.id.rl_e_invoice: //选择电子发票
                 isEOrP = 1;
                 rl_e_invoice.setBackground(getResources().getDrawable(R.drawable.bac_rec_border));
                 iv_e_invoice.setBackgroundResource(R.mipmap.check_invoice);
@@ -349,12 +352,13 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
                 rl_p_invoice.setBackgroundResource(R.mipmap.kuang_invoice_unchecked);
                 iv_p_invoice.setBackgroundResource(R.mipmap.no_check_invoice);
                 tv_p_invoice.setTextColor(getResources().getColor(R.color.text_gray));
+
                 ll_main.setVisibility(View.VISIBLE);
                 ll_e_consignee_information.setVisibility(View.VISIBLE);
                 ll_p_consignee_information.setVisibility(View.GONE);
                 ll_button.setVisibility(View.VISIBLE);
                 break;
-            case R.id.rl_p_invoice:
+            case R.id.rl_p_invoice: //选择纸质发票
                 isEOrP = 2;
                 rl_p_invoice.setBackground(getResources().getDrawable(R.drawable.bac_rec_border));
                 iv_p_invoice.setBackgroundResource(R.mipmap.check_invoice);
@@ -363,6 +367,7 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
                 rl_e_invoice.setBackgroundResource(R.mipmap.kuang_invoice_unchecked);
                 iv_e_invoice.setBackgroundResource(R.mipmap.no_check_invoice);
                 tv_e_invoice.setTextColor(getResources().getColor(R.color.text_gray));
+
                 ll_main.setVisibility(View.VISIBLE);
                 ll_e_consignee_information.setVisibility(View.GONE);
                 ll_p_consignee_information.setVisibility(View.VISIBLE);
@@ -383,14 +388,14 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
                     showCountyWheel();
                 }
                 break;
-            case R.id.rl_invoice_title_personal:
+            case R.id.rl_invoice_title_personal: //选择个人非企业单位
                 isEnterpriseOrpersonal = 2;
                 iv_invoice_title_personal.setBackgroundResource(R.mipmap.check_invoice);
                 tv_invoice_title_personal.setTextColor(getResources().getColor(R.color.colorPrimary));
                 iv_invoice_title_enterprise.setBackgroundResource(R.mipmap.no_check_invoice);
                 tv_invoice_title_enterprise.setTextColor(getResources().getColor(R.color.text_gray));
                 break;
-            case R.id.rl_invoice_title_enterprise:
+            case R.id.rl_invoice_title_enterprise: //公司抬头
                 isEnterpriseOrpersonal = 1;
                 iv_invoice_title_personal.setBackgroundResource(R.mipmap.no_check_invoice);
                 tv_invoice_title_personal.setTextColor(getResources().getColor(R.color.text_gray));
@@ -436,6 +441,19 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
             invoiceInfo2 = "电子邮箱：" + email + "";
 
         } else if (isEOrP == 2) {
+
+
+            adresser = et_person_name.getText().toString().trim();
+            if (TextUtils.isEmpty(adresser)) {
+                ToastUtils.showShort("收件人人不能为空");
+                return;
+            }
+            phone = et_person_phone.getText().toString().trim();
+            if (TextUtils.isEmpty(phone)) {
+                ToastUtils.showShort("联系电话不能为空");
+                return;
+            }
+
             String province = tv_province.getText().toString().trim();
             if (province.equals("省")) {
                 ToastUtils.showShort("请选择省");
@@ -452,21 +470,12 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
                 return;
             }
             String addressDetail = et_address.getText().toString().trim();
+            adress = province + city + county + addressDetail;
             if (TextUtils.isEmpty(addressDetail)) {
                 ToastUtils.showShort("详细地址不能为空");
                 return;
             }
-            adress = province + city + county + addressDetail;
-            phone = et_person_phone.getText().toString().trim();
-            if (TextUtils.isEmpty(phone)) {
-                ToastUtils.showShort("联系电话不能为空");
-                return;
-            }
-            adresser = et_person_name.getText().toString().trim();
-            if (TextUtils.isEmpty(adresser)) {
-                ToastUtils.showShort("联系人不能为空");
-                return;
-            }
+
             invoiceInfo2 = "收件人：" + adresser + "\n"
                     + "电话：" + phone + "\n"
                     + "地址：" + adress + "\n"

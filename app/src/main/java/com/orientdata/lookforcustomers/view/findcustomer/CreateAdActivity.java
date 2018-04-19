@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 创建落地页
+ * 创建落地页Activity
  */
 public class CreateAdActivity extends WangrunBaseActivity implements View.OnClickListener {
     private LinearLayout linearCertific;//

@@ -40,6 +40,9 @@ public class GlideUtil {
         public static final float THUMB_SIZE = 0.5f; //0-1之间  10%原图的大小
     }
 
+
+
+
     /**
      * 加载头像图片
      * @param context

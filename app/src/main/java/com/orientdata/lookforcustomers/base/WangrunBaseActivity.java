@@ -52,7 +52,8 @@ public abstract class WangrunBaseActivity extends AppCompatActivity {
 
     protected void initImmersionBar() {
         //在BaseActivity里初始化
-        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar = ImmersionBar.with(this).
+                 keyboardEnable(true)
                 .statusBarDarkFont(true, 0.2f)
                 .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
                 .statusBarColor(R.color.bg_white);

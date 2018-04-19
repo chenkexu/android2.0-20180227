@@ -5,33 +5,26 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.event.LogoutResultEvent;
 import com.orientdata.lookforcustomers.network.util.AppConfig;
-import com.orientdata.lookforcustomers.presenter.CommissionPresent;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
-import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
-import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.login.ILoginAndRegisterView;
-import com.orientdata.lookforcustomers.view.login.fragment.ResetPasswordFragment;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 import com.orientdata.lookforcustomers.view.mine.AboutUsActivity;
 import com.orientdata.lookforcustomers.view.mine.CleanMessageUtil;
-import com.orientdata.lookforcustomers.view.mine.ICommissionView;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
-
-import vr.md.com.mdlibrary.utils.MySharedpreferences;
 
 /**
  * 设置

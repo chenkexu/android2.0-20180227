@@ -6,7 +6,6 @@ import com.orientdata.lookforcustomers.bean.TaskInfoBean;
 import com.orientdata.lookforcustomers.bean.TradeSelfout;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.event.DeleteTaskEvent;
-import com.orientdata.lookforcustomers.event.LoginResultEvent;
 import com.orientdata.lookforcustomers.event.TaskInfoEvent;
 import com.orientdata.lookforcustomers.model.IImgModel;
 import com.orientdata.lookforcustomers.model.ITaskModel;

@@ -48,6 +48,8 @@ public class HobbyMultipleSelectDialog extends Dialog implements View.OnClickLis
         init(context);
     }
 
+
+    //兴趣点
     public HobbyMultipleSelectDialog(Context context, int themeResId,List<String> hobbyList) {
         super(context, themeResId);
         this.hobbyList =  hobbyList;
@@ -71,7 +73,7 @@ public class HobbyMultipleSelectDialog extends Dialog implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tvCacel:
+            case R.id.tvCacel: //重置
                 for(InterestCategory interestCategory : data) {
                     if (interestCategory.isChecked()|| interestCategory.isClicked()) {
                         interestCategory.setChecked(false);
@@ -81,7 +83,7 @@ public class HobbyMultipleSelectDialog extends Dialog implements View.OnClickLis
                 adapter.notifyDataSetChanged();
                 selectListener.onCancel();
                 break;
-            case R.id.tvConfirm:
+            case R.id.tvConfirm: //点击确定
                 //更新 点击的数据
                 for(int i=0;i<data.size();i++){
                     data.get(i).setChecked(data.get(i).isClicked());
@@ -147,6 +149,7 @@ public class HobbyMultipleSelectDialog extends Dialog implements View.OnClickLis
         data.get(position).setClicked(!(data.get(position).isClicked()));
         updateEnable();
     }
+
     private void updateEnable(){
         int size = 0;
         for(InterestCategory interestCategory : data){
@@ -259,14 +262,15 @@ public class HobbyMultipleSelectDialog extends Dialog implements View.OnClickLis
             }else {
                 viewHolder.areaName.setTextColor(context.getResources().getColor(R.color.c_414141));
             }
+
             viewHolder.areaName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(data.isEnable()){
-                        if(((TextView)v).getCurrentTextColor() == context.getResources().getColor(R.color.c_09B6F2)){
+                        if(((TextView)v).getCurrentTextColor() == context.getResources().getColor(R.color.dialog_color)){
                             ((TextView)v).setTextColor(context.getResources().getColor(R.color.c_414141));
                         }else{
-                            ((TextView)v).setTextColor(context.getResources().getColor(R.color.c_09B6F2));
+                            ((TextView)v).setTextColor(context.getResources().getColor(R.color.dialog_color));
                         }
                         updateData(position);
                     }else{

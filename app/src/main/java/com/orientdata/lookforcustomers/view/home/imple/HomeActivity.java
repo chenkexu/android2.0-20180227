@@ -50,7 +50,6 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
 
     }
 
-
     @Override
     protected void initImmersionBar() {
         super.initImmersionBar();
@@ -108,6 +107,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
         mHomeFragment = new HomeFragment();
         mFragmentBefor = mHomeFragment;
         transaction.add(R.id.container, mHomeFragment).commit();
+        mImmersionBar.fitsSystemWindows(true).statusBarDarkFont(true, 0.2f).statusBarColor(R.color.bg_white).init();
     }
 
 
@@ -151,6 +151,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
 
 
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -166,12 +167,9 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
                     mHomeFragment.getUserData();
                 }
                 switchFragment(mHomeFragment);
-//                mImmersionBar.fitsSystemWindows(true).statusBarColor(R.color.colorPrimary).init();
-                mImmersionBar.statusBarDarkFont(true, 0.2f)
-                        .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
-                        .statusBarColor(R.color.bg_white).init();
+                mImmersionBar.fitsSystemWindows(true).statusBarDarkFont(true, 0.2f).statusBarColor(R.color.bg_white).init();
                 break;
-            case R.id.rl_main_search:
+            case R.id.rl_main_search: //寻客Fragment
                 rlHome.setSelected(false);
                 rlReport.setSelected(false);
                 rlMessage.setSelected(false);
@@ -183,9 +181,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
                     mSearchFragment.updateData();
                 }
                 switchFragment(mSearchFragment);
-               /* mImmersionBar.statusBarDarkFont(true, 0.2f)
-                        .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
-                        .statusBarColor(R.color.bg_white).init();*/
+                mImmersionBar.fitsSystemWindows(true).statusBarDarkFont(true, 0.2f).statusBarColor(R.color.bg_white).init();
                 break;
             case R.id.rl_main_report:
                 rlHome.setSelected(false);
@@ -199,11 +195,9 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
                     mReportFragment.updateData(true);
                 }
                 switchFragment(mReportFragment);
-               /* mImmersionBar.statusBarDarkFont(true, 0.2f)
-                        .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
-                        .statusBarColor(R.color.bg_white).init();*/
+                mImmersionBar.fitsSystemWindows(true).statusBarDarkFont(true, 0.2f).statusBarColor(R.color.bg_white).init();
                 break;
-            case R.id.rl_main_message:
+            case R.id.rl_main_message: //消息Fragment
                 rlHome.setSelected(false);
                 rlSearch.setSelected(false);
                 rlMine.setSelected(false);
@@ -215,9 +209,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
                     mMessageFragment.updateData();
                 }
                 switchFragment(mMessageFragment);
-                /*mImmersionBar.statusBarDarkFont(true, 0.2f)
-                        .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
-                        .statusBarColor(R.color.bg_white).init();*/
+                mImmersionBar.fitsSystemWindows(true).statusBarDarkFont(true, 0.2f).statusBarColor(R.color.bg_white).init();
                 break;
             case R.id.rl_main_me:
                 rlHome.setSelected(false);
@@ -231,9 +223,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
                     mMineFragment.getData();
                 }
                 switchFragment(mMineFragment);
-                mImmersionBar.statusBarDarkFont(true, 0.2f)
-                        .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
-                        .statusBarColor(R.color.colorPrimary).init();
+                mImmersionBar.fitsSystemWindows(true).statusBarDarkFont(false).statusBarColor(R.color.colorPrimary).init();
                 break;
         }
     }

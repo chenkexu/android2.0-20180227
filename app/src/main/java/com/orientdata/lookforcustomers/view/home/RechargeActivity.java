@@ -277,13 +277,13 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     is1000Checked = false;
                     is500Checked = false;
                     is200Checked = false;
-                    tv_recharge200.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge200.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge200.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
-                    tv_recharge500.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge500.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge500.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
-                    tv_recharge3000.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge3000.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge3000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
-                    tv_recharge1000.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge1000.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge1000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 }
             }
@@ -543,14 +543,14 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     fet_recharge.setText("");
                     tv_recharge200.setTextColor(Color.parseColor("#ffffff"));
                     tv_recharge200.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_checked));
-                    tv_recharge500.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge500.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge500.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
-                    tv_recharge1000.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge1000.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge1000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
-                    tv_recharge3000.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge3000.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge3000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 } else {
-                    tv_recharge200.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge200.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge200.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 }
                 break;
@@ -564,14 +564,14 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     fet_recharge.setText("");
                     tv_recharge500.setTextColor(Color.parseColor("#ffffff"));
                     tv_recharge500.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_checked));
-                    tv_recharge200.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge200.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge200.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
-                    tv_recharge1000.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge1000.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge1000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
-                    tv_recharge3000.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge3000.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge3000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 } else {
-                    tv_recharge500.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge500.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge500.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 }
                 break;
@@ -586,14 +586,14 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     tv_recharge1000.setTextColor(Color.parseColor("#ffffff"));
                     tv_recharge1000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_checked));
 
-                    tv_recharge200.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge200.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge200.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
-                    tv_recharge500.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge500.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge500.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
-                    tv_recharge3000.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge3000.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge3000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 } else {
-                    tv_recharge1000.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge1000.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge1000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 }
                 break;
@@ -608,14 +608,14 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     tv_recharge3000.setTextColor(Color.parseColor("#ffffff"));
                     tv_recharge3000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_checked));
 
-                    tv_recharge200.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge200.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge200.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
-                    tv_recharge500.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge500.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge500.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
-                    tv_recharge1000.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge1000.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge1000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 } else {
-                    tv_recharge3000.setTextColor(Color.parseColor("#09B6F2"));
+                    tv_recharge3000.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tv_recharge3000.setBackground(getResources().getDrawable(R.drawable.selector_recharge_tv_unchecked));
                 }
                 break;

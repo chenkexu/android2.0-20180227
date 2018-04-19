@@ -19,6 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
@@ -42,6 +45,8 @@ import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
+
+import static com.orientdata.lookforcustomers.R.id.imageView;
 
 
 /**
@@ -112,10 +117,10 @@ public class CreateAdActivity2 extends WangrunBaseActivity implements View.OnCli
             iv_upload_show.setVisibility(View.GONE);
         }
         if (!TextUtils.isEmpty(baiduMapPath)) {
-            //iv_show_baidumap.setBackground(Drawable.createFromPath(baiduMapPath));
-//            Glide.with(this).load(baiduMapPath).into(iv_show_baidumap);
-            GlideUtil.getInstance().loadCertificateImage(this,iv_show_baidumap,baiduMapPath,true);
-
+            Glide.with(this)
+                    .load(baiduMapPath)
+                    .crossFade()
+                    .into(iv_show_baidumap);
         }
         if (!TextUtils.isEmpty(sopsName)) {
             tv_shop_name.setText(sopsName);
@@ -135,12 +140,6 @@ public class CreateAdActivity2 extends WangrunBaseActivity implements View.OnCli
     private void initTitle() {
         title.setTitleName("落地页制作");
         title.setImageBack(this);
-        title.setLeftImage(R.mipmap.back_white, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
     @Override
@@ -200,12 +199,8 @@ public class CreateAdActivity2 extends WangrunBaseActivity implements View.OnCli
 
                 if (!TextUtils.isEmpty(imagePath)) { //如果上传的图片不为空
                     fileLists = new ArrayList<>();
-                    //  TODO 文件压缩
-//                    fileLists.add(ImageUtils2.compressFile(imagePath));
-//                  fileLists.add(new File(imagePath));
                     submitfiles = new File[fileLists.size()];
                     //fileLists.add(new File(adImagePath));
-
                     String[] submitFileKeys = new String[fileLists.size()];
                     for (int i = 0; i < fileLists.size(); i++) {
                         submitfiles[i] = fileLists.get(i);//图片数组添加提交的图片

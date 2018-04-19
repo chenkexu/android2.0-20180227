@@ -89,9 +89,9 @@ public class InvoiceActivity extends WangrunBaseActivity implements View.OnClick
 
                     if (response.getResult() == null || response.getResult().size() <= 0) {
                         hideDefaultLoading();
-                        cb_choose_all.setFocusable(false);
-                        cb_choose_all.setClickable(false);
-                        cb_choose_all.setFocusableInTouchMode(false);
+//                        cb_choose_all.setFocusable(false);
+//                        cb_choose_all.setClickable(false);
+//                        cb_choose_all.setFocusableInTouchMode(false);
                         lv_show_invoices.setVisibility(View.GONE);
                         ll_no_content.setVisibility(View.VISIBLE);
                         return;
@@ -99,9 +99,9 @@ public class InvoiceActivity extends WangrunBaseActivity implements View.OnClick
                         lv_show_invoices.setVisibility(View.VISIBLE);
                         ll_no_content.setVisibility(View.GONE);
                     }
-                    cb_choose_all.setFocusable(true);
-                    cb_choose_all.setClickable(true);
-                    cb_choose_all.setFocusableInTouchMode(true);
+//                    cb_choose_all.setFocusable(true);
+//                    cb_choose_all.setClickable(true);
+//                    cb_choose_all.setFocusableInTouchMode(true);
                     mInvoiceBeenLists = response.getResult();
                     if (mStatus2InvoiceBeans == null) {
                         mStatus2InvoiceBeans = new ArrayList<>();
@@ -114,17 +114,17 @@ public class InvoiceActivity extends WangrunBaseActivity implements View.OnClick
                         }
                     }
                     if (mStatus2InvoiceBeans.size() <= 0) {  //没有数据
-                        cb_choose_all.setFocusable(false);
-                        cb_choose_all.setClickable(false);
-                        cb_choose_all.setFocusableInTouchMode(false);
-//                        lv_show_invoices.setVisibility(View.GONE);
-//                        ll_no_content.setVisibility(View.VISIBLE);
+//                        cb_choose_all.setFocusable(false);
+//                        cb_choose_all.setClickable(false);
+//                        cb_choose_all.setFocusableInTouchMode(false);
+                        lv_show_invoices.setVisibility(View.GONE);
+                        ll_no_content.setVisibility(View.VISIBLE);
                     } else {
-                        cb_choose_all.setFocusable(true);
-                        cb_choose_all.setClickable(true);
-                        cb_choose_all.setFocusableInTouchMode(true);
-//                        lv_show_invoices.setVisibility(View.VISIBLE);
-//                        ll_no_content.setVisibility(View.GONE);
+//                        cb_choose_all.setFocusable(true);
+//                        cb_choose_all.setClickable(true);
+//                        cb_choose_all.setFocusableInTouchMode(true);
+                        lv_show_invoices.setVisibility(View.VISIBLE);
+                        ll_no_content.setVisibility(View.GONE);
                     }
                     mMapChecked.clear();
                     for (int i = 0; i < mStatus2InvoiceBeans.size(); i++) {

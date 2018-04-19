@@ -79,7 +79,7 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
     int modelFrom = -1;
     private List<String> modelList;//选中的机型
     int hobbyFromPosition = -1;
-    private List<String> hobbyList;
+    private List<String> hobbyList;  //存放的兴趣点
     private String cityCode = "";
     private ACache aCache = null;//数据缓存
     private OrientationSettingsOut orientationSettingsOut = null;//数据缓存
@@ -804,14 +804,6 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
         }
     }
 
-    private void updateModelFromData(List<BaseTagImportOut> data, int position) {
-        settingOuts.getJixing().get(position).setChecked(data.get(position).isChecked());
-    }
-
-    private void updateHobbyFromData(List<InterestTagImportOut> data, int position) {
-        settingOuts.getIco().get(position).setChecked(data.get(position).isChecked());
-    }
-
 
 
     /**
@@ -823,8 +815,9 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
         //重置 将一级的选择删掉
         InterestTagImportOut interestTagImportOut = settingOuts.getIco().get(position);
         if(interestTagImportOut!=null){
-            interestTagImportOut.setChecked(false);
-            //将二级相应的true 置城false
+            //将后台返回的数据设置成false
+            interestTagImportOut.setChecked(false); //一级设置成false
+            //将二级相应的true 设置成false
             List<InterestCategory> list = interestTagImportOut.getEri();
             for (InterestCategory interestCategory : list) {
                 if (interestCategory.isChecked()) {
@@ -1126,6 +1119,7 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
      */
     private void showHobbyToDialog(List<InterestCategory> listString, final TextView view) {
         if (listString != null && listString.size() > 0) {
+
             final HobbyMultipleSelectDialog dialog = new HobbyMultipleSelectDialog(this, R.style.Theme_Light_Dialog, hobbyList);
             dialog.setOnchangeListener(new HobbyMultipleSelectDialog.SelectListener() {
                 @Override
@@ -1165,7 +1159,7 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
                 }
 
                 @Override
-                public void onCancel() {
+                public void onCancel() { //重置
                     updateHobbyFromData(hobbyFromPosition);
 //                    dialog.dismiss();
                 }

@@ -112,12 +112,12 @@ public class CityPickActivity extends BaseActivity<ICityPickView, CityPickPresen
                 closeActivity(EnterpriseCertificationUploadActivity.class, CertificationActivity.class);
             }
         });*/
-        title.setLeftImage(R.mipmap.back_white, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+//        title.setLeftImage(R.mipmap.back_white, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
     }
 
     @Override

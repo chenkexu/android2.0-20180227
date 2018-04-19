@@ -6,6 +6,11 @@
     android:background="@color/c_fafafa"
     android:orientation="vertical">
 
+    <View
+        android:background="@color/bg_white"
+        android:id="@+id/margin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"/>
     <com.orientdata.lookforcustomers.widget.MyTitle
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -22,96 +27,86 @@
         app:tabTextAppearance="@style/report_text"
         app:tabTextColor="@color/c_999999" />
 
+    <LinearLayout
+        android:id="@+id/linearCurTotalData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/round_border3"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="30dp"
+        android:paddingTop="10dp">
 
-   <RelativeLayout
-       android:layout_marginTop="20dp"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-    <!--黄色框显示的总数据-->
-        <LinearLayout
-            android:layout_centerHorizontal="true"
-            android:id="@+id/linearCurTotalData"
+        <TextView
+            android:id="@+id/tvTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/round_border3"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            android:paddingBottom="10dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="30dp"
-            android:paddingTop="10dp">
+            android:textColor="@color/c_ffffff"
+            android:textSize="11sp" />
 
-            <TextView
-                android:id="@+id/tvTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/c_ffffff"
-                android:textSize="11sp" />
+        <TextView
+            android:id="@+id/tvMsgConsumption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/c_ffffff"
+            android:textSize="11sp" />
 
-            <TextView
-                android:id="@+id/tvMsgConsumption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/c_ffffff"
-                android:textSize="11sp" />
+        <TextView
+            android:id="@+id/tvMsgIssued"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/c_ffffff"
+            android:textSize="11sp" />
 
-            <TextView
-                android:id="@+id/tvMsgIssued"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/c_ffffff"
-                android:textSize="11sp" />
+        <TextView
+            android:id="@+id/tvPageConsumption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/c_ffffff"
+            android:textSize="11sp" />
 
-            <TextView
-                android:id="@+id/tvPageConsumption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/c_ffffff"
-                android:textSize="11sp" />
+        <TextView
+            android:id="@+id/tvPageDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/c_ffffff"
+            android:textSize="11sp" />
 
-            <TextView
-                android:id="@+id/tvPageDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/c_ffffff"
-                android:textSize="11sp" />
+        <TextView
+            android:id="@+id/tvPageClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/c_ffffff"
+            android:textSize="11sp" />
 
-            <TextView
-                android:id="@+id/tvPageClick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/c_ffffff"
-                android:textSize="11sp" />
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/c_ffffff"
+            android:textSize="11sp" />
 
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/c_ffffff"
-                android:textSize="11sp" />
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/curveRl"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="3dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:visibility="visible"/>
-    </RelativeLayout>
-
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/curveRl"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="3dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:visibility="visible"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -121,7 +116,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/c_ffffff"
-
             android:orientation="vertical">
 
             <View
@@ -173,10 +167,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="2345"
-                            android:textColor="@color/c_414141"
                             android:textSize="10sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textColor="@color/c_414141"
+                            android:text="2345" />
 
                         <TextView
                             android:id="@+id/tvPageCon1"
@@ -208,10 +202,10 @@
                             android:id="@+id/tvPageDisplayNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/c_414141"
+                            android:textStyle="bold"
                             android:textSize="10sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/c_414141"
+                            android:layout_gravity="center_horizontal" />
 
                         <TextView
                             android:id="@+id/tvPageDisplayNum1"
@@ -241,10 +235,10 @@
                             android:id="@+id/tvPageClickNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
                             android:textColor="@color/c_414141"
                             android:textSize="10sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal" />
 
                         <TextView
                             android:id="@+id/tvPageClickNum1"
@@ -308,10 +302,10 @@
                             android:id="@+id/tvMsgConNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/c_414141"
                             android:textSize="10sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textColor="@color/c_414141"
+                            android:layout_gravity="center_horizontal" />
 
                         <TextView
                             android:id="@+id/tvMsgConNum1"
@@ -343,10 +337,10 @@
                             android:id="@+id/tvMsgIssuedNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/c_414141"
                             android:textSize="10sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/c_414141"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal" />
 
                         <TextView
                             android:id="@+id/tvMsgIssuedNum1"
@@ -375,10 +369,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
+                            android:textStyle="bold"
                             android:textColor="@color/c_414141"
                             android:textSize="10sp"
-                            android:textStyle="bold" />
+                            android:layout_gravity="center_horizontal" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -393,7 +387,6 @@
 
                 </LinearLayout>
             </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="30dp"

@@ -1,6 +1,5 @@
 package com.orientdata.lookforcustomers.view.home.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,8 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.base.BaseFragment;
+import com.orientdata.lookforcustomers.base.WangrunBaseFragment;
+import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.bean.Task;
 import com.orientdata.lookforcustomers.event.SearchListEvent;
@@ -24,12 +25,15 @@ import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.findcustomer.CreateFindCustomerActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.TaskDetailActivity;
+import com.orientdata.lookforcustomers.view.home.IHomeView;
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.xlistview.XListView;
 import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
+
 import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +45,7 @@ import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
  * 寻客Fragment
  */
 
-public class SearchFragment extends BaseFragment implements View.OnClickListener,XListView.IXListViewListener {
+public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHomeView>> implements View.OnClickListener,XListView.IXListViewListener,IHomeView {
     private LinearLayout typeChoose1,typeChoose2;
     private RelativeLayout linearCreateSearch;
     private HomePresent mHomePresent;
@@ -69,7 +73,15 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         return view;
     }
 
+
+
+
+
+
+
+
     public void updateData() {
+        Logger.d("获取寻客管理的内容");
         //类型，状态，第几页，size
         mHomePresent.getSearchList(choosePosition1,typeChoose,page,size);
     }
@@ -93,6 +105,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 //进入详情页
                 Intent intent = new Intent(getContext(), TaskDetailActivity.class);
                 intent.putExtra("taskId",searchList.get(position-1).getTaskId());
@@ -271,5 +284,43 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         mListView.stopRefresh();
         mListView.stopLoadMore();
         mListView.setRefreshTime("刚刚");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*下面没有用*/
+    @Override
+    protected HomePresent<IHomeView> createPresent() {
+        return new HomePresent<>(this);
+    }
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void getCertificateMsg(CertificationOut certificationOut, boolean isCertificate) {
+
     }
 }

@@ -5,10 +5,15 @@
     android:layout_height="match_parent"
     android:background="@color/c_fafafa"
     android:orientation="vertical">
-
-    <com.orientdata.lookforcustomers.widget.MyTitle
-        android:id="@+id/title"
+    <View
+        android:background="@color/bg_white"
+        android:id="@+id/margin"
         android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"/>
+    <com.orientdata.lookforcustomers.widget.MyTitle
+        android:layout_below="@id/margin"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

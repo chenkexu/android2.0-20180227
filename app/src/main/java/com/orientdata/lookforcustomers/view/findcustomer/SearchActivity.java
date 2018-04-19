@@ -49,35 +49,13 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
         clearEdit = findViewById(R.id.clearEdit);
         rightText = findViewById(R.id.rightText);
         back_btn = findViewById(R.id.back_btn);
-        right_btn = findViewById(R.id.right_btn);
+//        right_btn = findViewById(R.id.right_btn);
         flowlayout = findViewById(R.id.flowlayout);
         updateFluidView();
-        right_btn.setOnClickListener(this);
+//        right_btn.setOnClickListener(this);
         back_btn.setOnClickListener(this);
         ivDelete.setOnClickListener(this);
-        clearEdit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String str = s.toString();
-                if (!TextUtils.isEmpty(str) & str.length() > 0) {
-                    rightText.setVisibility(View.VISIBLE);
-                    right_btn.setVisibility(View.GONE);
-                } else {
-                    rightText.setVisibility(View.GONE);
-                    right_btn.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//      right_btn
         rightText.setOnClickListener(this);
     }
 
@@ -97,9 +75,7 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
                 setResult(RESULT_OK, intent);
                 finish();
                 break;
-            case R.id.right_btn:
-                finish();
-                break;
+
             case R.id.back_btn:
                 finish();
                 break;

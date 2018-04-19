@@ -197,7 +197,7 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="5dp"
                 android:paddingStart="3dp"
-                android:text="中国农业银行股份有限公司北京清河支行"
+                android:text="北京东方网润科技有限公司"
                 android:textColor="@color/text_charge"
                 android:textSize="14sp" />
 
@@ -227,7 +227,7 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="5dp"
                 android:paddingStart="3dp"
-                android:text="北京东方网润科技有限公司"
+                android:text="中国农业银行股份有限公司北京清河支行"
                 android:textColor="@color/text_charge"
                 android:textSize="14sp" />
 

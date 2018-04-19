@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Vibrator;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -56,6 +57,10 @@ public class MyApplication extends MyApp {
         super.onCreate();
         instance = this;
         sContext = getApplicationContext();
+        //工具类库
+        Utils.init(this);
+
+
         //PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
         //PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         //UMShareAPI.get(this);

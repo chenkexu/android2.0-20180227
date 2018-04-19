@@ -36,7 +36,7 @@ import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
  * Created by wy on 2017/11/16.
- * 任务库List页面
+ * 页面库 （Fragment）
  */
 
 public class ImageWarehouseFragment extends Fragment implements View.OnClickListener {

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * Created by wy on 2017/11/19.
+ *
+ * 二级兴趣点
  */
 
 public class InterestCategory implements Serializable {
@@ -11,8 +13,11 @@ public class InterestCategory implements Serializable {
     private int parentId;//父id
     private int areaId;//地区码
     private int interestIndustryId;//自增id
-    private boolean isChecked = false;
-    private boolean isClicked = false;
+
+    private boolean isChecked = false; //选中了
+
+    private boolean isClicked = false;//是否被点击过
+
     private boolean enable = true;
 
 

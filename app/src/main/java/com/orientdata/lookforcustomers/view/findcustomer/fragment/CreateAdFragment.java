@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ImageTools;
@@ -41,7 +42,7 @@ import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by wy on 2017/11/16.
- * 创建落地页
+ * 落地页制作 Fragment
  */
 
 public class CreateAdFragment extends Fragment implements View.OnClickListener {
@@ -64,12 +65,7 @@ public class CreateAdFragment extends Fragment implements View.OnClickListener {
     //private String adImagePath;
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initArguments();
 
-    }
 
     private void initArguments() {
         Bundle bundle = getArguments();
@@ -86,6 +82,7 @@ public class CreateAdFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_ad, container, false);
+        initArguments();
         initView(view);
         //rl_show_baidumap.setBackground(Drawable.createFromPath(baiduMapPath));
         //iv_upload.setBackground(Drawable.createFromPath(adImagePath));
@@ -108,6 +105,7 @@ public class CreateAdFragment extends Fragment implements View.OnClickListener {
 
     private void initView(View view) {
         iv_show_baidumap = view.findViewById(R.id.iv_show_baidumap);
+        Logger.d("要显示的百度地图的截图为:"+baiduMapPath);
         if (!TextUtils.isEmpty(baiduMapPath)) {
             Glide.with(getActivity()).load(baiduMapPath).into(iv_show_baidumap);
         }
@@ -185,6 +183,7 @@ public class CreateAdFragment extends Fragment implements View.OnClickListener {
                 view.buildDrawingCache();
                 //获取屏幕整张图片
                 Bitmap bitmap = decorView.getDrawingCache();*/
+
                 Intent intent = new Intent(getActivity(), CreateAdActivity2.class);
                 intent.putExtra("name", name);
                 intent.putExtra("sopsName", sopsName);
@@ -194,10 +193,13 @@ public class CreateAdFragment extends Fragment implements View.OnClickListener {
                 intent.putExtra("baiduMapPath", baiduMapPath);
                 intent.putExtra("imagePath", mSavePaths);
                 intent.putExtra("address", address);
+
+
                 //intent.putExtra("adImagePath", adImagePath);
                 //startActivityForResult(intent, 2);
                 startActivity(intent);
-                getActivity().finish();
+                // TODO: 2018/4/19 为啥关闭这个页面
+//                getActivity().finish();
 
                 break;
         }

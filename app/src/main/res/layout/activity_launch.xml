@@ -41,8 +41,8 @@
 
         <View
             android:id="@+id/view_red_point"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
             android:background="@drawable/shape_guide_point_selected" />
     </RelativeLayout>
 </RelativeLayout>

@@ -40,6 +40,8 @@ import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
 
+import static android.R.attr.id;
+import static android.R.attr.numberPickerStyle;
 import static android.app.Activity.RESULT_OK;
 import static com.orientdata.lookforcustomers.R.id.textView;
 
@@ -96,7 +98,7 @@ public class ByProvinceFragment extends BaseFragment implements View.OnClickList
     private void updateLeftView() {
         if (mAreaOuts != null) {
             if (mProvinceNames == null) {
-                mProvinceNames = new ArrayList<String>();
+                mProvinceNames = new ArrayList<>();
             } else {
                 mProvinceNames.clear();
             }
@@ -117,7 +119,7 @@ public class ByProvinceFragment extends BaseFragment implements View.OnClickList
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     currentItem = position;
                     mLeftAdapter.notifyDataSetChanged();
-                    updateRightView(parent, view, position, id);
+                    updateRightView(parent, view, position);
                     mProvinceName = mProvinceNames.get(position);
                 }
             });
@@ -126,7 +128,7 @@ public class ByProvinceFragment extends BaseFragment implements View.OnClickList
 
     }
 
-    private void updateRightView(AdapterView<?> parent, View view, int position, long id) {
+    private void updateRightView(AdapterView<?> parent, View view, int position) {
         if (mAreaOuts != null && mAreaOuts.size() > 0) {
             AreaOut areaout = mAreaOuts.get(position);
             List<Area> citys = areaout.getList();
@@ -134,7 +136,7 @@ public class ByProvinceFragment extends BaseFragment implements View.OnClickList
                 return;
             }
             if (mcityNames == null) {
-                mcityNames = new ArrayList<CityListItemMode>();
+                mcityNames = new ArrayList<>();
             } else {
                 mcityNames.clear();
             }
@@ -215,6 +217,7 @@ public class ByProvinceFragment extends BaseFragment implements View.OnClickList
     public void getProvinceCity(List<AreaOut> areaOuts) {
         mAreaOuts = areaOuts;
         updateLeftView();
+        updateRightView(null, null, 0);
     }
 
     @Override

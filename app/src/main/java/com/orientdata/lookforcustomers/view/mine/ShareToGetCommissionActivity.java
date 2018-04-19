@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.bean.CanInvoiceBean;
@@ -140,6 +141,7 @@ public class ShareToGetCommissionActivity extends WangrunBaseActivity implements
             shareEntity.setShareUrl(url);
         }
         shareEntity.setTitle("用户是谁？用户在哪？如何触达用户？");
-        shareEntity.setContent("寻客V2.0，基于实时LBS的场景触达，解决商户的三大核心痛点！");
+        String versionName = AppUtils.getAppVersionName();
+        shareEntity.setContent("寻客V"+versionName+"，基于实时LBS的场景触达，解决商户的三大核心痛点！");
     }
 }

@@ -15,7 +15,14 @@
         android:src="@mipmap/icon_login_bottom_ripple"
         />
 
+    <View
+        android:background="@color/bg_white"
+        android:id="@+id/margin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"/>
+
     <com.orientdata.lookforcustomers.widget.CommonTitleBar
+        android:layout_below="@id/margin"
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="40dp"

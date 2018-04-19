@@ -14,7 +14,9 @@ public class InterestTagImportOut implements Serializable {
     private int parentId;//父id
     private int areaId;//地区码
     private int interestIndustryId;//自增id
-    private boolean isChecked = false;
+
+    private boolean isChecked = false; //是否被选中，（设置颜色时用的）
+
 
     public List<InterestCategory> getEri() {
         return eri;

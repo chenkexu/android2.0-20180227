@@ -69,6 +69,7 @@
         android:textColor="#db010b"
         android:textSize="12sp" />
 
+
     <CheckBox
         android:id="@+id/cb_choose_all"
         style="@style/CustomCheckboxTheme"

@@ -74,7 +74,6 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
         if (mUserModel != null && mLoginModel != null
                 && mLoginAndRegisterView != null) {
             mLoginAndRegisterView.showLoading();
-            mLoginAndRegisterView.showLoading();
             mLoginModel.authCodeLogin(account, code, codeId, mUserModel.getPhoneType()
                     , mUserModel.getModel(),
                     mUserModel.getDeviceToken(), new ILoginModel.LoginComplete() {
@@ -158,11 +157,15 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
      */
     public void register(String account, String password, String code) {
         if (TextUtils.isEmpty(account)) {
-            ToastUtils.showShort("请输入账号");
+            ToastUtils.showShort("请输入正确的手机号");
             return;
         }
         if (!CommonUtils.isPhoneNum(account)) {
             ToastUtils.showShort("请输入正确的手机号");
+            return;
+        }
+        if (TextUtils.isEmpty(code)) {
+            ToastUtils.showShort("请输入验证码");
             return;
         }
         if (TextUtils.isEmpty(password)) {
@@ -171,10 +174,6 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
         }
         if (!CommonUtils.checkPassword(password)) {
             ToastUtils.showShort("密码格式错误");
-            return;
-        }
-        if (TextUtils.isEmpty(code)) {
-            ToastUtils.showShort("请输入验证码");
             return;
         }
         if (mLoginAndRegisterView != null && mRegisterModel != null &&

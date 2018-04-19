@@ -2,20 +2,15 @@ package com.orientdata.lookforcustomers.presenter;
 
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.bean.PicListBean;
-import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.bean.TradeSelfout;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.event.ImgClipResultEvent;
-import com.orientdata.lookforcustomers.event.LoginResultEvent;
 import com.orientdata.lookforcustomers.event.PicDeleteResultEvent;
 import com.orientdata.lookforcustomers.event.PicListResultEvent;
 import com.orientdata.lookforcustomers.model.IImgModel;
-import com.orientdata.lookforcustomers.model.ITaskModel;
 import com.orientdata.lookforcustomers.model.imple.ImgModelImple;
-import com.orientdata.lookforcustomers.model.imple.TaskModelImple;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.findcustomer.IImgView;
-import com.orientdata.lookforcustomers.view.findcustomer.ITaskView;
 
 import org.greenrobot.eventbus.EventBus;
 

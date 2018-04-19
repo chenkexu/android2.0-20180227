@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.app.MyApplication;
 import com.orientdata.lookforcustomers.base.BaseActivity;
@@ -27,6 +28,7 @@ public class LoginAndRegisterActivity extends BaseActivity<ILoginAndRegisterView
     private LoginFragment loginFragment;
     private RegisterFragment registerFragment;
     private FragmentManager fragmentManager;
+
     private int type = 0;//0登录，1注册，3重置密码
     private boolean isReLogin = false;//是不是重新登录
     private boolean isNoBack = false;//是否禁掉返回键
@@ -36,6 +38,11 @@ public class LoginAndRegisterActivity extends BaseActivity<ILoginAndRegisterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+
+        mImmersionBar.keyboardEnable(false)
+                .statusBarDarkFont(true, 0.2f)
+                  //使用该属性,必须指定状态栏颜色
+                .statusBarColor(R.color.bg_white).init();
     }
 
     private void initView() {
@@ -84,6 +91,8 @@ public class LoginAndRegisterActivity extends BaseActivity<ILoginAndRegisterView
         super.onPause();
         isNoBack = false;
     }
+
+
 
 //    @Override
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {

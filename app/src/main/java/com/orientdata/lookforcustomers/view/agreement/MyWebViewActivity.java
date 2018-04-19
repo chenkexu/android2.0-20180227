@@ -1,21 +1,14 @@
 package com.orientdata.lookforcustomers.view.agreement;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -23,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;
@@ -53,9 +45,13 @@ public class MyWebViewActivity extends WangrunBaseActivity {
     }
 
     public void initView() {
+
         myProgressBar = (ProgressBar) findViewById(R.id.myProgressBar);
         webView = (WebView) findViewById(R.id.webView);
         myTitle = findViewById(R.id.my_title);
+
+        WebSettings webSettings = webView.getSettings();
+
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAllowFileAccess(true);
         webView.getSettings().setAllowFileAccessFromFileURLs(true);
@@ -63,6 +59,13 @@ public class MyWebViewActivity extends WangrunBaseActivity {
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setGeolocationEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
+
+        //设置自适应屏幕，两者合用
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        webView.getSettings().setUseWideViewPort(true); //将图片调整到适合webview的大小
+        webView.getSettings().setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+
+
     }
 
     private void initTitle() {

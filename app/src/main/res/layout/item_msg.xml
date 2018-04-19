@@ -31,6 +31,8 @@
             android:layout_marginLeft="10dp"
             android:orientation="horizontal">
             <ToggleButton
+                android:enabled="false"
+                android:clickable="false"
                 android:id="@+id/toggle_button"
                 android:layout_width="15dp"
                 android:layout_height="15dp"

@@ -125,7 +125,6 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         mActivity = getActivity();
         addDefultUrl();
         initTitle();
-//        ImmersionBar.setTitleBar(mActivity, titleView);
         getUserData();
         //添加下拉刷新
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -137,8 +136,6 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         });
         return view;
     }
-
-
 
 
 

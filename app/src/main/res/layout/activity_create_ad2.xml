@@ -45,6 +45,7 @@
                     android:background="#666666">
 
                     <ImageView
+                        android:scaleType="centerCrop"
                         android:id="@+id/iv_show_baidumap"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

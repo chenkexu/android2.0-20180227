@@ -55,11 +55,15 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         initView(view);
         initTitle();
-//        ImmersionBar.setTitleBar(getActivity(), title);
         updateData();
 //        mPresent.msgList();
         return view;
     }
+
+
+
+
+
     private void initView(View view){
         resultChoose = new ArrayList<>();
         xListView = view.findViewById(R.id.xListView);
@@ -91,14 +95,9 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
 //        });
     }
 
-   /* @Override
-    public void onResume() {
-        super.onResume();
-        //需要更新已读状态
-        updateData();
-    }*/
 
     public void updateData() {
+        Logger.d("获取消息列表的内容");
         mPresent.msgList();
     }
 
@@ -113,34 +112,20 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
 
         if(msgListBean!=null) {
             xListView.setLoadState(XListViewFooter.STATE_NO_MORE);
-            /*---------------------------假数据开始----------------------------*/
+
             if(results == null){
                 results = new ArrayList<>();
             }else{
                 results.clear();
             }
-//            for(int i=0;i<5;i++){
-//                Result result = new Result();
-//                result.setUserId(UserDataManeger.getInstance().getUserId());
-//                result.setText("觉得还是发了大空间和卡夫卡拉多加湖"+i);
-//                result.setCreateDate(new Date(System.currentTimeMillis()));
-//                result.setTitle("title"+i);
-//                result.setPushMessageId(i);
-//                if(i%2==0){
-//                    result.setObjectId(1);
-//                }else{
-//                    result.setObjectId(2);
-//
-//                }
-//                results.add(result);
-//            }
-            /*---------------------------假数据结束----------------------------*/
+
             results = msgListBean.getResult();
 
             if (results==null) {  //消息数据为空
                 ll_no_content.setVisibility(View.VISIBLE);
                 xListView.setVisibility(View.GONE);
                 Logger.d("results消息数据为空2");
+                rl_bottom.setVisibility(View.GONE);
             }else{
                 ll_no_content.setVisibility(View.GONE);
                 xListView.setVisibility(View.VISIBLE);
@@ -182,13 +167,14 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
         adapter.notifyDataSetChanged();
         initListener();
     }
+
+
     private void initListener(){
         adapter.setOnItemClickListener(new MsgListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, ToggleButton tbutton) {
                 if(isEdit){
-                    if(resultChoose.size() == 0)
-                    {
+                    if(resultChoose.size() == 0) {
                         tbutton.setChecked(true);
                         resultChoose.add(results.get(position));
                         if(resultChoose.size() == results.size()){
@@ -241,22 +227,25 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
             tvDelete.setText("删除("+resultChoose.size()+")");
         }
     }
+
     private void updateEditStatus(boolean isEdit){
-        for(int i = 0;i< results.size();i++){
-            results.get(i).setEdit(isEdit);
+        if(results!=null && results.size()>0){
+            for(int i = 0;i< results.size();i++){
+                results.get(i).setEdit(isEdit);
+            }
+            if(isEdit){
+                this.isEdit = true;
+                rl_bottom.setVisibility(View.VISIBLE);
+                title.setRightText("取消");
+                tvDelete.setText("取消");
+                tvChoose.setText("全选");
+            }else{
+                this.isEdit = false;
+                title.setRightText("编辑");
+                rl_bottom.setVisibility(View.GONE);
+            }
+            adapter.notifyDataSetChanged();
         }
-        if(isEdit){
-            this.isEdit = true;
-            rl_bottom.setVisibility(View.VISIBLE);
-            title.setRightText("取消");
-            tvDelete.setText("取消");
-            tvChoose.setText("全选");
-        }else{
-            this.isEdit = false;
-            title.setRightText("编辑");
-            rl_bottom.setVisibility(View.GONE);
-        }
-        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -286,9 +275,9 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tvDelete1:
+            case R.id.tvDelete1: //取消和删除
                 //删除
-                if("取消".equals(tvDelete.getText().toString())){
+                if("取消".equals(tvDelete.getText().toString())){  //点击的是取消
                     updateEditStatus(false);
                     if(resultChoose!=null){
                         resultChoose.clear();
@@ -302,13 +291,14 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
                     mPresent.updateMsg(ids);
                 }
                 break;
-            case R.id.tvChoose:
-                //全选 取消全选
+            case R.id.tvChoose://全选 取消全选
                 chooseAll();
                 break;
         }
 
     }
+
+
     private void chooseAll(){
         String str = tvChoose.getText().toString();
         if("全选".equals(str)){

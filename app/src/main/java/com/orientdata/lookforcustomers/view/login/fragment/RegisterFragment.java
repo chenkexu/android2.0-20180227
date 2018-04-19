@@ -22,18 +22,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
+import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.event.RegisterResultEvent;
 import com.orientdata.lookforcustomers.event.UpdateSmsStateEvent;
+import com.orientdata.lookforcustomers.network.callback.WrCallback;
+import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
 import com.orientdata.lookforcustomers.util.MyOpenActivityUtils;
+import com.orientdata.lookforcustomers.util.RxUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 import com.orientdata.lookforcustomers.widget.CommonTitleBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 /**
  * Created by wy on 2017/10/25.
@@ -105,6 +115,18 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         tvAgreement.setHighlightColor(Color.parseColor("#00FFFFFF"));
         tvAgreement.setMovementMethod(LinkMovementMethod.getInstance());
 
+
+        //防暴击
+        RxUtils.clickView(tvAgreement)
+                .throttleFirst(1000, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        MyOpenActivityUtils.openCommonWebView(getActivity(),
+                                "网润寻客APP用户协议", "http://www.orientdata.cn/protocol.html");
+                    }
+                });
+
     }
 
     class AgreementClick extends ClickableSpan {
@@ -118,7 +140,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         public void onClick(View widget) {
             if (type == 0) {
                 MyOpenActivityUtils.openCommonWebView(getActivity(),
-                        "东方网润商品产品注册协议", "http://www.orientdata.cn/protocol.html");
+                        "网润寻客APP用户协议", "http://www.orientdata.cn/protocol.html");
             } else {
                 MyOpenActivityUtils.openCommonWebView(getActivity(),
                         "推广合同", "http://www.orientdata.cn/contract.html");
@@ -145,13 +167,36 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             case R.id.iv_clear:
                 etAccount.setText("");
                 break;
-            case R.id.tv_agreement:
-                MyOpenActivityUtils.openCommonWebView(getActivity(),
-                        "东方网润商品产品注册协议", "http://www.orientdata.cn/protocol.html");
-                break;
+//            case R.id.tv_agreement:
+//
+//                break;
             case R.id.tv_call_code:
-                String phone = etAccount.getText().toString().trim();
-                mLoginAndRegisterPresent.sendSms(phone);
+                final String phone = etAccount.getText().toString().trim();
+                showDefaultLoading();
+                NetWorkUtils.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
+                    @Override
+                    public void onSuccess(Response<WrResponse<Integer>> response) {
+                        int result = response.body().getResult();
+                        Logger.d(result==0);
+                        if (result==0) { //已经注册
+                            ToastUtils.showShort("该手机号已注册，请直接登录");
+                            return;
+                        }else{  //没有注册
+                            mLoginAndRegisterPresent.sendSms(phone);
+                        }
+                    }
+                    @Override
+                    public void onError(Response<WrResponse<Integer>> response) {
+                        super.onError(response);
+                        ToastUtils.showShort(response.getException().getMessage());
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        hideDefaultLoading();
+                    }
+                });
                 break;
             case R.id.btn_submit:
 //                if (!tvAgree.isSelected()) {

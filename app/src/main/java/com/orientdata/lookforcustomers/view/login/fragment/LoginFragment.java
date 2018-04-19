@@ -20,15 +20,21 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.bean.CertificationBean;
+import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.event.LoginResultEvent;
 import com.orientdata.lookforcustomers.event.ReLoginEvent;
 import com.orientdata.lookforcustomers.event.UpdateSmsStateEvent;
+import com.orientdata.lookforcustomers.network.callback.WrCallback;
+import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
 import com.orientdata.lookforcustomers.util.MyOpenActivityUtils;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
+import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -154,8 +160,35 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                 }
                 break;
             case R.id.tv_call_code:
-                String phone = etAccount.getText().toString().trim();
-                mLoginAndRegisterPresent.sendSms(phone);
+                final String phone = etAccount.getText().toString().trim();
+                showDefaultLoading();
+                NetWorkUtils.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
+                    @Override
+                    public void onSuccess(Response<WrResponse<Integer>> response) {
+                        int result = response.body().getResult();
+                        Logger.d(result==0);
+                        if (result==0) { //已经注册
+                            mLoginAndRegisterPresent.sendSms(phone);
+                        }else{  //没有注册
+                            ToastUtils.showShort("该手机号未注册，请先注册");
+                            return;
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<WrResponse<Integer>> response) {
+                        super.onError(response);
+                        ToastUtils.showShort(response.getException().getMessage());
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        hideDefaultLoading();
+                    }
+                });
+
+
                 break;
             case R.id.btn_login:
                 if (type == 0) {//账号登录
@@ -216,11 +249,11 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Subscribe
     public void loginResult(LoginResultEvent loginResultEvent) {
         
-        //移除是否退出的标志位
-        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.USER_LOGOUT);
 
         if (!reLogin && loginResultEvent.isLogin) {//正常登录成功打开主页   重新登录不需要
             MyOpenActivityUtils.openHomeActivity(getActivity(),loginResultEvent.isNewUser);
+            //移除是否退出的标志位
+            SharedPreferencesTool.getInstance().putBoolean(SharedPreferencesTool.USER_LOGOUT, false);
         }else if(reLogin){
             ReLoginEvent reLoginEvent = new ReLoginEvent();
             reLoginEvent.reLogin = true;

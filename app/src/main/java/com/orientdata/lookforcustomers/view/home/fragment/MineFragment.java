@@ -113,11 +113,11 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ImmersionBar.with(getActivity())
-                 //使用该属性,必须指定状态栏颜色
-                .statusBarColor(R.color.colorPrimary)
-                .init();
     }
+
+
+    
+
 
     /*@Override
     public void onStart() {
