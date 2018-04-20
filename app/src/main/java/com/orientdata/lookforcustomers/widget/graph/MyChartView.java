@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static android.R.attr.max;
+import static android.R.attr.startY;
 
 /**
  * 报表 折线
@@ -96,7 +97,7 @@ public class MyChartView extends View {
 			Ylabel[3] = length * 3+"";
 			Ylabel[2] = length * 2+"";
 			Ylabel[1] = length + "";
-			Logger.e("maxY:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
+			Logger.e("maxY:"+Ylabel[0]+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
 		}
     }
 
@@ -128,6 +129,7 @@ public class MyChartView extends View {
 			Ylabel[3] = length * 3+"";
 			Ylabel[2] = length * 2+"";
 			Ylabel[1] = length + "";
+			Ylabel[0] = "0";
 			Logger.e("maxY:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
 		}
 	}
@@ -202,7 +204,7 @@ public class MyChartView extends View {
 	public void init(Canvas canvas) {
 		Xpoint = 3*this.Margin;
 		//初始化Y轴的原点
-		Ypoint = this.getHeight() - 3*this.Margin;
+		Ypoint = this.getHeight() - 2*this.Margin;
 		if(this.Xlabel.length - 1 == 0){
 			Xscale = (this.getWidth() - 4 * this.Margin) / 2;//x轴每块的长度显示出来的长度
 		}else{
@@ -255,7 +257,6 @@ public class MyChartView extends View {
 			linePaint.setPathEffect(cornerPathEffect);
 		}else{
 			if(y!=null && y.length>0){
-				// TODO: 2018/4/12
 				canvas.drawPoint((Xpoint +  xScale), calY1(y[0]),linePaint);
 			}
 		}
@@ -405,8 +406,8 @@ public class MyChartView extends View {
 //			path.lineTo(startX, stopY);//画线
 //			canvas.drawPath(path, paint);
 //		}
-		// 横向线
-		for (int i = 0; (Ypoint - i * Yscale) >= (2*this.Margin); i++) {
+		// 横向线 // TODO: 2018/4/20 这个地方改成了 -2
+		for (int i = 0; (Ypoint - i * Yscale) >= (-2*this.Margin); i++) {
 			int startX = Xpoint;
 			int startY = Ypoint - i * Yscale;
 			int stopX = 0;
@@ -419,11 +420,11 @@ public class MyChartView extends View {
 			path.lineTo(stopX, startY);
 			paint.setColor(ContextCompat.getColor(context, R.color.c_D9D9D9));
 			canvas.drawPath(path, paint);
-
 			mPaint.setTextSize(this.Margin);
-            // TODO: 2018/4/9
+			
 			canvas.drawText(this.Ylabel[i], (3*this.Margin) / 8, startY + (3*this.Margin) / 4, mPaint);//纵坐标的数字
 		}
+
 
 		mPaint.setTextSize(this.Margin-3);
 		mPaint.setColor(getResources().getColor(scaleTextColor));

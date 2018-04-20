@@ -254,7 +254,7 @@ public class UploadOfflineRechargeReceiptActivity extends WangrunBaseActivity im
             ToastUtils.showShort("请上传凭证！");
             return;
         }
-        String info = "请注意：\n1.为了您的资金安全请勿重复提交!\n2.改提交超过3个工作日未到账后被退回，您可以确认到账后再次提交。";
+        String info = "1.为了您的资金安全请勿重复提交!\n2.改提交超过3个工作日未到账后被退回，您可以确认到账后再次提交。";
         String head = "开户行：" + openAccountBank + "\n"
                 + "流水号：" + serialNumber + "\n"
                 + "账户名：" + accountName + "\n"

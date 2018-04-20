@@ -37,7 +37,6 @@ public class CreateAdActivity extends WangrunBaseActivity implements View.OnClic
     private String adImagePath;
 
     private Dialog progressDialog;
-
     private ImageView imgBack;
     private ViewPagerAdapter mAdapter;
 

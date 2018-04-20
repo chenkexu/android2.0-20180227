@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/shape_circle_white_load_bg1"
     android:orientation="vertical"
-    android:paddingLeft="15dp"
+    android:gravity="center"
+    android:paddingLeft="17dp"
     android:paddingRight="15dp">
 
     <TextView

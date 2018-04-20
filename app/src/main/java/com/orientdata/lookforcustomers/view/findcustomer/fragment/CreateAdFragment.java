@@ -199,7 +199,7 @@ public class CreateAdFragment extends Fragment implements View.OnClickListener {
                 //startActivityForResult(intent, 2);
                 startActivity(intent);
                 // TODO: 2018/4/19 为啥关闭这个页面
-//                getActivity().finish();
+                getActivity().finish();
 
                 break;
         }

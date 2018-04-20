@@ -55,9 +55,9 @@
     <string name="no_certified">您的账户还未认证，快去认证吧～</string>
     <string name="not_pass">抱歉，您的账户审核未通过</string>
     <string name="cer_waiting">您的账户正在审核中，请耐心等待...</string>
-    <string name="sub_suc">提交成功！</string>
+    <string name="sub_suc">提交成功</string>
     <string name="sub_confirm">确定</string>
-    <string name="sub_fail">提交失败！</string>
+    <string name="sub_fail">提交失败</string>
     <string name="sub_fail_txt">返回</string>
     <string name="confirm_remind">确定删除全部历史记录？</string>
     <!--创建寻客-->

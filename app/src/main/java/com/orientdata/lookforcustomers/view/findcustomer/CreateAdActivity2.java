@@ -65,7 +65,7 @@ public class CreateAdActivity2 extends WangrunBaseActivity implements View.OnCli
 
     private RelativeLayout rl_show_baidumap;
 
-    private ImageView iv_show_baidumap;//百度地图片的截图
+    private ImageView iv_show_baidumap;
 
     private LinearLayout ll_clip_layout;
 
@@ -110,8 +110,6 @@ public class CreateAdActivity2 extends WangrunBaseActivity implements View.OnCli
             //adImagePath = data.getStringExtra("adImagePath");
         }
         if (!TextUtils.isEmpty(imagePath)) {
-            //iv_upload_show.setBackground(Drawable.createFromPath(imagePath));
-//            Glide.with(this).load(imagePath).into(iv_upload_show);
             GlideUtil.getInstance().loadCertificateImage(this,iv_upload_show,imagePath,true);
         } else {
             iv_upload_show.setVisibility(View.GONE);
@@ -199,17 +197,22 @@ public class CreateAdActivity2 extends WangrunBaseActivity implements View.OnCli
 
                 if (!TextUtils.isEmpty(imagePath)) { //如果上传的图片不为空
                     fileLists = new ArrayList<>();
+                    // TODO: 2018/4/20 上传制作的落地页图片
+                    fileLists.add(new File(imagePath));
                     submitfiles = new File[fileLists.size()];
-                    //fileLists.add(new File(adImagePath));
                     String[] submitFileKeys = new String[fileLists.size()];
+
                     for (int i = 0; i < fileLists.size(); i++) {
                         submitfiles[i] = fileLists.get(i);//图片数组添加提交的图片
                         submitFileKeys[i] = i + "";
                     }
-                    List<File> fileList = new ArrayList<>();
-                    for (int i = 0; i < fileLists.size(); i++) {
-                        fileList.add(fileLists.get(i));
-                    }
+
+                    // TODO: 2018/4/20 下面代码有什么用？？？
+//                    List<File> fileList = new ArrayList<>();
+//                    for (int i = 0; i < fileLists.size(); i++) {
+//                        fileList.add(fileLists.get(i));
+//                    }
+
                 }else {  //如果上传的图片为空
                     fileLists = new ArrayList<>();
                     //  TODO

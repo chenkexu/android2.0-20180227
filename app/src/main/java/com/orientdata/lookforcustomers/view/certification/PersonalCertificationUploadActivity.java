@@ -12,12 +12,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.BusinessScope;
 import com.orientdata.lookforcustomers.bean.BusinessScopeOut;
@@ -60,7 +62,6 @@ import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
  * 个人认证上传页面
  * Created by wy on 2017/11/16.
  */
-
 public class PersonalCertificationUploadActivity extends ImageActivity implements View.OnClickListener {
     private MyTitle title;
     private ImageView iv_at_personal_id_reverse_upload;
@@ -157,7 +158,7 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
         rlSub.setOnClickListener(this);
         submitButton = findViewById(R.id.tv_personal_certification_upload);
         submitButton.setOnClickListener(this);
-        radioGroups = new ArrayList<RadioGroup>();
+        radioGroups = new ArrayList<>();
     }
 
     /**
@@ -233,10 +234,12 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
             ToastUtils.showShort("请选择所属行业");
             return;
         }
+
         if (filePaths.size() >= 3 && filePaths.size() < totalImageToUpload + 3) {
             ToastUtils.showShort("请上传行业资质照片");
             return;
         }
+
         if (radioGroups != null && radioGroups.size() > 0) {
             for (RadioGroup radioGroup : radioGroups) {
                 if (radioGroup != null && radioGroup.getChildCount() > 1) {
@@ -410,7 +413,7 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
         final IndustryDialog dialog = new IndustryDialog(mContext, R.style.Theme_Light_Dialog);
         dialog.setUpData(industries);
         dialog.show();
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setOnchangeListener(new IndustryDialog.ChangeListener() {
             @Override
             public void onChangeListener(Industry industry, int position) {
@@ -461,7 +464,10 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
                         name = name.replace("||", "#");
                         String[] names = name.split("#");
                         RadioGroup radioGroup = tempView.initRadioGroup(this, names);
-                        radioGroups.add(radioGroup);
+
+                        // TODO: 2018/4/20
+                        ((RadioButton)radioGroup.getChildAt(0)).setChecked(true);
+                        radioGroups.add(radioGroup); //下面的圆圈按钮
                         tempView.setUploadOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -514,6 +520,10 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
                         totalImageToUpload++;
                     }
                 }
+            }else{
+                // TODO: 2018/4/20 清空要选择的照片。
+//                radioGroups.clear();
+//                Logger.d("没有可选的资质。。。。");
             }
             //营业范围、动态创建checkbox，多选，以及创建对应的CustomizecredentialUploadView
             List<BusinessScopeOut> bsos = tco.getYib();
@@ -523,7 +533,9 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
                 //清除所有的子view
                 //industryContainer.removeAllViews();
                 //uploadContainer.removeAllViews();
-                //遍历业务范围，分别创建对应业务的资质证明view
+                //遍历业务范围，
+
+                //上面的方框checkbox按钮。。。
                 for (final BusinessScopeOut bso : bsos) {
                     CheckBox checkBox = (CheckBox) getLayoutInflater().inflate(R.layout.activity_enterprise_certification_upload_checkbox_item, null, false);
                     //业务名称
@@ -604,7 +616,6 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
                                     }
                                 }
                             } else {
-
                                 String subScope = null;
                                 String scope = null;
                                 Iterator iter = industryAndSubIndexs.entrySet().iterator();
@@ -670,16 +681,19 @@ public class PersonalCertificationUploadActivity extends ImageActivity implement
             final SubIndustryDialog dialog = new SubIndustryDialog(mContext, R.style.Theme_Light_Dialog);
             dialog.setUpData(subIndustries);
             dialog.show();
-            dialog.setCancelable(false);
+            dialog.setCancelable(true);
             dialog.setOnchangeListener(new SubIndustryDialog.ChangeListener() {
                 @Override
                 public void onChangeListener(TradeCategoryOut tradeCategoryOut, int position) {
+                    // TODO: 2018/4/20 清空缓存数据啊啊啊
+                    radioGroups.clear();
                     tvSub.setText(tradeCategoryOut.getName());
                     sub_position.setText(position + "");
                     sub_tradeId.setText(tradeCategoryOut.getTradeId() + "");
                     subPosition = position;
                     currentSubName = tradeCategoryOut.getName();
                     dialog.dismiss();
+
                     dynamicCreateCertificationView();
                 }
             });

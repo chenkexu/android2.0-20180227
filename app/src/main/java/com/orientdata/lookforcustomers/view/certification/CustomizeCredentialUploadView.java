@@ -56,6 +56,8 @@ public class CustomizeCredentialUploadView extends LinearLayout {
         }
     }
 
+
+    //初始化下面的圆圈按钮
     public RadioGroup initRadioGroup(Context context, String[] strs) {
 
         if (strs != null && strs.length > 0) {

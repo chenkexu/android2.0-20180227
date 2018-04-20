@@ -27,6 +27,7 @@
         app:tabTextAppearance="@style/report_text"
         app:tabTextColor="@color/c_999999" />
 
+    <!--黄色框中的内容-->
     <LinearLayout
         android:id="@+id/linearCurTotalData"
         android:layout_width="wrap_content"

@@ -1091,7 +1091,9 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     interestIds = data.getStringExtra("interestIds");//二级兴趣点
                     industryMark = data.getStringExtra("industryMark");
                     industryNameStr = data.getStringExtra("industryNameStr");
+
                     tv_ac_create_find_customer_set.setText("已设置("+ industryNameStr+")");
+
                     isReCreate = false;//将重新创建置false 定向 使用缓存的内容 更新界面
 //                    educationLevelF = data.getStringExtra("educationLevelF");
 //                    educationLevelB = data.getStringExtra("educationLevelB");

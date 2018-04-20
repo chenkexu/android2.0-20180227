@@ -10,7 +10,7 @@
         android:padding="5dp"
         android:background="@drawable/bg_code_round"
         android:id="@+id/tv_call_code"
-        android:layout_width="60dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="获取验证码"
@@ -43,7 +43,6 @@
     <View
         style="@style/line_style"
         android:id="@+id/line"
-        android:layout_below="@id/et_auth_code"
-       />
+        android:layout_below="@id/et_auth_code" />
 
 </RelativeLayout>

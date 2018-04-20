@@ -400,10 +400,10 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
                     return;
                 }
 
-                if (!RegexUtils.isURL(adLink)){
-                    ToastUtils.showShort("请输入有效的图片链接！");
-                    return;
-                }
+//                if (!RegexUtils.isURL(adLink)){
+//                    ToastUtils.showShort("请输入有效的图片链接！");
+//                    return;
+//                }
 
                 if (TextUtils.isEmpty(startdate)
                         || startdate.equals("开始日期")

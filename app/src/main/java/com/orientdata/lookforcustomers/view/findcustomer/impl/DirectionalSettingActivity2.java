@@ -507,6 +507,12 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
                     interestIds = interestIds.substring(0, interestIds.length() - 1);
                 }
 
+                // TODO: 2018/4/20 校验行业是否为空
+                if (!getTextState()) {
+                    ToastUtils.showShort("请选择行业");
+                    return;
+                }
+
                 //检查商业兴趣是否为空
                 if (checkEmpty(interestIds)) { //保存缓存数据
                     //缓存数据
@@ -1067,6 +1073,19 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
 
     }
 
+    //设置行业TextView的状态
+    private boolean getTextState(){
+        int sum =0;
+        for (int i=0;i<industrys.size();i++) {
+            if (industrys.get(i).isSelected()) {
+                sum++;
+            }
+        }
+        if (sum==0) {
+            return false;
+        }
+        return true;
+    }
 
 
 

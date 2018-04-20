@@ -28,7 +28,7 @@
         android:paddingStart="15dp"
         android:paddingTop="10dp"
         android:text="收件信息"
-        android:textColor="#1c1c1c"
+        android:textColor="@color/text_gray"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -51,9 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="电子邮件："
-            android:textColor="#414141"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textColor="@color/text_gray_small"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_email"
@@ -62,7 +61,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/tv_e_invoice_email"
             android:layout_toRightOf="@+id/tv_e_invoice_email"
-            android:textColor="#414141"
+            android:textColor="@color/text_gray_small"
             android:textSize="14sp" />
 
         <TextView
@@ -98,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="收件人："
-            android:textColor="#414141"
+            android:textColor="@color/text_gray_small"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -106,7 +105,7 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#414141"
+            android:textColor="@color/text_gray_small"
             android:textSize="14sp" />
 
     </LinearLayout>
@@ -187,7 +186,7 @@
         android:paddingStart="15dp"
         android:paddingTop="10dp"
         android:text="发票信息"
-        android:textColor="#1c1c1c"
+        android:textColor="@color/text_gray"
         android:textSize="15sp"
         android:textStyle="bold" />
     <!--发票抬头-->
@@ -206,15 +205,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="发票抬头："
-            android:textColor="#414141"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textColor="@color/text_gray_small"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#414141"
+            android:textColor="@color/text_gray_small"
             android:textSize="14sp" />
 
     </LinearLayout>
@@ -235,15 +233,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="纳税人识别号："
-            android:textColor="#414141"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textColor="@color/text_gray_small"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#414141"
+            android:textColor="@color/text_gray_small"
             android:textSize="14sp" />
 
     </LinearLayout>
@@ -263,15 +260,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="发票内容："
-            android:textColor="#414141"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textColor="@color/text_gray_small"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#414141"
+            android:textColor="@color/text_gray_small"
             android:textSize="14sp" />
 
     </LinearLayout>
@@ -291,9 +287,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="发票金额："
-            android:textColor="#414141"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textColor="@color/text_gray_small"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_money"
@@ -306,7 +301,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="元"
-            android:textColor="#414141"
+            android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
     </LinearLayout>
@@ -327,15 +322,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="申请时间："
-            android:textColor="#414141"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textColor="@color/text_gray_small"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#414141"
+            android:textColor="@color/text_gray_small"
             android:textSize="14sp" />
 
     </LinearLayout>
@@ -362,7 +356,7 @@
             android:layout_centerVertical="true"
             android:background="#ffffff"
             android:text="-张发票，含-个任务"
-            android:textColor="#1c1c1c"
+            android:textColor="@color/text_gray"
             android:textSize="15sp"
             android:textStyle="bold" />
 

@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.bean.Area;
@@ -91,6 +93,10 @@ public class EnterpriseCertificationFragment extends BaseFragment implements Vie
         initEvent();
         getData();
         getProvinceCity();
+
+//        ImmersionBar.with(this).
+//                keyboardEnable(true).init();
+
         return view;
     }
     private void initEvent() {

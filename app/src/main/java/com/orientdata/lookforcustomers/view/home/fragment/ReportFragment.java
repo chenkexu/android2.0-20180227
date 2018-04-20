@@ -538,6 +538,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
             tvPageDisplayNum.setText(reports.get(size - 1).getShowCount() + "");
             tvPageClickNum.setText(reports.get(size - 1).getClickCount() + "");
             tvMsgConNum.setText(reports.get(size - 1).getDuanxinmoney() + "");
+            //设置汇总数据
             tvMsgIssuedNum.setText(reports.get(size - 1).getSuccCount() + "");
         }
     }
@@ -801,7 +802,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     }
 
     private void setReportData(int type, Report report, int index, int size) {
-        if (type == 1) {
+        if (type == 1) {  //昨日
             yesterDayX[index] = getData(report.getName());
 //            yesterDayXText[index] = getDataText(report.getName());
             yesterDayXText[index] = report.getName();
@@ -820,7 +821,10 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
             latestSevenPageDisplayY[index] = report.getShowCount();
             latestSevenPageClickY[index] = report.getClickCount();
             latestSevenMsgConY[index] = getIntNum(report.getDuanxinmoney());
-            latestSevenMsgIssuedY[index] = getIntNum(report.getDuanxinmoney());
+            // TODO: 2018/4/20 写错了把，短信下发量。。
+            latestSevenMsgIssuedY[index] = report.getSuccCount();
+//            latestSevenMsgIssuedY[index] = getIntNum(report.getDuanxinmoney());
+
         } else if (type == 3) {
             lastWeekMoneyX[index] = getData(report.getName());
 //            lastWeekMoneyXText[index] = getDataText(report.getName());
@@ -985,12 +989,12 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
             linearCurTotalData.setVisibility(View.INVISIBLE);
         } else {
             linearCurTotalData.setVisibility(View.VISIBLE);
-            int total = 0;
-            int msgConsumption = 0;
-            int msgIssued = 0;
-            int pageConsumption = 0;
-            int pageDisplay = 0;
-            int pageClick = 0;
+            int total = 0; //总消费
+            int msgConsumption = 0; //短信消费
+            int msgIssued = 0; //短信下发量
+            int pageConsumption = 0; //页面消费
+            int pageDisplay = 0; //页面展示量
+            int pageClick = 0; //页面点击量
             String date = "";
             if (chooseType == 1) {
                 total = yesterDayMoneyY[index];

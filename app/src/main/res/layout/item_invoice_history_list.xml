@@ -21,7 +21,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:text="2017.08.30 15:09"
-            android:textColor="#414141"
+            android:textColor="@color/text_gray"
             android:textSize="14sp" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_toEndOf="@+id/tv_time"
             android:layout_toRightOf="@+id/tv_time"
             android:text="电子发票"
-            android:textColor="#414141"
+            android:textColor="@color/text_gray"
             android:textSize="14sp" />
 
         <TextView

@@ -113,13 +113,17 @@ public class ResetPasswordFragment extends BaseFragment implements View.OnClickL
                 NetWorkUtils.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
                     @Override
                     public void onSuccess(Response<WrResponse<Integer>> response) {
-                        int result = response.body().getResult();
-                        Logger.d(result==0);
-                        if (result==0) { //已经注册
-                            mLoginAndRegisterPresent.sendSms(phone);
-                        }else{  //没有注册
-                            ToastUtils.showShort("该手机号未注册，请先注册");
-                            return;
+                        if (response!=null) {
+                            int result = response.body().getResult();
+                            Logger.d(result==0);
+                            if (result==0) { //已经注册
+                                mLoginAndRegisterPresent.sendSms(phone);
+                            }else{  //没有注册
+                                ToastUtils.showShort("该手机号未注册，请先注册");
+                                return;
+                            }
+                        }else{
+                            ToastUtils.showShort("服务器异常");
                         }
                     }
                     @Override
@@ -198,13 +202,16 @@ public class ResetPasswordFragment extends BaseFragment implements View.OnClickL
             ToastUtils.showShort("修改成功");
             //关闭掉 前面的homeactivity 和 settingactivity
             EventBus.getDefault().post(new CloseEvent(CloseEvent.CLOSE_IN_LIST_ACTIVITY, HomeActivity.class, SettingActivity.class));
+
             //登录
             LoginFragment loginFragment = LoginFragment.newInstance(false);
             FragmentTransaction fragmentTransaction = getActivity()
                     .getSupportFragmentManager().beginTransaction();
+
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom
                     , R.anim.enter_from_bottom, R.anim.exit_from_bottom);
-            fragmentTransaction.add(R.id.fl_content, loginFragment);
+            fragmentTransaction.replace(R.id.fl_content, loginFragment);
+
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }

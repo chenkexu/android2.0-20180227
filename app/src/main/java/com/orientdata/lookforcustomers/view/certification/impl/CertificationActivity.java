@@ -64,6 +64,7 @@ public class CertificationActivity extends BaseActivity<ICertificateView, Certif
         setContentView(R.layout.activity_authentication);
         initView();
         initTitle();
+
         mPresent.getCertificateMsg();
     }
 

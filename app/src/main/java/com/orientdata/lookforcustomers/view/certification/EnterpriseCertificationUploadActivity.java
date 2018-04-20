@@ -227,6 +227,7 @@ public class EnterpriseCertificationUploadActivity extends ImageActivity impleme
             ToastUtils.showShort("请上传行业资质照片");
             return;
         }
+
         if (radioGroups != null && radioGroups.size() > 0) {
             for (RadioGroup radioGroup : radioGroups) {
                 if (radioGroup != null && radioGroup.getChildCount() > 1) {
@@ -237,6 +238,7 @@ public class EnterpriseCertificationUploadActivity extends ImageActivity impleme
                 }
             }
         }
+
         if (industries == null || subIndustries == null || certificationBean == null) {
             ToastUtils.showShort(R.string.input_remind);
             return;
@@ -535,6 +537,8 @@ public class EnterpriseCertificationUploadActivity extends ImageActivity impleme
                     final String subBusinessName = bso.getScopeName();
                     checkBox.setText(subBusinessName);
                     industryContainer.addView(checkBox);
+
+
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -679,7 +683,7 @@ public class EnterpriseCertificationUploadActivity extends ImageActivity impleme
             final SubIndustryDialog dialog = new SubIndustryDialog(mContext, R.style.Theme_Light_Dialog);
             dialog.setUpData(subIndustries);
             dialog.show();
-            dialog.setCancelable(false);
+            dialog.setCancelable(true);
             dialog.setOnchangeListener(new SubIndustryDialog.ChangeListener() {
                 @Override
                 public void onChangeListener(TradeCategoryOut tradeCategoryOut, int position) {

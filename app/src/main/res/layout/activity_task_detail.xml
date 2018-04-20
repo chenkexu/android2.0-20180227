@@ -62,7 +62,7 @@
                 android:paddingRight="10dp"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/ivDirection"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="#3660E5"
                 android:text="定向设置" />
 

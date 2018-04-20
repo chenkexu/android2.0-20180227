@@ -169,6 +169,7 @@
         <activity
             android:name=".view.findcustomer.CreateAdActivity2"
             android:screenOrientation="portrait" />
+
         <!-- 友盟推送 -->
         <meta-data
             android:name="UMENG_APPKEY"

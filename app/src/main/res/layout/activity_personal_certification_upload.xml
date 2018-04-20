@@ -44,9 +44,9 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:id="@+id/iv_at_personal_id_reverse_upload"
-                android:layout_height="130dp"
+                android:layout_height="160dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_width="wrap_content"
@@ -64,11 +64,12 @@
                 android:textStyle="bold" />
 
             <ImageView
+
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:scaleType="fitXY"
                 android:id="@+id/iv_at_personal_id_front_upload"
-                android:layout_height="130dp"
+                android:layout_height="160dp"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
@@ -88,7 +89,7 @@
                 android:layout_marginRight="50dp"
                 android:scaleType="fitXY"
                 android:id="@+id/iv_at_personal_id_hand_held_upload"
-                android:layout_height="130dp"
+                android:layout_height="160dp"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"

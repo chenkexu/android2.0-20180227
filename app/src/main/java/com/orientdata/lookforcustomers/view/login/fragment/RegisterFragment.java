@@ -176,14 +176,19 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 NetWorkUtils.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
                     @Override
                     public void onSuccess(Response<WrResponse<Integer>> response) {
-                        int result = response.body().getResult();
-                        Logger.d(result==0);
-                        if (result==0) { //已经注册
-                            ToastUtils.showShort("该手机号已注册，请直接登录");
-                            return;
-                        }else{  //没有注册
-                            mLoginAndRegisterPresent.sendSms(phone);
+                        if (response!=null) {
+                            int result = response.body().getResult();
+                            Logger.d(result==0);
+                            if (result==0) { //已经注册
+                                ToastUtils.showShort("该手机号已注册，请直接登录");
+                                return;
+                            }else{  //没有注册
+                                mLoginAndRegisterPresent.sendSms(phone);
+                            }
+                        }else{
+                            ToastUtils.showShort("服务器异常");
                         }
+
                     }
                     @Override
                     public void onError(Response<WrResponse<Integer>> response) {
