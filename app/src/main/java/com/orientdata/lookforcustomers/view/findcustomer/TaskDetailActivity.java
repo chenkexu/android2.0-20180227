@@ -22,10 +22,14 @@ import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
+import com.orientdata.lookforcustomers.view.ImagePagerActivity;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wy on 2017/11/25.
@@ -48,7 +52,7 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
     private LinearLayout linearPage,linearMessage;
     private TextView issuNum,msgMoney;
     private ACache aCache = null;//数据缓存
-
+    private String imagePath;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +94,7 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
         ivDirection.setOnClickListener(this);
         tvTestNum.setOnClickListener(this);
         tvDelete.setOnClickListener(this);
+        ivAd.setOnClickListener(this);
     }
     private void initTitle(){
         myTitle.setRightText("再次创建");
@@ -112,6 +117,15 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
             }
         });
     }
+
+    private void showBigPhoto(ImageView view,String path){
+        ImagePagerActivity.ImageSize imageSize = new ImagePagerActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
+        List<String> photoUrls = new ArrayList<>();
+        photoUrls.add(path);
+        ImagePagerActivity.startImagePagerActivity(this,photoUrls,0,imageSize);
+    }
+
+
     private void updateView(){
         if(taskOut != null){
             if(taskOut.getType()==1){
@@ -135,6 +149,7 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
                 if(!TextUtils.isEmpty(taskOut.getAdImgid())){
 //                    Glide.with(this).load(taskOut.getAdImgid()).into(ivAd);
                     GlideUtil.getInstance().loadAdImage(this,ivAd,taskOut.getAdImgid(),true);
+                    imagePath = taskOut.getAdImgid();
                 }
                 linearMessage.setVisibility(View.GONE);
                 linearPage.setVisibility(View.VISIBLE);
@@ -195,6 +210,9 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
                 break;
             case R.id.tvDelete:
                 mPresent.deletTask(task_id);
+                break;
+            case R.id.ivAd:
+                showBigPhoto(ivAd,imagePath);
                 break;
         }
 

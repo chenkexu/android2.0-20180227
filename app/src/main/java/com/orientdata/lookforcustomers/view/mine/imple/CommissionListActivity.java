@@ -1,12 +1,7 @@
 package com.orientdata.lookforcustomers.view.mine.imple;
 
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.orientdata.lookforcustomers.R;
@@ -16,18 +11,15 @@ import com.orientdata.lookforcustomers.bean.CommissionListBean;
 import com.orientdata.lookforcustomers.event.CommissionListEvent;
 import com.orientdata.lookforcustomers.presenter.CommissionPresent;
 import com.orientdata.lookforcustomers.util.DateTool;
-import com.orientdata.lookforcustomers.view.home.fragment.MyAdapter;
 import com.orientdata.lookforcustomers.view.mine.ICommissionView;
 import com.orientdata.lookforcustomers.view.mine.MyCommissionListItemAdapter;
 import com.orientdata.lookforcustomers.view.xlistview.XListView;
 import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter;
-import com.orientdata.lookforcustomers.widget.DateSelectPopupWindow;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.DatePickerDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**

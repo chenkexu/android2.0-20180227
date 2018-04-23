@@ -37,6 +37,16 @@ public class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);//反注册EventBus
+        hideDefaultLoading();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (progressDialog != null && !getActivity().isFinishing()) {
+            progressDialog.dismiss();
+            progressDialog=null;
+        }
     }
 
     /**
@@ -56,6 +66,7 @@ public class BaseFragment extends Fragment {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
     }
+
 
     /**
      * 隐藏默认的进度条

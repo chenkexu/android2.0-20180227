@@ -408,7 +408,9 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             Logger.d("传过来的已经创建好的任务类型的详情：");
             mThrowAddress = mTaskOut.getThrowAddress();//上一次的投放地址
             String rangeRadius = mTaskOut.getRangeRadius();//上次的投放半径
-            if (!TextUtils.isEmpty(rangeRadius)) {
+
+
+            if (!TextUtils.isEmpty(rangeRadius)) {      //设置范围半径
                 for (int i = 0; i < mCircleRadiusKM.length; i++) {
                     if (rangeRadius.equals(mCircleRadiusKM[i])) {
                         mCurrentScaleLevelPositon = i;
@@ -424,15 +426,16 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             } else if (type == 2) {
                 tv_at_create_find_customer_type.setText("页面任务");
             }
-            //定向设置
+
+            //上次的定向设置
             OrientationSettingsOut orientationSettingsOut = mTaskOut.getOrientationSettingsOut();
             ageF = orientationSettingsOut.getAgeF();
             ageB = orientationSettingsOut.getAgeB();
             sex = orientationSettingsOut.getSex();
-
+            industryNameStr = mTaskOut.getIndustryName(); //行业名称
+            industryMark = mTaskOut.getCustomFlag()+"";//是否自定义
 
             List<String> xingqu = orientationSettingsOut.getXingqu();//兴趣数组
-
             for (int i = 0; i < xingqu.size(); i++) {
                 if (i == 0) {
                     interestIds = interestIds + xingqu.get(i);
@@ -815,6 +818,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             } else if (type == 2) { //创建页面任务
                 intent.setClass(CreateFindCustomerActivity.this, PageTaskActivity.class);
             }
+
             intent.putExtra("ageF", ageF);
             intent.putExtra("ageB", ageB);
 //            intent.putExtra("educationLevelF", educationLevelF);
@@ -841,6 +845,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
             intent.putExtra("industryMark", industryMark);
             intent.putExtra("industryNameStr", industryNameStr);
+
+
             final int type2 = type;
 
             //下一步验证
@@ -977,7 +983,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
 
     private void showDialog() {
-        final ConfirmDialog dialog = new ConfirmDialog(this, "您的地域有变动，请重新设置任务", "确定");
+        final ConfirmDialog dialog = new ConfirmDialog(this, "您的地域有变动，请重新设置任务", "确定","确定");
         dialog.show();
         dialog.setConfirmVisibility(View.GONE);
         dialog.setClickListenerInterface(new ConfirmDialog.ClickListenerInterface() {
@@ -1056,7 +1062,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
                     if (!TextUtils.isEmpty(mCityName)) {
                         tv_at_create_find_customer_location.setText(mCityName.trim().toCharArray(), 0, 3);
-                        tvMore.setVisibility(View.GONE);
+//                        tvMore.setVisibility(View.GONE);
                         //地址转坐标
                         mSearch.geocode(new GeoCodeOption()
                                 .city(mCityName).address(mCityName));
@@ -1286,7 +1292,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         if (!TextUtils.isEmpty(mCityName)) {
             Logger.d("最终获得的mCityName是:"+mCityName);
             tv_at_create_find_customer_location.setText(mCityName.trim().toCharArray(), 0, 3);
-            tvMore.setVisibility(View.GONE);
+//            tvMore.setVisibility(View.GONE);
             //根据城市名称查看是否有业务
             requestCityStatus(mCityName);
         }

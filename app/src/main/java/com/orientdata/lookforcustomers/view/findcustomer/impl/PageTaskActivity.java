@@ -190,6 +190,7 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
 
             industryMark = intent.getStringExtra("industryMark");
             industryNameStr = intent.getStringExtra("industryNameStr");
+
             minMoney = intent.getDoubleExtra("minMoney", 1000);
 
         }
@@ -328,9 +329,9 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
             map.put("industry", industryNameStr); //行业名称
 
 
-        /*map.put("adImgid", "");
-        map.put("adLink", "");
-        map.put("templateId", "");*/
+            /*map.put("adImgid", "");
+            map.put("adLink", "");
+            map.put("templateId", "");*/
 
             map.put("startdate", startdate);
             map.put("enddate", enddate);

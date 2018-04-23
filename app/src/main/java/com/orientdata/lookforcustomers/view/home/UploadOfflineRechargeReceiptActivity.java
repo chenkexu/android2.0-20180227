@@ -61,6 +61,7 @@ public class UploadOfflineRechargeReceiptActivity extends WangrunBaseActivity im
     private String accountName;
     private String accountNumber;
     private String money;
+    private double mRechargeMinMoney;
 
 
     @Override
@@ -72,12 +73,15 @@ public class UploadOfflineRechargeReceiptActivity extends WangrunBaseActivity im
     }
 
     private void initView() {
+        Intent intent = getIntent();
+        mRechargeMinMoney = intent.getDoubleExtra("mRechargeMinMoney",6000);
         title = findViewById(R.id.mt_title);
         et_bank_name = findViewById(R.id.et_bank_name);
         et_serial_number = findViewById(R.id.et_serial_number);
         et_account_name = findViewById(R.id.et_account_name);
         et_account_number = findViewById(R.id.et_account_number);
         et_money = findViewById(R.id.et_money);
+        et_money.setHint("最低"+mRechargeMinMoney+"元起充");
         iv_upload = findViewById(R.id.iv_upload);
         iv_upload.setOnClickListener(this);
         tv_submit = findViewById(R.id.tv_submit);

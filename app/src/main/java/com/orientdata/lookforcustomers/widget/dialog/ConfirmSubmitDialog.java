@@ -43,8 +43,8 @@ public class ConfirmSubmitDialog extends Dialog {
     public ConfirmSubmitDialog(Context context,String remindTitle, String remindString) {
         super(context, R.style.RemindDialog);
         this.context = context;
-        this.remindString = remindString;
         this.remindTitle = remindTitle;
+        this.remindString = remindString;
     }
 
     @Override
@@ -61,10 +61,10 @@ public class ConfirmSubmitDialog extends Dialog {
         TextView tvCancel = view.findViewById(R.id.tvCancel);
         TextView tvConfirm = view.findViewById(R.id.tvConfirm);
         TextView tvRemindTitle = view.findViewById(R.id.tvRemindTitle);
-        if(TextUtils.isEmpty(remindString)){
+        if(!TextUtils.isEmpty(remindString)){
             tvRemind.setText(remindString);
         }
-        if(TextUtils.isEmpty(remindTitle)){
+        if(!TextUtils.isEmpty(remindTitle)){
             tvRemindTitle.setText(remindTitle);
         }
         tvCancel.setOnClickListener(new clickListener());

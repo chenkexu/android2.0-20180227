@@ -45,12 +45,16 @@ public class ConfirmDialog extends Dialog {
         this.context = context;
         this.remindString = remindString;
     }
+
+    //设置右边字体
     public ConfirmDialog(Context context, String remindString,String rightText) {
         super(context, R.style.RemindDialog);
         this.context = context;
         this.remindString = remindString;
         this.rightText = rightText;
     }
+
+    //设置左右字体
     public ConfirmDialog(Context context, String remindString,String rightText,String leftText) {
         super(context, R.style.RemindDialog);
         this.context = context;
@@ -75,6 +79,7 @@ public class ConfirmDialog extends Dialog {
         if (!TextUtils.isEmpty(leftText)){
             tvCancel.setText(leftText);
         }
+
         if(!TextUtils.isEmpty(rightText)){
             tvConfirm.setText(rightText);
         }

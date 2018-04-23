@@ -20,83 +20,101 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:text="账户充值"
-        android:textColor="#1c1c1c"
+        android:textColor="@color/text_gray"
         android:textSize="14sp"
         android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
 
-        <TextView
-            android:id="@+id/tv_recharge200"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="70dp"
-            android:layout_marginStart="70dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_recharge_tv_checked"
-            android:gravity="center"
-            android:text="1000元"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tv_recharge500"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginEnd="70dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="70dp"
-            android:layout_marginStart="14dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_recharge_tv_unchecked"
-            android:gravity="center"
-            android:text="2000元"
-            android:textColor="@color/charge_text"
-            android:textSize="14sp" />
-    </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_zidingyi_money"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_recharge1000"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="70dp"
-            android:layout_marginStart="70dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_recharge_tv_unchecked"
-            android:gravity="center"
-            android:text="3000元"
-            android:textColor="@color/charge_text"
-            android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-        <TextView
-            android:id="@+id/tv_recharge3000"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginEnd="70dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="70dp"
-            android:layout_marginStart="14dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_recharge_tv_unchecked"
-            android:gravity="center"
-            android:text="5000元"
-            android:textColor="@color/charge_text"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_recharge200"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginStart="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_recharge_tv_checked"
+                android:gravity="center"
+                android:text="1000元"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_recharge500"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="70dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginStart="14dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_recharge_tv_unchecked"
+                android:gravity="center"
+                android:text="2000元"
+                android:textColor="@color/charge_text"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tv_recharge1000"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginStart="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_recharge_tv_unchecked"
+                android:gravity="center"
+                android:text="3000元"
+                android:textColor="@color/charge_text"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_recharge3000"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="70dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginStart="14dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_recharge_tv_unchecked"
+                android:gravity="center"
+                android:text="5000元"
+                android:textColor="@color/charge_text"
+                android:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
+
+
+
+
+
+
+
 
     <RelativeLayout
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginEnd="70dp"

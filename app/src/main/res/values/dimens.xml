@@ -8,4 +8,5 @@
     <dimen name="text_size_11">11sp</dimen>
     <dimen name="text_size_10">10sp</dimen>
     <dimen name="status_bar_height">25dp</dimen>
+    <dimen name="gudieview_width">6dp</dimen>
 </resources>

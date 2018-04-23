@@ -17,9 +17,13 @@ import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.QualificationCertificationUser;
 import com.orientdata.lookforcustomers.presenter.CertificatePresent;
 import com.orientdata.lookforcustomers.util.GlideUtil;
+import com.orientdata.lookforcustomers.view.ImagePagerActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.orientdata.lookforcustomers.R.id.view;
 
 /**
  * 资质查看
@@ -34,6 +38,7 @@ public class WathchCertificationActivity extends BaseActivity<ICertificateView, 
     private LinearLayout ll_id_certification_container;
     private LinearLayout ll_industry_certification_container;
     private TextView tv_certification_topic;
+//    private List<String> photoUrls ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,16 +137,38 @@ public class WathchCertificationActivity extends BaseActivity<ICertificateView, 
         }
     }
 
-    public void setImageBitmapPersonId(ImageView imageView, String path) {
+    //设置个人图片
+    public void setImageBitmapPersonId(final ImageView imageView, final String path) {
         if (!TextUtils.isEmpty(path)) {
             GlideUtil.getInstance().loadCertificateImageId(this,imageView,path,true);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showBigPhoto(imageView,path);
+                }
+            });
 //            Glide.with(this).load(path).into(imageView);
         }
     }
 
-    public void setImageBitmap(ImageView imageView, String path) {
+    private void showBigPhoto(ImageView view,String path){
+        ImagePagerActivity.ImageSize imageSize = new ImagePagerActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
+        List<String> photoUrls = new ArrayList<>();
+        photoUrls.add(path);
+        ImagePagerActivity.startImagePagerActivity(this,photoUrls,0,imageSize);
+    }
+
+
+    //设置企业图片
+    public void setImageBitmap(final ImageView imageView, final String path) {
         if (!TextUtils.isEmpty(path)) {
             GlideUtil.getInstance().loadCertificateImage(this,imageView,path,true);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showBigPhoto(imageView,path);
+                }
+            });
 //            Glide.with(this).load(path).into(imageView);
         }
     }
@@ -154,7 +181,6 @@ public class WathchCertificationActivity extends BaseActivity<ICertificateView, 
         ll_id_certification_container = findViewById(R.id.ll_id_certification_container);
         ll_industry_certification_container = findViewById(R.id.ll_industry_certification_container);
         tv_certification_topic = findViewById(R.id.tv_certification_topic);
-
     }
 
     /**
@@ -193,5 +219,10 @@ public class WathchCertificationActivity extends BaseActivity<ICertificateView, 
 
     public CertificatePresent<ICertificateView> getPresent() {
         return mPresent;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

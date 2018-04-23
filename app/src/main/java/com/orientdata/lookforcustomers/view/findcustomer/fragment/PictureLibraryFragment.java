@@ -145,17 +145,19 @@ public class PictureLibraryFragment extends BaseFragment implements IImgView, Vi
             @Override
             public void onItemClick(final RelativeLayout toggle, int position, ToggleButton tbutton) {
                 if(isEdit){
-                    if (tbutton.isChecked()) {
+                    if (tbutton.isChecked()) { //如果已经选中
                         //删除 choose
                         tbutton.setChecked(false);
+
                         for(int i=0;i<picListChoose.size();i++){
                             if((picListChoose.get(i).getUserPicStoreId()== picList.get(position).getUserPicStoreId())){
                                 picListChoose.remove(i);
                                 break;
                             }
                         }
+
                         tvChoose.setText("全选");
-                    } else {
+                    } else { //没有选中
                         //增加
                         tbutton.setChecked(true);
                         picListChoose.add(picList.get(position));
@@ -221,13 +223,13 @@ public class PictureLibraryFragment extends BaseFragment implements IImgView, Vi
             //图标是暗的
             tvDowload.setEnabled(false);
             iv_delete.setEnabled(false);
-            tvDowload.setImageResource(R.mipmap.xiazai);
-            iv_delete.setImageResource(R.mipmap.lajixiang);
+            tvDowload.setImageResource(R.mipmap.download);
+            iv_delete.setImageResource(R.mipmap.image_delete);
         }else{
             tvDowload.setEnabled(true);
             iv_delete.setEnabled(true);
-            tvDowload.setImageResource(R.mipmap.xiazai_blue);
-            iv_delete.setImageResource(R.mipmap.lajixiang_blue);
+            tvDowload.setImageResource(R.mipmap.download_check);
+            iv_delete.setImageResource(R.mipmap.image_delete_check);
         }
     }
     private void chooseAll(){
@@ -241,7 +243,7 @@ public class PictureLibraryFragment extends BaseFragment implements IImgView, Vi
                 picListChoose.clear();
             }
             picListChoose.addAll(picList);
-            tvChoose.setText("反选");
+            tvChoose.setText("取消全选");
         }else{
             if(picListChoose!=null && picListChoose.size()>0){
                 picListChoose.clear();
@@ -308,12 +310,15 @@ public class PictureLibraryFragment extends BaseFragment implements IImgView, Vi
                 for(UserPicStore userPicStore:picListChoose){
                     str1.append(userPicStore.getUserPicStoreId()+",");
                 }
+                //删除对话框
                 showRemindDialog(str1.toString());
                 break;
         }
 
     }
 
+
+    //删除对话框
     private void showRemindDialog(final String strDelete){
         final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(getContext(),"确定删除？","删除后将无法找回");
         dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
@@ -330,6 +335,8 @@ public class PictureLibraryFragment extends BaseFragment implements IImgView, Vi
         });
         dialog.show();
     }
+
+
     @Subscribe
     public void picDeleteResult(PicDeleteResultEvent picDeleteResultEvent) {
         if(picDeleteResultEvent.errBean.getCode() == 0){
@@ -337,6 +344,7 @@ public class PictureLibraryFragment extends BaseFragment implements IImgView, Vi
             //更新数据
             for(int i=0;i<picListChoose.size();i++){
                 for(int j=0;j<picList.size();j++){
+                    //如果选择的集合和返回的图片列表的id相同
                     if((picListChoose.get(i).getUserPicStoreId()== picList.get(j).getUserPicStoreId())){
                         picList.remove(i);
                         break;

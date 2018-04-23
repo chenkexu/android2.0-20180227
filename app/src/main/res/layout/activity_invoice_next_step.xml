@@ -267,6 +267,8 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:digits="0123456789qwertyuioplkjhgfdsazxcvbnm"
+                        android:maxLength="18"
                         android:id="@+id/et_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -311,7 +313,7 @@
                         android:layout_marginRight="15dp"
                         android:paddingLeft="5dp"
                         android:paddingStart="5dp"
-                        android:text="服务费"
+                        android:text="信息服务费"
                         android:textColor="#999999"
                         android:textSize="14sp" />
 

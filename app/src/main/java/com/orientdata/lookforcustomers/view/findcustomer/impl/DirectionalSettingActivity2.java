@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.map.Text;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
@@ -199,7 +200,7 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
         /**
          * 设置是否可点
          */
-        setEnable(false, age_to);
+//        setEnable(false, age_to);
 //        setEnable(false, edu_to);
 //        setEnable(false, consumption_to);
 //        setEnable(false, model_to);
@@ -490,6 +491,10 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
                 String ageB = tv_mAgeTo.getText().toString().trim();
                 String sex = tv_mSex.getText().toString().trim();
 
+                if (TextUtils.isEmpty(ageF)|| TextUtils.isEmpty(ageB)) {
+                    ToastUtils.showShort("请选择用户年龄");
+                    return;
+                }
 
                 String interestIds = "";//兴趣名称数组,以逗号隔开的 如 "教育,学前教育,东磁教育"
                 for (Map.Entry<String, List<String>> map : hobbyMap.entrySet()) {
@@ -1073,7 +1078,7 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
 
     }
 
-    //设置行业TextView的状态
+    //设置各个行业TextView的状态
     private boolean getTextState(){
         int sum =0;
         for (int i=0;i<industrys.size();i++) {
@@ -1086,7 +1091,4 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
         }
         return true;
     }
-
-
-
 }

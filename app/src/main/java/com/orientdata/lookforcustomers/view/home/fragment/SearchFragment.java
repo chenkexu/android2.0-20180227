@@ -105,11 +105,12 @@ public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<I
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                //进入详情页
-                Intent intent = new Intent(getContext(), TaskDetailActivity.class);
-                intent.putExtra("taskId",searchList.get(position-1).getTaskId());
-                startActivity(intent);
+                if (searchList!=null && searchList.size()>0 && position>0) {
+                    //进入详情页
+                    Intent intent = new Intent(getContext(), TaskDetailActivity.class);
+                    intent.putExtra("taskId",searchList.get(position-1).getTaskId());
+                    startActivity(intent);
+                }
             }
         });
     }

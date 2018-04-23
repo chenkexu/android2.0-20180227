@@ -500,6 +500,7 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.tv_offline_recharge_btn:
                 Intent offlineIntent = new Intent(this, OfflineRechargeActivity.class);
+                offlineIntent.putExtra("mRechargeMinMoney", mRechargeMinMoney);
                 startActivity(offlineIntent);
                 break;
             case R.id.rl_weixin:

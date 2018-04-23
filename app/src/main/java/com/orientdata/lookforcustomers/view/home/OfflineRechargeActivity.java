@@ -24,6 +24,7 @@ import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.xlistview.XListView1;
 import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter1;
 import com.orientdata.lookforcustomers.widget.MyTitle;
+import com.orientdata.lookforcustomers.widget.graph.MyChartView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,6 +43,7 @@ public class OfflineRechargeActivity extends WangrunBaseActivity implements View
     int mSize = 10;
     private List<OfflineRechargeBean> mOfflineRechargeBeans = null;
     private MyOfflineRechargeListAdapter mAdapter;
+    private double mRechargeMinMoney;
 
 
     @Override
@@ -133,15 +135,20 @@ public class OfflineRechargeActivity extends WangrunBaseActivity implements View
     }
 
     private void initTitle() {
+        Intent intent = getIntent();
+        mRechargeMinMoney = intent.getDoubleExtra("mRechargeMinMoney",6000);
         title.setTitleName("线下充值");
         title.setImageBack(this);
         title.setRightText("上传充值凭证");
         title.setRightTextClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getBaseContext(), UploadOfflineRechargeReceiptActivity.class), 1);
+                Intent intent = new Intent(getBaseContext(), UploadOfflineRechargeReceiptActivity.class);
+                intent.putExtra("mRechargeMinMoney",mRechargeMinMoney);
+                startActivityForResult(intent, 1);
             }
         });
+
     }
 
     @Override

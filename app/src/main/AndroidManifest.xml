@@ -96,6 +96,7 @@
             android:name=".view.clip.ClipActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".test.TestActivity" />
+        <activity android:name=".view.ImagePagerActivity" />
         <activity
             android:name=".view.GuideActivity"
             android:screenOrientation="portrait">

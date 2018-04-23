@@ -194,7 +194,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                         String sign = (String) response.getResult().get("sign");
                         etEnterpriseSignature.setText(sign);
                         setEnable();
-                        tvMessageSign.setText(sign);
+                        tvMessageSign.setText(etEnterpriseSignature.getText().toString());
                     }
 
 
@@ -247,7 +247,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
             industryNameStr = intent.getStringExtra("industryNameStr");
 
             minMoney = intent.getDoubleExtra("minMoney",1000);
-
+            // TODO: 2018/4/23 测试号也得传过来 
 
 
 
@@ -489,17 +489,11 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                             String s2 = split[1];
                             String s1 = etEnterpriseSignature.getText().toString() + s2.toString();
                             numCount = s1.length() + tvUnsubscribe.getText().length();
-                        }else { //短信没内容
+                        } else { //短信没内容
                             numCount = tvMessageSign.getText().length() + tvUnsubscribe.getText().length();
                         }
                     }
-
-
-
                     etMsgContent.addTextChangedListener(this);
-
-
-
                 }
             }
 
@@ -703,8 +697,13 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 content = etMsgContent.getText().toString().trim();
                 budget = etBudget.getText().toString().trim();
                 String signStr = etEnterpriseSignature.getText().toString().trim();
-
                 String contentAll = content + tvUnsubscribe.getText().toString();
+
+                if (TextUtils.isEmpty(signStr)) {
+                    ToastUtils.showShort("请输入企业签名");
+                    isSubmitting = false;
+                    return;
+                }
 
                 if (signStr.length()>2){
                     String substring = signStr.substring(1, signStr.length() - 1);

@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
@@ -186,7 +187,7 @@ public class LocalUploadFragment extends BaseFragment implements IImgView, View.
         long size = getBitmapsize(bm);
         if (size > 100 * 1024) {
 //                filePaths.add(path);
-            showDefaultLoading();
+//            showDefaultLoading();
             //压缩保存图片
             final Bitmap tempBitmap = bm;
 
@@ -204,7 +205,6 @@ public class LocalUploadFragment extends BaseFragment implements IImgView, View.
                         //ImageTools.savePhotoToSDCard(ImageTools.compassBitmap(tempBitmap, 4 * 1024), savePath1);
                         ImageTools.compassBitmap(tempBitmap, 100, IMAGE_FILE_LOCATION_Path);
                     } finally {
-                        hideDefaultLoading();
                     }
                 }
             }).start();
