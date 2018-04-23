@@ -85,7 +85,7 @@ public class CertificationActivity extends BaseActivity<ICertificateView, Certif
         tvNum = (TextView) findViewById(R.id.tvNum);
         tvContactRemind = (TextView) findViewById(R.id.tvContactRemind);
         tvCardRemind = (TextView) findViewById(R.id.tvCardRemind);
-        linearContact =  findViewById(R.id.linearContact);
+        linearContact = (LinearLayout) findViewById(R.id.linearContact);
         tvCard = (TextView) findViewById(R.id.tvCard);
         linearEnterprise = (LinearLayout) findViewById(R.id.linearEnterprise);
         tvAddressRemind = (TextView) findViewById(R.id.tvAddressRemind);

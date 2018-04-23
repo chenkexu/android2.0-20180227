@@ -173,7 +173,7 @@ public class HttpConstant {
     /*线下支付-上传凭证*/
     public static final String SELECT_AREA_LISTS = HOST_URL + "pub/selectareaList";
 
-    /*线下支付-上传凭证*/
+    /*分享*/
     public static final String CREATE_URL = HOST_URL + "app/user/createUrl";
 
     /*线下支付-获取最小充值金额*/

@@ -124,7 +124,7 @@ public class ShareToGetCommissionActivity extends WangrunBaseActivity implements
                 ShareManager.getInstance().shareQQZONE(this, shareEntity);
                 break;
             case R.id.tvActivityDescription:
-                MyOpenActivityUtils.openCommonWebView(this, "活动说明", "http://www.orientdata.cn/activity.htm");
+                MyOpenActivityUtils.openCommonWebView(this, "活动说明", "http://www.orientdata.cn/activity.html");
                 break;
         }
 

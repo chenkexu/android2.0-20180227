@@ -214,7 +214,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
-                android:text="收款人开户行:"
+                android:text="开户行:"
                 android:textColor="@color/text_charge"
                 android:textSize="14sp" />
 
