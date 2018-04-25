@@ -16,8 +16,6 @@ import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.InterestCategory;
-import com.orientdata.lookforcustomers.bean.InterestTagImportOut;
-import com.orientdata.lookforcustomers.bean.PhoneModelTag;
 
 import java.util.List;
 

@@ -2,35 +2,23 @@ package com.orientdata.lookforcustomers.view.findcustomer.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
-import com.baidu.location.Poi;
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.app.MyApplication;
 import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.bean.Area;
 import com.orientdata.lookforcustomers.bean.AreaOut;
-import com.orientdata.lookforcustomers.bean.CertificationBean;
 import com.orientdata.lookforcustomers.presenter.CityPickPresent;
-import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.util.map.LocationService;
-import com.orientdata.lookforcustomers.view.certification.EnterpriseCertificationUploadActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.ICityPickView;
 import com.orientdata.lookforcustomers.widget.abslistview.CommonAdapter;
 import com.orientdata.lookforcustomers.widget.abslistview.ViewHolder;
@@ -38,12 +26,7 @@ import com.orientdata.lookforcustomers.widget.abslistview.ViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-import vr.md.com.mdlibrary.UserDataManeger;
-
-import static android.R.attr.id;
-import static android.R.attr.numberPickerStyle;
 import static android.app.Activity.RESULT_OK;
-import static com.orientdata.lookforcustomers.R.id.textView;
 
 /**
  * Created by wy on 2017/11/16.

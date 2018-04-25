@@ -1,7 +1,6 @@
 package com.orientdata.lookforcustomers.network;
 
 import android.app.ActivityManager;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -55,7 +54,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import vr.md.com.mdlibrary.MyApp;
 import vr.md.com.mdlibrary.okhttp.ImageUtils;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDSecureRequestMap;
 import vr.md.com.mdlibrary.utils.ImageUtils2;
@@ -237,9 +235,8 @@ public class OkHttpClientManager {
             return;
         MDSecureRequestMap mdSecureRequestMap = new MDSecureRequestMap(params);
         Logger.d("url地址是："+url);
-        Logger.d(mdSecureRequestMap);
+        Logger.d("参数是："+mdSecureRequestMap);
         if (checkNeedLogin(mdSecureRequestMap)) {
-            Logger.d("url地址是: "+url);
             int size = mdSecureRequestMap.size();
             Param[] res = new Param[size];
             Set<Map.Entry<String, String>> entries = mdSecureRequestMap.entrySet();

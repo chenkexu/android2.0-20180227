@@ -3,17 +3,11 @@ package com.orientdata.lookforcustomers.view.login.imple;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.app.MyApplication;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
-import com.orientdata.lookforcustomers.util.AppManager;
-import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.login.ILoginAndRegisterView;
 import com.orientdata.lookforcustomers.view.login.fragment.LoginFragment;
 import com.orientdata.lookforcustomers.view.login.fragment.RegisterFragment;
@@ -33,16 +27,23 @@ public class LoginAndRegisterActivity extends BaseActivity<ILoginAndRegisterView
     private boolean isReLogin = false;//是不是重新登录
     private boolean isNoBack = false;//是否禁掉返回键
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        setImmersiveStatusBar(true, R.color.white);
+//        ImmersionBar.with(this)
+//                .fitsSystemWindows(true)
+//                .statusBarDarkFont(true, 0.2f)
+//                  //使用该属性,必须指定状态栏颜色
+//                .statusBarColor(R.color.bg_white).init();
+    }
 
-        mImmersionBar.keyboardEnable(false)
-                .statusBarDarkFont(true, 0.2f)
-                  //使用该属性,必须指定状态栏颜色
-                .statusBarColor(R.color.bg_white).init();
+    @Override
+    protected boolean isImmersionBarEnabled() {
+        return false;
     }
 
     private void initView() {

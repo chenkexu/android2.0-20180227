@@ -9,6 +9,7 @@ import com.orientdata.lookforcustomers.model.imple.CertificateModelImple;
 import com.orientdata.lookforcustomers.model.imple.ProvinceCityModelImple;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.ICertificateView;
+
 import java.util.List;
 /**
  * Created by wy on 2017/11/18.

@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.Industry;
 

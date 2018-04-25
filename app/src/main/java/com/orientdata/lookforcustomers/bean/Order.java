@@ -1,7 +1,6 @@
 package com.orientdata.lookforcustomers.bean;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 /**
  * Created by wy

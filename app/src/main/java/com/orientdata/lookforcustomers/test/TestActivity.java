@@ -4,18 +4,21 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
+import com.orientdata.lookforcustomers.bean.MessageTypeBean;
+import com.orientdata.lookforcustomers.bean.WrResponse;
+import com.orientdata.lookforcustomers.network.callback.WrCallback;
+import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
 import java.util.regex.Matcher;
@@ -23,8 +26,6 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.orientdata.lookforcustomers.R.id.tvNum;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -53,6 +54,21 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_msg_task);
         ButterKnife.bind(this);
+        NetWorkUtils.getSignAndId2("1100000", new WrCallback<WrResponse<MessageTypeBean>>() {
+            @Override
+            public void onSuccess(Response<WrResponse<MessageTypeBean>> response) {
+
+            }
+
+            @Override
+            public void onError(Response<WrResponse<MessageTypeBean>> response) {
+                super.onError(response);
+            }
+        });
+
+
+
+
 
 
         etEnterpriseSignature.addTextChangedListener(new TextWatcher() {

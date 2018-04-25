@@ -19,7 +19,6 @@ import android.support.annotation.RawRes;
 import android.text.TextUtils;
 import android.util.Base64;
 
-
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.app.MyApplication;
 

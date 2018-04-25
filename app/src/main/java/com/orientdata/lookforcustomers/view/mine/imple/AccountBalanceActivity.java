@@ -17,7 +17,6 @@ import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.view.mine.BalanceListItemAdapter;
 import com.orientdata.lookforcustomers.view.mine.ICommissionView;
-import com.orientdata.lookforcustomers.view.mine.MyCommissionListItemAdapter;
 import com.orientdata.lookforcustomers.view.xlistview.XListView;
 import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter;
 import com.orientdata.lookforcustomers.widget.MyTitle;
@@ -25,7 +24,6 @@ import com.orientdata.lookforcustomers.widget.dialog.DatePickerDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**

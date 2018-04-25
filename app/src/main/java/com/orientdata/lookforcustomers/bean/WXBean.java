@@ -1,7 +1,5 @@
 package com.orientdata.lookforcustomers.bean;
 
-import java.math.BigDecimal;
-
 /**
  * Created by wy
  * on 2017-12-03.

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.bean.Area;
@@ -29,8 +30,10 @@ import com.orientdata.lookforcustomers.widget.EditTextViewIdCode;
 import com.orientdata.lookforcustomers.widget.EditTextViewNumBer;
 import com.orientdata.lookforcustomers.widget.dialog.CityDialog;
 import com.orientdata.lookforcustomers.widget.dialog.ProvinceCityDialog;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import vr.md.com.mdlibrary.UserDataManeger;
 
 /**

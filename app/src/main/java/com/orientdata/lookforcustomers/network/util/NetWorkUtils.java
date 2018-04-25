@@ -20,9 +20,6 @@ import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 public class NetWorkUtils {
 
 
-
-
-
     //获取要展示的测试号
     public static void getOperateState(String cityCode,int type,WrCallback<WrResponse<String>> callback){
 
@@ -33,7 +30,9 @@ public class NetWorkUtils {
                 .execute(callback);
     }
 
-    //获取要展示的测试号
+
+
+    //是否注册
     public static void phoneIsRegiste(String phone,WrCallback<WrResponse<Integer>> callback){
 
         OkGo.<WrResponse<Integer>>post(HttpConstant.phone_is_register)
@@ -46,10 +45,14 @@ public class NetWorkUtils {
 
     //获取敏感词
     public static void getSelectWord(String content,WrCallback<WrResponse<Integer>> callback){
-
         OkGo.<WrResponse<Integer>>post(HttpConstant.selectWord)
-                .params("userId",UserDataManeger.getInstance().getUserId())
                 .params("content",content)
+                .execute(callback);
+    }
+    public static void getSignAndId2(String provincecode,WrCallback<WrResponse<MessageTypeBean>> callback){
+        OkGo.<WrResponse<MessageTypeBean>>post(HttpConstant.GET_SIGN_AND_TD)
+                .params("userId",UserDataManeger.getInstance().getUserId())
+                .params("provincecode",provincecode)
                 .execute(callback);
     }
 
@@ -60,16 +63,6 @@ public class NetWorkUtils {
         map.put("userId", UserDataManeger.getInstance().getUserId());
         map.put("provincecode",provincecode);
         OkHttpClientManager.postAsyn(HttpConstant.GET_SIGN_AND_TD, callback, map);
-    }
-
-
-
-    public static void getSignAndId2(String provincecode,WrCallback<WrResponse<MessageTypeBean>> callback){
-
-        OkGo.<WrResponse<MessageTypeBean>>post(HttpConstant.GET_SIGN_AND_TD)
-                .params("userId",UserDataManeger.getInstance().getUserId())
-                .params("provincecode",provincecode)
-                .execute(callback);
     }
 
 

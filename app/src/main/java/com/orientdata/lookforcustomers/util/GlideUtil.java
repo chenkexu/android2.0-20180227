@@ -10,10 +10,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.orientdata.lookforcustomers.R;
 
-
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-
-import static android.R.attr.id;
 
 
 public class GlideUtil {

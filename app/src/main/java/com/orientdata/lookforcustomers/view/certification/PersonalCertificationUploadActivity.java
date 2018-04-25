@@ -18,8 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.BusinessScope;
 import com.orientdata.lookforcustomers.bean.BusinessScopeOut;
@@ -38,7 +36,6 @@ import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
-import com.orientdata.lookforcustomers.view.certification.fragment.PersonalCertificationFragment;
 import com.orientdata.lookforcustomers.view.certification.impl.CertificationActivity;
 import com.orientdata.lookforcustomers.view.clip.ImageActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;

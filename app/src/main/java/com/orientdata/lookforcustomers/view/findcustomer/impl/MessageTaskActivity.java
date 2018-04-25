@@ -12,33 +12,25 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
-import com.orientdata.lookforcustomers.bean.ChargeMinMoneyBean;
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.bean.MyInfoBean;
 import com.orientdata.lookforcustomers.bean.SelectWordBean;
 import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
-import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
-import com.orientdata.lookforcustomers.network.callback.WrCallback;
-import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
 import com.orientdata.lookforcustomers.presenter.TaskPresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
-import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.RegexUtils;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
@@ -50,7 +42,6 @@ import com.orientdata.lookforcustomers.view.findcustomer.TestPhoneSettingActivit
 import com.orientdata.lookforcustomers.widget.DateSelectPopupWindow;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmSubmitDialog;
-import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,7 +57,6 @@ import butterknife.ButterKnife;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
-import static com.baidu.location.h.k.ab;
 import static com.orientdata.lookforcustomers.R.id.et_budget;
 
 

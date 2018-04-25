@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.CornerPathEffect;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
@@ -15,22 +14,14 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.util.CommonUtils;
-import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.DensityUtils;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static android.R.attr.max;
-import static android.R.attr.startY;
 
 /**
  * 报表 折线
@@ -45,12 +36,12 @@ public class MyChartView extends View {
 	private int Ypoint;
 	// X,Y轴的单位长度
 	private int Xscale = 2;
-	private int xScale = 2;//多的
+	private int xScale = 2;//X轴每块区域的长度
 
 	private int Yscale = 5;
 
 	// X,Y轴上面的显示文字
-	private String[] Xlabel = {"", "", "", "", "", ""};
+	private String[] Xlabel = {"", "", "", "", "", ""}; //X轴显示的文字
 	private String[] Ylabel = {"0", "100", "200", "300", "400", "500"};
 
 	private int[] y = {0};
@@ -130,7 +121,7 @@ public class MyChartView extends View {
 			Ylabel[2] = length * 2+"";
 			Ylabel[1] = length + "";
 			Ylabel[0] = "0";
-			Logger.e("maxY:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
+//			Logger.e("maxY:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
 		}
 	}
 
@@ -140,10 +131,6 @@ public class MyChartView extends View {
 		super(context);
 
 		setYlabel(max);
-//		for (int i=0;i<y.length;i++) {
-//			Logger.e("y轴数据为："+y[i]);
-//		}
-
 		this.mContext = context;
 		Margin = CommonUtils.dipToPx(context,10);
 		if (null != xlabel) {
@@ -205,13 +192,13 @@ public class MyChartView extends View {
 		Xpoint = 3*this.Margin;
 		//初始化Y轴的原点
 		Ypoint = this.getHeight() - 2*this.Margin;
-		if(this.Xlabel.length - 1 == 0){
+		if(this.Xlabel.length - 1 == 0){ //如果只有一个值
 			Xscale = (this.getWidth() - 4 * this.Margin) / 2;//x轴每块的长度显示出来的长度
 		}else{
 			Xscale = (this.getWidth() - 4 * this.Margin) / (this.Xlabel.length - 1);//x轴每块的长度显示出来的长度
 		}
 
-		if(this.y.length-1 == 0){
+		if(this.y.length-1 == 0){  //Y轴的每一个数据
 			xScale = (this.getWidth() - 4 * this.Margin) / 2;//x轴每个刻度代表的长度 可能有没显示出来的横坐标 按照纵坐标个数计算
 		}else{
 			xScale = (this.getWidth() - 4 * this.Margin) / (this.y.length-1);//x轴每个刻度代表的长度 可能有没显示出来的横坐标 按照纵坐标个数计算
@@ -289,13 +276,6 @@ public class MyChartView extends View {
 
 
 
-
-
-
-
-
-
-
 	/**
 	 * 开始绘制动画
 	 */
@@ -325,20 +305,22 @@ public class MyChartView extends View {
 	 * @return
 	 */
 	private int calY1(int y){
+		
+		int baseNum = (Integer.parseInt(Ylabel[1])) / 2;  //300
+		// TODO: 2018/4/24 这里需要改一下 
+		int str = baseNum / 10;
 
-		int baseNum = (Integer.parseInt(Ylabel[1])) / 2;
+		if(y>-1 && y<baseNum+1){	           //0-50
+			return calY(y,Ylabel[0],Ylabel[1]);
+		}else if(y>baseNum && y<baseNum*3){    //51-150
+			return (calY(y,Ylabel[1],Ylabel[2])-(2*Yscale))+str;
+		}else if(y>baseNum*3 && y<baseNum*6+1){  //151-301
+			return calY(y,Ylabel[2],Ylabel[3])-3*Yscale+str;
+		}else if(y>baseNum*6 && y<baseNum*10+1){  //1800-3001
 
-		if(y>-1 && y<baseNum+1){
-			//0-50
-			return calY(y,Ylabel[0],Ylabel[1]) ; //0,25
-		}else if(y>baseNum && y<baseNum*3){
-			//51-150
-			return (calY(y,Ylabel[2],Ylabel[3])-2*Yscale) ;
-		}else if(y>baseNum*3 && y<baseNum*6+1){
-			return calY(y,Ylabel[3],Ylabel[4])-3*Yscale;
-		}else if(y>baseNum*6 && y<baseNum*10+1){
-			return calY(y,Ylabel[4],Ylabel[5])-4*Yscale;
-		}else if(y>baseNum*10){
+			return calY(y,Ylabel[3],Ylabel[4])-4*Yscale+str;
+
+		}else if(y>baseNum*10){ //   5000-
 			y = baseNum*10;
 			return calY(y,Ylabel[4],Ylabel[5])-4*Yscale;
 		}
@@ -363,7 +345,7 @@ public class MyChartView extends View {
 		//Y是传过来的值。Yscale是间距
 		int i = Ypoint - ((y - y0) * Yscale / (y1 - y0));
 		Logger.d("Ypoint-((y-y0)*Yscale/(y1-y0))值:"+ i);
-		return (Ypoint-((y-y0)*Yscale/(y1-y0)));
+		return (Ypoint - ((y - y0) * Yscale / (y1 - y0)));
 	}
 
 

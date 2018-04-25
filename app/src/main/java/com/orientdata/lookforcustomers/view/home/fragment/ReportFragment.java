@@ -1,53 +1,39 @@
 package com.orientdata.lookforcustomers.view.home.fragment;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.gyf.barlibrary.ImmersionBar;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.base.WangrunBaseFragment;
 import com.orientdata.lookforcustomers.bean.ExcelUrl;
 import com.orientdata.lookforcustomers.bean.Report;
 import com.orientdata.lookforcustomers.bean.ReportListBean;
-import com.orientdata.lookforcustomers.bean.ReportUrlBean;
 import com.orientdata.lookforcustomers.event.ReportDataEvent;
 import com.orientdata.lookforcustomers.event.ReportUrlEvent;
-import com.orientdata.lookforcustomers.event.SearchListEvent;
-import com.orientdata.lookforcustomers.presenter.HomePresent;
 import com.orientdata.lookforcustomers.presenter.ReportPresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.share.ShareEntity;
 import com.orientdata.lookforcustomers.share.ShareManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.home.IHomeView;
 import com.orientdata.lookforcustomers.view.home.IReportView;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.graph.MyChartView;
@@ -56,18 +42,13 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.utils.DisplayUtil;
-
-import static com.orientdata.lookforcustomers.R.mipmap.more;
 
 /**
  * Created by wy on 2017/10/30.
@@ -124,7 +105,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     private String[] monthMoneyX = null;
     private String[] monthMoneyXAllText = null;
     private List<String> monthMoneyXList = null;
-    private List<String> monthMoneyXAllList = null;
+    private List<String> monthMoneyXAllList = null; //本月的日期
 
     private int[] monthMoneyY = null;
     private int[] monthPageConY = null;
@@ -138,7 +119,6 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
     private String[] lastMonthMoneyXAllText = null;
     private List<String> lastMonthMoneyXList = null;
     private List<String> lastMonthMoneyXAllList = null;
-
 
     private int[] lastMonthMoneyY = null;
     private int[] lastMonthPageConY = null;
@@ -273,7 +253,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
 
     private void initChartView() {
         curveRl.removeAllViews();
-        if (chooseType == 1) {
+        if (chooseType == 1) {  //昨日
             int maxY = maxResult(yesterDayMoneyY, yesterDayPageConY, yesterDayPageDisplayY, yesterDayPageClickY, yesterDayMsgConY, yesterDayMsgIssuedY);
             Logger.d("more:"+maxY);
             yesturdayMoneyView = new MyChartView(getContext(), yesterDayX, "", yesterDayMoneyY, moneyColor,maxY);
@@ -305,7 +285,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
             yesturdayMsgIssuedView.setClickListener(this);
             yesturdayMsgIssuedView.startDrawLine(0);
             yesturdayMsgIssuedView.setId(R.id.yesterday_line_msgissued);
-        } else if (chooseType == 2) {
+        } else if (chooseType == 2) { //最近七天
             int maxY = maxResult(latestSevenMoneyY, latestSevenPageConY, latestSevenPageDisplayY, latestSevenPageClickY, latestSevenMsgConY, latestSevenMsgIssuedY);
             Logger.d("more:"+maxY);
             latestSevenMoneyView = new MyChartView(getContext(), latestSevenMoneyX, "", latestSevenMoneyY, moneyColor,maxY);
@@ -338,7 +318,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
             latestSevenMsgIssuedView.startDrawLine(0);
             latestSevenMsgIssuedView.setId(R.id.latestseven_line_msgissued);
 
-        } else if (chooseType == 3) {
+        } else if (chooseType == 3) {  //上周
             int maxY = maxResult(lastWeekMoneyY, lastWeekPageConY, lastWeekPageDisplayY, lastWeekPageClickY, lastWeekMsgConY, lastWeekMsgIssuedY);
             Logger.d("more:"+maxY);
             lastWeekMoneyView = new MyChartView(getContext(), lastWeekMoneyX, "", lastWeekMoneyY, moneyColor,maxY);
@@ -371,7 +351,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
             lastWeekMsgIssuedView.startDrawLine(0);
             lastWeekMsgIssuedView.setId(R.id.lastweek_line_msgissued);
 
-        } else if (chooseType == 4) {
+        } else if (chooseType == 4) {  //本月
             int maxY = maxResult(monthMoneyY, monthPageConY, monthPageDisplayY, monthPageClickY, monthMsgConY, monthMsgIssuedY);
             Logger.d("more:"+maxY);
             monthMoneyView = new MyChartView(getContext(), monthMoneyX, "", monthMoneyY, moneyColor,maxY);
@@ -404,7 +384,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
             monthMsgIssuedView.startDrawLine(0);
             monthMsgIssuedView.setId(R.id.month_line_msgissued);
 
-        } else if (chooseType == 5) {
+        } else if (chooseType == 5) {  //上个月
             //数组合并
             int maxY = maxResult(lastMonthMoneyY, lastMonthPageConY, lastMonthPageDisplayY, lastMonthPageClickY, lastMonthMsgConY, lastMonthMsgIssuedY);
             Logger.d("more:"+maxY);
@@ -412,7 +392,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
 
             lastMonthMoneyView = new MyChartView(getContext(), lastMonthMoneyX, "", lastMonthMoneyY, moneyColor,maxY);
             lastMonthMoneyView.setClickListener(this);
-            curveRl.addView(lastMonthMoneyView);
+            curveRl.addView(lastMonthMoneyView); //
             lastMonthMoneyView.startDrawLine(0);
 
 
@@ -463,15 +443,6 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
         }
         Logger.e("Y轴最大值为："+max);
         return max;
-//        if (max!=0) {
-//            int length = (max / 5);
-//            Ylabel[5] = max + "";
-//            Ylabel[4] = length * 4+"";
-//            Ylabel[3] = length * 3+"";
-//            Ylabel[2] = length * 2+"";
-//            Ylabel[1] = length + "";
-//            Logger.e("maxY:"+Ylabel[1]+Ylabel[2]+"-"+Ylabel[3]+"--"+Ylabel[4]+"-"+Ylabel[5]);
-//        }
     }
 
     /**
@@ -836,7 +807,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
             lastWeekMsgConY[index] = getIntNum(report.getDuanxinmoney());
             lastWeekMsgIssuedY[index] = report.getSuccCount();
         } else if (type == 4) {
-            if (index == 0 || index == 6 || index == 14 || index == size - 1) {
+            if (index == 0 || index == 14 || index == size - 1) {
                 monthMoneyXList.add(report.getName());
             }
             monthMoneyXAllList.add(report.getName());
@@ -848,7 +819,7 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
             monthMsgConY[index] = getIntNum(report.getDuanxinmoney());
             monthMsgIssuedY[index] = report.getSuccCount();
         } else if (type == 5) {
-            if (index == 0 || index == 6 || index == 14 || index == size - 1) {
+            if (index == 0 || index == 14 || index == size - 1) {
                 lastMonthMoneyXList.add(report.getName());
             }
             lastMonthMoneyXAllList.add(report.getName());

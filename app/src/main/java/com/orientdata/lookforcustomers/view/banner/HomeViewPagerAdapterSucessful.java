@@ -7,10 +7,8 @@ import android.support.v4.view.PagerAdapter;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.view.agreement.MyWebViewActivity;

@@ -1,11 +1,6 @@
 package com.orientdata.lookforcustomers.model;
 
-import com.orientdata.lookforcustomers.bean.Area;
-import com.orientdata.lookforcustomers.bean.AreaOut;
-import com.orientdata.lookforcustomers.bean.SelectSettingBean;
 import com.orientdata.lookforcustomers.bean.SettingOut;
-
-import java.util.List;
 
 /**
  * Created by wy on 2017/11/18.

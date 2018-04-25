@@ -10,10 +10,6 @@ import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
-import vr.md.com.mdlibrary.AppConfig;
-
-import static com.orientdata.lookforcustomers.app.MyApplication.getContext;
-
 /**
  * 关于我们
  */

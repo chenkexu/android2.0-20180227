@@ -3,7 +3,6 @@ package com.orientdata.lookforcustomers.util;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.webview.imple.CommonWebView;

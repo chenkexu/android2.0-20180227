@@ -11,9 +11,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
+
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.Task;
+
 import java.util.List;
 
 

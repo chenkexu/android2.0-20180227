@@ -3,23 +3,15 @@ package com.orientdata.lookforcustomers.network.callback;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.google.gson.stream.JsonReader;
-import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.request.base.Request;
-import com.orhanobut.logger.Logger;
-import com.orientdata.lookforcustomers.bean.WrResponse;
-import com.orientdata.lookforcustomers.network.model.Convert;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
-import okhttp3.Response;
 import vr.md.com.mdlibrary.AppConfig;
 import vr.md.com.mdlibrary.MyApp;
 import vr.md.com.mdlibrary.UserDataManeger;

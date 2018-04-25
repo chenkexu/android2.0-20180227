@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.AreaOut;
@@ -22,8 +21,6 @@ import com.orientdata.lookforcustomers.widget.MyTitle;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.orientdata.lookforcustomers.R.id.view;
 
 /**
  * 资质查看

@@ -1,7 +1,6 @@
 package com.orientdata.lookforcustomers.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by wy on 2017/12/19.

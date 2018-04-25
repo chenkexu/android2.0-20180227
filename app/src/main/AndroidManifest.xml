@@ -67,7 +67,6 @@
         <activity
             android:name=".view.login.imple.LoginAndRegisterActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"
             android:launchMode="singleTask"/>
         <activity
             android:name=".view.home.imple.HomeActivity"

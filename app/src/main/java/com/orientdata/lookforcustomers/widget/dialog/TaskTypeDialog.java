@@ -8,16 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-
-import static com.orientdata.lookforcustomers.R.id.tvConfirm;
 
 /**
  * Created by wy on 2017/11/21.

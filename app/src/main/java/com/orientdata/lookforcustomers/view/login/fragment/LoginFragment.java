@@ -3,7 +3,6 @@ package com.orientdata.lookforcustomers.view.login.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputType;
@@ -24,7 +23,6 @@ import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
-import com.orientdata.lookforcustomers.bean.CertificationBean;
 import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.event.LoginResultEvent;
 import com.orientdata.lookforcustomers.event.ReLoginEvent;
@@ -73,6 +71,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         init(view);
         initEvent();
+
         return view;
     }
 

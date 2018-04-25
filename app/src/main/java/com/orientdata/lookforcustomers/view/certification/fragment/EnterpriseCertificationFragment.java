@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.bean.Area;
@@ -34,6 +33,7 @@ import com.orientdata.lookforcustomers.widget.dialog.ProvinceCityDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import vr.md.com.mdlibrary.UserDataManeger;
 
 /**

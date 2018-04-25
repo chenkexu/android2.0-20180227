@@ -2,7 +2,6 @@ package com.orientdata.lookforcustomers.model;
 
 import com.orientdata.lookforcustomers.bean.Area;
 import com.orientdata.lookforcustomers.bean.AreaOut;
-import com.orientdata.lookforcustomers.bean.TaskTypeBean;
 
 import java.util.List;
 

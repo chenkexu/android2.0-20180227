@@ -1,7 +1,6 @@
 package com.orientdata.lookforcustomers.event;
 
 
-import com.orientdata.lookforcustomers.bean.BalanceDetailBean;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 
 /**

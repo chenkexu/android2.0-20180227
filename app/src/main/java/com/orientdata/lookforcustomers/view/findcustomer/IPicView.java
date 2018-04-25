@@ -2,7 +2,6 @@ package com.orientdata.lookforcustomers.view.findcustomer;
 
 import com.orientdata.lookforcustomers.base.BaseView;
 import com.orientdata.lookforcustomers.bean.PicListBean;
-import com.orientdata.lookforcustomers.bean.UploadPicBean;
 
 /**
  * Created by wy on 2017/11/18.

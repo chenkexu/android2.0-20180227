@@ -8,18 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.bean.InterestCategory;
 import com.orientdata.lookforcustomers.bean.PhoneModelTag;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wy on 2017/11/22.

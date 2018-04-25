@@ -1,6 +1,5 @@
 package com.orientdata.lookforcustomers.event;
 
-import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.bean.ReportListBean;
 
 /**

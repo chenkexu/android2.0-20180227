@@ -1,12 +1,14 @@
 package com.orientdata.lookforcustomers.view.certification;
 
 import android.os.Bundle;
+
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.presenter.CertificatePresent;
 import com.orientdata.lookforcustomers.widget.MyTitle;
+
 import java.util.List;
 
 /**

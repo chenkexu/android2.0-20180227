@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,7 +35,6 @@ import com.orientdata.lookforcustomers.view.findcustomer.CreateAdActivity2;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.AbstractSequentialList;
 
 import static android.app.Activity.RESULT_OK;
 

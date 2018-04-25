@@ -5,8 +5,6 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.widget.EditText;
 
-import static com.orientdata.lookforcustomers.util.CommonUtils.INPUT_LIMIT_LEN;
-
 /**
  * @author:Jack Tony
  * @description : 对输入字符进行处理

@@ -1,6 +1,5 @@
 package com.orientdata.lookforcustomers.base;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import com.orientdata.lookforcustomers.R;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 
 
@@ -43,7 +43,6 @@ public abstract class WangrunBaseActivity extends AppCompatActivity {
     /**
      * 是否可以使用沉浸式
      * Is immersion bar enabled boolean.
-     *
      * @return the boolean
      */
     protected boolean isImmersionBarEnabled() {

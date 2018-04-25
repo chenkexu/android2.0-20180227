@@ -2,7 +2,6 @@ package com.orientdata.lookforcustomers.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +16,7 @@ import android.widget.TextView;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.BaseTagImportOut;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by ycs on 2016/8/12.

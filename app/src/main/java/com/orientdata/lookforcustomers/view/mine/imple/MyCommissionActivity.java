@@ -4,10 +4,8 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.UserManager;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,13 +19,11 @@ import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.CommissionPresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.home.InvoiceHistoryActivity;
 import com.orientdata.lookforcustomers.view.mine.ICommissionView;
 import com.orientdata.lookforcustomers.view.mine.ShareToGetCommissionActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
@@ -49,6 +45,7 @@ public class MyCommissionActivity extends BaseActivity<ICommissionView, Commissi
     private String subCount;
     private TextView tvCommission;
     private double myCommission;
+    private String upMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +73,8 @@ public class MyCommissionActivity extends BaseActivity<ICommissionView, Commissi
         }
         subCount = getIntent().getStringExtra("subCount");
         moreMoney = getIntent().getStringExtra("moreMoney");
+        upMoney = getIntent().getStringExtra("upMoney");
+
         title = findViewById(R.id.my_title);
         tvCommission = findViewById(R.id.tvCommission);
         tvRemindWithdraw = findViewById(R.id.tvRemindWithdraw);
@@ -98,13 +97,13 @@ public class MyCommissionActivity extends BaseActivity<ICommissionView, Commissi
         }
         //如果佣金余额为0则“转入余额”置灰不可点击
         tvTransferTobalance.setEnabled(true);
-        if(commission == 0){
-            tvTransferTobalance.setEnabled(false);
-        }
+//        if(commission == 0){
+//            tvTransferTobalance.setEnabled(false);
+//        }
         //如佣金余额小于最小可提现金额或可提现次数为“0”则“佣金提现”置灰不可点击
         tvCommissionWithdraw.setEnabled(true);
 
-        if(subCount==null || (subCount!=null && Integer.parseInt(subCount) == 0) || moreMoney==null || (moreMoney!=null && commission<Integer.parseInt(moreMoney))){
+        if(subCount == null || (subCount!=null && Integer.parseInt(subCount) == 0) || moreMoney==null ){
             tvCommissionWithdraw.setEnabled(false);
         }
     }
@@ -136,6 +135,9 @@ public class MyCommissionActivity extends BaseActivity<ICommissionView, Commissi
                 intent.putExtra("commission", commission);
                 intent.putExtra("subCount", subCount);
                 intent.putExtra("myCommission", myCommission);
+
+                intent.putExtra("upMoney", upMoney);
+
                 startActivity(intent);
                 break;
             case R.id.tvEarnCommission:

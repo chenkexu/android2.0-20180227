@@ -21,7 +21,6 @@ import com.orientdata.lookforcustomers.network.model.Convert;
 import com.orientdata.lookforcustomers.network.model.LzyResponse;
 import com.orientdata.lookforcustomers.network.model.SimpleResponse;
 
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 

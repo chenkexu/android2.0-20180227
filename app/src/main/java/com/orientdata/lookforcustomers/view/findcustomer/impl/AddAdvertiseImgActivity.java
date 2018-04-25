@@ -13,17 +13,12 @@ import android.widget.TextView;
 import com.androidkun.xtablayout.XTabLayout;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
-import com.orientdata.lookforcustomers.bean.PicListBean;
-import com.orientdata.lookforcustomers.bean.SettingOut;
-import com.orientdata.lookforcustomers.bean.TradeSelfout;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.presenter.ImgPresent;
-import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
 import com.orientdata.lookforcustomers.view.findcustomer.IImgView;
 import com.orientdata.lookforcustomers.view.findcustomer.fragment.LocalUploadFragment;
 import com.orientdata.lookforcustomers.view.findcustomer.fragment.PictureLibraryFragment;
 import com.orientdata.lookforcustomers.view.findcustomer.fragment.TemplateMakingFragment;
-import com.orientdata.lookforcustomers.view.login.ILoginAndRegisterView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 
 /**
  * 左边有固定文字EditText

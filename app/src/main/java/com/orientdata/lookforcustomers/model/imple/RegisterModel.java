@@ -5,7 +5,6 @@ import com.orientdata.lookforcustomers.model.IRegisterModel;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 
-import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**

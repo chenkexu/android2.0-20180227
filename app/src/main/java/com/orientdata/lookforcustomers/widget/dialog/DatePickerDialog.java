@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,14 +12,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.util.DateTool;
-import com.orientdata.lookforcustomers.widget.DateSelectPopupWindow;
 
 import java.lang.reflect.Field;
 import java.util.Calendar;

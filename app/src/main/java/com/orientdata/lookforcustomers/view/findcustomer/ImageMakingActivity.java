@@ -3,12 +3,10 @@ package com.orientdata.lookforcustomers.view.findcustomer;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,27 +15,19 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.TextPaint;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
-import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
-import com.orientdata.lookforcustomers.bean.PicListBean;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.event.ImgClipResultEvent;
 import com.orientdata.lookforcustomers.presenter.ImgPresent;
@@ -54,9 +44,6 @@ import com.orientdata.lookforcustomers.widget.toggleButton.zcw.togglebutton.Togg
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 /**
  * Created by wy on 2017/11/25.

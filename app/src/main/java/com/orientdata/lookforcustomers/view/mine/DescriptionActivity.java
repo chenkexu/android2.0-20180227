@@ -1,6 +1,7 @@
 package com.orientdata.lookforcustomers.view.mine;
 
 import android.os.Bundle;
+
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;

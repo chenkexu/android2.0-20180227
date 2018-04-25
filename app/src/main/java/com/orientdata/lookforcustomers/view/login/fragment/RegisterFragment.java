@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -38,7 +37,6 @@ import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 import com.orientdata.lookforcustomers.widget.CommonTitleBar;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.concurrent.TimeUnit;
@@ -47,6 +45,7 @@ import rx.functions.Action1;
 
 /**
  * Created by wy on 2017/10/25.
+ * 注册界面
  */
 
 public class RegisterFragment extends BaseFragment implements View.OnClickListener, TextView.OnEditorActionListener {

@@ -22,7 +22,6 @@ import android.graphics.Canvas;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.ImageView;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com

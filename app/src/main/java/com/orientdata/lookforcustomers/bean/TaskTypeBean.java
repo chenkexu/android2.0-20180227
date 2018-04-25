@@ -1,6 +1,5 @@
 package com.orientdata.lookforcustomers.bean;
 
-import java.io.Serializable;
 import java.util.Map;
 
 /**

@@ -1,14 +1,10 @@
 package com.orientdata.lookforcustomers.model.imple;
 
-import android.util.Log;
-
 import com.orientdata.lookforcustomers.bean.CommonResultBean;
-import com.orientdata.lookforcustomers.bean.LoginResultBean;
 import com.orientdata.lookforcustomers.model.IResetPasswordModel;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 
-import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**

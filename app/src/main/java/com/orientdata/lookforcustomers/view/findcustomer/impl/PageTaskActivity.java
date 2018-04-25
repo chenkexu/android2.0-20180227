@@ -31,7 +31,6 @@ import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.TaskPresent;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.GlideUtil;
-import com.orientdata.lookforcustomers.util.RegexUtils;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.util.XEditText;

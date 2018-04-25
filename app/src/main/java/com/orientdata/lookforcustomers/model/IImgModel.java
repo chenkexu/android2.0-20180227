@@ -1,10 +1,7 @@
 package com.orientdata.lookforcustomers.model;
 
 import com.orientdata.lookforcustomers.bean.ErrBean;
-import com.orientdata.lookforcustomers.bean.ModelListBean;
 import com.orientdata.lookforcustomers.bean.PicListBean;
-import com.orientdata.lookforcustomers.bean.SettingOut;
-import com.orientdata.lookforcustomers.bean.TaskInfoBean;
 import com.orientdata.lookforcustomers.bean.TradeSelfout;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 

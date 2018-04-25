@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
-import com.orientdata.lookforcustomers.bean.Industry;
 import com.orientdata.lookforcustomers.bean.IndustryTemplate;
 import com.orientdata.lookforcustomers.bean.TradeSelfout;
 import com.orientdata.lookforcustomers.event.ImgClipResultEvent;

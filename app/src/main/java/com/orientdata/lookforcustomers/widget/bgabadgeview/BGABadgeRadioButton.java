@@ -22,7 +22,6 @@ import android.graphics.Canvas;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.RadioButton;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com

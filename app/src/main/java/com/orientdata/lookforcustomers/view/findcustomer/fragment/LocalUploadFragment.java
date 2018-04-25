@@ -21,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
@@ -36,7 +35,6 @@ import com.orientdata.lookforcustomers.view.findcustomer.impl.AddAdvertiseImgAct
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;

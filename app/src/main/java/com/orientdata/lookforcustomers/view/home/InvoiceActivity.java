@@ -23,10 +23,8 @@ import com.orientdata.lookforcustomers.bean.InvoiceBean;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.util.DateTool;
-import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.MyTitle;
-import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.StringDialog;
 
 import java.math.BigDecimal;

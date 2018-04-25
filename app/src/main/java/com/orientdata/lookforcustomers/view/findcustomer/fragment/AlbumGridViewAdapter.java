@@ -2,7 +2,6 @@ package com.orientdata.lookforcustomers.view.findcustomer.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.view.menu.ShowableListMenu;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +12,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
 
-import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.UserPicStore;
 import com.orientdata.lookforcustomers.util.GlideUtil;
-import com.orientdata.lookforcustomers.util.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -33,6 +30,8 @@ public class AlbumGridViewAdapter extends BaseAdapter {
     private ArrayList<UserPicStore> dataList;//所有图片
     private ArrayList<UserPicStore> selectedDataList;//已经选择的图片的集合
     private DisplayMetrics dm;
+
+
     //	BitmapCache cache;
     public AlbumGridViewAdapter(Context c, ArrayList<UserPicStore> dataList, ArrayList<UserPicStore> selectedDataList) {
         mContext = c;
@@ -42,6 +41,11 @@ public class AlbumGridViewAdapter extends BaseAdapter {
         dm = new DisplayMetrics();
         ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(dm);
     }
+
+    public void setDataList(ArrayList<UserPicStore> dataList) {
+        this.dataList = dataList;
+    }
+
 
     public int getCount() {
         return dataList == null ? 0 : dataList.size();
@@ -104,12 +108,16 @@ public class AlbumGridViewAdapter extends BaseAdapter {
                 viewHolder.toggleButton.setVisibility(View.VISIBLE);
             }
         }
-        if (dataList != null && dataList.size() > position)
-            path = dataList.get(position).getPicUrl();
+
+        // TODO: 2018/4/24 下面代码什么意思 
+//        if (dataList != null && dataList.size() > position){
+//
+//            path = dataList.get(position).getPicUrl();
+//        }
 
 //        Glide.with(mContext).load(path).into(viewHolder.imageView);
 
-        GlideUtil.getInstance().loadImage(mContext,viewHolder.imageView,path,R.mipmap.image_ggid_error,true);
+        GlideUtil.getInstance().loadImage(mContext,viewHolder.imageView,dataList.get(position).getPicUrl(),R.mipmap.image_ggid_error,true);
 
         viewHolder.rl_toggle.setTag(position);
         viewHolder.rl_toggle.setOnClickListener(new ToggleClickListener(viewHolder.toggleButton));

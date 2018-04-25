@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.google.gson.stream.JsonReader;
-import com.lzy.okgo.request.base.Request;
 import com.lzy.okgo.callback.AbsCallback;
+import com.lzy.okgo.request.base.Request;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.network.model.Convert;
@@ -42,6 +42,8 @@ public abstract class WrCallback<T> extends AbsCallback<T> {
         request.params("ver", getVer());
         request.params("plat",getPlat());
         request.params("private_key", getPrivate_key());
+        request.params("userId",UserDataManeger.getInstance().getUserId());
+
         if (!TextUtils.isEmpty(UserDataManeger.getInstance().getUserToken())) {
             request.params("token", UserDataManeger.getInstance().getUserToken());
         }

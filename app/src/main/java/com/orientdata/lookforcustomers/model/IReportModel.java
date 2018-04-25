@@ -1,7 +1,5 @@
 package com.orientdata.lookforcustomers.model;
 
-import com.orientdata.lookforcustomers.bean.ErrBean;
-import com.orientdata.lookforcustomers.bean.MsgListBean;
 import com.orientdata.lookforcustomers.bean.ReportListBean;
 import com.orientdata.lookforcustomers.bean.ReportUrlBean;
 

@@ -1,10 +1,8 @@
 package com.orientdata.lookforcustomers.model.imple;
 
 import com.orientdata.lookforcustomers.bean.CertificateMsgBean;
-import com.orientdata.lookforcustomers.bean.ProvinceCityBean;
 import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.model.ICertificateModel;
-import com.orientdata.lookforcustomers.model.IProvinceCityModel;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 

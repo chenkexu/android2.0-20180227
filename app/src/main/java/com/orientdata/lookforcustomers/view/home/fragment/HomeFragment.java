@@ -22,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseFragment;
@@ -48,7 +47,6 @@ import com.orientdata.lookforcustomers.view.banner.RoolViewPager;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.certification.impl.CertificationActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.CreateFindCustomerActivity;
-import com.orientdata.lookforcustomers.view.findcustomer.impl.MessageTaskActivity;
 import com.orientdata.lookforcustomers.view.home.AnnouncementDetailActivity;
 import com.orientdata.lookforcustomers.view.home.AnnouncementListActivity;
 import com.orientdata.lookforcustomers.view.home.IHomeView;
@@ -511,8 +509,12 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 startActivity(intent);
                 break;
             case R.id.ll_fm_home_accountRecharge:
+
+//                startActivity(new Intent(getActivity(), TestActivity.class));
+                // TODO: 2018/4/24 进入测试页面
                 intent = new Intent(getActivity(), RechargeActivity.class);
                 startActivity(intent);
+
                 break;
             case R.id.ll_fm_home_secureCommissions:
                 if (hasSharePermisson()) {

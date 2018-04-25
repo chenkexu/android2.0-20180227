@@ -2,12 +2,8 @@ package com.orientdata.lookforcustomers.model.imple;
 
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.bean.MsgListBean;
-import com.orientdata.lookforcustomers.bean.ReportListBean;
-import com.orientdata.lookforcustomers.bean.ReportUrlBean;
-import com.orientdata.lookforcustomers.bean.Result;
 import com.orientdata.lookforcustomers.bean.ResultBean;
 import com.orientdata.lookforcustomers.model.IMsgModel;
-import com.orientdata.lookforcustomers.model.IReportModel;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 

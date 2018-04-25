@@ -9,14 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.Bh;
-import com.orientdata.lookforcustomers.bean.Task;
 import com.orientdata.lookforcustomers.util.CommonUtils;
-import com.orientdata.lookforcustomers.view.home.fragment.TaskStatus;
 
 import java.util.List;
 

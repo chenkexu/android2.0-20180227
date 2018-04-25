@@ -2,8 +2,6 @@ package com.orientdata.lookforcustomers.view.findcustomer;
 
 import com.orientdata.lookforcustomers.base.BaseView;
 import com.orientdata.lookforcustomers.bean.AreaOut;
-import com.orientdata.lookforcustomers.bean.CertificationOut;
-import com.orientdata.lookforcustomers.bean.TaskTypeBean;
 
 import java.util.List;
 

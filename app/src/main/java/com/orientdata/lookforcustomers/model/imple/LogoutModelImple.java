@@ -1,7 +1,6 @@
 package com.orientdata.lookforcustomers.model.imple;
 
 import com.orientdata.lookforcustomers.bean.ErrBean;
-import com.orientdata.lookforcustomers.bean.LoginResultBean;
 import com.orientdata.lookforcustomers.model.ILogOutModel;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;

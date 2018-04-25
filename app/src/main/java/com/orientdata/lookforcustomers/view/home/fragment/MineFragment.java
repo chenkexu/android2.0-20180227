@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseFragment;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
@@ -48,7 +47,6 @@ import com.orientdata.lookforcustomers.view.mine.imple.CommissionWithDrawActivit
 import com.orientdata.lookforcustomers.view.mine.imple.MyCommissionActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.SettingActivity;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
-import com.orientdata.lookforcustomers.widget.toggleButton.RoundImageView;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -283,6 +281,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 intent.putExtra("moreMoney", moreMoney);
                 intent.putExtra("commission", commission);
                 intent.putExtra("subCount", subCount);
+                intent.putExtra("upMoney", upMoney);
                 startActivity(intent);
                 break;
             case R.id.rl_commission_withdraw://佣金提现

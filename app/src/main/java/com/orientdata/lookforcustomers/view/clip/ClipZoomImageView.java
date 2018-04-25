@@ -23,9 +23,6 @@ import android.view.ScaleGestureDetector.OnScaleGestureListener;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
-
-import com.orientdata.lookforcustomers.util.CommonUtils;
 
 @SuppressWarnings("deprecation")
 public class ClipZoomImageView extends AppCompatImageView implements

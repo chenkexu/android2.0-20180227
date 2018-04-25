@@ -1,7 +1,6 @@
 package com.orientdata.lookforcustomers.view.mine;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,28 +12,21 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.AppUtils;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
-import com.orientdata.lookforcustomers.bean.CanInvoiceBean;
-import com.orientdata.lookforcustomers.bean.InvoiceBean;
-import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.share.ShareEntity;
 import com.orientdata.lookforcustomers.share.ShareManager;
 import com.orientdata.lookforcustomers.util.MyOpenActivityUtils;
 import com.orientdata.lookforcustomers.util.QRCodeUtil;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.home.InvoiceHistoryActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
 import java.io.File;
-import java.util.List;
-
-import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
  * 分享赚取佣金
  */
 
 public class ShareToGetCommissionActivity extends WangrunBaseActivity implements View.OnClickListener {
+
     private MyTitle title;
     private TextView tvActivityDescription;
     private ImageView ivQRCode;
@@ -142,6 +134,6 @@ public class ShareToGetCommissionActivity extends WangrunBaseActivity implements
         }
         shareEntity.setTitle("用户是谁？用户在哪？如何触达用户？");
         String versionName = AppUtils.getAppVersionName();
-        shareEntity.setContent("寻客V"+versionName+"，基于实时LBS的场景触达，解决商户的三大核心痛点！");
+        shareEntity.setContent("寻客V" + versionName + "，基于实时LBS的场景触达，解决商户的三大核心痛点！");
     }
 }

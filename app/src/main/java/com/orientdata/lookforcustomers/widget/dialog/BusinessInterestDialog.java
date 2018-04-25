@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.bean.BaseTagImportOut;
 import com.orientdata.lookforcustomers.bean.InterestTagImportOut;
 
 import java.util.List;

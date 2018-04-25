@@ -3,6 +3,7 @@ package com.orientdata.lookforcustomers.view.findcustomer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
+
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.bean.OrientationSettingsOut;

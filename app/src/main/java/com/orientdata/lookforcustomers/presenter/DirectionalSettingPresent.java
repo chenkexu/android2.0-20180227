@@ -5,7 +5,6 @@ import com.orientdata.lookforcustomers.model.ISelectSettingModel;
 import com.orientdata.lookforcustomers.model.imple.SelectSettingModelImple;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.findcustomer.IDirectionalSettingView;
-import java.util.List;
 
 /**
  * Created by wy on 2017/11/18.

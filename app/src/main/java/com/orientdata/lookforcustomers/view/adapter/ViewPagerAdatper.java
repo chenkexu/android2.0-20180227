@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import static android.R.attr.min;
-import static com.baidu.location.h.k.p;
-
 /**
  * Created by lvr on 2017/1/16.
  */

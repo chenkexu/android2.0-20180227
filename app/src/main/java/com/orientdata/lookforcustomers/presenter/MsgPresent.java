@@ -2,22 +2,14 @@ package com.orientdata.lookforcustomers.presenter;
 
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.bean.MsgListBean;
-import com.orientdata.lookforcustomers.bean.ReportListBean;
-import com.orientdata.lookforcustomers.bean.ReportUrlBean;
-import com.orientdata.lookforcustomers.bean.Result;
 import com.orientdata.lookforcustomers.bean.ResultBean;
 import com.orientdata.lookforcustomers.event.MsgInfoEvent;
 import com.orientdata.lookforcustomers.event.MsgListEvent;
 import com.orientdata.lookforcustomers.event.MsgUpdateEvent;
-import com.orientdata.lookforcustomers.event.ReportDataEvent;
-import com.orientdata.lookforcustomers.event.ReportUrlEvent;
 import com.orientdata.lookforcustomers.model.IMsgModel;
-import com.orientdata.lookforcustomers.model.IReportModel;
 import com.orientdata.lookforcustomers.model.imple.MsgImple;
-import com.orientdata.lookforcustomers.model.imple.ReportImple;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.home.IMsgView;
-import com.orientdata.lookforcustomers.view.home.IReportView;
 
 import org.greenrobot.eventbus.EventBus;
 

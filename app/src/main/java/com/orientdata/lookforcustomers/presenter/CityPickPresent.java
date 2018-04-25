@@ -2,10 +2,7 @@ package com.orientdata.lookforcustomers.presenter;
 
 import com.orientdata.lookforcustomers.bean.Area;
 import com.orientdata.lookforcustomers.bean.AreaOut;
-import com.orientdata.lookforcustomers.bean.CertificationOut;
-import com.orientdata.lookforcustomers.model.ICertificateModel;
 import com.orientdata.lookforcustomers.model.IProvinceCityModel;
-import com.orientdata.lookforcustomers.model.imple.CertificateModelImple;
 import com.orientdata.lookforcustomers.model.imple.ProvinceCityModelImple;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.findcustomer.ICityPickView;

@@ -4,10 +4,11 @@ package com.orientdata.lookforcustomers.view.mine;
  * Created by wy on 2017/12/23.
  */
 
-import java.io.File;
-import java.math.BigDecimal;
 import android.content.Context;
 import android.os.Environment;
+
+import java.io.File;
+import java.math.BigDecimal;
 
 /**
  * 清除缓存

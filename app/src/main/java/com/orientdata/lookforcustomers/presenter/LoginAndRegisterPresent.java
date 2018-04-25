@@ -2,7 +2,6 @@ package com.orientdata.lookforcustomers.presenter;
 
 import android.os.CountDownTimer;
 import android.text.TextUtils;
-import android.webkit.CookieManager;
 
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.event.LoginResultEvent;
@@ -26,7 +25,9 @@ import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.login.ILoginAndRegisterView;
+
 import org.greenrobot.eventbus.EventBus;
+
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.utils.MD5;
 
@@ -187,6 +188,7 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
                         @Override
                         public void success() {
                             mLoginAndRegisterView.hideLoading();
+                            ToastUtils.showShort("注册成功");
                             codeId = "";
                             RegisterResultEvent registerResultEvent = new RegisterResultEvent();
                             registerResultEvent.isRegister = true;

@@ -3,18 +3,12 @@ package com.orientdata.lookforcustomers.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
-//import com.app.EastOffice.event.WXPayEvent;
-//import com.app.EastOffice.network.HttpConstant;
-import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.MyInfoBean;
 import com.orientdata.lookforcustomers.event.MyMoneyEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.home.RechargeActivity;
-import com.orientdata.lookforcustomers.widget.dialog.RechargeDialog;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -27,6 +21,9 @@ import java.util.Map;
 
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
+
+//import com.app.EastOffice.event.WXPayEvent;
+//import com.app.EastOffice.network.HttpConstant;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 

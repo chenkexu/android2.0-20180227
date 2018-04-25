@@ -1,9 +1,6 @@
 package com.orientdata.lookforcustomers.model;
 
-import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
-
-import java.util.List;
 
 /**
  * Created by wy on 2017/11/18.

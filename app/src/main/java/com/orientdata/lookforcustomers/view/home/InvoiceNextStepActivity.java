@@ -2,6 +2,7 @@ package com.orientdata.lookforcustomers.view.home;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.ReplacementTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,8 +29,6 @@ import java.util.List;
 
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
-
-import static com.orientdata.lookforcustomers.R.array.city;
 
 /**
  * 发票下一步
@@ -314,6 +313,8 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
         //填写信息
         et_title = findViewById(R.id.et_title);//发票抬头
         et_id = findViewById(R.id.et_id);//纳税人识别号
+        et_id.setTransformationMethod(new UpperCaseTransform());
+
         tv_content = findViewById(R.id.tv_content);//发票内容
         tv_money = findViewById(R.id.tv_money);//发票金额
         if (money != null) {
@@ -326,6 +327,23 @@ public class InvoiceNextStepActivity extends WangrunBaseActivity implements View
         tv_submit = findViewById(R.id.tv_submit);
         tv_submit.setOnClickListener(this);
     }
+
+
+    //首先是小写转大写的方法
+    public class UpperCaseTransform extends ReplacementTransformationMethod {
+        @Override
+        protected char[] getOriginal() {
+            char[] aa = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+            return aa;
+        }
+
+        @Override
+        protected char[] getReplacement() {
+            char[] cc = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+            return cc;
+        }
+    }
+
 
     private void initTitle() {
         title.setTitleName("按任务开发票");

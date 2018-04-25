@@ -8,14 +8,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.base.BaseActivity;
-import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
-import com.orientdata.lookforcustomers.view.login.ILoginAndRegisterView;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
-
-import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 
 /**

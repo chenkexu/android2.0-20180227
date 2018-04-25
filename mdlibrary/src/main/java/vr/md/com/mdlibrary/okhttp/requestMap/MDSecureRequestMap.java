@@ -26,6 +26,7 @@ public class MDSecureRequestMap extends MDBasicRequestMap {
         this.put("ver", getVer());
         this.put("plat", getPlat());
         this.put("private_key", this.getPrivate_key());
+        this.put("userId",UserDataManeger.getInstance().getUserId());
         if (!TextUtils.isEmpty(UserDataManeger.getInstance().getUserToken())) {
             this.put("token", UserDataManeger.getInstance().getUserToken());
         }

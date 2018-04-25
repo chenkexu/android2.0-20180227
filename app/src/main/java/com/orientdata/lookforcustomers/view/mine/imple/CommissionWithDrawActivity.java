@@ -10,14 +10,12 @@ import android.widget.TextView;
 
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
-import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.event.CommissionVertificateEvent;
 import com.orientdata.lookforcustomers.event.MyMoneyEvent;
 import com.orientdata.lookforcustomers.presenter.CommissionPresent;
 import com.orientdata.lookforcustomers.util.RegexUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.mine.ICommissionView;
-import com.orientdata.lookforcustomers.view.mine.imple.PhoneCodeActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
 import org.greenrobot.eventbus.Subscribe;

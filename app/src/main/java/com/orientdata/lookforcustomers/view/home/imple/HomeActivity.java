@@ -8,8 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-
-import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.CertificationOut;

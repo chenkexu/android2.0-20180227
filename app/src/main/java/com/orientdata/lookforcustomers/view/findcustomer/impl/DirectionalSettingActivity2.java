@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.baidu.mapapi.map.Text;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
@@ -19,7 +18,6 @@ import com.orientdata.lookforcustomers.bean.BaseTagImportOut;
 import com.orientdata.lookforcustomers.bean.InterestCategory;
 import com.orientdata.lookforcustomers.bean.InterestTagImportOut;
 import com.orientdata.lookforcustomers.bean.OrientationSettingsOut;
-import com.orientdata.lookforcustomers.bean.PhoneModelTag;
 import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.presenter.DirectionalSettingPresent;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;

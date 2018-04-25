@@ -60,7 +60,6 @@ import com.orientdata.lookforcustomers.bean.OrientationSettingsOut;
 import com.orientdata.lookforcustomers.bean.PreOut;
 import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.bean.TaskTypeBean;
-import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.CityPickPresent;

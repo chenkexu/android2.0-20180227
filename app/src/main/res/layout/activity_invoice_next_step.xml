@@ -267,7 +267,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:digits="0123456789qwertyuioplkjhgfdsazxcvbnm"
+                        android:digits="0123456789qwertyuioplkjhgfdsazxcvbnmQAZWSXEDCRFVTGBYHNUJMIKLOP"
                         android:maxLength="18"
                         android:id="@+id/et_id"
                         android:layout_width="match_parent"

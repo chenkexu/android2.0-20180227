@@ -2,19 +2,13 @@ package com.orientdata.lookforcustomers.presenter;
 
 import android.util.Log;
 
-import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.ReportListBean;
 import com.orientdata.lookforcustomers.bean.ReportUrlBean;
-import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.event.ReportDataEvent;
 import com.orientdata.lookforcustomers.event.ReportUrlEvent;
-import com.orientdata.lookforcustomers.event.SearchListEvent;
-import com.orientdata.lookforcustomers.model.ICertificateModel;
 import com.orientdata.lookforcustomers.model.IReportModel;
-import com.orientdata.lookforcustomers.model.imple.CertificateModelImple;
 import com.orientdata.lookforcustomers.model.imple.ReportImple;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.home.IHomeView;
 import com.orientdata.lookforcustomers.view.home.IReportView;
 
 import org.greenrobot.eventbus.EventBus;

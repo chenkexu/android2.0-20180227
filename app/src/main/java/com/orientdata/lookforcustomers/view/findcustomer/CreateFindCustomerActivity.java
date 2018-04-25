@@ -49,7 +49,6 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
-import com.bumptech.glide.Glide;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
@@ -66,7 +65,6 @@ import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.CityPickPresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
-import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.util.map.LocationService;
@@ -92,9 +90,6 @@ import java.util.Map;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 import vr.md.com.mdlibrary.utils.ImageUtils2;
-import vr.md.com.mdlibrary.utils.image.ImageUtil;
-
-import static android.R.attr.data;
 
 /**
  * 创建寻客页面
@@ -455,7 +450,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
             mProvinceCode = mTaskOut.getProvinceCode().trim();
 
         }
-
 
     }
 

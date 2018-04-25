@@ -4,28 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
-import android.text.InputType;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
-import com.orientdata.lookforcustomers.bean.Area;
-import com.orientdata.lookforcustomers.bean.AreaOut;
-import com.orientdata.lookforcustomers.bean.CertificationBean;
-import com.orientdata.lookforcustomers.bean.CertificationOut;
-import com.orientdata.lookforcustomers.bean.PicListBean;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.bean.UserPicStore;
 import com.orientdata.lookforcustomers.event.DownloadImgEvent;
@@ -125,6 +116,7 @@ public class PictureLibraryFragment extends BaseFragment implements IImgView, Vi
         return fragment;
     }
     private  boolean isEdit = false;
+
     private void initListener() {
         adapter.setOnLongItemClickListener(new AlbumGridViewAdapter.OnLongItemClickListener() {
             @Override
@@ -307,11 +299,14 @@ public class PictureLibraryFragment extends BaseFragment implements IImgView, Vi
                     return;
                 }
                 StringBuilder str1 = new StringBuilder();
+                Logger.d("被选择的图片地址是："+picListChoose);
                 for(UserPicStore userPicStore:picListChoose){
                     str1.append(userPicStore.getUserPicStoreId()+",");
                 }
                 //删除对话框
-                showRemindDialog(str1.toString());
+                String s = str1.toString();
+                Logger.d("要删除的图片id"+s.substring(0,s.length() - 1));
+                showRemindDialog(s.substring(0,s.length() - 1));
                 break;
         }
 
@@ -341,23 +336,29 @@ public class PictureLibraryFragment extends BaseFragment implements IImgView, Vi
     public void picDeleteResult(PicDeleteResultEvent picDeleteResultEvent) {
         if(picDeleteResultEvent.errBean.getCode() == 0){
             ToastUtils.showShort("删除成功！");
+            Logger.e(picListChoose.toString());
+            Logger.e(picList.toString());
             //更新数据
             for(int i=0;i<picListChoose.size();i++){
                 for(int j=0;j<picList.size();j++){
                     //如果选择的集合和返回的图片列表的id相同
-                    if((picListChoose.get(i).getUserPicStoreId()== picList.get(j).getUserPicStoreId())){
-                        picList.remove(i);
+                    if((picListChoose.get(i).getUserPicStoreId() == picList.get(j).getUserPicStoreId())){
+                        // TODO: 2018/4/24 这里是remove（j），不是remove（i） 
+                        picList.remove(j);
                         break;
                     }
                 }
             }
             picListChoose.clear();
+            // TODO: 2018/4/24 没有重新设置数据吧
+            adapter.setDataList(picList);
             adapter.notifyDataSetChanged();
 
         }else{
             ToastUtils.showShort("删除失败:"+picDeleteResultEvent.errBean.getMsg());
         }
     }
+
     @Subscribe
     public void downloadImg(DownloadImgEvent downloadImgEvent){
         if(downloadImgEvent.isSucDownload){

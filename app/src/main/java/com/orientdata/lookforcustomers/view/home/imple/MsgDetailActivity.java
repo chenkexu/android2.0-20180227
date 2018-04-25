@@ -14,14 +14,10 @@ import com.orientdata.lookforcustomers.bean.ResultBean;
 import com.orientdata.lookforcustomers.event.MsgInfoEvent;
 import com.orientdata.lookforcustomers.presenter.MsgPresent;
 import com.orientdata.lookforcustomers.util.CommonUtils;
-import com.orientdata.lookforcustomers.view.MyTextView;
 import com.orientdata.lookforcustomers.view.home.IMsgView;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by wy on 2017/12/19.
