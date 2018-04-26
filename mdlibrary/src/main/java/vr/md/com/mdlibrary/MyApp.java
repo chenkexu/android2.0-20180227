@@ -1,11 +1,7 @@
 package vr.md.com.mdlibrary;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
-
-import com.umeng.socialize.Config;
-import com.umeng.socialize.PlatformConfig;
 
 /**
  * Created by Lenovo on 2016/4/11.

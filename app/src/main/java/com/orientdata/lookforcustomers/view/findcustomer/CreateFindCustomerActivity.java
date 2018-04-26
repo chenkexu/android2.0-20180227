@@ -1383,13 +1383,13 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         mMapView.onPause();
         super.onPause();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         mMapView.onResume();
         //为系统的方向传感器注册监听器
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),

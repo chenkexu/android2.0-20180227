@@ -13,6 +13,7 @@ public interface ICertificateModel {
     void getCertificateMsg(ICertificateModel.GetMsgComplete complete);
     //获取寻客列表
     void getSearchList(GetSearchListComplete complete,int type,int status,int page,int size);
+
     interface GetMsgComplete {
         void onSuccess(CertificationOut certificationOut);
         void onError(int code, String message);

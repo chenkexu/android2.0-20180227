@@ -345,7 +345,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:text="预计最大可覆盖人数(人)：0"
-                android:textColor="@color/c_1C1C1C"
+                android:textColor="@color/text_gray"
                 android:textSize="12sp" />
 
             <TextView

@@ -219,4 +219,6 @@ public class AccountBalanceActivity extends BaseActivity<ICommissionView, Commis
         mPresent.balanceList(searchDate, page, size);
 
     }
+
+
 }

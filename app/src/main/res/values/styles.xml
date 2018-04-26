@@ -75,7 +75,7 @@
 
     <style name="common_edittext1">
         <item name="android:textColorHint">@color/c_999999</item>
-        <item name="android:textColor">@color/c_1C1C1C</item>
+        <item name="android:textColor">@color/text_gray</item>
         <item name="android:textSize">14sp</item>
         <item name="android:background">@drawable/shape_bg_create_find_customer_location</item>
     </style>

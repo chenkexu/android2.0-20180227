@@ -29,6 +29,7 @@ import com.orientdata.lookforcustomers.event.UpdateSmsStateEvent;
 import com.orientdata.lookforcustomers.network.callback.WrCallback;
 import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
+import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
@@ -40,6 +41,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Created by wy on 2017/10/27.
+ * 忘记密码
  */
 
 public class ResetPasswordFragment extends BaseFragment implements View.OnClickListener, TextView.OnEditorActionListener {
@@ -109,6 +111,14 @@ public class ResetPasswordFragment extends BaseFragment implements View.OnClickL
                 break;
             case R.id.tv_call_code:
                 final String phone = etAccount.getText().toString().trim();
+                if (TextUtils.isEmpty(phone)) {
+                    ToastUtils.showShort("请输入手机号");
+                    return;
+                }
+                if (!CommonUtils.isPhoneNum(phone)) {
+                    ToastUtils.showShort("请输入正确的手机号");
+                    return;
+                }
                 showDefaultLoading();
                 NetWorkUtils.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
                     @Override
@@ -138,8 +148,6 @@ public class ResetPasswordFragment extends BaseFragment implements View.OnClickL
                         hideDefaultLoading();
                     }
                 });
-
-
                 break;
             case R.id.iv_password_hint:
                 if (ivPasswordHint.isSelected()) {

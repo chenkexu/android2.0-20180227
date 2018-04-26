@@ -186,7 +186,7 @@
                         android:maxLines="1"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:textColor="@color/c_1C1C1C"
+                        android:textColor="@color/text_gray"
                         android:textCursorDrawable="@drawable/cursor_style"
                         android:textSize="12sp" />
 

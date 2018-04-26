@@ -14,6 +14,9 @@ import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
  * 认证
  */
 public class CertificateModelImple implements ICertificateModel {
+
+
+    //获取认证信息
     @Override
     public void getCertificateMsg(final GetMsgComplete complete) {
         String url = HttpConstant.QUERY_CERTIFICATION_MSG;

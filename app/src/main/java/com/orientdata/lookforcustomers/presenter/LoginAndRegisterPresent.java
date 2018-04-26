@@ -156,7 +156,7 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
      * @param password
      * @param code
      */
-    public void register(String account, String password, String code) {
+    public void register(final String account, final String password, String code) {
         if (TextUtils.isEmpty(account)) {
             ToastUtils.showShort("请输入正确的手机号");
             return;
@@ -180,18 +180,21 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
         if (mLoginAndRegisterView != null && mRegisterModel != null &&
                 mUserModel != null) {
             mLoginAndRegisterView.showLoading();
-            password = MD5.md5(password);
-            mRegisterModel.register(account, password, code, codeId
+//            password = MD5.md5(password);
+            mRegisterModel.register(account, MD5.md5(password), code, codeId
                     , mUserModel.getPhoneType()
                     , mUserModel.getModel(),
                     mUserModel.getDeviceToken(), new IRegisterModel.RegisterComplete() {
                         @Override
                         public void success() {
                             mLoginAndRegisterView.hideLoading();
-                            ToastUtils.showShort("注册成功");
+                            ToastUtils.showShort("注册成功，请登录");
+                            // TODO: 2018/4/25 保存
                             codeId = "";
                             RegisterResultEvent registerResultEvent = new RegisterResultEvent();
                             registerResultEvent.isRegister = true;
+                            UserDataManeger.getInstance().setAccount(account);
+                            UserDataManeger.getInstance().setPassword(password);
                             EventBus.getDefault().post(registerResultEvent);
                         }
 
@@ -266,7 +269,7 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
         }
     }
 
-    public void resetPassword(String phone, final String code, String password) {
+    public void resetPassword(String phone, final String code, final String password) {
         if (TextUtils.isEmpty(phone)) {
             ToastUtils.showShort("请输入手机号");
             return;
@@ -289,11 +292,12 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
         }
         if (mLoginAndRegisterView != null && mResetPasswordModel != null) {
             mLoginAndRegisterView.showLoading();
-            password = MD5.md5(password);
-            mResetPasswordModel.resetPassword(phone, code, codeId, password, new IResetPasswordModel.ResetPasswordComplete() {
+//            password = MD5.md5(password);
+            mResetPasswordModel.resetPassword(phone, code, codeId, MD5.md5(password), new IResetPasswordModel.ResetPasswordComplete() {
                 @Override
                 public void onSuccess() {
                     mLoginAndRegisterView.hideLoading();
+                    UserDataManeger.getInstance().setPassword(password);
                     codeId = "";
                     ResetPasswordResultEvent resetPasswordResultEvent = new ResetPasswordResultEvent();
                     resetPasswordResultEvent.isResetPassword = true;

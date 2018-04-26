@@ -3,6 +3,7 @@ package com.orientdata.lookforcustomers.view.login.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -258,7 +259,20 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     @Subscribe
     public void registerResult(RegisterResultEvent registerResultEvent) {
         if (registerResultEvent.isRegister) {
-            getActivity().onBackPressed();
+            //注册成功
+            // TODO: 2018/4/25 注册成功后，保存新用户的信息
+            //登录
+            LoginFragment loginFragment = LoginFragment.newInstance(false);
+            FragmentTransaction fragmentTransaction = getActivity()
+                    .getSupportFragmentManager().beginTransaction();
+
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom
+                    , R.anim.enter_from_bottom, R.anim.exit_from_bottom);
+            fragmentTransaction.replace(R.id.fl_content, loginFragment);
+
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+//            getActivity().onBackPressed();
         }
     }
 

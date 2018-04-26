@@ -216,7 +216,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
-                android:textColor="@color/c_1C1C1C"
+                android:textColor="@color/text_gray"
                 android:textSize="12sp"/>
             <TextView
                 android:id="@+id/tvCreate"

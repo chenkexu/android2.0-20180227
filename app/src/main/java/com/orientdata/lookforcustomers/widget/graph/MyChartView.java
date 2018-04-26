@@ -306,7 +306,7 @@ public class MyChartView extends View {
 	 */
 	private int calY1(int y){
 		
-		int baseNum = (Integer.parseInt(Ylabel[1])) / 2;  //300
+		int baseNum = (Integer.parseInt(Ylabel[1])) / 2;  //170
 		// TODO: 2018/4/24 这里需要改一下 
 		int str = baseNum / 10;
 
@@ -315,9 +315,11 @@ public class MyChartView extends View {
 		}else if(y>baseNum && y<baseNum*3){    //51-150
 			return (calY(y,Ylabel[1],Ylabel[2])-(2*Yscale))+str;
 		}else if(y>baseNum*3 && y<baseNum*6+1){  //151-301
-			return calY(y,Ylabel[2],Ylabel[3])-3*Yscale+str;
-		}else if(y>baseNum*6 && y<baseNum*10+1){  //1800-3001
+			// TODO: 2018/4/25 加上了 baseNum / 4
+			return calY(y,Ylabel[2],Ylabel[3])-3*Yscale+(baseNum / 4);
 
+		}else if(y>baseNum*6 && y<baseNum*10+1){  //1800-3001
+			// TODO: 2018/4/25 加上了 baseNum / 10
 			return calY(y,Ylabel[3],Ylabel[4])-4*Yscale+str;
 
 		}else if(y>baseNum*10){ //   5000-

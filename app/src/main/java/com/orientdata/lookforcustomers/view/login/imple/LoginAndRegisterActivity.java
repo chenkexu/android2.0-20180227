@@ -88,7 +88,7 @@ public class LoginAndRegisterActivity extends BaseActivity<ILoginAndRegisterView
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         isNoBack = false;
     }

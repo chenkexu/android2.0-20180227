@@ -41,6 +41,7 @@ import com.orientdata.lookforcustomers.view.certification.impl.CertificationActi
 import com.orientdata.lookforcustomers.view.findcustomer.CreateFindCustomerActivity;
 import com.orientdata.lookforcustomers.view.home.IHomeView;
 import com.orientdata.lookforcustomers.view.home.InvoiceActivity;
+import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.mine.ShareToGetCommissionActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.AccountBalanceActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.CommissionWithDrawActivity;
@@ -63,7 +64,6 @@ import static android.app.Activity.RESULT_OK;
  * Created by wy on 2017/10/30.
  * 我的页面Fragment
  */
-
 public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHomeView>>
         implements IHomeView, View.OnClickListener {
     private RelativeLayout rl_invoice;
@@ -114,15 +114,6 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     }
 
 
-    
-
-
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        getData();
-    }*/
-
     private void initView(View view) {
         rl_invoice = view.findViewById(R.id.rl_invoice);
 //        blur = view.findViewById(R.id.blur);
@@ -153,16 +144,15 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     }
 
 
+
     public void getData() {
+        HomeActivity activity = (HomeActivity) getActivity();
+        final String cerStatus = activity.getCerStatus();
+
         showDefaultLoading();
         MDBasicRequestMap map = new MDBasicRequestMap();
         map.put("userId", UserDataManeger.getInstance().getUserId());
-
-
         OkHttpClientManager.postAsyn(HttpConstant.SELECT_SHOW_MY_INFO, new OkHttpClientManager.ResultCallback<MyInfoBean>() {
-
-
-
             @Override
             public void onError(Exception e) {
                 ToastUtils.showShort(e.getMessage());
@@ -180,31 +170,14 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                     mMapInfoBeans = response.getResult();
                     //是 String 名称
                     if (mMapInfoBeans.containsKey("name")) {
-                        tv_company_name.setVisibility(View.VISIBLE);
                         name = (String) mMapInfoBeans.get("name");
                         if (!TextUtils.isEmpty(name)) {
                             tv_company_name.setText(name);
-                        } else {
-//                            switch (c.getAuthStatus()) {
-//                                case 1:
-//                                    tv_status.setText("审核中");
-//                                    break;
-//                                case 2:
-//                                    tv_status.setText("已认证");
-//                                    break;
-//                                case 3:
-//                                    tv_status.setText("审核拒绝");
-//                                    break;
-//                                case 4:
-//                                    tv_status.setText("审核中");
-//                                    break;
-//                            }
+                        } else { //未认证
 
-////                            tv_company_name.setVisibility(View.GONE);
-//                            tv_company_name.setText("未认证");
+                            tv_company_name.setText(cerStatus);
                         }
                     } else {
-//                        tv_company_name.setVisibility(View.GONE);
                         tv_company_name.setText("账户未认证，去认证");
                     }
 
@@ -215,9 +188,7 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                     }
                     if (!TextUtils.isEmpty(userHead)) {
                         L.e("头像地址是："+userHead);
-//
                         GlideUtil.getInstance().loadHeadImage(getContext(),iv_head_portrait,userHead,true);
-//
                     } else {
                         Glide.with(getContext()).load(R.mipmap.head_default).into(iv_head_portrait);
                     }
@@ -339,7 +310,6 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 }else {
                     requestSharePermission();
                 }
-
 
                 break;
             case R.id.linear_company: //账户认证
@@ -519,19 +489,16 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
             imgResId = R.mipmap.go_pass;
             btText = getString(R.string.go_cer);
 //            账户未认证，去认证
-            tv_company_name.setText("账户未认证,认证");
         } else {
             //认证状态 1审核中 2审核通过 3审核拒绝
             authStatus = certificationOut.getAuthStatus();
             if (authStatus == 1 || authStatus == 4) {
                 //审核中
-                tv_company_name.setText("审核中");
                 cerStatus = getString(R.string.cer_ing);
                 remindString = getString(R.string.cer_waiting);
                 imgResId = R.mipmap.pass_ing;
                 btText = getString(R.string.go_watch);
             } else if (authStatus == 3) {
-                tv_company_name.setText("审核失败");
                 //审核拒绝
                 cerStatus = getString(R.string.no_pass);
                 remindString = getString(R.string.not_pass);

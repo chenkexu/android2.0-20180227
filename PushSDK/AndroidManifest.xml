@@ -75,7 +75,7 @@
 
         <service
             android:name="com.taobao.accs.ChannelService$KernelService"
-            android:process=":channel"></service>
+            android:process=":channel"/>
 
         <service
             android:name="org.android.agoo.accs.AgooService"

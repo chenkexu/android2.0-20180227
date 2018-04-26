@@ -105,8 +105,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         etAuthCode = view.findViewById(R.id.et_auth_code);
         tvRegister = view.findViewById(R.id.tv_register);
         etAccount.addTextChangedListener(etAccountWatch);
+
         String account = UserDataManeger.getInstance().getAccount();
         String password = UserDataManeger.getInstance().getPassword();
+
         if (!TextUtils.isEmpty(account)) {
             etAccount.setText(account);
             etPassword.setText(password);

@@ -38,8 +38,9 @@
             android:layout_marginLeft="10dp"
             android:layout_toEndOf="@+id/ivStatus"
             android:layout_toRightOf="@+id/ivStatus"
-            android:textSize="15sp"
-            android:textColor="@color/c_1C1C1C"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_gray"
             android:text="创建寻客" />
 
         <TextView
@@ -49,7 +50,7 @@
             android:layout_alignTop="@+id/imageView4"
             android:layout_toLeftOf="@+id/imageView4"
             android:layout_toStartOf="@+id/imageView4"
-            android:textColor="@color/c_9c9c9c"
+            android:textColor="#9699A3"
             android:textSize="12sp"
             android:paddingRight="10dp"
             android:layout_centerVertical="true"

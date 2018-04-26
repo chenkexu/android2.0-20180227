@@ -9,7 +9,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
         android:text="联系人："
-        android:textColor="@color/c_1C1C1C"
+        android:textColor="@color/text_gray"
         android:textSize="14sp" />
 
     <EditText

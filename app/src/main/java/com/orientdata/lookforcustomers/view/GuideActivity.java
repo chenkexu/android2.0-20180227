@@ -11,6 +11,7 @@ import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
+import com.umeng.analytics.MobclickAgent;
 
 
 /**
@@ -90,4 +91,15 @@ public class GuideActivity extends AppCompatActivity{
 //        finish();
 //    }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

@@ -12,6 +12,7 @@ import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
+import com.orientdata.lookforcustomers.util.EventManager;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.impl.CertificationActivity;
 import com.orientdata.lookforcustomers.view.home.IHomeView;
@@ -39,13 +40,17 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
     private RelativeLayout rlReport;
     private RelativeLayout rlMessage;
     private RelativeLayout rlMine;
+    String cerStatus ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initView();
+    }
 
+    public String getCerStatus() {
+        return cerStatus;
     }
 
     @Override
@@ -53,6 +58,8 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
         super.initImmersionBar();
         mImmersionBar.keyboardEnable(true).init();
     }
+
+
 
     @Override
     protected void onStart() {
@@ -87,12 +94,6 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
         rlMessage.setOnClickListener(this);
         rlMine.setOnClickListener(this);
         initFragments();
-//        if (getIntent() != null) {
-//            boolean isNewUser = getIntent().getBooleanExtra("isNewUser", false);
-//            if (isNewUser) {
-//                //查看用户的认证信息
-//            }
-//        }
         mPresent.getCertificateMsg(true);
     }
 
@@ -258,14 +259,14 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
 
     @Override
     public void getCertificateMsg(CertificationOut certificationOut, boolean isCertificate) {
-        String cerStatus = "";
+
         String remindString = "";
         int imgResId = 0;
         String btText = "";
         int authStatus = -1;
         if (certificationOut == null) {
             //未认证
-            cerStatus = getString(R.string.no_cer);
+            cerStatus = "账户未认证，去认证";
             remindString = getString(R.string.no_certified);
             imgResId = R.mipmap.go_pass;
             btText = getString(R.string.go_cer);
@@ -288,6 +289,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
                 btText = getString(R.string.re_go_cer);
             }
         }
+        EventManager.post(cerStatus);
         if (authStatus != 2) {
             final RemindDialog dialog = new RemindDialog(this, "", remindString, imgResId, btText);
             dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {

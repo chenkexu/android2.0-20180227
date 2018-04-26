@@ -57,7 +57,7 @@ android {
             def fileName
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 if (variant.buildType.name.equals('release')) {
-                    fileName = "wangrun${defaultConfig.versionName}" + ".apk";
+                    fileName = "网润寻客${defaultConfig.versionName}" + ".apk";
                 } else if (variant.buildType.name.equals('debug')) {
                     fileName = "wangrun_DEBUG${defaultConfig.versionName}.apk"
 
@@ -95,21 +95,22 @@ dependencies {
     //微信支付
     //compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile files('libs/zxing.jar')
-
     //butterknife
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-
     //网络请求框架https://github.com/jeasonlzy/okhttp-OkGo
     compile 'com.lzy.net:okgo:3.0.4'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     //rx1.1
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxandroid:1.1.0'
-
     //沉浸式
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
     compile 'com.blankj:utilcode:1.13.14'
     //图片缩放
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
+    //友盟统计
+    compile files('libs/umeng-analytics-7.5.1.jar')
+    compile files('libs/umeng-common-1.5.1.jar')
+    compile files('libs/umeng-debug-1.0.0.jar')
 }

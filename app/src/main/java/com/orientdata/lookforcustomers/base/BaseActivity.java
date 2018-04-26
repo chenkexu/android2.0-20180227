@@ -19,6 +19,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.presenter.BasePresenter;
 import com.orientdata.lookforcustomers.util.OsUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -293,4 +294,17 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
             }
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
+
 }

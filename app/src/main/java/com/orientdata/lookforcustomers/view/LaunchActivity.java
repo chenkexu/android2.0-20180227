@@ -22,6 +22,7 @@ import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.view.adapter.DepthPageTransformer;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 import com.orientdata.lookforcustomers.widget.DensityUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -252,5 +253,16 @@ public class LaunchActivity extends AppCompatActivity {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
         handler = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

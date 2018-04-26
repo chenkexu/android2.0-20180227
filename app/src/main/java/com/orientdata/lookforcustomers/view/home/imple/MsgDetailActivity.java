@@ -59,7 +59,7 @@ public class MsgDetailActivity extends BaseActivity<IMsgView, MsgPresent<IMsgVie
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         setResult(1);
         super.onPause();
     }

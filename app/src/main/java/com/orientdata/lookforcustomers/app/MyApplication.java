@@ -17,6 +17,7 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.map.LocationService;
+import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -85,14 +86,14 @@ public class MyApplication extends MyApp {
                 .build();
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
 
+        //初始化okgo
         initOkGo();
-
-
+        //----------初始化友盟统计
+        //设置LOG开关，默认为false
+        UMConfigure.setLogEnabled(true);
+        //初始化组件化基础库, 统计SDK/推送SDK/分享SDK都必须调用此初始化接口
+        UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE, null);
     }
-
-
-
-
 
 
 

@@ -37,7 +37,7 @@ public class HomePresent<T> extends BasePresenter<IHomeView> {
     }
 
     /**
-     * @param isCertificate 是否点击实名认证
+     * @param isCertificate 获取认证信息
      */
     public void getCertificateMsg(final boolean isCertificate) {
         if (mCertificateModel != null) {
