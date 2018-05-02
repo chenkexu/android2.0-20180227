@@ -434,7 +434,6 @@ public class OkHttpClientManager {
 
     /**
      * 加载图片
-     *
      * @param view
      * @param url
      * @throws IOException

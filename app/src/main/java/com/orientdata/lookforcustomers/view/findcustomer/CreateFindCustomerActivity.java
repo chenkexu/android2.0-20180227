@@ -694,23 +694,23 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                     //未认证
                     cerStatus = getString(R.string.no_cer);
                     remindString = getString(R.string.no_certified);
-                    imgResId = R.mipmap.no_certified;
+                    imgResId = R.mipmap.go_pass;
                     btText = getString(R.string.go_cer);
                 } else if (authStatus == 2) {
                     //审核中
                     cerStatus = getString(R.string.cer_ing);
                     remindString = getString(R.string.cer_waiting);
-                    imgResId = R.mipmap.audit;
+                    imgResId = R.mipmap.pass_ing;
                     btText = getString(R.string.go_watch);
                 } else if (authStatus == 4) {
                     //审核未通过
                     cerStatus = getString(R.string.no_pass);
                     remindString = getString(R.string.not_pass);
-                    imgResId = R.mipmap.not_pass;
+                    imgResId = R.mipmap.no_pass;
                     btText = getString(R.string.re_go_cer);
                 }
                 if (authStatus != 3) {
-                    final RemindDialog dialog = new RemindDialog(this, cerStatus, remindString, imgResId, btText);
+                    final RemindDialog dialog = new RemindDialog(this, "", remindString, imgResId, btText);
                     dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
                         @Override
                         public void doCertificate() {

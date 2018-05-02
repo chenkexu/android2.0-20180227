@@ -27,6 +27,7 @@ public class BaseFragment extends Fragment {
         baseActivity = (BaseActivity) context;
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

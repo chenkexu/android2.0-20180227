@@ -268,7 +268,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/textview_bg"
+                        android:background="@drawable/image_make_border_new"
                         android:textColor="@color/c_000000"
                         android:textSize="15sp" />
 
@@ -278,7 +278,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/textview_bg"
+                        android:background="@drawable/image_make_border_new"
                         android:textColor="@color/c_05A822"
                         android:textSize="25sp" />
 
@@ -289,7 +289,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/textview_bg"
+                        android:background="@drawable/image_make_border_new"
                         android:textColor="@color/c_DC0100"
                         android:textSize="18sp" />
 

@@ -134,6 +134,36 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     private String industryNameStr;
     private double minMoney;
 
+
+    @Override
+    public void onBackPressed() {
+//        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this, "温馨提示", "确定保存吗");
+//        dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
+//            @Override
+//            public void doCancel() {
+//                dialog.dismiss();
+//                finish();
+//            }
+//
+//            @Override
+//            public void doConfirm() {
+//                dialog.dismiss();
+//                savaCache();
+//            }
+//        });
+//        dialog.show();
+    }
+
+
+
+    private void savaCache() {
+        //签名
+        //短信内容
+        //开始时间.结束时间
+        //任务预算
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,12 +174,9 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
         initView();
         initTitle();
         initDate();
-
         //设置签名信息
         intSignContent();
-
     }
-
 
     private void intSignContent() {
         showDefaultLoading();
@@ -162,7 +189,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 ToastUtils.showShort(e.getMessage());
                 hideDefaultLoading();
             }
-
             @Override
             public void onResponse(MyInfoBean response) {
                 if (response.getCode() == 0) {
@@ -238,8 +264,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
             minMoney = intent.getDoubleExtra("minMoney",1000);
             // TODO: 2018/4/23 测试号也得传过来 
-
-
 
             Logger.d("省Code:---" + mProvinceCode);
             // TODO: 2018/4/7 这个地方先去掉单价 
@@ -453,14 +477,16 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 //                                temp = length + numCount;
                             } else { //如果包含企业签名和其他的内容
                                 etMsgContent.setText(s.toString());
-                                etMsgContent.setSelection(etMsgContent.getText().toString().length());
+                                // TODO: 2018/4/28 这里修改了一下显示的光标
+                                etMsgContent.setSelection(start+count);
+//                                etMsgContent.setSelection(etMsgContent.getText().toString().length());
 //                                temp = length + numCount;
                             }
                     }
 
 
 
-                    //// TODO: 2018/4/17 为了统计字数
+                    // TODO: 2018/4/17 为了统计字数
                     if (etEnterpriseSignature.getText().toString().equals("")) {
                         Logger.d("企业签名为空");
                         String content = etMsgContent.getText().toString();
@@ -567,6 +593,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 startActivityForResult(intent, 1);
             }
         });
+
     }
 
     /**
@@ -1036,3 +1063,5 @@ class EmojiExcludeFilter implements InputFilter {
     }
 
 }
+
+

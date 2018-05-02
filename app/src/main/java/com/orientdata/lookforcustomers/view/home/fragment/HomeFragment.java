@@ -2,6 +2,7 @@ package com.orientdata.lookforcustomers.view.home.fragment;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -235,6 +236,18 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
 //                    title.setTitleName("ID:" + userNo);
 
                     tv_useId.setText(userNo);
+
+                    tv_useId.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                            // 将文本内容放到系统剪贴板里。
+                            cm.setText(tv_useId.getText());
+                            ToastUtils.showShort("复制成功");
+                            return false;
+                        }
+                    });
+
                     BigDecimal todaySmsMoney = BigDecimal.valueOf((Double) map.get("todaySmsMoney")); //是 bigdecimal 今日短信消费
                     tv_fm_home_SMSTodayConsumeCoins.setText(todaySmsMoney.intValue() + "");
                     double successCount = (Double) map.get("successCount");//是 int 今日下发量
@@ -510,7 +523,7 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 break;
             case R.id.ll_fm_home_accountRecharge:
 
-//                startActivity(new Intent(getActivity(), TestActivity.class));
+//                startActivity(new Intent(getActivity(), MessageTaskActivity.class));
                 // TODO: 2018/4/24 进入测试页面
                 intent = new Intent(getActivity(), RechargeActivity.class);
                 startActivity(intent);

@@ -29,6 +29,17 @@
 
     <!-- 友盟分享 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED"/>
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED"/>
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL"/>
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED"/>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+
 
     <!--微信支付-->
 
@@ -54,7 +65,7 @@
         </meta-data>
 
 
-
+        <!--百度地图-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="zYqGZSxS1XS6HD2Dq5k8vKjByBiOnVrM" />
@@ -63,6 +74,17 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
+        <!-- 友盟推送 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="58c0fc3a07fe653c10001c45"/>
+        <meta-data android:value="umeng" android:name="UMENG_CHANNEL"/>
+
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="6119919e888e88f695761c9d6b627293" />
+
 
         <activity
             android:name=".view.login.imple.LoginAndRegisterActivity"
@@ -170,15 +192,7 @@
             android:name=".view.findcustomer.CreateAdActivity2"
             android:screenOrientation="portrait" />
 
-        <!-- 友盟推送 -->
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="58c0fc3a07fe653c10001c45"/>
-        <meta-data android:value="umeng" android:name="UMENG_CHANNEL"/>
 
-        <meta-data
-            android:name="UMENG_MESSAGE_SECRET"
-            android:value="6119919e888e88f695761c9d6b627293" />
 
         <!--<service android:name="com.app.EastOffice.exceptionbroadcast.MyPushIntentService"/>-->
 
@@ -327,6 +341,15 @@
         <activity
             android:name=".view.home.InvoiceTaskListActivity"
             android:screenOrientation="portrait" />
+
+
+
+        <!-- push start -->
+        <service android:name=".push.MyPushIntentService" />
+        <service android:name=".push.UmengNotificationService" />
+        <service android:name=".push.MyNotificationService" />
+        <receiver android:name=".push.NotificationBroadcast" />
+        <!-- push end -->
     </application>
 
 </manifest>

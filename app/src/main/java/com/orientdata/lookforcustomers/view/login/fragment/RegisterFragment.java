@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gabrielsamojlo.keyboarddismisser.KeyboardDismisser;
 import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
@@ -71,6 +72,11 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         initView(view);
         initEvent();
         return view;
+    }
+
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        KeyboardDismisser.useWith(this);
     }
 
     private void initEvent() {

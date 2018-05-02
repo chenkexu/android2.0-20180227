@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/x88">
 
         <LinearLayout
             android:gravity="center"
@@ -32,9 +32,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="@dimen/x14"
                 android:id="@+id/tv_useId"
-                android:textSize="18sp"
+                android:textSize="@dimen/x32"
                 android:textColor="@color/colorPrimary"
                 android:text="设置"
                 android:layout_width="wrap_content"
@@ -50,15 +50,20 @@
         android:layout_height="wrap_content" />-->
 
     <TextView
+        android:paddingTop="@dimen/x9"
+        android:paddingBottom="@dimen/x9"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_gravity="center"
         android:id="@+id/tv_user_status"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="@color/c_fafafa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_code_round2"
         android:gravity="center"
         android:text="账户异常"
         android:textColor="#ff000c"
-        android:textSize="11sp"
-        android:visibility="gone" />
+        android:textSize="@dimen/x16"
+        android:visibility="visible" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_marginTop="5dp"
@@ -66,7 +71,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
         <ScrollView
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -76,22 +80,21 @@
                 android:orientation="vertical">
                 <!--账户信息-->
                 <RelativeLayout
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="3dp"
-                    android:paddingTop="@dimen/h10"
-                    android:paddingBottom="@dimen/h10"
+                    android:paddingTop="@dimen/x44"
+                    android:paddingBottom="@dimen/x40"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/bg_tv_round_gradient"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="15dp">
+                    android:gravity="center_vertical">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="@dimen/x53"
                         android:orientation="vertical">
                         
 
@@ -108,7 +111,7 @@
                                 android:layout_gravity="center"
                                 android:text="账户余额 (元)"
                                 android:textColor="#FFFFFF"
-                                android:textSize="20sp"
+                                android:textSize="@dimen/x35"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -116,11 +119,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
+                                android:layout_marginLeft="@dimen/x15"
                                 android:gravity="center_horizontal"
                                 android:text="---"
                                 android:textColor="#FFFFFF"
-                                android:textSize="20sp"
+                                android:textSize="@dimen/x37"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -130,7 +133,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_below="@id/ll_account"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="@dimen/x23"
                             android:orientation="horizontal">
 
                             <TextView
@@ -139,7 +142,7 @@
                                 android:layout_gravity="center"
                                 android:text="冻结余额 (元)"
                                 android:textColor="#FFFFFF"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/x30"
                                 android:textStyle="normal" />
 
                             <TextView
@@ -152,35 +155,35 @@
                                 android:paddingRight="5dp"
                                 android:text="---"
                                 android:textColor="#FFFFFF"
-                                android:textSize="15sp"
+                                android:textSize="@dimen/x30"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                     </LinearLayout>
                     <!--充值-->
                     <LinearLayout
+                        android:layout_centerVertical="true"
                         android:id="@+id/btn_recharge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:paddingBottom="10dp"
-                        android:paddingRight="29dp"
-                        android:paddingTop="10dp">
+                        android:paddingRight="@dimen/x78">
 
                         <ImageView
-                            android:layout_width="@dimen/h40"
-                            android:layout_height="@dimen/h40"
+                            android:layout_width="@dimen/x53"
+                            android:layout_height="@dimen/x56"
                             android:src="@mipmap/charge" />
 
 
                         <TextView
+                            android:layout_marginTop="@dimen/x10"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="立即充值"
                             android:textColor="@color/bg_white"
-                            android:textSize="13sp"
+                            android:textSize="@dimen/x28"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -220,7 +223,7 @@
                             android:layout_marginTop="7dp"
                             android:text="账户充值"
                             android:textColor="@color/text_gray"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/x24" />
                     </LinearLayout>
                     <!--账户认证-->
                     <LinearLayout
@@ -242,7 +245,7 @@
                             android:layout_marginTop="7dp"
                             android:text="账户认证"
                             android:textColor="@color/text_gray"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/x24" />
                     </LinearLayout>
 
                     <!--赚取佣金-->
@@ -266,7 +269,7 @@
                             android:layout_marginTop="7dp"
                             android:text="赚取佣金"
                             android:textColor="@color/text_gray"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/x24" />
                     </LinearLayout>
                     <!--用户咨询-->
                     <LinearLayout
@@ -288,7 +291,7 @@
                             android:layout_marginTop="7dp"
                             android:text="用户咨询"
                             android:textColor="@color/text_gray"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/x24" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -304,7 +307,7 @@
                     android:paddingTop="10dp"
                     android:text="页面信息"
                     android:textColor="#1C1C1C"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/x29" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -328,7 +331,7 @@
                             android:layout_gravity="center"
                             android:text="---"
                             android:textColor="#DD544E"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/x42"
                             android:textStyle="bold" />
 
                         <TextView
@@ -337,7 +340,7 @@
                             android:layout_gravity="center"
                             android:text="今日消费(元)"
                             android:textColor="@color/home_count"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/x24" />
                     </LinearLayout>
 
                     <!--今日曝光量-->
@@ -354,7 +357,7 @@
                             android:layout_gravity="center"
                             android:text="---"
                             android:textColor="#53CAC3"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/x42"
                             android:textStyle="bold" />
 
                         <TextView
@@ -363,7 +366,7 @@
                             android:layout_gravity="center"
                             android:text="今日曝光量"
                             android:textColor="@color/home_count"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/x24" />
                     </LinearLayout>
 
 
@@ -381,7 +384,7 @@
                             android:layout_gravity="center"
                             android:text="---"
                             android:textColor="#0A62CC"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/x42"
                             android:textStyle="bold" />
 
                         <TextView
@@ -390,7 +393,7 @@
                             android:layout_gravity="center"
                             android:text="今日点击量"
                             android:textColor="@color/home_count"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/x24" />
                     </LinearLayout>
                 </LinearLayout>
                 <!--灰色隔离线-->
@@ -411,7 +414,7 @@
                     android:paddingTop="10dp"
                     android:text="短信提醒"
                     android:textColor="#1C1C1C"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/x29" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -435,7 +438,7 @@
                             android:layout_gravity="center"
                             android:text="---"
                             android:textColor="#FDA32C"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/x42"
                             android:textStyle="bold" />
 
                         <TextView
@@ -444,7 +447,7 @@
                             android:layout_gravity="center"
                             android:text="今日消费元"
                             android:textColor="@color/home_count"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/x24" />
                     </LinearLayout>
 
 
@@ -462,7 +465,7 @@
                             android:layout_gravity="center"
                             android:text="---"
                             android:textColor="#0A62CC"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/x42"
                             android:textStyle="bold" />
 
                         <TextView
@@ -471,7 +474,7 @@
                             android:layout_gravity="center"
                             android:text="今日下发量"
                             android:textColor="@color/home_count"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/x24" />
                     </LinearLayout>
 
 
@@ -515,8 +518,8 @@
 
                     <ImageView
                         android:id="@+id/iv_fm_home_createXunKe"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/x106"
+                        android:layout_height="@dimen/x106"
                         android:src="@mipmap/bg_img_fm_home_create_xunke1"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
@@ -533,7 +536,7 @@
                         android:layout_toRightOf="@+id/iv_fm_home_createXunKe"
                         android:text="创建寻客"
                         android:textColor="#7F7F7F"
-                        android:textSize="22sp"
+                        android:textSize="@dimen/x42"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -556,6 +559,7 @@
 
                 <!--最新公告-->
                 <RelativeLayout
+                    android:paddingTop="@dimen/x36"
                     android:id="@+id/rl_fm_home_announcementlists"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -565,22 +569,20 @@
 
                     <ImageView
                         android:id="@+id/iv_fm_home_LastestAnnouncement"
-                        android:layout_width="@dimen/h25"
-                        android:layout_height="@dimen/h25"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x37"
                         android:src="@mipmap/bg_img_fm_home_lastest_announcement" />
 
                     <TextView
                         android:id="@+id/tv_fm_home_LastestAnnouncement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="@dimen/x17"
                         android:layout_toRightOf="@+id/iv_fm_home_LastestAnnouncement"
                         android:text="最新公告"
                         android:textColor="@color/text_gray"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/x30"
                         android:textStyle="bold" />
 
                     <TextView
@@ -630,7 +632,7 @@
                     <com.orientdata.lookforcustomers.view.banner.RoolViewPager
                         android:id="@+id/home_Viewpager"
                         android:layout_width="match_parent"
-                        android:layout_height="144dp"></com.orientdata.lookforcustomers.view.banner.RoolViewPager>
+                        android:layout_height="144dp"/>
                     <!-- layout_alignBottom ： 在哪个控件的底部 -->
                     <RelativeLayout
                         android:layout_width="match_parent"
