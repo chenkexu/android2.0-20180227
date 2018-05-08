@@ -1004,34 +1004,20 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     }
 
     private void wipedata() {
-        //// TODO: 2017/12/24
+        // TODO: 2017/12/24
         mTaskType = "";
         tv_at_create_find_customer_type.setText("--未设置--");
         et_ac_create_find_customer_name.setText("");
-//        et_ac_create_find_customer_budget.setText("");
         //定向设置清空
         ageF = "";
         ageB = "";
-//        educationLevelF = "";
-//        educationLevelB = "";
         sex = "";
-//        consumptionCapacityF = "";
-//        consumptionCapacityB = "";
-//        ascription = "";
-//        phoneModelIds = "";
         interestIds = "";
         tv_ac_create_find_customer_set.setText("--未设置--");
+        // TODO: 2018/5/3 清除缓存
+        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
         ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
     }
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -1605,6 +1591,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     public void onBackPressed() {
         //返回的时候 清除 定向缓存
         ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
+        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
         super.onBackPressed();
     }
 }

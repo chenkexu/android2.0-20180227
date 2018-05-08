@@ -79,12 +79,15 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="58c0fc3a07fe653c10001c45"/>
-        <meta-data android:value="umeng" android:name="UMENG_CHANNEL"/>
+        <!--<meta-data android:value="umeng" android:name="UMENG_CHANNEL"/>-->
 
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
             android:value="6119919e888e88f695761c9d6b627293" />
 
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" /> <!--渠道号，多渠道这里使用了占位符$-->
 
         <activity
             android:name=".view.login.imple.LoginAndRegisterActivity"

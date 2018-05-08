@@ -149,7 +149,7 @@
             android:layout_toEndOf="@+id/tv_customize_money"
             android:layout_toRightOf="@+id/tv_customize_money"
             android:background="#fafafa"
-            android:cursorVisible="false"
+            android:cursorVisible="true"
             android:gravity="center"
             android:inputType="number"
             android:textColorHint="#9699A3"

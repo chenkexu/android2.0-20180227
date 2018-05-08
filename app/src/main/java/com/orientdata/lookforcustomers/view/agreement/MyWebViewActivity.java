@@ -48,7 +48,7 @@ public class MyWebViewActivity extends WangrunBaseActivity {
 
         myProgressBar = (ProgressBar) findViewById(R.id.myProgressBar);
         webView = (WebView) findViewById(R.id.webView);
-        myTitle = findViewById(R.id.my_title);
+        myTitle = (MyTitle) findViewById(R.id.my_title);
 
         WebSettings webSettings = webView.getSettings();
 

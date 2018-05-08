@@ -42,8 +42,9 @@ public abstract class WrCallback<T> extends AbsCallback<T> {
         request.params("ver", getVer());
         request.params("plat",getPlat());
         request.params("private_key", getPrivate_key());
-        request.params("userId",UserDataManeger.getInstance().getUserId());
-
+        if (!TextUtils.isEmpty(UserDataManeger.getInstance().getUserId())) {
+            request.params("userId",UserDataManeger.getInstance().getUserId());
+        }
         if (!TextUtils.isEmpty(UserDataManeger.getInstance().getUserToken())) {
             request.params("token", UserDataManeger.getInstance().getUserToken());
         }

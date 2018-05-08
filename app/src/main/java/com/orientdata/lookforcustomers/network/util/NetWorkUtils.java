@@ -49,6 +49,7 @@ public class NetWorkUtils {
                 .params("content",content)
                 .execute(callback);
     }
+
     public static void getSignAndId2(String provincecode,WrCallback<WrResponse<MessageTypeBean>> callback){
         OkGo.<WrResponse<MessageTypeBean>>post(HttpConstant.GET_SIGN_AND_TD)
                 .params("userId",UserDataManeger.getInstance().getUserId())

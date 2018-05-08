@@ -225,7 +225,6 @@ public class OkHttpClientManager {
 
     /**
      * 异步的post请求
-     *
      * @param url
      * @param callback
      * @param params
@@ -411,7 +410,7 @@ public class OkHttpClientManager {
                     //如果下载文件成功，第一个参数为文件的绝对路径
                     sendSuccessResultCallback(file.getAbsolutePath(), callback);
                 } catch (IOException e) {
-                    sendFailedStringCallback(response.request(), e, callback);
+                    sendFailedStringCallback(response.request(), new IllegalStateException("网络未连接，请检查网络") , callback);
                 } finally {
                     try {
                         if (is != null) is.close();
@@ -783,7 +782,7 @@ public class OkHttpClientManager {
             @Override
             public void onFailure(final Request request, final IOException e) {
                 //网络不通的话
-                sendFailedStringCallback(request, e, callback);
+                sendFailedStringCallback(request, new IllegalStateException("服务器错误，请检查网络连接"), callback);
                 startError(102, ""); //看不懂
             }
             @Override
@@ -815,24 +814,23 @@ public class OkHttpClientManager {
                                     RuntimeException runtimeException = new RuntimeException(msg);
                                     sendFailedStringCallback(response.request(), runtimeException, callback);
                                     if(error_code == -100){
-
                                         //重新登陆
                                         startError(101, msg);
                                     }
                                 }
 
                             } catch (Exception e) {
-                                sendFailedStringCallback(null, e, callback);
+                                sendFailedStringCallback(null, new IllegalStateException("服务器解析错误，请检查网络连接"), callback);
                             }
                         }
                     }
 
 
                 } catch (IOException e) {
-                    sendFailedStringCallback(response.request(), e, callback);
-                } catch (com.google.gson.JsonParseException e)//Json解析的错误
-                {
-                    sendFailedStringCallback(response.request(), e, callback);
+                    // TODO: 2018/5/3
+                    sendFailedStringCallback(response.request(),new IllegalStateException("网络未连接，请检查网络"), callback);
+                } catch (com.google.gson.JsonParseException e) {//Json解析的错误
+                    sendFailedStringCallback(response.request(), new IllegalStateException("数据解析错误"), callback);
                 }
             }
         });

@@ -23,6 +23,7 @@ import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.ErrBean;
+import com.orientdata.lookforcustomers.bean.MessageTaskCacheBean;
 import com.orientdata.lookforcustomers.bean.MyInfoBean;
 import com.orientdata.lookforcustomers.bean.SelectWordBean;
 import com.orientdata.lookforcustomers.bean.SettingOut;
@@ -41,6 +42,7 @@ import com.orientdata.lookforcustomers.view.findcustomer.ITaskView;
 import com.orientdata.lookforcustomers.view.findcustomer.TestPhoneSettingActivity;
 import com.orientdata.lookforcustomers.widget.DateSelectPopupWindow;
 import com.orientdata.lookforcustomers.widget.MyTitle;
+import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmSubmitDialog;
 
 import java.io.File;
@@ -133,25 +135,43 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     private String industryMark;
     private String industryNameStr;
     private double minMoney;
-
+    private String signStr;
+    private String contentAll;
+    private MessageTaskCacheBean messageTaskCacheBean;
 
     @Override
     public void onBackPressed() {
-//        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this, "温馨提示", "确定保存吗");
+        final ConfirmDialog dialog = new ConfirmDialog(this, "是否保存当前内容", "保存","不保存");
+        dialog.show();
+        dialog.setClickListenerInterface(new ConfirmDialog.ClickListenerInterface() {
+            @Override
+            public void doCancel() {
+                dialog.dismiss();
+                SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
+                finish();
+            }
+
+            @Override
+            public void doConfirm() {
+                dialog.dismiss();
+                savaCache();
+                finish();
+            }
+        });
+
+//        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this, "温馨提示", "短信内容确定保存吗");
 //        dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
 //            @Override
 //            public void doCancel() {
-//                dialog.dismiss();
-//                finish();
+//
 //            }
 //
 //            @Override
 //            public void doConfirm() {
-//                dialog.dismiss();
-//                savaCache();
+//
 //            }
 //        });
-//        dialog.show();
+
     }
 
 
@@ -161,6 +181,16 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
         //短信内容
         //开始时间.结束时间
         //任务预算
+        obtainData();
+
+        // TODO: 2018/5/3 存储到缓存文件中
+        MessageTaskCacheBean messageTaskCacheBean = new MessageTaskCacheBean();
+        messageTaskCacheBean.setSignStr(signStr);
+        messageTaskCacheBean.setStartdate(startdate);
+        messageTaskCacheBean.setEnddate(enddate);
+        messageTaskCacheBean.setBudget(budget);
+        messageTaskCacheBean.setContent(content);
+        SharedPreferencesTool.getInstance().setObject(messageTaskCacheBean, SharedPreferencesTool.MessageTaskCacheBean);
     }
 
 
@@ -179,48 +209,69 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     }
 
     private void intSignContent() {
-        showDefaultLoading();
-        MDBasicRequestMap map = new MDBasicRequestMap();
-        map.put("userId", UserDataManeger.getInstance().getUserId());
-        map.put("provincecode", mProvinceCode);
-        OkHttpClientManager.postAsyn(HttpConstant.GET_SIGN_AND_TD, new OkHttpClientManager.ResultCallback<MyInfoBean>() {
-            @Override
-            public void onError(Exception e) {
-                ToastUtils.showShort(e.getMessage());
-                hideDefaultLoading();
+
+        messageTaskCacheBean = (MessageTaskCacheBean) SharedPreferencesTool.getInstance().getObjectFromShare(SharedPreferencesTool.MessageTaskCacheBean);
+
+        if (messageTaskCacheBean!=null) {
+            if (!TextUtils.isEmpty(messageTaskCacheBean.getStartdate())) {
+                tvDateFrom.setText(messageTaskCacheBean.getStartdate());
             }
-            @Override
-            public void onResponse(MyInfoBean response) {
-                if (response.getCode() == 0) {
-                    if (response.getResult() == null || response.getResult().size() <= 0) {
-                        hideDefaultLoading();
-                        return;
-                    }
+            if (!TextUtils.isEmpty(messageTaskCacheBean.getEnddate())) {
+                tvDateTo.setText(messageTaskCacheBean.getEnddate());
+            }
+            if (!TextUtils.isEmpty(messageTaskCacheBean.getBudget())) {
+                etBudget.setText(messageTaskCacheBean.getBudget());
+            }
+        }
 
-                    double id = (double) response.getResult().get("id");
-                    String provincecode = (String) response.getResult().get("provincecode");
-                    double signstate = (double) response.getResult().get("signstate");
-                    String tdcontent = (String) response.getResult().get("tdcontent");
-
-                    tvUnsubscribe.setText(tdcontent);
-
-                    if ((int) signstate == 0) { //自定义
-
-                    } else { //固定签名
-                        String sign = (String) response.getResult().get("sign");
-                        etEnterpriseSignature.setText(sign);
-                        setEnable();
-                        tvMessageSign.setText(etEnterpriseSignature.getText().toString());
-                    }
-
-
-//                    int idStr = (int) id;
-                    Logger.d("-----" + provincecode + signstate + tdcontent);
-
+            showDefaultLoading();
+            MDBasicRequestMap map = new MDBasicRequestMap();
+            map.put("userId", UserDataManeger.getInstance().getUserId());
+            map.put("provincecode", mProvinceCode);
+            OkHttpClientManager.postAsyn(HttpConstant.GET_SIGN_AND_TD, new OkHttpClientManager.ResultCallback<MyInfoBean>() {
+                @Override
+                public void onError(Exception e) {
+                    ToastUtils.showShort(e.getMessage());
+                    hideDefaultLoading();
                 }
-                hideDefaultLoading();
-            }
-        }, map);
+                @Override
+                public void onResponse(MyInfoBean response) {
+                    if (response.getCode() == 0) {
+                        if (response.getResult() == null || response.getResult().size() <= 0) {
+                            hideDefaultLoading();
+                            return;
+                        }
+
+                        double id = (double) response.getResult().get("id");
+                        String provincecode = (String) response.getResult().get("provincecode");
+                        double signstate = (double) response.getResult().get("signstate");
+                        String tdcontent = (String) response.getResult().get("tdcontent");
+                        tvUnsubscribe.setText(tdcontent); //设置回复退订
+
+                        // TODO: 2018/5/3 设置缓存信息
+                        if ((int) signstate == 0) { //自定义
+                            if (messageTaskCacheBean!=null) { //有缓存信息
+                                Logger.d(messageTaskCacheBean.toString());
+                                if (!TextUtils.isEmpty(messageTaskCacheBean.getSignStr())) {
+                                    etEnterpriseSignature.setText(messageTaskCacheBean.getSignStr());
+                                }
+                                if (!TextUtils.isEmpty(messageTaskCacheBean.getContent())) {
+                                    etMsgContent.setText(messageTaskCacheBean.getContent());
+                                }
+                                tvMessageSign.setText(etEnterpriseSignature.getText().toString());
+                            }
+                        } else { //固定签名
+                            String sign = (String) response.getResult().get("sign");
+                            etEnterpriseSignature.setText(sign);
+                            setEnable();
+                            tvMessageSign.setText(etEnterpriseSignature.getText().toString());
+                        }
+                        Logger.d("-----" + provincecode + signstate + tdcontent);
+
+                    }
+                    hideDefaultLoading();
+                }
+            }, map);
 
     }
 
@@ -313,7 +364,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                         etMsgContent.setEnabled(true);
                     }
                 }
-
             }
         });
 
@@ -427,6 +477,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
 
         //输入短信内容时
+
         etMsgContent.addTextChangedListener(new TextWatcher() {
             private String preStr = "";
             private int temp;
@@ -466,13 +517,14 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                             }
                         }else{
                             Logger.d("可以编辑");
-                            if (messageContent.equals(tvMessageSign.getText().toString())) { //如果只有企业签名
+                        // TODO: 2018/5/3  tvMessageSign改成了etEnterpriseSignature
+                            if (messageContent.equals(etEnterpriseSignature.getText().toString())) { //如果只有企业签名
                                 tvMessageContentHint.setVisibility(View.VISIBLE);
                                 tvMessageSign.setVisibility(View.VISIBLE);
                                 etMsgContent.setText("");
 //                                temp = numCount;
-                            } else if (!s.toString().contains(tvMessageSign.getText().toString())) { //如果不包含企业签名（第一次输入）
-                                etMsgContent.setText(tvMessageSign.getText().toString() + s.toString());
+                            } else if (!s.toString().contains(etEnterpriseSignature.getText().toString())) { //如果不包含企业签名（第一次输入）
+                                etMsgContent.setText(etEnterpriseSignature.getText().toString() + s.toString());
                                 etMsgContent.setSelection(etMsgContent.getText().toString().length());
 //                                temp = length + numCount;
                             } else { //如果包含企业签名和其他的内容
@@ -483,8 +535,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 //                                temp = length + numCount;
                             }
                     }
-
-
 
                     // TODO: 2018/4/17 为了统计字数
                     if (etEnterpriseSignature.getText().toString().equals("")) {
@@ -578,7 +628,12 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
     private void initTitle() {
         titleMsg.setTitleName(getString(R.string.msg_task_setting));
-        titleMsg.setImageBack(this);
+        titleMsg.setLeftImage(R.drawable.bg_back_btn, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         titleMsg.setRightText(R.string.test);
         titleMsg.setRightTextClickListener(new View.OnClickListener() {
             @Override
@@ -705,23 +760,26 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     }
 
 
+
+    private void obtainData(){
+        startdate = tvDateFrom.getText().toString().trim();
+        enddate = tvDateTo.getText().toString().trim();
+        content = etMsgContent.getText().toString().trim();
+        budget = etBudget.getText().toString().trim();
+        signStr = etEnterpriseSignature.getText().toString().trim();
+        contentAll = content + tvUnsubscribe.getText().toString();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvCreate:
-                startdate = tvDateFrom.getText().toString().trim();
-                enddate = tvDateTo.getText().toString().trim();
-                content = etMsgContent.getText().toString().trim();
-                budget = etBudget.getText().toString().trim();
-                String signStr = etEnterpriseSignature.getText().toString().trim();
-                String contentAll = content + tvUnsubscribe.getText().toString();
-
+                obtainData();
                 if (TextUtils.isEmpty(signStr)) {
                     ToastUtils.showShort("请输入企业签名");
                     isSubmitting = false;
                     return;
                 }
-
                 if (signStr.length()>2){
                     String substring = signStr.substring(1, signStr.length() - 1);
                     Logger.d("substring:"+substring);
@@ -733,26 +791,20 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                         return;
                     }
                 }
-
-                if ( contentAll.length() > 70 ) {
+                if (contentAll.length() > 70 ) {
                     ToastUtils.showShort("您输入的短信内容超出字数限制");
                     return;
                 }
 //
 //                String substring = signStr.substring(1, signStr.length() - 1);
-//
 //                Logger.d("substring:"+substring);
 //                int length = etEnterpriseSignature.getText().length();
-
-
-
 
                 if (TextUtils.isEmpty(content)) {
                     ToastUtils.showShort("请输入短信内容");
                     isSubmitting = false;
                     return;
                 }
-
 
                 if (startdate.equals("开始日期")) {
                     ToastUtils.showShort("请输入开始日期");
@@ -776,11 +828,14 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 }
 
                 content = etMsgContent.getText().toString().trim()+tvUnsubscribe.getText().toString();
+
+
                 // TODO: 2018/4/8 返回敏感字符接口
                 showDefaultLoading();
                 MDBasicRequestMap map = new MDBasicRequestMap();
                 map.put("userId", UserDataManeger.getInstance().getUserId());
                 map.put("content", content);
+
 
                 OkHttpClientManager.postAsyn(HttpConstant.selectWord, new OkHttpClientManager.ResultCallback<SelectWordBean>() {
                     @Override

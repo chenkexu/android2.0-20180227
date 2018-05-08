@@ -120,7 +120,6 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
         }
     };
     private RechargeDialog rechargeDialog;
-
     /**
      * 获取账号 佣金 和 余额
      */
@@ -316,12 +315,14 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
         String fet_value = fet_recharge.getText().toString().trim();
         Double value = null;
         if (TextUtils.isEmpty(fet_value)) {
-            //输入数字为空
-            if (!is200Checked && !is500Checked && !is3000Checked && !is1000Checked) {
-                ToastUtils.showShort("请选择或者输入金额");
-                return;
-            }
-            value = cost;
+//            //输入数字为空
+//            if (!is200Checked && !is500Checked && !is3000Checked && !is1000Checked) {
+//                ToastUtils.showShort("请选择或者输入金额");
+//                return;
+//            }
+//            value = cost;
+            ToastUtils.showShort("请先输入金额");
+            return;
         } else {
             value = Double.valueOf(fet_value);
             if (value < mRechargeMinMoney) {
@@ -333,7 +334,6 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
             ToastUtils.showShort("请选择支付方式！");
             return;
         }
-        //String  cost = fet_recharge.get
         if (rb_zhifubao.isChecked()) {
             ToastUtils.showShort("支付宝支付:" + value);
             //支付宝支付

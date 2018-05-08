@@ -26,6 +26,7 @@ public class ConfirmSubmitDialog extends Dialog {
     private String remindTitle = "";
 
 
+
     public interface ClickListenerInterface {
         void doCancel();
         void doConfirm();

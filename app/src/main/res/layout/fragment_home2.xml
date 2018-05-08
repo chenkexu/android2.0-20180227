@@ -405,14 +405,15 @@
                     android:background="#ede7e7" />
                 <!--短信-->
                 <TextView
-                    android:drawablePadding="5dp"
-                    android:drawableLeft="@mipmap/rectangle"
+                    android:id="@+id/textView22"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FAFAFA"
+                    android:drawableLeft="@mipmap/rectangle"
+                    android:drawablePadding="5dp"
                     android:paddingLeft="15dp"
                     android:paddingTop="10dp"
-                    android:text="短信提醒"
+                    android:text="短信信息"
                     android:textColor="#1C1C1C"
                     android:textSize="@dimen/x29" />
 

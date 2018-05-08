@@ -474,7 +474,9 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         Intent intent = null;
         switch (v.getId()) {
             case R.id.ll_fm_home_accountCertification:
+                // TODO: 2018/5/4 测试界面，待会删除。
                 mPresent.getCertificateMsg(true);
+//                startActivity(new Intent(getContext(), TestActivity.class));
                 break;
             case R.id.rlCreate:
                 if (userStatus == 2.0) {
@@ -482,7 +484,6 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                     ToastUtils.showShort("账户异常，请联系客服");
                 } else {
                     ACache.get(getContext()).remove(SharedPreferencesTool.DIRECTION_HISTORY);
-//                    startActivity(new Intent(getContext(), MessageTaskActivity.class));
                     startActivity(new Intent(getContext(), CreateFindCustomerActivity.class));
                 }
 //                mPresent.getCertificateMsg(false);

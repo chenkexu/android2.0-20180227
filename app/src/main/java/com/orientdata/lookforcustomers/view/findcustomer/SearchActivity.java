@@ -61,6 +61,11 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rightText://搜索
+                if (TextUtils.isEmpty(clearEdit.getText().toString().trim())) {
+                    ToastUtils.showShort("搜索内容不能为空");
+                    return;
+                }
+
                 //将字符串存到share中
                 history = SharedPreferencesTool.getInstance().getDataList(SharedPreferencesTool.SEARCH_HISTORY);
                 if (history == null) {

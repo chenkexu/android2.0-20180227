@@ -67,6 +67,18 @@ public class TestActivity extends AppCompatActivity {
         });
 
 
+        NetWorkUtils.getSelectWord("1111", new WrCallback<WrResponse<Integer>>() {
+            @Override
+            public void onSuccess(Response<WrResponse<Integer>> response) {
+
+            }
+
+            @Override
+            public void onError(Response<WrResponse<Integer>> response) {
+                super.onError(response);
+            }
+        });
+
 
 
 

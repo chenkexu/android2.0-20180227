@@ -47,7 +47,7 @@ public class SharedPreferencesTool {
     public static final String USER_LOGOUT="user_logout";//退出登录之后，再次进来app，需要先进入登录界面）
 
 
-
+    public static final String MessageTaskCacheBean="MessageTaskCacheBean";//保存的短信的信息
 
     private Context context;
 
