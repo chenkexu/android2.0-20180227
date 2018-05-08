@@ -35,7 +35,7 @@ import java.util.ArrayList;
  * V 是视图接口
  */
 
-public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
+public abstract class  BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
     protected T mPresent;
     private Dialog progressDialog;
     protected ImmersionBar mImmersionBar;
