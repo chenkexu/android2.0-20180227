@@ -9,10 +9,12 @@ public class URLBean extends ErrBean {
     private String result;
 
     public String getResult() {
-        return result;
+        return result == null ? "" : result;
     }
 
     public void setResult(String result) {
         this.result = result;
     }
+
+
 }

@@ -248,8 +248,8 @@ public class UploadOfflineRechargeReceiptActivity extends WangrunBaseActivity im
             ToastUtils.showShort("金额不能为空！");
             return;
         }
-        if (Integer.valueOf(money).intValue()<1000) {
-            ToastUtils.showShort("最低1000元起充！");
+        if (Integer.valueOf(money).intValue()<mRechargeMinMoney) {
+            ToastUtils.showShort("最低"+mRechargeMinMoney+"元起充！");
             return;
         }
 

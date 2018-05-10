@@ -155,6 +155,7 @@ public class SettingActivity extends BaseActivity<ILoginAndRegisterView, LoginAn
                 @Override
                 public void doConfirm() {
                     dialog.dismiss();
+                    // TODO: 2018/5/10 应该如何清除缓存 
                     CleanMessageUtil.clearAllCache(context);
                     //清除图片
                     CleanMessageUtil.deleteDir(new File(Environment.getExternalStorageDirectory() + "/ClipPhoto/cache/"));//资质

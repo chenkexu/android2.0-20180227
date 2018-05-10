@@ -25,29 +25,31 @@ import java.util.List;
 public class SharedPreferencesTool {
 
     private static SharedPreferences sp;
+
+
     public static final String  CERTIFICATE_KEY ="certificate_enterprise";//存储企业认证信息的
-    public static final String AREA_KEY ="Area";//存储获取的省市信息
-
-
     public static final String CERTIFICATE_KEY_PER ="certificate_per";//存储个人认证信息的
     private SharedPreferences.Editor editor;
     private static SharedPreferencesTool INSTANCE = null;
     private static final String PREFERENCES_FILE_NAME = "config";
     public static final String ENTERPRISE_INDUSTRY = "enterprise_industry";//存储获取企业一级行业
-    /**是否是第一次进入**/
-    public static final String ISFIRSTENTER="isfirstenter";
     public static final String SEARCH_HISTORY="search_history";//业务选择搜索记录
-
     public static final String DIRECTION_HISTORY="direction_set_history";//缓存的定向设置
-
     public static final String CERTIFICATE_STATUS="certificate_status";//认证状态
     public static final String USER_STATUS="user_status";//认证状态
 
 
-    public static final String USER_LOGOUT="user_logout";//退出登录之后，再次进来app，需要先进入登录界面）
 
+
+    /**是否是第一次进入**/    //存储在SharedPreferences
+    public static final String ISFIRSTENTER="isfirstenter";
+    public static final String USER_LOGOUT="user_logout";//退出登录之后，再次进来app，需要先进入登录界面）
+    public static final String AREA_KEY ="Area";//存储获取的省市信息
 
     public static final String MessageTaskCacheBean="MessageTaskCacheBean";//保存的短信的信息
+
+
+
 
     private Context context;
 
@@ -81,7 +83,6 @@ public class SharedPreferencesTool {
      *
      * @param key
      * @param defaultValue
-     *
      * @return
      */
     public String getStringValue(String key, String defaultValue) {

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.lzy.okgo.model.Response;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
+import com.orientdata.lookforcustomers.bean.MessageTaskCacheBean;
 import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.network.callback.WrCallback;
 import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
@@ -42,8 +43,8 @@ public class TestPhoneSettingActivity extends WangrunBaseActivity {
     private String testCmPhone = "";//移动测试号
     private String testCuPhone = "";//联通测试号
     private String testCtPhone = "";//电信测试号
-
     private TextView tv_show_info;
+    private MessageTaskCacheBean messageTaskCacheBean;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,13 +57,25 @@ public class TestPhoneSettingActivity extends WangrunBaseActivity {
     }
 
     private void initView() {
+//        boolean isReCreate = getIntent().getBooleanExtra("isReCreate", false);
+//        if (!isReCreate) {
+//            messageTaskCacheBean = (MessageTaskCacheBean) SharedPreferencesTool.getInstance().getObjectFromShare(SharedPreferencesTool.MessageTaskCacheBean);
+//        }
+//
+//        if (messageTaskCacheBean!=null) {
+//            testCmPhone = messageTaskCacheBean.getTestCmPhone();
+//            testCuPhone = messageTaskCacheBean.getTestCuPhone();
+//            testCtPhone = messageTaskCacheBean.getTestCtPhone();
+//        }
+
         testCmPhone = getIntent().getStringExtra("testCmPhone");
         testCuPhone = getIntent().getStringExtra("testCuPhone");
         testCtPhone = getIntent().getStringExtra("testCtPhone");
+
+
         String mCityName = getIntent().getStringExtra("cityName");
         String cityCode = getIntent().getStringExtra("cityCode");
         int type = getIntent().getIntExtra("type", 0);
-
 
         NetWorkUtils.getOperateState(cityCode, type, new WrCallback<WrResponse<String>>() {
             @Override
@@ -104,6 +117,9 @@ public class TestPhoneSettingActivity extends WangrunBaseActivity {
         }
         btSave = findViewById(R.id.btSave);
         btSave.setOnClickListener(new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View v) {
                 testCmPhone = tvMove.getText().toString().trim();
@@ -128,11 +144,17 @@ public class TestPhoneSettingActivity extends WangrunBaseActivity {
                         return;
                     }
                 }
-
                 Intent intent = new Intent();
                 intent.putExtra("testCmPhone", testCmPhone);
                 intent.putExtra("testCuPhone", testCuPhone);
                 intent.putExtra("testCtPhone", testCtPhone);
+//                if (messageTaskCacheBean==null) { //没有保存过信息
+//                    messageTaskCacheBean = new MessageTaskCacheBean();
+//                }
+//                messageTaskCacheBean.setTestCuPhone(testCuPhone);
+//                messageTaskCacheBean.setTestCtPhone(testCtPhone);
+//                messageTaskCacheBean.setTestCmPhone(testCmPhone);
+//                SharedPreferencesTool.getInstance().setObject(messageTaskCacheBean, SharedPreferencesTool.MessageTaskCacheBean);
                 setResult(2, intent);
                 finish();
             }

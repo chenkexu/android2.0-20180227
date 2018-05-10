@@ -42,7 +42,6 @@ import com.orientdata.lookforcustomers.view.findcustomer.ITaskView;
 import com.orientdata.lookforcustomers.view.findcustomer.TestPhoneSettingActivity;
 import com.orientdata.lookforcustomers.widget.DateSelectPopupWindow;
 import com.orientdata.lookforcustomers.widget.MyTitle;
-import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmSubmitDialog;
 
 import java.io.File;
@@ -120,7 +119,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     private String testCmPhone = "";//移动测试号
     private String testCuPhone = "";//联通测试号
     private String testCtPhone = "";//电信测试号
-    private int day;
+    private int day; //限制天数
     private String mCityName;
     private String smsPrice = "";//短信单价
     private TextView tvCoverage;
@@ -138,12 +137,24 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     private String signStr;
     private String contentAll;
     private MessageTaskCacheBean messageTaskCacheBean;
+    private boolean isReCreate;
 
     @Override
     public void onBackPressed() {
-        final ConfirmDialog dialog = new ConfirmDialog(this, "是否保存当前内容", "保存","不保存");
-        dialog.show();
-        dialog.setClickListenerInterface(new ConfirmDialog.ClickListenerInterface() {
+        //签名
+        //短信内容
+        //开始时间.结束时间
+        //任务预算
+        obtainData();
+        String remindString = "";
+        if (!TextUtils.isEmpty(testCmPhone)||!TextUtils.isEmpty(testCuPhone)||!TextUtils.isEmpty(testCtPhone)) {
+            remindString = "测试号码无法保存，再次创建任务需重新输入测试号码";
+        }else{
+            remindString = "";
+        }
+
+        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this, "是否保存当前内容",remindString);
+        dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
             @Override
             public void doCancel() {
                 dialog.dismiss();
@@ -158,7 +169,14 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 finish();
             }
         });
-
+        dialog.show();
+//        if (!startdate.equals("开始日期")||!enddate.equals("结束日期")||!TextUtils.isEmpty(content)
+//                ||!TextUtils.isEmpty(budget)||!TextUtils.isEmpty(signStr) ||!TextUtils.isEmpty(testCmPhone)||!TextUtils.isEmpty(testCuPhone)
+//                ||!TextUtils.isEmpty(testCtPhone)) {
+//            dialog.show();
+//        }else{
+//            finish();
+//        }
 //        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this, "温馨提示", "短信内容确定保存吗");
 //        dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
 //            @Override
@@ -177,14 +195,11 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
 
     private void savaCache() {
-        //签名
-        //短信内容
-        //开始时间.结束时间
-        //任务预算
-        obtainData();
-
         // TODO: 2018/5/3 存储到缓存文件中
-        MessageTaskCacheBean messageTaskCacheBean = new MessageTaskCacheBean();
+        MessageTaskCacheBean messageTaskCacheBean  = (MessageTaskCacheBean) SharedPreferencesTool.getInstance().getObjectFromShare(SharedPreferencesTool.MessageTaskCacheBean);
+        if (messageTaskCacheBean == null) {
+             messageTaskCacheBean = new MessageTaskCacheBean();
+        }
         messageTaskCacheBean.setSignStr(signStr);
         messageTaskCacheBean.setStartdate(startdate);
         messageTaskCacheBean.setEnddate(enddate);
@@ -210,12 +225,15 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
     private void intSignContent() {
 
-        messageTaskCacheBean = (MessageTaskCacheBean) SharedPreferencesTool.getInstance().getObjectFromShare(SharedPreferencesTool.MessageTaskCacheBean);
-
+//        if (!isReCreate) { //不是再次创建
+            messageTaskCacheBean = (MessageTaskCacheBean) SharedPreferencesTool.getInstance().getObjectFromShare(SharedPreferencesTool.MessageTaskCacheBean);
+//        }
         if (messageTaskCacheBean!=null) {
+            //设置开始时间
             if (!TextUtils.isEmpty(messageTaskCacheBean.getStartdate())) {
                 tvDateFrom.setText(messageTaskCacheBean.getStartdate());
             }
+            //设置结束时间
             if (!TextUtils.isEmpty(messageTaskCacheBean.getEnddate())) {
                 tvDateTo.setText(messageTaskCacheBean.getEnddate());
             }
@@ -247,6 +265,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                         double signstate = (double) response.getResult().get("signstate");
                         String tdcontent = (String) response.getResult().get("tdcontent");
                         tvUnsubscribe.setText(tdcontent); //设置回复退订
+                        tvNum.setText(tdcontent.length() + "");
 
                         // TODO: 2018/5/3 设置缓存信息
                         if ((int) signstate == 0) { //自定义
@@ -254,11 +273,12 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                                 Logger.d(messageTaskCacheBean.toString());
                                 if (!TextUtils.isEmpty(messageTaskCacheBean.getSignStr())) {
                                     etEnterpriseSignature.setText(messageTaskCacheBean.getSignStr());
+                                    tvMessageSign.setText(etEnterpriseSignature.getText().toString());
                                 }
                                 if (!TextUtils.isEmpty(messageTaskCacheBean.getContent())) {
                                     etMsgContent.setText(messageTaskCacheBean.getContent());
+                                    tvMessageSign.setText(etEnterpriseSignature.getText().toString());
                                 }
-                                tvMessageSign.setText(etEnterpriseSignature.getText().toString());
                             }
                         } else { //固定签名
                             String sign = (String) response.getResult().get("sign");
@@ -312,10 +332,11 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
             industryMark = intent.getStringExtra("industryMark");
             industryNameStr = intent.getStringExtra("industryNameStr");
+            isReCreate = intent.getBooleanExtra("isReCreate",false);
+
 
             minMoney = intent.getDoubleExtra("minMoney",1000);
-            // TODO: 2018/4/23 测试号也得传过来 
-
+            // TODO: 2018/4/23 测试号也得传过来
             Logger.d("省Code:---" + mProvinceCode);
             // TODO: 2018/4/7 这个地方先去掉单价 
 //            updateView();//后台传过来的数据
@@ -414,8 +435,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 if (etEnterpriseSignature.getText().toString().length()>1) {
                     etEnterpriseSignature.setSelection(etEnterpriseSignature.getText().toString().length() - 1);
                 }
-
-
 //                设置只能输入2-4位汉字
 //                String str = stringFilter1(signContent);
 //                if (!signContent.equals(str)) {
@@ -423,7 +442,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 //                    etEnterpriseSignature.setText(str);
 //                    etEnterpriseSignature.setSelection(str.length());
 //                }
-
                 if (etEnterpriseSignature.getText().toString().equals("")) {
                     Logger.d("企业签名为空");
                     tvMessageSign.setText("【请输入企业签名2-4个汉字】");
@@ -477,7 +495,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
 
 
         //输入短信内容时
-
         etMsgContent.addTextChangedListener(new TextWatcher() {
             private String preStr = "";
             private int temp;
@@ -574,9 +591,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
             }
         });
 
-
-
-
         //输入任务预算时：
         etBudget.addTextChangedListener(new TextWatcher() {
             @Override
@@ -638,6 +652,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
         titleMsg.setRightTextClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//
                 Intent intent = new Intent(getBaseContext(), TestPhoneSettingActivity.class);
                 intent.putExtra("testCmPhone", testCmPhone);
                 intent.putExtra("testCuPhone", testCuPhone);
@@ -645,6 +660,8 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 intent.putExtra("cityName", mCityName);
                 intent.putExtra("type", type);
                 intent.putExtra("cityCode", cityCode);
+                intent.putExtra("isReCreate", isReCreate);
+
                 startActivityForResult(intent, 1);
             }
         });
@@ -700,8 +717,8 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
             map.put("longitude", BigDecimal.valueOf(Double.valueOf(longitude)) + "");
             map.put("dimension", BigDecimal.valueOf(Double.valueOf(dimension)) + "");
             map.put("testCmPhone", testCmPhone);
-            map.put("testCuPhone", testCuPhone);
-            map.put("testCtPhone", testCtPhone);
+            map.put("testCuPhone",testCuPhone);
+            map.put("testCtPhone",testCtPhone);
             map.put("startdate", startdate);
             map.put("enddate", enddate);
             map.put("content", content);
@@ -826,8 +843,22 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                     isSubmitting = false;
                     return;
                 }
-
                 content = etMsgContent.getText().toString().trim()+tvUnsubscribe.getText().toString();
+
+                // TODO: 2018/5/9 比较一下开始时间是否在有效期内
+                if (!DateTool.isBefore(startdate, enddate)) {
+                    ToastUtils.showShort("结束日期不能小于开始日期");
+                    return;
+                }
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DAY_OF_MONTH, day);
+                startDateText = DateTool.parseCalendar2Str(calendar, "yyyy-MM-dd");
+                Logger.d("当前的开始时间："+startDateText);
+                if (!DateTool.isBefore(startDateText, startdate)) {
+                    ToastUtils.showShort("日期失效，请重新选择日期");
+                    return;
+                }
+
 
 
                 // TODO: 2018/4/8 返回敏感字符接口
@@ -835,7 +866,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 MDBasicRequestMap map = new MDBasicRequestMap();
                 map.put("userId", UserDataManeger.getInstance().getUserId());
                 map.put("content", content);
-
 
                 OkHttpClientManager.postAsyn(HttpConstant.selectWord, new OkHttpClientManager.ResultCallback<SelectWordBean>() {
                     @Override
@@ -883,12 +913,11 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
     }
 
     private String mNowDateText;
-    private String startDateText;
+    private String startDateText; //开始时间的文本
     private String endDateText;
 
     /**
      * 开始日期
-     *
      * @param v
      */
     private void showDateFromDialog(View v) {
@@ -900,12 +929,13 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
         myPopupwindow.setOnDateSelectListener(new DateSelectPopupWindow.OnDateSelectListener() {
             @Override
             public void onDateSelect(int year, int monthOfYear, int dayOfMonth) {
-                // SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 if (year == 0 && monthOfYear == 0 && dayOfMonth == 0) {
                     if (mNowDateText.trim().equals("") || mNowDateText.trim().equals(DEFAULT_STR)) {
                         mNowDateText = startDateText;
                     }
                 } else {
+                    //设置成当前日期
                     mNowDateText = DateTool.getChinaDateFromCalendar(year, monthOfYear, dayOfMonth);
                 }
                 tvDateFrom.setText(mNowDateText);
@@ -913,10 +943,11 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
         });
     }
 
-    private String mNowDateText1;
-    private String startDateText1;
-    private String endDateText1;
 
+
+    private String mNowDateText1; //当前时间
+    private String startDateText1; //开始时间
+    private String endDateText1; //结束时间
     /**
      * 结束日期
      *
@@ -927,12 +958,12 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
             ToastUtils.showShort("请先选择开始时间。");
             return;
         }
-
         //Calendar calendar1 = Calendar.getInstance();
         //calendar1.add(Calendar.DAY_OF_MONTH, day);
         //startDateText1 = DateTool.parseCalendar2Str(calendar1, "yyyy-MM-dd");
+        // TODO: 2018/5/9   再次获取时间
+        mNowDateText = tvDateFrom.getText().toString().trim();
         startDateText1 = mNowDateText;
-
 //        Calendar calendar = Calendar.getInstance();
         Calendar calendar = DateTool.parseDate2Calendar(DateTool.parseStr2Date(mNowDateText, "yyyy-MM-dd"));
         calendar.add(Calendar.YEAR, 1);
@@ -1035,7 +1066,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 mNowDateText = DEFAULT_STR;
             }
         }
-        tvDateFrom.setText(mNowDateText);
+        tvDateFrom.setText(mNowDateText); //初始化显示的内容
         //
         this.startDateText = startDateText;
         this.endDateText = endDateText;

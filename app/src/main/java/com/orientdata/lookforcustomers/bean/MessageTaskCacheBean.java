@@ -22,7 +22,34 @@ public class MessageTaskCacheBean implements Serializable {
     private String budget;
     private String startdate;
     private String enddate;
+    private String testCmPhone;
+    private String testCuPhone;
+    private String testCtPhone;
     private String content;
+
+    public String getTestCmPhone() {
+        return testCmPhone == null ? "" : testCmPhone;
+    }
+
+    public void setTestCmPhone(String testCmPhone) {
+        this.testCmPhone = testCmPhone;
+    }
+
+    public String getTestCuPhone() {
+        return testCuPhone == null ? "" : testCuPhone;
+    }
+
+    public void setTestCuPhone(String testCuPhone) {
+        this.testCuPhone = testCuPhone;
+    }
+
+    public String getTestCtPhone() {
+        return testCtPhone == null ? "" : testCtPhone;
+    }
+
+    public void setTestCtPhone(String testCtPhone) {
+        this.testCtPhone = testCtPhone;
+    }
 
     public String getSignStr() {
         return signStr == null ? "" : signStr;
@@ -105,8 +132,6 @@ public class MessageTaskCacheBean implements Serializable {
 //    }
 
 
-
-
     @Override
     public String toString() {
         return "MessageTaskCacheBean{" +
@@ -114,6 +139,9 @@ public class MessageTaskCacheBean implements Serializable {
                 ", budget='" + budget + '\'' +
                 ", startdate='" + startdate + '\'' +
                 ", enddate='" + enddate + '\'' +
+                ", testCmPhone='" + testCmPhone + '\'' +
+                ", testCuPhone='" + testCuPhone + '\'' +
+                ", testCtPhone='" + testCtPhone + '\'' +
                 ", content='" + content + '\'' +
                 '}';
     }

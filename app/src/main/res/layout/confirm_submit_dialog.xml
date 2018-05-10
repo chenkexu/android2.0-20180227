@@ -27,7 +27,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:lineSpacingExtra="3dp"
-        android:text="@string/submit_remind"
+        android:text=""
         android:textSize="12sp" />
 
     <LinearLayout

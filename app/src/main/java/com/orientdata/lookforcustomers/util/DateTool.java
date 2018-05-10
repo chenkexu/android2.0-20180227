@@ -17,6 +17,18 @@ public class DateTool {
     public static final String FORMAT_DATE_TIME="yyyy-MM-dd HH:mm:ss";
 
     public static final String DEFAULT_DATA="1970-01-01";
+
+
+    public static  boolean isBefore(String dateStr,String dateStr2){
+        Date date1 = parseStr2Date(dateStr, FORMAT_DATE);
+        Date date2= parseStr2Date(dateStr2, FORMAT_DATE);
+        if (date1.getTime()<=date2.getTime()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /**
      * 取当前China日期
      * @return

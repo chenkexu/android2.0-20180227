@@ -19,6 +19,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.orientdata.lookforcustomers.BuildConfig;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
@@ -46,6 +47,7 @@ import vr.md.com.mdlibrary.MyApp;
  */
 
 public class MyApplication extends MyApp {
+
 
     private static final String TAG ="Upush" ;
     public static final String UPDATE_STATUS_ACTION = "com.umeng.message.example.action.UPDATE_STATUS";
@@ -101,17 +103,17 @@ public class MyApplication extends MyApp {
                 .build();
         //隐藏日志
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
-//        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
-//            @Override public boolean isLoggable(int priority, String tag) {
-//                return BuildConfig.DEBUG;
-//            }
-//        });
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
+            @Override public boolean isLoggable(int priority, String tag) {
+                return BuildConfig.DEBUG;
+            }
+        });
 
         //初始化okgo
         initOkGo();
         //----------初始化友盟统计
         //设置LOG开关，默认为false
-        UMConfigure.setLogEnabled(true);
+        UMConfigure.setLogEnabled(false);
         //初始化组件化基础库, 统计SDK/推送SDK/分享SDK都必须调用此初始化接口
         UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,"6119919e888e88f695761c9d6b627293");
         //初始化推送
@@ -238,7 +240,6 @@ public class MyApplication extends MyApp {
             }
         });
     }
-
 
     public static Context getContext() {
         return instance.getApplicationContext();

@@ -2,10 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
     android:background="@drawable/shape_circle_white_load_bg1"
     android:orientation="vertical">
 
 <TextView
+    android:paddingLeft="80dp"
+    android:paddingRight="80dp"
     android:id="@+id/tvRemind"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -13,7 +16,7 @@
     android:textColor="@color/text_gray"
     android:layout_marginTop="30dp"
     android:layout_gravity="center_horizontal"
-    android:text="确定删除全部历史记录？"/>
+    android:text="确定删除全部历史记录"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"

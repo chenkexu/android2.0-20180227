@@ -120,7 +120,6 @@ public class AppManager {
     }
     */
 	/**
-	 *
 	 * 退出应用程序
 	 */
 	public void AppExit(Context context) {
@@ -132,7 +131,4 @@ public class AppManager {
 			android.os.Process.killProcess(android.os.Process.myPid());
 		} catch (Exception e) {	}
 	}
-	
-	
-	
 }

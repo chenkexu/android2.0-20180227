@@ -1,19 +1,19 @@
 [
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_edit_text_material.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_edit_text_material.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_textfield_search_material.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_background_transition_holo_light.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\vpi__tab_indicator.xml",
+        "source": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\src\\main\\res\\drawable\\vpi__tab_indicator.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_holo_light.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_tab_indicator_material.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_tab_indicator_material.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_cab_background_top_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_cab_background_top_material.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_cab_background_top_material.xml",
@@ -24,28 +24,36 @@
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\design_fab_background.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\b4eed3bc81086a5647dffa78d330e5786dcef532\\output\\res\\drawable\\design_fab_background.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_dialog_material_background_dark.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_dialog_material_background_dark.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_borderless_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_btn_borderless_material.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_text_cursor_material.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_text_cursor_material.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_dialog_material_background_light.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_dialog_material_background_light.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_edit_text_material.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_thumb_material.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_seekbar_thumb_material.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\vpi__tab_indicator.xml",
-        "source": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\src\\main\\res\\drawable\\vpi__tab_indicator.xml"
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_dialog_material_background_light.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_dialog_material_background_light.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_text_cursor_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_text_cursor_material.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_textfield_search_material.xml",
@@ -60,20 +68,124 @@
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_btn_check_material.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_indicator_material.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_track_material.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_seekbar_track_material.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_seekbar_thumb_material.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_holo_dark.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
     },
     {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_radio_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_full_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_ratingbar_full_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\design_fab_background.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\f9b3a393d3479aa3104db0ace630587b9435bd5b\\output\\res\\drawable\\design_fab_background.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\design_fab_background.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\b4eed3bc81086a5647dffa78d330e5786dcef532\\output\\res\\drawable\\design_fab_background.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_dialog_material_background_dark.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_dialog_material_background_dark.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_dialog_material_background_light.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_dialog_material_background_light.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\vpi__tab_indicator.xml",
+        "source": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\src\\main\\res\\drawable\\vpi__tab_indicator.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\design_snackbar_background.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\f9b3a393d3479aa3104db0ace630587b9435bd5b\\output\\res\\drawable\\design_snackbar_background.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_default_mtrl_shape.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_dialog_material_background_dark.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_dialog_material_background_dark.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_btn_check_material.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\design_snackbar_background.xml",
@@ -84,8 +196,20 @@
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_switch_thumb_material.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_switch_thumb_material.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable\\abc_ratingbar_indicator_material.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_spinner_textfield_background_material.xml",
@@ -94,14 +218,6 @@
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_borderless_material.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_btn_borderless_material.xml"
-    },
-    {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_item_background_holo_light.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_item_background_holo_light.xml"
-    },
-    {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_colored_material.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\drawable\\abc_btn_colored_material.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_radio_material.xml",

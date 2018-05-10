@@ -839,6 +839,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
             intent.putExtra("industryMark", industryMark);
             intent.putExtra("industryNameStr", industryNameStr);
+            intent.putExtra("isReCreate", isReCreate);
 
 
             final int type2 = type;
@@ -865,7 +866,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                             return;
                         }
                         intent.putExtra("day", preOut.getDay());//限制天数
-                        intent.putExtra("minMoney", preOut.getMinMoney());//限制天数
+                        intent.putExtra("minMoney", preOut.getMinMoney());//限制钱数
 
                         if (type2 == 1) {//短信
                             startActivity(intent);
@@ -1000,7 +1001,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 dialog.dismiss();
             }
         });
-
     }
 
     private void wipedata() {
@@ -1014,8 +1014,9 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         sex = "";
         interestIds = "";
         tv_ac_create_find_customer_set.setText("--未设置--");
-        // TODO: 2018/5/3 清除缓存
-        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
+        // TODO: 2018/5/3 清除短信内容缓存
+        
+        //清除定向设置缓存
         ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
     }
 
@@ -1035,6 +1036,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                         //清空数据。
                         showDialog();
                         wipedata();
+                        // TODO: 2018/5/10 清除短信的缓存 
+                        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
                     }
                     mCityCode = data.getStringExtra("cityCode");
                     mCityName = data.getStringExtra("cityName");
@@ -1591,7 +1594,7 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
     public void onBackPressed() {
         //返回的时候 清除 定向缓存
         ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
-        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
+//        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
         super.onBackPressed();
     }
 }

@@ -4,20 +4,96 @@
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_fade_out.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_top.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_slide_in_top.xml"
-    },
-    {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_bottom_sheet_slide_in.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\b4eed3bc81086a5647dffa78d330e5786dcef532\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\b4eed3bc81086a5647dffa78d330e5786dcef532\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_fab_out.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\f9b3a393d3479aa3104db0ace630587b9435bd5b\\output\\res\\anim\\design_fab_out.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\b4eed3bc81086a5647dffa78d330e5786dcef532\\output\\res\\anim\\design_snackbar_out.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_snackbar_in.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\f9b3a393d3479aa3104db0ace630587b9435bd5b\\output\\res\\anim\\design_snackbar_in.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_slide_in_top.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_fab_in.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\b4eed3bc81086a5647dffa78d330e5786dcef532\\output\\res\\anim\\design_fab_in.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\b4eed3bc81086a5647dffa78d330e5786dcef532\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\f9b3a393d3479aa3104db0ace630587b9435bd5b\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_fab_in.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\f9b3a393d3479aa3104db0ace630587b9435bd5b\\output\\res\\anim\\design_fab_in.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_out_top.xml",
@@ -28,39 +104,27 @@
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\b4eed3bc81086a5647dffa78d330e5786dcef532\\output\\res\\anim\\design_snackbar_in.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_bottom.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_slide_in_bottom.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\f9b3a393d3479aa3104db0ace630587b9435bd5b\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_grow_fade_in_from_bottom.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\anim\\abc_popup_enter.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_exit.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_popup_exit.xml"
-    },
-    {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_shrink_fade_out_from_bottom.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
-    },
-    {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_out_bottom.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_slide_out_bottom.xml"
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\f9b3a393d3479aa3104db0ace630587b9435bd5b\\output\\res\\anim\\design_snackbar_out.xml"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_fab_out.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\b4eed3bc81086a5647dffa78d330e5786dcef532\\output\\res\\anim\\design_fab_out.xml"
     },
     {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\anim\\abc_fade_out.xml"
+    },
+    {
         "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_fade_in.xml",
         "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_fade_in.xml"
-    },
-    {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_enter.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\acfad786614d75497164d75de7f9f2b7971a845d\\output\\res\\anim\\abc_popup_enter.xml"
-    },
-    {
-        "merged": "D:\\Androidstudio\\AndroidCode\\netrun-20180227\\netrun-20180227\\android\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\release\\anim\\design_snackbar_out.xml",
-        "source": "C:\\Users\\陈柯旭\\.android\\build-cache\\b4eed3bc81086a5647dffa78d330e5786dcef532\\output\\res\\anim\\design_snackbar_out.xml"
     }
 ]

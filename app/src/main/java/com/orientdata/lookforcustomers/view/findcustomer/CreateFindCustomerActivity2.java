@@ -1522,7 +1522,7 @@ public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, Cit
         // TODO: 2018/4/10 确定返回的时候删除定向缓存？？？？？
         ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
         // TODO: 2018/5/3 删除短信内容的缓存
-        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
+//        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
         super.onBackPressed();
     }
 }

@@ -24,12 +24,15 @@ public class CleanMessageUtil {
      */
     public static String getTotalCacheSize(Context context) throws Exception {
         long cacheSize = getFolderSize(context.getCacheDir());
+//        SharedPreferencesTool.getInstance().getBooleanValue()
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
             cacheSize += getFolderSize(context.getExternalCacheDir());
         }
         return getFormatSize(cacheSize);
     }
+
+
 
     /**
      * @param context
