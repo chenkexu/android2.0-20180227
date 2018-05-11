@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,19 +11,16 @@ import android.widget.TextView;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.event.LogoutResultEvent;
-import com.orientdata.lookforcustomers.network.util.AppConfig;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.login.ILoginAndRegisterView;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 import com.orientdata.lookforcustomers.view.mine.AboutUsActivity;
-import com.orientdata.lookforcustomers.view.mine.CleanMessageUtil;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 
 import org.greenrobot.eventbus.Subscribe;
-
-import java.io.File;
 
 /**
  * 设置
@@ -133,7 +129,8 @@ public class SettingActivity extends BaseActivity<ILoginAndRegisterView, LoginAn
     private void showConfirmDialog(){
         final ConfirmDialog dialog;
         try {
-            String size = CleanMessageUtil.getTotalCacheSize(this);
+            String size = GlideUtil.getInstance().getCacheSize(this);
+//            String size = CleanMessageUtil.getTotalCacheSize(this);
             String str = "";
             boolean isClear;
             if(size.contains("0")){
@@ -155,13 +152,14 @@ public class SettingActivity extends BaseActivity<ILoginAndRegisterView, LoginAn
                 @Override
                 public void doConfirm() {
                     dialog.dismiss();
-                    // TODO: 2018/5/10 应该如何清除缓存 
-                    CleanMessageUtil.clearAllCache(context);
-                    //清除图片
-                    CleanMessageUtil.deleteDir(new File(Environment.getExternalStorageDirectory() + "/ClipPhoto/cache/"));//资质
-                    CleanMessageUtil.deleteDir(new File(Environment.getExternalStorageDirectory() + File.separator +"tempAd.jpg"));//添加图片
-                    CleanMessageUtil.deleteDir(new File(Environment.getExternalStorageDirectory() + File.separator + "imageWithText.jpg"));//模板制作
-                    CleanMessageUtil.deleteDir(new File(Environment.getExternalStorageDirectory() +AppConfig.LOCAL_PRODUCT_DOWNLOAD_PHOTOPATH));//图库下载的图片
+                    // TODO: 2018/5/10 应该如何清除缓存
+                    GlideUtil.getInstance().clearImageAllCache(SettingActivity.this);
+//                    CleanMessageUtil.clearAllCache(context);
+//                    //清除图片
+//                    CleanMessageUtil.deleteDir(new File(Environment.getExternalStorageDirectory() + "/ClipPhoto/cache/"));//资质
+//                    CleanMessageUtil.deleteDir(new File(Environment.getExternalStorageDirectory() + File.separator +"tempAd.jpg"));//添加图片
+//                    CleanMessageUtil.deleteDir(new File(Environment.getExternalStorageDirectory() + File.separator + "imageWithText.jpg"));//模板制作
+//                    CleanMessageUtil.deleteDir(new File(Environment.getExternalStorageDirectory() + AppConfig.LOCAL_PRODUCT_DOWNLOAD_PHOTOPATH));//图库下载的图片
                 }
             });
         } catch (Exception e) {

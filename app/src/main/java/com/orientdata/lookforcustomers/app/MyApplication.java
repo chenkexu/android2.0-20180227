@@ -51,6 +51,7 @@ public class MyApplication extends MyApp {
 
     private static final String TAG ="Upush" ;
     public static final String UPDATE_STATUS_ACTION = "com.umeng.message.example.action.UPDATE_STATUS";
+
     private static MyApplication instance;
     private Handler handler;
 
@@ -151,9 +152,20 @@ public class MyApplication extends MyApp {
 //		mPushAgent.setNotificationPlaySound(MsgConstant.NOTIFICATION_PLAY_SDK_DISABLE);
         // 通知声音由服务端控制
 //		mPushAgent.setNotificationPlaySound(MsgConstant.NOTIFICATION_PLAY_SERVER);
-
 //		mPushAgent.setNotificationPlayLights(MsgConstant.NOTIFICATION_PLAY_SDK_DISABLE);
 //		mPushAgent.setNotificationPlayVibrate(MsgConstant.NOTIFICATION_PLAY_SDK_DISABLE);
+
+        //设置通知栏最多显示两条通知（当通知栏已经有两条通知，此时若第三条通知到达，则会把第一条通知隐藏）：
+        //当参数为0时，表示不合并通知。
+        mPushAgent.setDisplayNotificationNumber(2);
+        //通知免打扰模式
+        mPushAgent.setNoDisturbMode(23, 0, 7, 0);
+
+        //如果应用在前台的时候，开发者可以自定义配置是否显示通知
+       // mPushAgent.setNotificaitonOnForeground(false);
+
+
+
 
 
         UmengMessageHandler messageHandler = new UmengMessageHandler() {
@@ -187,7 +199,7 @@ public class MyApplication extends MyApp {
              */
             @Override
             public Notification getNotification(Context context, UMessage msg) {
-                switch (msg.builder_id) {
+                switch (msg.builder_id) {  //消息字段
                     case 1:
                         Notification.Builder builder = new Notification.Builder(context);
                         RemoteViews myNotificationView = new RemoteViews(context.getPackageName(), R.layout.notification_view);
@@ -209,6 +221,9 @@ public class MyApplication extends MyApp {
         };
         mPushAgent.setMessageHandler(messageHandler);
 
+
+
+
         /**
          * 自定义行为的回调处理，参考文档：高级功能-通知的展示及提醒-自定义通知打开动作
          * UmengNotificationClickHandler是在BroadcastReceiver中被调用，故
@@ -223,6 +238,16 @@ public class MyApplication extends MyApp {
         //使用自定义的NotificationHandler，来结合友盟统计处理消息通知，参考http://bbs.umeng.com/thread-11112-1-1.html
         //CustomNotificationHandler notificationClickHandler = new CustomNotificationHandler();
         mPushAgent.setNotificationClickHandler(notificationClickHandler);
+
+
+
+//        mPushAgent.setAlias("zhangsan@sina.com", "Android",
+//                new UTrack.ICallBack() {
+//                    @Override
+//                    public void onMessage(boolean isSuccess, String message) {
+//
+//                    }
+//                });
 
 
         //注册推送服务 每次调用register都会回调该接口

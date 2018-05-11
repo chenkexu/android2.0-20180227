@@ -30,7 +30,6 @@ public class  NotificationBroadcast extends BroadcastReceiver {
                 EXTRA_ACTION_NOT_EXIST);
         try {
             UMessage msg = (UMessage) new UMessage(new JSONObject(message));
-
             switch (action) {
                 case ACTION_DISMISS:
                     Logger.d(TAG, "dismiss notification");

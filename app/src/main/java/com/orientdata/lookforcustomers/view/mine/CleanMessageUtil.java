@@ -16,11 +16,14 @@ import java.math.BigDecimal;
  */
 public class CleanMessageUtil {
 
+
+
+
     /**
      * @param context
      * @return
      * @throws Exception
-     *             获取当前缓存
+     * 获取当前缓存
      */
     public static String getTotalCacheSize(Context context) throws Exception {
         long cacheSize = getFolderSize(context.getCacheDir());
@@ -32,11 +35,9 @@ public class CleanMessageUtil {
         return getFormatSize(cacheSize);
     }
 
-
-
     /**
      * @param context
-     *            删除缓存
+     * 删除缓存
      */
     public static void clearAllCache(Context context) {
         deleteDir(context.getCacheDir());
@@ -44,6 +45,7 @@ public class CleanMessageUtil {
             deleteDir(context.getExternalCacheDir());
         }
     }
+
 
     public static boolean deleteDir(File dir) {
         if (dir != null && dir.isDirectory()) {
@@ -58,15 +60,14 @@ public class CleanMessageUtil {
                     }
                 }
             }
-
         }
         if (dir == null) {
             return true;
         } else {
-
             return dir.delete();
         }
     }
+
 
     // 获取文件
     // Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/
@@ -89,7 +90,6 @@ public class CleanMessageUtil {
                     }
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -10,6 +10,8 @@ import org.android.agoo.common.AgooConstants;
 
 /**
  * Created by mitic_xue on 16/10/26.
+ *
+ * 完全自定义处理（透传）
  */
 public class UmengNotificationService extends UmengMessageService {
     @Override
