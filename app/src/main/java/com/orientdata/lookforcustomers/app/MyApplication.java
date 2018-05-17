@@ -39,6 +39,7 @@ import com.umeng.socialize.UMShareAPI;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 import vr.md.com.mdlibrary.MyApp;
 
@@ -87,10 +88,10 @@ public class MyApplication extends MyApp {
         /***
          * 初始化定位sdk
          */
-        locationService = new LocationService(getApplicationContext());
+        locationService = new LocationService(this);
         mVibrator = (Vibrator) getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
-        SDKInitializer.initialize(getApplicationContext());
-        SharedPreferencesTool.getInstance().init(getApplicationContext());
+        SDKInitializer.initialize(this);
+        SharedPreferencesTool.getInstance().init(this);
 
         UMShareAPI.get(this);
         // 初始化百度定位服务
@@ -118,7 +119,13 @@ public class MyApplication extends MyApp {
         //初始化组件化基础库, 统计SDK/推送SDK/分享SDK都必须调用此初始化接口
         UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,"6119919e888e88f695761c9d6b627293");
         //初始化推送
-        initUpush();
+//        initUpush();
+
+        //初始化极光推送
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+
+
     }
 
 
@@ -143,6 +150,10 @@ public class MyApplication extends MyApp {
     }
 
     private void initUpush() {
+
+        //设置测试模式
+//        InAppMessageManager.getInstance(this).setInAppMsgDebugMode(true);
+
         PushAgent mPushAgent = PushAgent.getInstance(this);
         handler = new Handler(getMainLooper());
 
@@ -159,7 +170,7 @@ public class MyApplication extends MyApp {
         //当参数为0时，表示不合并通知。
         mPushAgent.setDisplayNotificationNumber(2);
         //通知免打扰模式
-        mPushAgent.setNoDisturbMode(23, 0, 7, 0);
+//        mPushAgent.setNoDisturbMode(23, 0, 7, 0);
 
         //如果应用在前台的时候，开发者可以自定义配置是否显示通知
        // mPushAgent.setNotificaitonOnForeground(false);
@@ -176,16 +187,17 @@ public class MyApplication extends MyApp {
             public void dealWithCustomMessage(final Context context, final UMessage msg) {
 
                 handler.post(new Runnable() {
-
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
                         // 对自定义消息的处理方式，点击或者忽略
                         boolean isClickOrDismissed = true;
                         if (isClickOrDismissed) {
+                            Logger.d("点击消息");
                             //自定义消息的点击统计
                             UTrack.getInstance(getApplicationContext()).trackMsgClick(msg);
                         } else {
+                            Logger.d("忽略了消息");
                             //自定义消息的忽略统计
                             UTrack.getInstance(getApplicationContext()).trackMsgDismissed(msg);
                         }
@@ -199,6 +211,7 @@ public class MyApplication extends MyApp {
              */
             @Override
             public Notification getNotification(Context context, UMessage msg) {
+                Logger.d("getNotification-------------");
                 switch (msg.builder_id) {  //消息字段
                     case 1:
                         Notification.Builder builder = new Notification.Builder(context);
@@ -221,22 +234,21 @@ public class MyApplication extends MyApp {
         };
         mPushAgent.setMessageHandler(messageHandler);
 
-
-
-
-        /**
+        /**  这里需要发送自定义的消息
          * 自定义行为的回调处理，参考文档：高级功能-通知的展示及提醒-自定义通知打开动作
          * UmengNotificationClickHandler是在BroadcastReceiver中被调用，故
          * 如果需启动Activity，需添加Intent.FLAG_ACTIVITY_NEW_TASK
          * */
         UmengNotificationClickHandler notificationClickHandler = new UmengNotificationClickHandler() {
+            //通知栏被点击时回调
             @Override
             public void dealWithCustomAction(Context context, UMessage msg) {
-                Toast.makeText(context, msg.custom, Toast.LENGTH_LONG).show();
+                Logger.d("我接收到了消息："+msg.custom+msg.extra);
+                Toast.makeText(context, "通知栏被点击了"+msg.custom, Toast.LENGTH_LONG).show();
             }
         };
         //使用自定义的NotificationHandler，来结合友盟统计处理消息通知，参考http://bbs.umeng.com/thread-11112-1-1.html
-        //CustomNotificationHandler notificationClickHandler = new CustomNotificationHandler();
+//        CustomNotificationHandler notificationClickHandler = new CustomNotificationHandler();
         mPushAgent.setNotificationClickHandler(notificationClickHandler);
 
 
@@ -263,7 +275,13 @@ public class MyApplication extends MyApp {
                 Logger.i(TAG, "register failed: " + s + " " + s1);
                 sendBroadcast(new Intent(UPDATE_STATUS_ACTION));
             }
+
         });
+        String registrationId = mPushAgent.getRegistrationId();
+        Logger.d("registrationId: "+registrationId);
+        //这段代码表示你现在的推送都会进行自己定义的处理而不是SDK默认的处理。在这个service中，
+        // 你需要处理他的接收以及接收后的展示方式，一般情况下都是进行通知的展示。
+//        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
     }
 
     public static Context getContext() {

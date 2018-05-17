@@ -28,6 +28,7 @@ public class HomeViewPagerAdapterSucessful extends PagerAdapter {
     private FragmentActivity mActivity;
     private List<String> imagerUrls;
     private List<String> imagerClickUrls;
+    private List<String> titles;
     private Handler handler;
 
 
@@ -37,7 +38,8 @@ public class HomeViewPagerAdapterSucessful extends PagerAdapter {
         this.mActivity = mActivity;
     }
 
-    public HomeViewPagerAdapterSucessful(FragmentActivity mActivity, List<String> imagerUrls, List<String> imagerClickUrls, Handler handler) {
+    public HomeViewPagerAdapterSucessful(List<String> titles,FragmentActivity mActivity, List<String> imagerUrls, List<String> imagerClickUrls, Handler handler) {
+        this.titles = titles;
         this.mActivity = mActivity;
         this.imagerUrls = imagerUrls;
         this.imagerClickUrls = imagerClickUrls;
@@ -65,7 +67,9 @@ public class HomeViewPagerAdapterSucessful extends PagerAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity,MyWebViewActivity.class);
                 intent.putExtra("url",imagerClickUrls.get(position));
-                intent.putExtra("title","");
+
+                // TODO: 2018/5/14
+                intent.putExtra("title",titles.get(position));
                 mActivity.startActivity(intent);
             }
         });

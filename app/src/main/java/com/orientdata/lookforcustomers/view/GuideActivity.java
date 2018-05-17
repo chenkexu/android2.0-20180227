@@ -1,13 +1,14 @@
 package com.orientdata.lookforcustomers.view;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.orientdata.lookforcustomers.R;
+import com.orientdata.lookforcustomers.base.BasePermissionActivity;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
@@ -17,13 +18,11 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * 欢迎界面、快闪页面
  */
-public class GuideActivity extends AppCompatActivity{
+public class GuideActivity extends BasePermissionActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         boolean isfirstenter = SharedPreferencesTool.getInstance().getBooleanValue(SharedPreferencesTool.ISFIRSTENTER, true);
         if (isfirstenter) {
             //进入引导页面
@@ -37,6 +36,22 @@ public class GuideActivity extends AppCompatActivity{
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
             setContentView(R.layout.activity_guide);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    requestPermission(new String[]{
+                            Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+
+                    });
+                }
+            }, 20);
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

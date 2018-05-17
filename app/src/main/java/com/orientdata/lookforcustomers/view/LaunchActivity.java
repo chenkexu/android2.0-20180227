@@ -1,12 +1,12 @@
 package com.orientdata.lookforcustomers.view;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.orientdata.lookforcustomers.R;
+import com.orientdata.lookforcustomers.base.BasePermissionActivity;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.view.adapter.DepthPageTransformer;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
@@ -33,7 +34,7 @@ import butterknife.ButterKnife;
 /**
  * 三张图片,欢迎体验
  */
-public class LaunchActivity extends AppCompatActivity {
+public class LaunchActivity extends BasePermissionActivity {
 
     @BindView(R.id.ll_point_group)
     LinearLayout llPointGroup;
@@ -73,6 +74,21 @@ public class LaunchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launch);
         ButterKnife.bind(this);
         initView();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                requestPermission(new String[]{
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+
+                });
+            }
+        }, 20);
+
     }
 
 

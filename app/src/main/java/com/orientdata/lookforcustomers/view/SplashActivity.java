@@ -40,7 +40,6 @@ public class SplashActivity extends BasePermissionActivity {
 
     @BindView(R.id.view_red_point)
     View viewRedPoint;
-
     private int mPointWidth; // 两点间距
 
 

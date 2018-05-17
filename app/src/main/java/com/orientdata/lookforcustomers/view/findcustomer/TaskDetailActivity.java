@@ -24,6 +24,7 @@ import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.ImagePagerActivity;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.widget.MyTitle;
+import com.orientdata.lookforcustomers.widget.dialog.ConfirmSubmitDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -208,7 +209,22 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
                 startActivity(intent1);
                 break;
             case R.id.tvDelete:
-                mPresent.deletTask(task_id);
+                //删除对话框
+                final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this,"确定删除任务？","删除后无法恢复，请谨慎操作");
+                dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
+                    @Override
+                    public void doCancel() {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void doConfirm() {
+                        dialog.dismiss();
+                        mPresent.deletTask(task_id);
+                    }
+                });
+                dialog.show();
+
                 break;
             case R.id.ivAd:
                 showBigPhoto(ivAd,imagePath);

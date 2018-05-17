@@ -656,28 +656,21 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="10dp"
-                            android:padding="10dip"
-                            app:fillColor="#FF0000"
-                            app:pageColor="#FFFFFF"
-                            app:radius="3dp"
+                            android:padding="20dp"
+                            app:fillColor="#3660E5"
+                            app:pageColor="#B0B3BE"
+                            app:radius="2dp"
                             app:strokeWidth="0dp" />
                     </RelativeLayout>
-
                 </RelativeLayout>
 
                 <!--灰色隔离区域-->
-
+<!--
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="#f5f2f2" />
+                    android:background="#f5f2f2" />-->
 
-
-                <!--灰色隔离区域-->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="#f5f2f2" />
             </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>

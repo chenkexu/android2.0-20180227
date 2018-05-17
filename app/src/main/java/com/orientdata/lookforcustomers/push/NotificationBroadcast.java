@@ -30,7 +30,9 @@ public class  NotificationBroadcast extends BroadcastReceiver {
                 EXTRA_ACTION_NOT_EXIST);
         try {
             UMessage msg = (UMessage) new UMessage(new JSONObject(message));
+//            String  = msg.custom;
             switch (action) {
+
                 case ACTION_DISMISS:
                     Logger.d(TAG, "dismiss notification");
                     UTrack.getInstance(context).setClearPrevMessage(true);
@@ -43,7 +45,6 @@ public class  NotificationBroadcast extends BroadcastReceiver {
                     UTrack.getInstance(context).trackMsgClick(msg);
                     break;
             }
-            //
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception e) {

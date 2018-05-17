@@ -11,8 +11,8 @@ android {
         applicationId "com.orientdata.lookforcustomers"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 210
-        versionName "2.1.0"
+        versionCode 211
+        versionName "2.1.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         aaptOptions.cruncherEnabled = false
@@ -70,6 +70,11 @@ android {
         }
     }
 
+//    sourceSets {
+//        main {
+//            jniLibs.srcDirs = 'libs'
+//        }
+//    }
     productFlavors {
         baidu {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]

@@ -72,13 +72,6 @@ public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<I
         return view;
     }
 
-
-
-
-
-
-
-
     public void updateData() {
         Logger.d("获取寻客管理的内容");
         //类型，状态，第几页，size

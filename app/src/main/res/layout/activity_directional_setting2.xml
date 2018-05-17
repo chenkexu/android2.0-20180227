@@ -242,7 +242,11 @@
                         android:text="餐饮"
                         android:textColor="@drawable/button_color"
                         android:textSize="14sp" />
-
+                    <LinearLayout
+                        android:layout_weight="2"
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
                     <TextView
                         android:id="@+id/tv_3c"
                         android:layout_width="0dp"
@@ -265,6 +269,7 @@
                         android:text="日用百货"
                         android:textColor="@drawable/button_color"
                         android:textSize="14sp" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -289,28 +294,35 @@
                         android:textColor="@drawable/button_color"
                         android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/tv_hair"
+                    <LinearLayout
+                        android:layout_weight="2"
+                        android:orientation="horizontal"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector_recharge_tv_checked2"
-                        android:gravity="center"
-                        android:text="美容美发"
-                        android:textColor="@drawable/button_color"
-                        android:textSize="14sp" />
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/tv_hair"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/selector_recharge_tv_checked2"
+                            android:gravity="center"
+                            android:text="美容美发"
+                            android:textColor="@drawable/button_color"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/tv_flower"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector_recharge_tv_checked2"
-                        android:gravity="center"
-                        android:text="鲜花礼品"
-                        android:textColor="@drawable/button_color"
-                        android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_flower"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/selector_recharge_tv_checked2"
+                            android:gravity="center"
+                            android:text="鲜花礼品"
+                            android:textColor="@drawable/button_color"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
 
                 </LinearLayout>
 

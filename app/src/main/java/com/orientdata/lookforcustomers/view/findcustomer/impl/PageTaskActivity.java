@@ -188,6 +188,7 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
             mCityName = intent.getStringExtra("cityName");
 
             industryMark = intent.getStringExtra("industryMark");
+            //industryNameStr不能为空
             industryNameStr = intent.getStringExtra("industryNameStr");
 
             minMoney = intent.getDoubleExtra("minMoney", 1000);

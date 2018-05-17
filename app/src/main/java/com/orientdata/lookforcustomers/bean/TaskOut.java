@@ -49,21 +49,6 @@ public class TaskOut implements Serializable{
     private int customFlag;
     private String industryName;
 
-    public String getIndustryName() {
-        return industryName;
-    }
-
-    public void setIndustryName(String industryName) {
-        this.industryName = industryName;
-    }
-
-    public int getCustomFlag() {
-        return customFlag;
-    }
-
-    public void setCustomFlag(int customFlag) {
-        this.customFlag = customFlag;
-    }
 
     public BigDecimal getXunMoney() {
         return xunMoney;
@@ -114,7 +99,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getTaskNo() {
-        return taskNo;
+        return taskNo == null ? "" : taskNo;
     }
 
     public void setTaskNo(String taskNo) {
@@ -122,7 +107,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getTaskName() {
-        return taskName;
+        return taskName == null ? "" : taskName;
     }
 
     public void setTaskName(String taskName) {
@@ -154,7 +139,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getRangeRadius() {
-        return rangeRadius;
+        return rangeRadius == null ? "" : rangeRadius;
     }
 
     public void setRangeRadius(String rangeRadius) {
@@ -218,7 +203,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getContent() {
-        return content;
+        return content == null ? "" : content;
     }
 
     public void setContent(String content) {
@@ -226,7 +211,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getProvinceCode() {
-        return provinceCode;
+        return provinceCode == null ? "" : provinceCode;
     }
 
     public void setProvinceCode(String provinceCode) {
@@ -234,7 +219,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getCityCode() {
-        return cityCode;
+        return cityCode == null ? "" : cityCode;
     }
 
     public void setCityCode(String cityCode) {
@@ -242,7 +227,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getThrowAddress() {
-        return throwAddress;
+        return throwAddress == null ? "" : throwAddress;
     }
 
     public void setThrowAddress(String throwAddress) {
@@ -282,7 +267,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getAdImgid() {
-        return adImgid;
+        return adImgid == null ? "" : adImgid;
     }
 
     public void setAdImgid(String adImgid) {
@@ -290,7 +275,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getAdLink() {
-        return adLink;
+        return adLink == null ? "" : adLink;
     }
 
     public void setAdLink(String adLink) {
@@ -298,7 +283,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getTemplateUrl() {
-        return templateUrl;
+        return templateUrl == null ? "" : templateUrl;
     }
 
     public void setTemplateUrl(String templateUrl) {
@@ -314,7 +299,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getPlat() {
-        return plat;
+        return plat == null ? "" : plat;
     }
 
     public void setPlat(String plat) {
@@ -322,7 +307,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getTestCmPhone() {
-        return testCmPhone;
+        return testCmPhone == null ? "" : testCmPhone;
     }
 
     public void setTestCmPhone(String testCmPhone) {
@@ -330,7 +315,7 @@ public class TaskOut implements Serializable{
     }
 
     public String getTestCuPhone() {
-        return testCuPhone;
+        return testCuPhone == null ? "" : testCuPhone;
     }
 
     public void setTestCuPhone(String testCuPhone) {
@@ -338,13 +323,28 @@ public class TaskOut implements Serializable{
     }
 
     public String getTestCtPhone() {
-        return testCtPhone;
+        return testCtPhone == null ? "" : testCtPhone;
     }
 
     public void setTestCtPhone(String testCtPhone) {
         this.testCtPhone = testCtPhone;
     }
 
+    public int getCustomFlag() {
+        return customFlag;
+    }
+
+    public void setCustomFlag(int customFlag) {
+        this.customFlag = customFlag;
+    }
+
+    public String getIndustryName() {
+        return industryName == null ? "" : industryName;
+    }
+
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName;
+    }
 
     @Override
     public String toString() {

@@ -95,7 +95,9 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
     private LinearLayout ll_fm_home_accountRecharge;
 
     private List<String> imagerUrls = new ArrayList<String>();
-    private List<String> imageClickUrls = new ArrayList<String>();
+    private List<String> imageClickUrls = new ArrayList<>();
+    private List<String> titles = new ArrayList<>();
+
     HomeViewPagerAdapterSucessful s_adapter;
     private Handler handler;
     private FragmentActivity mActivity;
@@ -343,10 +345,11 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         for (int i = 0; i < data.size(); i++) {
             imagerUrls.add(data.get(i).getImageId());
             imageClickUrls.add(data.get(i).getImageUrl());
+            titles.add(data.get(i).getTitle());
         }
         // 展示数据
         if (s_adapter == null) {
-            s_adapter = new HomeViewPagerAdapterSucessful(mActivity, imagerUrls, imageClickUrls, handler);
+            s_adapter = new HomeViewPagerAdapterSucessful(titles,mActivity, imagerUrls, imageClickUrls, handler);
             mViewPager.setAdapter(s_adapter);
         } else {
             s_adapter.notifyDataSetChanged();

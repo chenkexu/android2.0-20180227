@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseFragment;
 import com.orientdata.lookforcustomers.bean.IndustryTemplate;
@@ -38,16 +39,15 @@ import java.util.Random;
  * Created by wy on 2017/11/16.
  * 模板制作
  */
-
 public class TemplateMakingFragment extends BaseFragment implements View.OnClickListener{
     private ImgPresent mImgPresent;
     private List<TradeSelfout> modelList = null;
     private RelativeLayout chooseLuodi;
     private TextView tvLeftText;
     private ListView listMode;
-    private List<IndustryTemplate> modelImgList = null;
+    private List<IndustryTemplate> modelImgList = null; //某个行业的所有图片
     int modelImgListSize = 0;
-    private List<IndustryTemplate> modelImgListChoose = null;//随机的三张图片
+    private List<IndustryTemplate> modelImgListChoose = null;//随机选择出来的三张图片
     ImgAdapter adapter;
     int selectPosition = -1;
     private IndustryTemplate selectTrade = null;
@@ -202,8 +202,10 @@ public class TemplateMakingFragment extends BaseFragment implements View.OnClick
      * @param position
      */
     private void showImgList(int position){
-        if(modelImgList !=null)
-            modelImgList.clear();
+
+        if(modelImgList !=null){
+            modelImgList = new ArrayList<>();
+        }
         modelImgList = modelList.get(position).getItl();
         updateModelImgListChooseData();
     }
@@ -212,14 +214,18 @@ public class TemplateMakingFragment extends BaseFragment implements View.OnClick
      * 随机显示三张不同图片
      */
     private void updateModelImgListChooseData(){
+        Logger.d("modelList: "+modelList);
+        Logger.d("modelImgList: "+modelImgList);
+        Logger.d("modelImgListChoose:"+modelImgListChoose);
         if(modelImgListChoose == null){
             modelImgListChoose = new ArrayList<>();
         }else{
             modelImgListChoose.clear();
         }
         if(modelImgList == null || modelImgList.size() == 0){
-//            ToastUtils.showShort("请上传此行业的模版图片");
+            ToastUtils.showShort("请上传此行业的模版图片");
         }else{
+
             modelImgListSize = modelImgList.size();
             int first = getFirstRandomData();
             int second = getSecondRandomData(first);
@@ -238,10 +244,12 @@ public class TemplateMakingFragment extends BaseFragment implements View.OnClick
      */
     @Subscribe
     public void imgClipResult(ImgClipResultEvent imgClipResultEvent) {
-        if(imgClipResultEvent.modelList !=null)
+        if(imgClipResultEvent.modelList !=null){
             this.modelList = imgClipResultEvent.modelList;
+        }
             if(modelList!=null && modelList.size()>0){
                 tvLeftText.setText(modelList.get(0).getName());
+                //展示第一个行业的数据
                 showImgList(0);
             }
     }

@@ -12,8 +12,18 @@ public class BannerBean {
     int delFlag;//是 int 删除状态 0正常 1删除
     Date createDate;//是 Date 创建时间
     String imageId;//是 String 图片路径
+    String title;//是 String 图片路径
     String imageUrl;//是 String 点击图片跳转的链接
     int sort;//是 int 排序大小
+
+
+    public String getTitle() {
+        return title == null ? "" : title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public int getBannerId() {
         return bannerId;

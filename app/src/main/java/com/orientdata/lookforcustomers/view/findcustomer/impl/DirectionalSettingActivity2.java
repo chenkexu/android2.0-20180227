@@ -128,7 +128,6 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
