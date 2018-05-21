@@ -55,11 +55,11 @@ public class MyWebViewActivity extends WangrunBaseActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAllowFileAccess(true);
         webView.getSettings().setAllowFileAccessFromFileURLs(true);
-        webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setGeolocationEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
-
+//        WebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         //设置自适应屏幕，两者合用
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         webView.getSettings().setUseWideViewPort(true); //将图片调整到适合webview的大小

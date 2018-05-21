@@ -40,6 +40,7 @@ import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.findcustomer.CreateFindCustomerActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.ITaskView;
 import com.orientdata.lookforcustomers.view.findcustomer.TestPhoneSettingActivity;
+import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.widget.DateSelectPopupWindow;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmSubmitDialog;
@@ -764,6 +765,10 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                     isSubmitting = false;
                     ToastUtils.showShort("创建成功");
                     ACache.get(mContext).remove(SharedPreferencesTool.DIRECTION_HISTORY);
+
+                    Intent intent = new Intent(MessageTaskActivity.this, HomeActivity.class);
+                    intent.putExtra("task", "task");
+                    startActivity(intent);
 //                      finish();
                     closeActivity(CreateFindCustomerActivity.class, MessageTaskActivity.class);
                     //showSubmitFeedbackDialog(response.getCode());
