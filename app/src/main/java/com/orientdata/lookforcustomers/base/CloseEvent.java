@@ -10,6 +10,7 @@ public class CloseEvent {
 
     private ArrayList<String> classNameList;
     private int closeType;
+
     public CloseEvent(int closeType, Class...classes) {
         this.closeType = closeType;
         classNameList = new ArrayList<>();

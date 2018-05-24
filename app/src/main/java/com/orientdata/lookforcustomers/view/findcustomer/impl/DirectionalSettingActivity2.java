@@ -103,15 +103,9 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
     private String cityCode = "";
     private ACache aCache = null;//数据缓存
 
-
-
-
     int hobbyFromPosition = -1; // 代表选择的兴趣名称的位置
     private List<String> hobbyList = new ArrayList<>(); //兴趣点数组集合
     private Map<String, List<String>> hobbyMap = null;//存储兴趣Map(key：兴趣名称，value:二级兴趣点)
-
-
-
 
     private OrientationSettingsOut orientationSettingsOut = null;//数据缓存，之前的任务的数据
     private boolean isReCreate = false;//是否是再次创建寻客
@@ -442,12 +436,6 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
 
 
 
-
-
-
-
-
-
     private void initTitle() {
         titleDirectional.setTitleName(getString(R.string.direction_setting));
         titleDirectional.setImageBack(this);
@@ -554,7 +542,6 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
                         }
                         orientationSettingsOut.setIndustryName(industryNameStr);
                     }
-
 
                     orientationSettingsOut.setUserId(Integer.parseInt(UserDataManeger.getInstance().getUserId()));
                     ArrayList<OrientationSettingsOut> list = (ArrayList<OrientationSettingsOut>) aCache.getAsObject(SharedPreferencesTool.DIRECTION_HISTORY);

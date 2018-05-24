@@ -358,7 +358,10 @@
         <activity
             android:name=".view.home.InvoiceTaskListActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:theme="@style/AppTheme.Transparent"
+            android:name=".view.home.MainHomeActivity"
+            android:screenOrientation="portrait" />
 
 
         <!-- push start -->

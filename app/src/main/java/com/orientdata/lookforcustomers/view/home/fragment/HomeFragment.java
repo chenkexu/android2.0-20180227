@@ -51,6 +51,7 @@ import com.orientdata.lookforcustomers.view.findcustomer.CreateFindCustomerActiv
 import com.orientdata.lookforcustomers.view.home.AnnouncementDetailActivity;
 import com.orientdata.lookforcustomers.view.home.AnnouncementListActivity;
 import com.orientdata.lookforcustomers.view.home.IHomeView;
+import com.orientdata.lookforcustomers.view.home.MainHomeActivity;
 import com.orientdata.lookforcustomers.view.home.RechargeActivity;
 import com.orientdata.lookforcustomers.view.mine.ShareToGetCommissionActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;
@@ -478,8 +479,8 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         switch (v.getId()) {
             case R.id.ll_fm_home_accountCertification:
                 // TODO: 2018/5/4 测试界面，待会删除。
-                mPresent.getCertificateMsg(true);
-//                startActivity(new Intent(getContext(), TestActivity.class));
+//                mPresent.getCertificateMsg(true);
+                startActivity(new Intent(getContext(), MainHomeActivity.class));
                 break;
             case R.id.rlCreate:
                 if (userStatus == 2.0) {

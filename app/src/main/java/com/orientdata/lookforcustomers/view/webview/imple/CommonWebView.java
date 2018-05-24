@@ -19,13 +19,12 @@ import com.orientdata.lookforcustomers.widget.CommonTitleBar;
  * Created by wy on 2017/10/31.
  * webView页面
  */
-
 public class CommonWebView extends BaseActivity<ICommonWebView,
         CommonWebViewPresent<ICommonWebView>>
         implements ICommonWebView {
 
     private CommonTitleBar myTitle;
-    private WebView mWebView;
+    private WebView webView;
     private String title = "";
     private String url = "";
 
@@ -41,8 +40,22 @@ public class CommonWebView extends BaseActivity<ICommonWebView,
 
     private void initView() {
         myTitle = (CommonTitleBar) findViewById(R.id.my_title);
-        mWebView = (WebView) findViewById(R.id.webView);
-        mWebView.getSettings().setDefaultTextEncodingName("utf-8");
+        webView = (WebView) findViewById(R.id.webView);
+        webView.getSettings().setDefaultTextEncodingName("utf-8");
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setAllowFileAccess(true);
+        webView.getSettings().setAllowFileAccessFromFileURLs(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webView.getSettings().setLoadsImagesAutomatically(true);
+        webView.getSettings().setGeolocationEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+//        WebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        //设置自适应屏幕，两者合用
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        webView.getSettings().setUseWideViewPort(true); //将图片调整到适合webview的大小
+        webView.getSettings().setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+
+
         myTitle.setTitle(title);
         myTitle.setOnBack(new View.OnClickListener() {
             @Override
@@ -50,11 +63,11 @@ public class CommonWebView extends BaseActivity<ICommonWebView,
                 onBackPressed();
             }
         });
-        mWebView.setWebViewClient(new WebViewClient() {
+        webView.setWebViewClient(new WebViewClient() {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                mWebView.loadUrl(url);
+                webView.loadUrl(url);
                 return true;
             }
 
@@ -69,7 +82,7 @@ public class CommonWebView extends BaseActivity<ICommonWebView,
             }
         });
 
-        WebSettings webSettings = mWebView.getSettings();
+        WebSettings webSettings = webView.getSettings();
         //设置WebView属性，能够执行Javascript脚本
         webSettings.setJavaScriptEnabled(true);
         //设置可以访问文件
@@ -77,7 +90,7 @@ public class CommonWebView extends BaseActivity<ICommonWebView,
         //设置支持缩放
         webSettings.setBuiltInZoomControls(false);
         //加载需要显示的网页
-        mWebView.loadUrl(url);
+        webView.loadUrl(url);
     }
 
     @Override

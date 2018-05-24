@@ -181,20 +181,6 @@ public abstract class  BaseActivity<V, T extends BasePresenter<V>> extends AppCo
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 设置沉浸式状态栏
      *

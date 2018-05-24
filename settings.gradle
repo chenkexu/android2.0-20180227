@@ -1,1 +1,1 @@
-include ':app',':library',':mdlibrary',':PushSDK',':viewPagerIndicatorLibrary'
+include ':app',':library',':mdlibrary',':viewPagerIndicatorLibrary'

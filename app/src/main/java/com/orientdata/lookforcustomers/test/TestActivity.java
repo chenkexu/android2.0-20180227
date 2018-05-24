@@ -17,8 +17,11 @@ import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.MessageTypeBean;
 import com.orientdata.lookforcustomers.bean.WrResponse;
+import com.orientdata.lookforcustomers.network.api.ApiManager;
+import com.orientdata.lookforcustomers.network.api.BaseObserver;
 import com.orientdata.lookforcustomers.network.callback.WrCallback;
 import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
+import com.orientdata.lookforcustomers.network.util.RxUtil;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
 import java.util.regex.Matcher;
@@ -55,6 +58,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_msg_task);
         ButterKnife.bind(this);
         NetWorkUtils.getSignAndId2("1100000", new WrCallback<WrResponse<MessageTypeBean>>() {
+
             @Override
             public void onSuccess(Response<WrResponse<MessageTypeBean>> response) {
 
@@ -66,6 +70,41 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
+//
+//        ApiManager.getInstence().getApiService()
+//                .getSignAndTd("000000")
+//                .compose(RxUtil.<WrResponse<MessageTypeBean>>rxSchedulerHelper())
+//                .subscribe(new BaseObserver<MessageTypeBean>() {
+//                    @Override
+//                    protected void onSuccees(WrResponse<MessageTypeBean> messgebean){
+//                        Logger.d("success"+ messgebean.getResult().getTdcontent());
+//                    }
+//
+//                    @Override
+//                    protected void onCodeError(WrResponse<MessageTypeBean> t) {
+//                        Logger.d("onCodeError");
+//                    }
+//
+//                    @Override
+//                    protected void onFailure(String errorInfo,boolean isNetWorkError)  {
+//                        Logger.d("errorInfo");
+//                    }
+//                });
+
+
+        ApiManager.getInstence().getApiService().selectWord("习近平")
+                .compose(RxUtil.<WrResponse<Integer>>rxSchedulerHelper())
+                .subscribe(new BaseObserver<Integer>() {
+                    @Override
+                    protected void onSuccees(WrResponse<Integer> t) {
+
+                    }
+
+                    @Override
+                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
+
+                    }
+                });
 
         NetWorkUtils.getSelectWord("1111", new WrCallback<WrResponse<Integer>>() {
             @Override

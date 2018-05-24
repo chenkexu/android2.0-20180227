@@ -38,9 +38,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import rx.functions.Action1;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
@@ -193,14 +191,13 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
         initView();
         initTitle();
         getData();
-        RxUtils.clickView(tv_recharge_btn)
-                .throttleFirst(1000, TimeUnit.MILLISECONDS)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        toCharge();
-                    }
-                });
+
+        RxUtils.setOnClickListeners(new RxUtils.Action1<View>() {
+            @Override
+            public void onClick(View view) {
+                toCharge();
+            }
+        },tv_recharge_btn);
 
     }
 

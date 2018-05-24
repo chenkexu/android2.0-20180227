@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
@@ -88,7 +89,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
         rlMessage = (RelativeLayout) findViewById(R.id.rl_main_message);
         rlMine = (RelativeLayout) findViewById(R.id.rl_main_me);
         rlHome.setOnClickListener(this);
-        rlHome.setSelected(true);
+
         rlSearch.setOnClickListener(this);
         rlReport.setOnClickListener(this);
         rlMessage.setOnClickListener(this);
@@ -103,9 +104,23 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
     private void initFragments() {
         mManager = getSupportFragmentManager();
         FragmentTransaction transaction = mManager.beginTransaction();
-        mHomeFragment = new HomeFragment();
-        mFragmentBefor = mHomeFragment;
-        transaction.add(R.id.container, mHomeFragment).commit();
+
+        Intent intent = getIntent();
+        String task = intent.getStringExtra("task");
+
+        // TODO: 2018/5/18 这里打开activity的某个Fragment 
+        if (task == null) {
+            rlHome.setSelected(true);
+            Logger.d("直接打开的主界面");
+            mHomeFragment = new HomeFragment();
+            mFragmentBefor = mHomeFragment;
+            transaction.add(R.id.container, mHomeFragment).commit();
+        }else{
+            rlSearch.setSelected(true);
+            mSearchFragment = new SearchFragment();
+            mFragmentBefor = mSearchFragment;
+            transaction.add(R.id.container, mSearchFragment).commit();
+        }
         mImmersionBar.fitsSystemWindows(true).statusBarDarkFont(true, 0.2f).statusBarColor(R.color.bg_white).init();
     }
 
@@ -149,7 +164,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
     }
 
 
-
+//    private void openSearChFragment(){}
 
     @Override
     public void onClick(View v) {

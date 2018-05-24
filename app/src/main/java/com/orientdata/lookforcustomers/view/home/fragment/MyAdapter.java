@@ -106,7 +106,7 @@ public class MyAdapter extends BaseAdapter implements View.OnClickListener{
     }
     private String getStatus(int status){
         String type = "";
-        if(status == 1 || status ==3 ||status == 5 ){
+        if(status == 1 || status ==3 ||status == 5 || status == 12){
             type = "审核中";
         }else if(status == 2 || status == 4){
             type = "审核失败";

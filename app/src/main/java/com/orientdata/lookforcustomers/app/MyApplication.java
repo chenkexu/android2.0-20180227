@@ -39,7 +39,6 @@ import com.umeng.socialize.UMShareAPI;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 import vr.md.com.mdlibrary.MyApp;
 
@@ -104,7 +103,7 @@ public class MyApplication extends MyApp {
                 .tag("okgo")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
                 .build();
         //隐藏日志
-        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+//        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
             @Override public boolean isLoggable(int priority, String tag) {
                 return BuildConfig.DEBUG;
@@ -115,15 +114,15 @@ public class MyApplication extends MyApp {
         initOkGo();
         //----------初始化友盟统计
         //设置LOG开关，默认为false
-        UMConfigure.setLogEnabled(false);
+        UMConfigure.setLogEnabled(true);
         //初始化组件化基础库, 统计SDK/推送SDK/分享SDK都必须调用此初始化接口
         UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,"6119919e888e88f695761c9d6b627293");
         //初始化推送
 //        initUpush();
 
         //初始化极光推送
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
+//        JPushInterface.setDebugMode(true);
+//        JPushInterface.init(this);
 
 
     }

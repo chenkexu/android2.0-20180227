@@ -125,6 +125,7 @@ public class MessageFragment extends WangrunBaseFragment<IMsgView, MsgPresent<IM
                 xListView.setVisibility(View.GONE);
                 Logger.d("results消息数据为空2");
                 rl_bottom.setVisibility(View.GONE);
+                title.setRightText("");
             }else{
                 ll_no_content.setVisibility(View.GONE);
                 xListView.setVisibility(View.VISIBLE);

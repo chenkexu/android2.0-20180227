@@ -51,6 +51,7 @@ public class  DateSelectPopupWindow extends PopupWindow {
         this.defaultText = defaultText;
         initView();
         dateSelectPopupWindow=this;
+        datePick1.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
     }
 
     private void initView() {

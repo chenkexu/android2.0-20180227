@@ -224,7 +224,7 @@ public class OkHttpClientManager {
     }
 
     /**
-     * 异步的post请求
+     * 异步的post请求000
      * @param url
      * @param callback
      * @param params
@@ -243,7 +243,6 @@ public class OkHttpClientManager {
             for (Map.Entry<String, String> entry : entries) {
                 res[i++] = new Param(entry.getKey(), entry.getValue());
             }
-//            Logger.d(res);
             Request request = buildPostRequest(url, res);
             deliveryResult(callback, request);
         }

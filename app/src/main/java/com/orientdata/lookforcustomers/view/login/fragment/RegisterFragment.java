@@ -41,10 +41,6 @@ import com.orientdata.lookforcustomers.widget.CommonTitleBar;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.concurrent.TimeUnit;
-
-import rx.functions.Action1;
-
 /**
  * Created by wy on 2017/10/25.
  * 注册界面
@@ -123,16 +119,13 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
 
 
         //防暴击
-        RxUtils.clickView(tvAgreement)
-                .throttleFirst(1000, TimeUnit.MILLISECONDS)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        MyOpenActivityUtils.openCommonWebView(getActivity(),
+        RxUtils.setOnClickListeners(new RxUtils.Action1<View>() {
+            @Override
+            public void onClick(View view) {
+                MyOpenActivityUtils.openCommonWebView(getActivity(),
                                 "网润寻客APP用户协议", "http://www.orientdata.cn/protocol.html");
-                    }
-                });
-
+            }
+        },tvAgreement);
     }
 
     class AgreementClick extends ClickableSpan {

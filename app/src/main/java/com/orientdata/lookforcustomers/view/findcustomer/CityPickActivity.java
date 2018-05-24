@@ -106,19 +106,6 @@ public class CityPickActivity extends BaseActivity<ICityPickView, CityPickPresen
     private void initTitle() {
         title.setTitleName("城市选择");
         title.setImageBack(this);
-        /*title.setRightText(getString(R.string.cancel));
-        title.setRightTextClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeActivity(EnterpriseCertificationUploadActivity.class, CertificationActivity.class);
-            }
-        });*/
-//        title.setLeftImage(R.mipmap.back_white, new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//            }
-//        });
     }
 
     @Override

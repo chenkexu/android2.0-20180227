@@ -39,6 +39,7 @@ import com.orientdata.lookforcustomers.view.findcustomer.CreateAdActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.CreateFindCustomerActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.ITaskView;
 import com.orientdata.lookforcustomers.view.findcustomer.TestPhoneSettingActivity;
+import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.mine.CleanMessageUtil;
 import com.orientdata.lookforcustomers.widget.DateSelectPopupWindow;
 import com.orientdata.lookforcustomers.widget.MyTitle;
@@ -363,6 +364,9 @@ public class PageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITaskV
                         CleanMessageUtil.deleteDir(new File(Environment.getExternalStorageDirectory() + File.separator + "imageWithText.jpg"));//模板制作
                         //showSubmitFeedbackDialog(response.getCode());
 //                    finish();
+                        Intent intent = new Intent(PageTaskActivity.this, HomeActivity.class);
+                        intent.putExtra("task", "task");
+                        startActivity(intent);
                         closeActivity(CreateFindCustomerActivity.class, PageTaskActivity.class);
                     }
                 }, submitfiles, "file", map);

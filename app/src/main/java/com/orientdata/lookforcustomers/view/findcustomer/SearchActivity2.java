@@ -50,7 +50,7 @@ public class SearchActivity2 extends WangrunBaseActivity implements View.OnClick
         rightText = findViewById(R.id.rightText);
         back_btn = findViewById(R.id.back_btn);
         right_btn = findViewById(R.id.right_btn);
-        flowlayout = findViewById(R.id.flowlayout);
+//        flowlayout = findViewById(R.id.flowlayout);
         updateFluidView();
         right_btn.setOnClickListener(this);
         back_btn.setOnClickListener(this);
