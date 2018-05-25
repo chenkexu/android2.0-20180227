@@ -574,7 +574,6 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder2.build()));
                 tv_ac_create_find_customer_radius.setText(mCircleRadiusKM[mCurrentScaleLevelPositon]);
                 mIsShowDialog = false;
-
                 //开始坐标转地址
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                         .location(mCurrentLatLng).newVersion(0));
@@ -897,12 +896,8 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
 
                 }
             }, map);
-
-
             //ToastUtils.showLong("正在截取屏幕图片...");
-
             //startActivity(data);
-
         }
     }
 

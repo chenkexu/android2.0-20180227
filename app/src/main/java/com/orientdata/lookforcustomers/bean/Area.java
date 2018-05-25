@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 public class Area implements Serializable{
     private String name; //省名
-    private String code;  //省Code
+    private String code;  //省Code??市code
     private int status; //是否开通业务
     private String areaId;
 
