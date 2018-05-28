@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/c_ffffff"
@@ -9,8 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <ImageView
+        android:layout_weight="1"
+        android:id="@+id/iv_baiMapPic"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/balance_icon"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
     <ScrollView
-        android:layout_below="@id/titleDirectional"
+        android:layout_marginTop="20dp"
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -511,4 +519,4 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

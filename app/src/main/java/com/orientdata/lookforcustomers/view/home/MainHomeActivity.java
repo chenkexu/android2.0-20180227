@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,9 +14,11 @@ import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +30,9 @@ import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.CircleOptions;
 import com.baidu.mapapi.map.LogoPosition;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
@@ -70,6 +75,8 @@ import com.orientdata.lookforcustomers.view.findcustomer.ICityPickView;
 import com.orientdata.lookforcustomers.view.findcustomer.SearchActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.MessageTaskActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.PageTaskActivity;
+import com.orientdata.lookforcustomers.widget.abslistview.CommonAdapter;
+import com.orientdata.lookforcustomers.widget.abslistview.ViewHolder;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
 import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
@@ -77,6 +84,7 @@ import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -107,19 +115,9 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
 
     @BindView(R.id.top_view)
     View top_view;
+    @BindView(R.id.lv_radius)
+    ListView lvRadius;
 
-    @BindView(R.id.tv_radius_10)
-    TextView tvRadius10;
-    @BindView(R.id.tv_radius_5)
-    TextView tvRadius5;
-    @BindView(R.id.tv_radius_3)
-    TextView tvRadius3;
-    @BindView(R.id.tv_radius_2)
-    TextView tvRadius2;
-    @BindView(R.id.tv_radius_1)
-    TextView tvRadius1;
-    @BindView(R.id.tv_radius_500)
-    TextView tvRadius500;
 
     private MyLocationConfiguration.LocationMode mCurrentMode;
 
@@ -207,7 +205,8 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
 
 
     private List<TextView> rudioss = new ArrayList<>();
-
+    private OverlayOptions oCircle;
+    private String path;
 
     protected boolean isImmersionBarEnabled() {
         return false;
@@ -234,8 +233,6 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
                 .fullScreen(true)
                 .init();
     }
-
-
 
 
     /**
@@ -277,6 +274,22 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
             LbsManager.getInstance().getLocation(myListener);
         }
 
+
+
+        //地图的单击事件
+        mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                mCurrentLatLng = latLng;
+                moveMapTo(latLng.latitude,latLng.longitude,true);
+                setMapCenterInfo(latLng,mCircleRadius[0]);
+            }
+
+            @Override
+            public boolean onMapPoiClick(MapPoi mapPoi) {
+                return false;
+            }
+        });
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
             @Override
             public void onMapStatusChangeStart(MapStatus mapStatus) {
@@ -290,17 +303,19 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
 
             @Override
             public void onMapStatusChange(MapStatus mapStatus) {
+
             }
 
             @Override
             public void onMapStatusChangeFinish(MapStatus mapStatus) {
+                mCurrentLatLng = mapStatus.target;
                 //开始坐标转地址
                 mFromAction = 3;//来自地图移动
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                         .location(mapStatus.target)
                         .newVersion(0));
                 mIsShowDialog = false;
-
+                Logger.d("地图移动结束");
             }
         });
     }
@@ -309,22 +324,6 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
      * 初始化view，初始化内容
      */
     private void initView() {
-//        ll_at_create_find_customer_location = (LinearLayout) findViewById(R.id.ll_at_create_find_customer_location);
-//        ll_at_create_find_customer_location.setOnClickListener(this);
-//        tv_at_create_find_customer_location = (TextView) findViewById(R.id.tv_at_create_find_customer_location);
-//        /        tvMore = (TextView) findViewById(R.id.tvMore);
-//        tvMore.setVisibility(View.VISIBLE);
-//        imageView_fangda = (ImageView) findViewById(R.id.imageView_fangda);
-//        imageView_fangda.setOnClickListener(this);
-//        imageView_suoxiao = (ImageView) findViewById(R.id.imageView_suoxiao);
-//        imageView_suoxiao.setOnClickListener(this);
-        rudioss.add(tvRadius500);
-        rudioss.add(tvRadius1);
-        rudioss.add(tvRadius2);
-        rudioss.add(tvRadius3);
-        rudioss.add(tvRadius5);
-        rudioss.add(tvRadius10);
-
         imageView_jingzhundingwei = (ImageView) findViewById(R.id.imageView_jingzhundingwei);
         imageView_jingzhundingwei.setOnClickListener(this);
         tv_at_create_find_customer_putlocation = (TextView) findViewById(R.id.tv_at_create_find_customer_putlocation);
@@ -332,6 +331,21 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
         ll_at_create_find_customer_search = (LinearLayout) findViewById(R.id.ll_at_create_find_customer_search);
         ll_at_create_find_customer_search.setOnClickListener(this);
         rl_map = findViewById(R.id.rl_map);
+        //初始化选择半径
+        lvRadius.setAdapter(new CommonAdapter<String>(this, R.layout.item_lv_radio, Arrays.asList(mCircleRadiusKM)) {
+            @Override
+            protected void convert(ViewHolder viewHolder, String item, int position) {
+                viewHolder.setText(R.id.tv_radio, item);
+            }
+        });
+        //半径的点击事件
+        lvRadius.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setMapCenterInfo(mCurrentLatLng,mCircleRadius[position]);
+            }
+        });
+
 
 
 
@@ -379,49 +393,76 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
         }
 
     }
-    //设置行业TextView的状态
-    private void setTextState(int index , boolean isSelected){
-        for (int i=0;i<rudioss.size();i++) {
-            if (index == i) {
-                if (!rudioss.get(i).isSelected()) {
-                    rudioss.get(i).setSelected(true);
-                }
-            }else{
-                if (isSelected) {
-                    rudioss.get(i).setSelected(false);
-                }
-            }
-        }
-    }
 
-    @OnClick({R.id.tv_radius_10, R.id.tv_radius_5, R.id.tv_radius_3, R.id.tv_radius_2, R.id.tv_radius_1, R.id.tv_radius_500,R.id.bt_go_orintion, R.id.iv_service})
+
+
+    @OnClick({R.id.bt_go_orintion, R.id.iv_service})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_radius_500:
-                setTextState(0,true);
-
-                break;
-            case R.id.tv_radius_1:
-                setTextState(1,true);
-                break;
-            case R.id.tv_radius_2:
-                setTextState(2,true);
-                break;
-            case R.id.tv_radius_3:
-                setTextState(3,true);
-                break;
-            case R.id.tv_radius_5:
-                setTextState(4,true);
-                break;
-            case R.id.tv_radius_10:
-                setTextState(5,true);
-                break;
             case R.id.bt_go_orintion: //打开定向设置
+
+                mBaiduMap.snapshotScope(new Rect(0, 200, 0, 200), new BaiduMap.SnapshotReadyCallback() {
+                    @Override
+                    public void onSnapshotReady(Bitmap bitmap) {
+                        path = ImageUtils2.saveBitmap(MainHomeActivity.this, bitmap);
+                        Intent intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
+                        intent.putExtra("path", path);
+                        startActivity(intent);
+                    }
+                });
+
                 break;
             case R.id.iv_service: //客服
                 break;
         }
     }
+
+
+    //设置地图中心点的信息
+    private void setMapCenterInfo(LatLng latLng,int radius){
+        if (mBaiduMap == null) {
+            return;
+        }
+        mBaiduMap.clear();
+        /**
+         * 绘制圆形
+         */
+        oCircle = new CircleOptions().fillColor(0x260077FF)
+                .center(latLng).stroke(new Stroke(5, 0x00000000))
+                .radius(radius);
+
+        //绘制中心图标
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_big);
+        MarkerOptions options = new MarkerOptions();
+        options.position(mCurrentLatLng)        // 位置
+                .icon(icon)            // 图标
+                .anchor(0.5f, 0.5f);//设置 marker 覆盖物的锚点比例，默认（0.5f, 1.0f）水平居中，垂直下对齐
+        // 掉下动画
+        //options.animateType(MarkerOptions.MarkerAnimateType.drop);
+        mBaiduMap.addOverlay(oCircle);
+        mBaiduMap.addOverlay(options);
+
+
+    }
+    //设置任务的投放半径
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 方向变化之后
@@ -700,15 +741,10 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
                 break;
             case 2://搜索
                 if (data != null) {
-                    data.getSerializableExtra("searchValue");
                     AddressSearchRecode addressInfo = (AddressSearchRecode) data.getSerializableExtra("searchValue");
-
                     mCurrentLatLng = new LatLng(addressInfo.getLatitude(), addressInfo.getLongitude());
-                    MapStatus.Builder builder = new MapStatus.Builder();
-                    builder.target(mCurrentLatLng)
-                            .zoom(mScaleLevel[mCurrentScaleLevelPositon]);//21-3===5m-1000km  15-500m,14-1km,13-2km,12.5-3km,12-5km,11,10km
-                    mBaiduMap.clear();
-                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+                    moveMapTo(addressInfo.getLatitude(), addressInfo.getLongitude(),true);
+                    setMapCenterInfo(mCurrentLatLng,mCircleRadius[0]);
                     //开始坐标转地址
                     mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                             .location(mCurrentLatLng)
@@ -895,8 +931,6 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     }
 
 
-
-
     /**
      * 定位SDK监听函数
      */
@@ -933,34 +967,13 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
             if (isFirstLoc) {
                 Logger.d("首次定位。。。");
                 isFirstLoc = false;
-                MapStatus.Builder builder = new MapStatus.Builder();
                 mCurrentScaleLevelPositon = 0;
-                builder.target(ll).zoom(mScaleLevel[mCurrentScaleLevelPositon]);//21-3===5m-1000km  15-500m,14-1km,13-2km,12.5-3km,12-5km,11,10km
-                mBaiduMap.clear();
-                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-                /**
-                 * 绘制圆形
-                 */
-                OverlayOptions oCircle = new CircleOptions().fillColor(0x000000FF)
-                        .center(mCurrentLatLng).stroke(new Stroke(5, 0xAA000000))
-                        .radius(500);
+                moveMapTo(ll.latitude,ll.longitude,true,mScaleLevel[mCurrentScaleLevelPositon]);
+                setMapCenterInfo(mCurrentLatLng,mCircleRadius[0]);
 
-                //绘制中心图标
-                BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_big);
-                MarkerOptions options = new MarkerOptions();
-                options.position(mCurrentLatLng)        // 位置
-                        .icon(icon)            // 图标
-                        .anchor(0.5f, 0.5f);//设置 marker 覆盖物的锚点比例，默认（0.5f, 1.0f）水平居中，垂直下对齐
-                // 掉下动画
-                //options.animateType(MarkerOptions.MarkerAnimateType.drop);
-                mBaiduMap.addOverlay(oCircle);
-                mBaiduMap.addOverlay(options);
             }
         }
 
-        public void onReceivePoi(BDLocation poiLocation) {
-
-        }
     }
 
 
@@ -1146,4 +1159,39 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     public void hideLoading() {
 
     }
+
+
+    /**
+     * @param latitude
+     * @param longitude
+     * @param isAnimate
+     * @param zoomLevel 调整地图的缩放比例
+     */
+    private void moveMapTo(double latitude, double longitude, boolean isAnimate, float zoomLevel) {
+        // needRefreshAddress = true;
+        MapStatus mMapStatus = new MapStatus.Builder().target(new LatLng(latitude, longitude)).zoom(zoomLevel).build();
+        MapStatusUpdate msu = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+        if (null != msu) {
+            if (isAnimate) {
+                // 设置中心点,移动到中心点
+                mBaiduMap.animateMapStatus(msu);
+            } else {
+                mBaiduMap.setMapStatus(msu);
+            }
+        }
+    }
+
+    private void moveMapTo(double latitude, double longitude, boolean isAnimate) {
+        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(new LatLng(latitude, longitude));
+        if (mBaiduMap == null) {
+            return;
+        }
+        if (isAnimate) {
+            mBaiduMap.animateMapStatus(msu);
+        } else {
+            mBaiduMap.setMapStatus(msu);
+        }
+    }
+
+
 }

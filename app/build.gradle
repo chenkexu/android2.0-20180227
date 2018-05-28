@@ -142,7 +142,7 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
 
-
+    compile 'com.zhy:base-adapter:3.0.3'
 
     //沉浸式
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'

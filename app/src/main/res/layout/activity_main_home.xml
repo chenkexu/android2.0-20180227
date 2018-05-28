@@ -64,55 +64,18 @@
 
 
                 <!--半径选择-->
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:id="@+id/lv_radius"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true">
-
-                    <TextView
-                        android:id="@+id/tv_radius_10"
-                        android:padding="5dp"
-                        android:text="10km"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/tv_radius_5"
-                        android:padding="5dp"
-                        android:text="5km"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/tv_radius_3"
-                        android:padding="5dp"
-                        android:text="3KM"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_radius_2"
-                        android:padding="5dp"
-                        android:text="2KM"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_radius_1"
-                        android:padding="5dp"
-                        android:text="1KM"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_radius_500"
-                        android:padding="5dp"
-                        android:text="500M"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    <ListView
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/lv_radius"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:fadingEdge="none"
+                        android:scrollbars="none"
+                        android:divider="@null"
+                        android:choiceMode="singleChoice"
+                        tools:listitem="@layout/item_lv_radio"/>
 
                 <TextView
                     android:layout_centerHorizontal="true"
