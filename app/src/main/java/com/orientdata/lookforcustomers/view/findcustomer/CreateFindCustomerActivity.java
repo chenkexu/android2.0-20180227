@@ -1151,7 +1151,10 @@ public class CreateFindCustomerActivity extends BaseActivity<ICityPickView, City
         mLocCityCode = findLocCityCodeByName(mLocProvinceName, mLocCityName);
     }
 
+    @Override
+    public void addAddress(Object object) {
 
+    }
 
 
     //地址转坐标的结果(手动选择城市，点击详情，搜索)

@@ -23,8 +23,8 @@ public class SeachAddressAdapter extends BaseQuickAdapter<AddressSearchRecode,Ba
 
     @Override
     protected void convert(BaseViewHolder helper, AddressSearchRecode item) {
-        helper.setText(R.id.tv_address_name,item.getName());
-        helper.setText(R.id.tv_address,item.getAddress());
+        helper.setText(R.id.tv_address_name,item.getAddress());
+        helper.setText(R.id.tv_address,item.getName());
     }
 
 

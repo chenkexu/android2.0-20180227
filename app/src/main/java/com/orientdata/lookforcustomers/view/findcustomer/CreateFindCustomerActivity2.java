@@ -1102,7 +1102,10 @@ public class CreateFindCustomerActivity2 extends BaseActivity<ICityPickView, Cit
         mLocCityCode = findLocCityCodeByName(mLocProvinceName, mLocCityName);
     }
 
+    @Override
+    public void addAddress(Object object) {
 
+    }
 
 
     //地址转坐标的结果

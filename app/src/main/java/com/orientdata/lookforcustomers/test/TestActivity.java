@@ -12,18 +12,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.bean.MessageTypeBean;
 import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.network.api.ApiManager;
 import com.orientdata.lookforcustomers.network.api.BaseObserver;
-import com.orientdata.lookforcustomers.network.callback.WrCallback;
-import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
+import com.orientdata.lookforcustomers.network.api.ParamsUtil;
 import com.orientdata.lookforcustomers.network.util.RxUtil;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,20 +55,19 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_msg_task);
         ButterKnife.bind(this);
-        NetWorkUtils.getSignAndId2("1100000", new WrCallback<WrResponse<MessageTypeBean>>() {
 
-            @Override
-            public void onSuccess(Response<WrResponse<MessageTypeBean>> response) {
-
-            }
-
-            @Override
-            public void onError(Response<WrResponse<MessageTypeBean>> response) {
-                super.onError(response);
-            }
-        });
-
+//        NetWorkUtils.getSelectWord("123", new WrCallback<WrResponse<Integer>>() {
+//            @Override
+//            public void onSuccess(Response<WrResponse<Integer>> response) {
 //
+//            }
+//
+//            @Override
+//            public void onError(Response<WrResponse<Integer>> response) {
+//                super.onError(response);
+//            }
+//        });
+
 //        ApiManager.getInstence().getApiService()
 //                .getSignAndTd("000000")
 //                .compose(RxUtil.<WrResponse<MessageTypeBean>>rxSchedulerHelper())
@@ -90,9 +87,30 @@ public class TestActivity extends AppCompatActivity {
 //                        Logger.d("errorInfo");
 //                    }
 //                });
+//
+//        ApiManager.getInstence().getApiService().appAddressPost("1","1","1")
+//                .compose(RxUtil.<WrResponse<Object>>rxSchedulerHelper())
+//                .subscribe(new BaseObserver<Object>() {
+//                    @Override
+//                    protected void onSuccees(WrResponse<Object> t) {
+//
+//                    }
+//
+//                    @Override
+//                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
+//
+//                    }
+//                });
 
 
-        ApiManager.getInstence().getApiService().selectWord("习近平")
+//        MDBasicRequestMap mdBasicRequestMap = new MDBasicRequestMap();
+//        mdBasicRequestMap.put("content", "123");
+//        MDSecureRequestMap map = new MDSecureRequestMap(mdBasicRequestMap);
+
+
+        HashMap<String, Object> map = ParamsUtil.getMap();
+        map.put("content","123");
+        ApiManager.getInstence().getApiService().selectWord(ParamsUtil.getParams(map))
                 .compose(RxUtil.<WrResponse<Integer>>rxSchedulerHelper())
                 .subscribe(new BaseObserver<Integer>() {
                     @Override
@@ -106,17 +124,32 @@ public class TestActivity extends AppCompatActivity {
                     }
                 });
 
-        NetWorkUtils.getSelectWord("1111", new WrCallback<WrResponse<Integer>>() {
-            @Override
-            public void onSuccess(Response<WrResponse<Integer>> response) {
+//
+//        ApiManager.getInstence().getApiService().delteAddress("1")
+//                .compose(RxUtil.<WrResponse<Object>>rxSchedulerHelper())
+//                .subscribe(new BaseObserver<Object>() {
+//                    @Override
+//                    protected void onSuccees(WrResponse<Object> t) {
+//
+//                    }
+//
+//                    @Override
+//                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
+//
+//                    }
+//                });
 
-            }
-
-            @Override
-            public void onError(Response<WrResponse<Integer>> response) {
-                super.onError(response);
-            }
-        });
+//        NetWorkUtils.getSelectWord("1111", new WrCallback<WrResponse<Integer>>() {
+//            @Override
+//            public void onSuccess(Response<WrResponse<Integer>> response) {
+//
+//            }
+//
+//            @Override
+//            public void onError(Response<WrResponse<Integer>> response) {
+//                super.onError(response);
+//            }
+//        });
 
 
 

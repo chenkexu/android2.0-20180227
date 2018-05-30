@@ -36,6 +36,8 @@ import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
+import org.litepal.LitePal;
+
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -124,6 +126,9 @@ public class MyApplication extends MyApp {
 //        JPushInterface.setDebugMode(true);
 //        JPushInterface.init(this);
 
+
+        //初始化数据库
+        LitePal.initialize(this);
 
     }
 

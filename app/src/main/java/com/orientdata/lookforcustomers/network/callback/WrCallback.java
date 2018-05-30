@@ -42,13 +42,14 @@ public abstract class WrCallback<T> extends AbsCallback<T> {
         request.params("ver", getVer());
         request.params("plat",getPlat());
         request.params("private_key", getPrivate_key());
+
         if (!TextUtils.isEmpty(UserDataManeger.getInstance().getUserId())) {
             request.params("userId",UserDataManeger.getInstance().getUserId());
         }
         if (!TextUtils.isEmpty(UserDataManeger.getInstance().getUserToken())) {
             request.params("token", UserDataManeger.getInstance().getUserToken());
         }
-        request.params("sign", getSignString());
+//        request.params("sign", getSignString());
     }
 
 
@@ -147,10 +148,11 @@ public abstract class WrCallback<T> extends AbsCallback<T> {
         return timestamp;
     }
 
-    private String getSignString() {
+    private String getSignString(Map map2) {
         Map<String, String> map = new TreeMap<>();
-//        map.putAll(this);
+        map.putAll(map2);
         map.put("private_key", this.getPrivate_key());
+
         StringBuilder sb = new StringBuilder();
         for (String o : map.keySet()) {
             if (sb.length() == 0) {
@@ -159,9 +161,12 @@ public abstract class WrCallback<T> extends AbsCallback<T> {
                 sb.append("&").append(o + "=" + map.get(o));
             }
         }
-
+        Logger.d("map：---------"+map);
         return MD5.md5(sb.toString());
     }
+
+
+
 
     private String getVer() {
         return AppConfig.VER;

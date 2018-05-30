@@ -254,7 +254,6 @@ public class SharedPreferencesTool {
         editor.clear();
         editor.putString(tag, strJson);
         editor.commit();
-
     }
 
     /**
@@ -272,6 +271,8 @@ public class SharedPreferencesTool {
         datalist = gson.fromJson(strJson, new TypeToken<List<T>>() {}.getType());
         return datalist;
     }
+
+
     public List<CertificationBean> getEnterCertificationList(String tag) {
 
 

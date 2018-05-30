@@ -35,11 +35,14 @@ import com.orientdata.lookforcustomers.widget.ClearableEditText;
 import com.orientdata.lookforcustomers.widget.FluidLayout;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -56,7 +59,8 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
     private ClearableEditText clearEdit;
     private TextView rightText;//搜索
     private ImageView back_btn;//返回
-    List<String> history;
+    List<AddressSearchRecode> history;
+
     //    private FluidLayout flowlayout;
     int column = 0;
     private PoiSearch mPoiSearch = null;
@@ -74,9 +78,6 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
         clearEdit = findViewById(R.id.clearEdit);
         rightText = findViewById(R.id.rightText);
         back_btn = findViewById(R.id.back_btn);
-
-//        flowlayout = findViewById(R.id.flowlayout);
-
         back_btn.setOnClickListener(this);
         ivDelete.setOnClickListener(this);
         rightText.setOnClickListener(this);
@@ -84,11 +85,9 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
         mPoiSearch = PoiSearch.newInstance();
         mPoiSearch.setOnGetPoiSearchResultListener(this);
 
-
-
         List<AddressSearchRecode> addressSearchRecodes = new ArrayList<>();
-        addressAdapter = new SeachAddressAdapter(addressSearchRecodes);
 
+        addressAdapter = new SeachAddressAdapter(addressSearchRecodes);
         rvAddressList.setItemAnimator(new DefaultItemAnimator());
         rvAddressList.setLayoutManager(new LinearLayoutManager(this));
         addressAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
@@ -96,13 +95,31 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
         rvAddressList.setAdapter(addressAdapter);
 
 
+        // TODO: 2018/5/24 查看所有的历史记录
+        history = DataSupport.findAll(AddressSearchRecode.class);
+
+        if (history.size() == 0 || history == null) {
+            addressAdapter.setEmptyView(R.layout.layout_no_content,(ViewGroup) rvAddressList.getParent());
+        }else{
+            updateAddressSearchResult(history);
+        }
+
+
+
+
+
         addressAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<AddressSearchRecode> addressInfo = addressAdapter.getData();
-                // TODO: 2018/5/24 保存到历史记录
+                AddressSearchRecode addressSearchRecode = addressInfo.get(position);
+
+                //保存到数据库
+                addressSearchRecode.saveOrUpdate("name=?",addressSearchRecode.getName());
+
+
                 Intent intent = new Intent();
-                intent.putExtra("searchValue",addressInfo.get(position));
+                intent.putExtra("searchValue", addressSearchRecode);
                 setResult(RESULT_OK, intent);
                 finish();
                 Logger.d(addressInfo.get(position).getAddress());
@@ -139,13 +156,7 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
                     ToastUtils.showShort("搜索内容不能为空");
                     return;
                 }
-                //将字符串存到share中
-                history = SharedPreferencesTool.getInstance().getDataList(SharedPreferencesTool.SEARCH_HISTORY);
-                if (history == null) {
-                    history = new ArrayList<>();
-                }
-                history.add(clearEdit.getText().toString());
-                SharedPreferencesTool.getInstance().setDataList(SharedPreferencesTool.SEARCH_HISTORY, history);
+
                 Intent intent = new Intent();
                 intent.putExtra("searchValue", clearEdit.getText().toString().trim());
                 setResult(RESULT_OK, intent);
@@ -184,7 +195,8 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
             textView.setSingleLine(true);
             textView.setPadding(15, 15, 15, 15);
             textView.setBackgroundResource(R.drawable.shape_bg_gray_round);
-            final String his = history.get(i);
+
+            final String his = history.get(i).getAddress();
             textView.setText(his);
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -223,9 +235,7 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
 
     @Override
     public void onGetPoiResult(PoiResult result) {
-
         List<AddressSearchRecode> results = new ArrayList<>();
-
         if (clearEdit.getText().toString().equals("")) {
             return;
         }
@@ -255,13 +265,11 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
     //更新搜索的结果
     private void updateAddressSearchResult(List<AddressSearchRecode> results) {
         if (results.size() > 0) {
-            Logger.d(results.get(1).getAddress());
+            Logger.d(results.get(0).getAddress());
             addressAdapter.setNewData(results);
-
         } else {
             ToastUtils.showShort("没有搜索结果");
         }
-
     }
 
 
@@ -277,5 +285,24 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
     @Override
     public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
 
+    }
+
+    @OnClick({R.id.tv_history, R.id.tv_collection})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_history://历史记录
+                // TODO: 2018/5/24 查看所有的历史记录
+                history = DataSupport.findAll(AddressSearchRecode.class);
+                if (history.size() == 0 || history == null) {
+                    addressAdapter.setEmptyView(R.layout.layout_no_content,(ViewGroup) rvAddressList.getParent());
+                }else{
+                    updateAddressSearchResult(history);
+                }
+                break;
+            case R.id.tv_collection://收藏
+                // TODO: 2018/5/30 请求接口
+
+                break;
+        }
     }
 }

@@ -4,11 +4,11 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ZoomControls;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -44,7 +45,6 @@ import com.baidu.mapapi.map.Stroke;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.geocode.GeoCodeOption;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
@@ -58,7 +58,6 @@ import com.orientdata.lookforcustomers.bean.AddressSearchRecode;
 import com.orientdata.lookforcustomers.bean.Area;
 import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.NextStepCheckBean;
-import com.orientdata.lookforcustomers.bean.OrientationSettingsOut;
 import com.orientdata.lookforcustomers.bean.PreOut;
 import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.bean.TaskTypeBean;
@@ -99,7 +98,7 @@ import vr.md.com.mdlibrary.utils.ImageUtils2;
 /**
  * 创建寻客页面
  */
-public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresent<ICityPickView>> implements ICityPickView, SensorEventListener, View.OnClickListener, OnGetGeoCoderResultListener {
+public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresent<ICityPickView>> implements ICityPickView, SensorEventListener, OnGetGeoCoderResultListener {
 
 
     // 定位相关
@@ -207,6 +206,9 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     private List<TextView> rudioss = new ArrayList<>();
     private OverlayOptions oCircle;
     private String path;
+    private int mCurrentRadiuPos;
+    private CommonAdapter<String> strngCommonAdapter;
+    private Intent intent;
 
     protected boolean isImmersionBarEnabled() {
         return false;
@@ -251,38 +253,39 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
         mCurrentMarker = BitmapDescriptorFactory
                 .fromBitmap(Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565));
         MyLocationConfiguration mcf = new MyLocationConfiguration(mCurrentMode, true, mCurrentMarker, accuracyCircleFillColor, accuracyCircleStrokeColor);
+
+
+
+
+        //隐藏百度地图的logo
+        View baiduLogo = mMapView.getChildAt(1);
+        if (baiduLogo != null && (baiduLogo instanceof ImageView || baiduLogo instanceof ZoomControls)) {
+            baiduLogo.setVisibility(View.GONE);
+        }
+
         mBaiduMap.setMyLocationConfiguration(mcf);
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
         mBaiduMap.setCompassEnable(false);
+
+
         myListener = new MyLocationListenner();
         getProvinceCity();
         // 初始化搜索模块，注册事件监听
         mSearch = GeoCoder.newInstance();
         mSearch.setOnGetGeoCodeResultListener(this);
 
-
-        if (isReCreate) { //如果是点击详情的地址
-            Logger.d("任务详情页面，点击再次创建任务-------");
-            //地址转坐标
-            mSearch.geocode(new GeoCodeOption()
-                    .city(mThrowAddress)
-                    .address(mThrowAddress));
-        } else {
-            Logger.d("首次进来创建寻客——------");
-            //去定位
-            LbsManager.getInstance().getLocation(myListener);
-        }
-
-
+        Logger.d("首次进来创建寻客——------");
+        //去定位
+        LbsManager.getInstance().getLocation(myListener);
 
         //地图的单击事件
         mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
                 mCurrentLatLng = latLng;
-                moveMapTo(latLng.latitude,latLng.longitude,true);
-                setMapCenterInfo(latLng,mCircleRadius[0]);
+                moveMapTo(latLng.latitude, latLng.longitude, true);
+                setMapCenterInfo(latLng, mCircleRadius[0]);
             }
 
             @Override
@@ -309,6 +312,7 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
             @Override
             public void onMapStatusChangeFinish(MapStatus mapStatus) {
                 mCurrentLatLng = mapStatus.target;
+                setMapCenterInfo(mapStatus.target, mCircleRadius[0]);
                 //开始坐标转地址
                 mFromAction = 3;//来自地图移动
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption()
@@ -324,144 +328,110 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
      * 初始化view，初始化内容
      */
     private void initView() {
-        imageView_jingzhundingwei = (ImageView) findViewById(R.id.imageView_jingzhundingwei);
-        imageView_jingzhundingwei.setOnClickListener(this);
         tv_at_create_find_customer_putlocation = (TextView) findViewById(R.id.tv_at_create_find_customer_putlocation);
-
-        ll_at_create_find_customer_search = (LinearLayout) findViewById(R.id.ll_at_create_find_customer_search);
-        ll_at_create_find_customer_search.setOnClickListener(this);
         rl_map = findViewById(R.id.rl_map);
+
         //初始化选择半径
-        lvRadius.setAdapter(new CommonAdapter<String>(this, R.layout.item_lv_radio, Arrays.asList(mCircleRadiusKM)) {
+        strngCommonAdapter = new CommonAdapter<String>(this, R.layout.item_lv_radio, Arrays.asList(mCircleRadiusKM)) {
             @Override
             protected void convert(ViewHolder viewHolder, String item, int position) {
                 viewHolder.setText(R.id.tv_radio, item);
+                if (mCurrentRadiuPos == position) {
+                    viewHolder.setBackgroundRes(R.id.ll_radius, R.drawable.round_border_radius2);
+                    viewHolder.setTextColor(R.id.tv_radio, getResources().getColor(R.color.white));
+                } else {
+                    viewHolder.setBackgroundRes(R.id.ll_radius, R.drawable.round_border_radius);
+                    viewHolder.setTextColor(R.id.tv_radio, getResources().getColor(R.color.black));
+                }
+
             }
-        });
+        };
+
+        lvRadius.setAdapter(strngCommonAdapter);
+
         //半径的点击事件
         lvRadius.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                setMapCenterInfo(mCurrentLatLng,mCircleRadius[position]);
+                mCurrentRadiuPos = position;
+                // 刷新listview
+                strngCommonAdapter.notifyDataSetChanged();
+                setMapCenterInfo(mCurrentLatLng, mCircleRadius[position]);
             }
         });
 
-
-
-
-        if (getIntent() != null) { //点击任务详情页面，再次创建任务，任务数据传过来
-            isReCreate = getIntent().getBooleanExtra("isReCreate", false);
-            mTaskOut = (TaskOut) getIntent().getSerializableExtra("taskOut");
-        }
-
-        if (isReCreate) { //再次创建的TaskOut
-            Logger.d("传过来的已经创建好的任务类型的详情：");
-            mThrowAddress = mTaskOut.getThrowAddress();//上一次的投放地址
-            String rangeRadius = mTaskOut.getRangeRadius();//上次的投放半径
-            if (!TextUtils.isEmpty(rangeRadius)) {      //设置范围半径
-                for (int i = 0; i < mCircleRadiusKM.length; i++) {
-                    if (rangeRadius.equals(mCircleRadiusKM[i])) {
-                        mCurrentScaleLevelPositon = i;
-                        mRadiusFromPosition = i;
-                    }
-                }
-            }
-            //页面任务
-            int type = mTaskOut.getType();
-            //上次的定向设置
-            OrientationSettingsOut orientationSettingsOut = mTaskOut.getOrientationSettingsOut();
-            ageF = orientationSettingsOut.getAgeF();
-            ageB = orientationSettingsOut.getAgeB();
-            sex = orientationSettingsOut.getSex();
-            industryNameStr = mTaskOut.getIndustryName(); //行业名称
-            industryMark = mTaskOut.getCustomFlag() + "";//是否自定义
-
-            List<String> xingqu = orientationSettingsOut.getXingqu();//兴趣数组
-            for (int i = 0; i < xingqu.size(); i++) {
-                if (i == 0) {
-                    interestIds = interestIds + xingqu.get(i);
-                } else {
-                    interestIds = interestIds + "," + xingqu.get(i);
-                }
-            }
-            Logger.d("再次创建任务返回的兴趣数组：" + interestIds);
-
-            mCityCode = mTaskOut.getCityCode().trim();//上次创建的cityCode
-            //上次创建的cityCode
-            mProvinceCode = mTaskOut.getProvinceCode().trim();
-
-        }
-
     }
 
 
-
-    @OnClick({R.id.bt_go_orintion, R.id.iv_service})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.bt_go_orintion: //打开定向设置
-
-                mBaiduMap.snapshotScope(new Rect(0, 200, 0, 200), new BaiduMap.SnapshotReadyCallback() {
-                    @Override
-                    public void onSnapshotReady(Bitmap bitmap) {
-                        path = ImageUtils2.saveBitmap(MainHomeActivity.this, bitmap);
-                        Intent intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
-                        intent.putExtra("path", path);
-                        startActivity(intent);
-                    }
-                });
-
-                break;
-            case R.id.iv_service: //客服
-                break;
-        }
-    }
 
 
     //设置地图中心点的信息
-    private void setMapCenterInfo(LatLng latLng,int radius){
-        if (mBaiduMap == null) {
+    private void setMapCenterInfo(LatLng latLng, int radius) {
+        if (mBaiduMap == null || latLng == null) {
+            Logger.e("mBaiduMap为空。。。。。");
             return;
         }
         mBaiduMap.clear();
         /**
          * 绘制圆形
          */
-        oCircle = new CircleOptions().fillColor(0x260077FF)
+        CircleOptions oCircle = new CircleOptions().fillColor(0x260077FF)
                 .center(latLng).stroke(new Stroke(5, 0x00000000))
                 .radius(radius);
 
         //绘制中心图标
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.location_icon_big);
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.icon_center);
         MarkerOptions options = new MarkerOptions();
         options.position(mCurrentLatLng)        // 位置
                 .icon(icon)            // 图标
                 .anchor(0.5f, 0.5f);//设置 marker 覆盖物的锚点比例，默认（0.5f, 1.0f）水平居中，垂直下对齐
+
         // 掉下动画
         //options.animateType(MarkerOptions.MarkerAnimateType.drop);
         mBaiduMap.addOverlay(oCircle);
         mBaiduMap.addOverlay(options);
 
-
     }
+
     //设置任务的投放半径
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1://手动选择城市
+                // TODO
+                if (data != null) {
+                }
+                break;
+            case 2://搜索
+                if (data != null) {
+                    AddressSearchRecode addressInfo = (AddressSearchRecode) data.getSerializableExtra("searchValue");
+                    mCurrentLatLng = new LatLng(addressInfo.getLatitude(), addressInfo.getLongitude());
+                    moveMapTo(addressInfo.getLatitude(), addressInfo.getLongitude(), true);
+                    setMapCenterInfo(mCurrentLatLng, mCircleRadius[0]);
+                    //开始坐标转地址
+                    mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+                            .location(mCurrentLatLng)
+                            .newVersion(0));
+                    mFromAction = 4;
+                }
+                break;
+            case 3: //定向设置
+                if (data != null) {
+                    // TODO: 2018/4/4 界面显示定向设置的内容
+                    ageF = data.getStringExtra("ageF");//年龄
+                    ageB = data.getStringExtra("ageB");
+                    sex = data.getStringExtra("sex");//性别
+                    interestIds = data.getStringExtra("interestIds");//二级兴趣点
+                    industryMark = data.getStringExtra("industryMark");
+                    industryNameStr = data.getStringExtra("industryNameStr");
+                    isReCreate = false;//将重新创建置false 定向 使用缓存的内容 更新界面
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
 
     /**
@@ -492,46 +462,49 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     private String smsPrice = "";//短信单价
     private String pagePrice = "";//页面单价
 
-    /**
-     * 点击事件
-     *
-     * @param v
-     */
-    @Override
-    public void onClick(View v) {
-        Intent intent = null;
-        MyLocationConfiguration mcf = null;
-        MDBasicRequestMap map = null;
-        int status = -777;
-        switch (v.getId()) {
-//            case R.id.ll_at_create_find_customer_location://手动去选择位置
-//                intent = new Intent(this, CityPickActivity.class);
-//                if (!TextUtils.isEmpty(mLocCityName)) {
-//                    intent.putExtra("locCityName", mLocCityName);
-//                    intent.putExtra("locCityCode", findLocCityCodeByName(mLocProvinceName, mLocCityName));
-//                    intent.putExtra("locProvinceName", mLocProvinceName);
-//                    intent.putExtra("locCityStatus", findLocCityStatusByName(mLocProvinceName, mLocCityName));
-//                } else {
-//                    //为空的话
-//                    intent.putExtra("locCityName", mCityName);
-//                    intent.putExtra("locCityCode", findLocCityCodeByName(mProvinceName, mCityName));
-//                    intent.putExtra("locProvinceName", mProvinceName);
-//                    intent.putExtra("locCityStatus", findLocCityStatusByName(mProvinceName, mCityName));
-//                }
-//                startActivityForResult(intent, 1); //打开手动城市页面
-//                break;
-            case R.id.imageView_jingzhundingwei: //回到当前位置
+
+
+
+    @OnClick({R.id.imageView_jingzhundingwei,R.id.iv_task, R.id.bt_go_orintion, R.id.iv_service, R.id.ll_at_create_find_customer_search})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_task:
+                mCityPickPresent.AddAddressInfo("123","123","123");
+                break;
+            case R.id.imageView_jingzhundingwei:
                 isFirstLoc = true;
                 mIsShowDialog = true;
                 LbsManager.getInstance().getLocation(myListener);
                 break;
-            case R.id.ll_at_create_find_customer_search://搜索
-                intent = new Intent(this, SearchActivity.class);
-                startActivityForResult(intent, 2); //打开搜索页面
-                break;
-            default:
-                break;
+            case R.id.bt_go_orintion: //打开定向设置
 
+                intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
+                if (CommonUtils.haveSDCard()) {
+                    mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
+                        @Override
+                        public void onSnapshotReady(Bitmap bitmap) {
+                            String baiduMapPath = ImageUtils2.saveBitmap(MainHomeActivity.this, bitmap);
+                            intent.putExtra("path", baiduMapPath);
+                            Logger.d("百度地图截图路径为：" + baiduMapPath);
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    ToastUtils.showShort("没有SD卡!");
+                }
+                break;
+            case R.id.iv_service:
+                final String url = "mqqwpa://im/chat?chat_type=wpa&uin=2280249239";
+                if (CommonUtils.checkApkExist(this, "com.tencent.mobileqq")) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                } else {
+                    ToastUtils.showShort("本机未安装QQ应用,请下载安装。");
+                }
+                break;
+            case R.id.ll_at_create_find_customer_search: //打开搜索页面
+                intent = new Intent(this, SearchActivity.class);
+                startActivityForResult(intent, 2);
+                break;
         }
     }
 
@@ -730,46 +703,6 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 1://手动选择城市
-                // TODO
-                if (data != null) {
-                }
-                break;
-            case 2://搜索
-                if (data != null) {
-                    AddressSearchRecode addressInfo = (AddressSearchRecode) data.getSerializableExtra("searchValue");
-                    mCurrentLatLng = new LatLng(addressInfo.getLatitude(), addressInfo.getLongitude());
-                    moveMapTo(addressInfo.getLatitude(), addressInfo.getLongitude(),true);
-                    setMapCenterInfo(mCurrentLatLng,mCircleRadius[0]);
-                    //开始坐标转地址
-                    mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-                            .location(mCurrentLatLng)
-                            .newVersion(0));
-                    mFromAction = 4;
-                }
-                break;
-            case 3: //定向设置
-                if (data != null) {
-                    // TODO: 2018/4/4 界面显示定向设置的内容
-                    ageF = data.getStringExtra("ageF");//年龄
-                    ageB = data.getStringExtra("ageB");
-                    sex = data.getStringExtra("sex");//性别
-                    interestIds = data.getStringExtra("interestIds");//二级兴趣点
-                    industryMark = data.getStringExtra("industryMark");
-                    industryNameStr = data.getStringExtra("industryNameStr");
-                    isReCreate = false;//将重新创建置false 定向 使用缓存的内容 更新界面
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-
     /**
      * 获取省市列表
      */
@@ -816,6 +749,12 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
         requestCityStatus(mCityName);
         mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
         mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
+    }
+
+
+    @Override
+    public void addAddress(Object object) {
+
     }
 
 
@@ -968,8 +907,8 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
                 Logger.d("首次定位。。。");
                 isFirstLoc = false;
                 mCurrentScaleLevelPositon = 0;
-                moveMapTo(ll.latitude,ll.longitude,true,mScaleLevel[mCurrentScaleLevelPositon]);
-                setMapCenterInfo(mCurrentLatLng,mCircleRadius[0]);
+                moveMapTo(ll.latitude, ll.longitude, true, mScaleLevel[mCurrentScaleLevelPositon]);
+                setMapCenterInfo(mCurrentLatLng, mCircleRadius[0]);
 
             }
         }
@@ -979,17 +918,18 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
 
     @Override
     public void onPause() {
-        mMapView.onPause();
         super.onPause();
+        mMapView.onPause();
     }
 
     @Override
     public void onResume() {
+        super.onResume();
         mMapView.onResume();
         //为系统的方向传感器注册监听器
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_UI);
-        super.onResume();
+
     }
 
 
@@ -1000,16 +940,19 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
         super.onStop();
     }
 
+
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         // 关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
         mMapView.onDestroy();
         mMapView = null;
         //GEO destroy
         mSearch.destroy();
-        super.onDestroy();
     }
+
+
 
     @Override
     protected CityPickPresent<ICityPickView> createPresent() {
@@ -1021,6 +964,7 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     public void onStart() {
         super.onStart();
     }
+
 
 
     //通过城市名称和省名找城市代码
@@ -1192,6 +1136,5 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
             mBaiduMap.setMapStatus(msu);
         }
     }
-
 
 }

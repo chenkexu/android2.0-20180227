@@ -85,18 +85,39 @@
             android:src="@mipmap/delete" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_history"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="历史记录"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:background="#d8d8d8"
+            android:layout_width="2dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_collection"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="收藏地址"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <include layout="@layout/line_gray"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/address_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <!--<com.orientdata.lookforcustomers.widget.FluidLayout
-        android:id="@+id/flowlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:maxlinecount="0"/>-->
 
 </LinearLayout>

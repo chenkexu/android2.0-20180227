@@ -49,9 +49,9 @@ public  abstract class BaseObserver<T> implements Observer<WrResponse<T>> {
                 || e instanceof NetworkErrorException
                 || e instanceof UnknownHostException
                 || e instanceof SocketTimeoutException) {
-//            onFailure(UIUtils.getString(R.string.no_network),true);
+            onFailure("服务器错误，请检查网络设置",true);
         } else {
-//            onFailure(UIUtils.getString(R.string.no_network),false);
+            onFailure("服务器错误，请检查网络设置",false);
         }
     }
 
@@ -62,9 +62,7 @@ public  abstract class BaseObserver<T> implements Observer<WrResponse<T>> {
 
     // 返回成功了,但是code错误
     protected void onCodeError(WrResponse<T> t){
-     //   onFailure("msgText="+t.getMsgText(),false);
         onFailure(t.getMsg()+"",false);
-
     }
 
    //返回成功

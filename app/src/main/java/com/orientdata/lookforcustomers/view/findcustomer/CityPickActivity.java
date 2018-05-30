@@ -189,6 +189,11 @@ public class CityPickActivity extends BaseActivity<ICityPickView, CityPickPresen
         // mAreaOuts = areaOuts;
     }
 
+    @Override
+    public void addAddress(Object object) {
+
+    }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
 

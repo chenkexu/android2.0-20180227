@@ -58,7 +58,7 @@ public class ImageUtils2 {
             filePic = new File(savePath + generateFileName() + ".jpg");
             if (!filePic.exists()) {
                 filePic.getParentFile().mkdirs();
-                filePic.createNewFile();
+//                filePic.createNewFile();
             }
             FileOutputStream fos = new FileOutputStream(filePic);
             mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
@@ -88,13 +88,10 @@ public class ImageUtils2 {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(filePath, options);
-
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, 480, 800);
-
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
-
         return BitmapFactory.decodeFile(filePath, options);
     }
 

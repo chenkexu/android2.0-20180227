@@ -58,6 +58,15 @@ public class NetWorkUtils {
     }
 
 
+    public static void addAddress(String provincecode,WrCallback<WrResponse<Object>> callback){
+        OkGo.<WrResponse<Object>>post(HttpConstant.GET_SIGN_AND_TD)
+                .params("userId",UserDataManeger.getInstance().getUserId())
+                .params("provincecode",provincecode)
+                .execute(callback);
+    }
+
+
+
 
     public static void getSignAndTd(String provincecode,OkHttpClientManager.ResultCallback<TaskTypeBean> callback) {
         MDBasicRequestMap map = new MDBasicRequestMap();

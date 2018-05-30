@@ -204,6 +204,11 @@ public class ByProvinceFragment extends BaseFragment implements View.OnClickList
     }
 
     @Override
+    public void addAddress(Object object) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }

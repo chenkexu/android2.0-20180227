@@ -13,6 +13,7 @@ import java.util.List;
 public interface ICityPickView extends BaseView {
     void getProvinceCity(List<AreaOut> areaOuts);
 
+    void addAddress(Object object);
     //void getCertificateMsg(CertificationOut certificationOut);
 
 }

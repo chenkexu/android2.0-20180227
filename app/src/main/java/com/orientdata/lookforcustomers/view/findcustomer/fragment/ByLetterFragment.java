@@ -235,6 +235,11 @@ public class ByLetterFragment extends BaseFragment implements View.OnClickListen
     }
 
     @Override
+    public void addAddress(Object object) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }

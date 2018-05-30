@@ -95,6 +95,7 @@ public class CommissionModelImple implements ICommissionModel {
         }
         map.put("page", page+"");
         map.put("size", size+"");
+
         OkHttpClientManager.postAsyn(url, new OkHttpClientManager.ResultCallback<CommissionListBean>() {
             @Override
             public void onError(Exception e) {

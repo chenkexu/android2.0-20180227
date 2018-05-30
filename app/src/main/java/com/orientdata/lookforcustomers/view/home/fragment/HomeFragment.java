@@ -481,6 +481,7 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 // TODO: 2018/5/4 测试界面，待会删除。
 //                mPresent.getCertificateMsg(true);
                 startActivity(new Intent(getContext(), MainHomeActivity.class));
+//                startActivity(new Intent(getContext(), TestActivity.class));
                 break;
             case R.id.rlCreate:
                 if (userStatus == 2.0) {

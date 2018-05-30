@@ -16,6 +16,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+
+
             <!--百度地图-->
             <RelativeLayout
                 android:id="@+id/rl_map"
@@ -23,61 +25,99 @@
                 android:layout_height="match_parent"
                 android:visibility="visible">
 
+
                 <com.baidu.mapapi.map.MapView
                     android:id="@+id/bmapView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="true" />
 
+                <ImageView
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/iv_task"
+                    android:src="@mipmap/icon_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
                 <!--底部控件-->
-                <LinearLayout
-                    android:gravity="center_vertical"
+                <RelativeLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
                     android:layout_alignParentBottom="true"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="50dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/linearLayout2">
 
 
                     <ImageView
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
                         android:id="@+id/imageView_jingzhundingwei"
-                        android:layout_width="0dp"
-                        android:layout_height="23dp"
-                        app:srcCompat="@mipmap/jingzhundingwei" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@mipmap/icon_location" />
 
                     <Button
+                        android:layout_centerInParent="true"
+                        android:background="@mipmap/show_direc"
                         android:id="@+id/bt_go_orintion"
-                        android:layout_weight="3"
-                        android:text="查看附近商户"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
                         android:id="@+id/iv_service"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="25dp"
-                        app:srcCompat="@mipmap/jingzhundingwei" />
-                </LinearLayout>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@mipmap/icon_kefu" />
+                </RelativeLayout>
 
 
                 <!--半径选择-->
-                    <ListView
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_alignParentRight="true"
-                        android:id="@+id/lv_radius"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:fadingEdge="none"
-                        android:scrollbars="none"
-                        android:divider="@null"
-                        android:choiceMode="singleChoice"
-                        tools:listitem="@layout/item_lv_radio"/>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:orientation="vertical"
+                    app:cardElevation="10dp"
+                    app:cardCornerRadius="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="10sp"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:background="@drawable/round_border_radius3"
+                            android:text="半径"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp" />
+
+                        <ListView
+                            android:id="@+id/lv_radius"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:choiceMode="singleChoice"
+                            android:divider="@null"
+                            android:fadingEdge="none"
+                            android:scrollbars="none" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
 
                 <TextView
+                    android:textColor="#404040"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/tv_person_num"
                     android:layout_width="wrap_content"
@@ -109,34 +149,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp" />
 
+            <!--搜索框-->
             <LinearLayout
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@mipmap/home_title"
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <!--搜索框-->
+                android:orientation="horizontal">
                 <LinearLayout
                     android:id="@+id/ll_at_create_find_customer_search"
-                    android:layout_width="0dp"
-                    android:layout_height="29dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_weight="2"
-                    android:background="@drawable/shape_bg_create_find_customer_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
 
                     <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="17dp"
-                        android:src="@mipmap/bg_ac_create_find_customer_search" />
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_me" />
 
                     <TextView
+                        android:layout_weight="112"
                         android:id="@+id/tv_at_create_find_customer_putlocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -144,6 +183,11 @@
                         android:text="请输入搜索地址"
                         android:textColor="#9C9C9C"
                         android:textSize="14sp" />
+                    <ImageView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_search" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

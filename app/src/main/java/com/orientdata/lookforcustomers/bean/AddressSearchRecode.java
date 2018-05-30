@@ -7,13 +7,15 @@ package com.orientdata.lookforcustomers.bean;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.search.core.PoiInfo;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.Serializable;
 // KEEP INCLUDES END
 
 /**
  * Entity mapped to table ADDRESS_SEARCH_RECODE.
  */
-public class AddressSearchRecode implements Serializable {
+public class AddressSearchRecode extends DataSupport implements Serializable {
 
 
     private static final long serialVersionUID = 2077061348358481540L;
@@ -26,7 +28,9 @@ public class AddressSearchRecode implements Serializable {
     // KEEP FIELDS - put your custom fields here
 	private int recodeType;
 
-	public final static int FROM_LOCATION = 0x00;
+
+
+    public final static int FROM_LOCATION = 0x00;
 	public final static int FROM_SEARCH = 0x01;
 	public final static int FROM_RECODE = 0x02;
 	public final static int SHOW_TIPS = 0x03;

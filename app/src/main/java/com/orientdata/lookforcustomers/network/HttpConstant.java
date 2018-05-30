@@ -8,11 +8,11 @@ public class HttpConstant {
    // public static final String HOST_URL = "http://wrtest.geekdana.com:1580/netrun-app/";
 //    public static final String HOST_URL = "http://wrc.geekdana.com/netrun-app/";
 //   public static final String HOST_URL = "http://wrtest.geekdana.com:1580/netrun-app/";
-//    public static final String HOST_URL = "http://172.31.15.1:8080/netrun-app/";
-//    public static final String HOST_URL = "http://sms2.qisu100.com/netrun-app/";
+//     public static final String HOST_URL = "http://172.31.9.159:8080/netrun-app/";
+    public static final String HOST_URL = "http://sms2.qisu100.com/netrun-app/";
 
     //正式环境
-    public static final String HOST_URL = "http://wra.xunkevip.cn/netrun-app/";
+//    public static final String HOST_URL = "http://wra.xunkevip.cn/netrun-app/";
 
 
 

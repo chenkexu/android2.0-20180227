@@ -2,6 +2,8 @@ package vr.md.com.mdlibrary.okhttp.requestMap;
 
 import android.text.TextUtils;
 
+import com.orhanobut.logger.Logger;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -69,7 +71,7 @@ public class MDSecureRequestMap extends MDBasicRequestMap {
                 sb.append("&").append(o + "=" + map.get(o));
             }
         }
-
+        Logger.d("Mdmap:"+map);
         return MD5.md5(sb.toString());
     }
 

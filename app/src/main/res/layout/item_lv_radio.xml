@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:id="@+id/ll_radius"
+    android:background="@drawable/round_border_radius"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/selector_product_category_bg">
+    android:gravity="center">
 
     <TextView
+        android:textSize="10sp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:gravity="center"
         android:id="@+id/tv_radio"
-        android:padding="5dp"
         android:text="30km"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

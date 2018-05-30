@@ -6,7 +6,7 @@
     <color name="bb_tabletRightBorderDark">#505050</color>
 
     <!--主题颜色-->
-    <color name="colorPrimary">#3660E5</color>
+    <color name="colorPrimary">#0077FF</color>
     <color name="colorPrimaryDark">#3660E5</color>
     <color name="colorAccent">#3660E5</color>
 
@@ -52,6 +52,8 @@
     <color name="C6">#6b6c70</color>
     <color name="B1">#f2f3f8</color>
     <color name="L1">#d6d7e1</color>
+
+    <color name="radius">#404040</color>
 
     <!--新版主题色-->
     <color name="CN1">#ffc007</color>
