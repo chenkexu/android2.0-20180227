@@ -1012,13 +1012,6 @@ public class OkHttpClientManager {
         if(code == 101){
             reStartLogin();
         }
-
-
-//        Logger.d("需要重新登录");
-//        Intent intent = new Intent("com.microdreams.timeprints.error");
-//        intent.putExtra("error_code", code);
-//        intent.putExtra("msg", msg);
-//        MyApplication.getContext().sendBroadcast(intent);
     }
 
     /**

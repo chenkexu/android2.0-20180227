@@ -38,6 +38,7 @@ import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
+import com.orientdata.lookforcustomers.test.TestActivity;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
@@ -528,11 +529,11 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 startActivity(intent);
                 break;
             case R.id.ll_fm_home_accountRecharge:
-
-//                startActivity(new Intent(getActivity(), MessageTaskActivity.class));
                 // TODO: 2018/4/24 进入测试页面
-                intent = new Intent(getActivity(), RechargeActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getActivity(), TestActivity.class));
+
+//                intent = new Intent(getActivity(), RechargeActivity.class);
+//                startActivity(intent);
 
                 break;
             case R.id.ll_fm_home_secureCommissions:

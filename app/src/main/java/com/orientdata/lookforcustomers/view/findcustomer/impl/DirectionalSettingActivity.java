@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
+import com.orientdata.lookforcustomers.bean.AddressCollectInfo;
 import com.orientdata.lookforcustomers.bean.BaseTagImportOut;
 import com.orientdata.lookforcustomers.bean.InterestCategory;
 import com.orientdata.lookforcustomers.bean.InterestTagImportOut;
@@ -1246,6 +1247,21 @@ public class DirectionalSettingActivity extends BaseActivity<IDirectionalSetting
             updateData();
             updateView();
         }
+    }
+
+    @Override
+    public void getAllCollectionAddress(List<AddressCollectInfo> addressCollectInfo) {
+
+    }
+
+    @Override
+    public void AddAddressSucess() {
+
+    }
+
+    @Override
+    public void AddAddressError() {
+
     }
 
     private void updateData() {

@@ -1,120 +1,158 @@
 package com.orientdata.lookforcustomers.test;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.TextWatcher;
-import android.text.style.ForegroundColorSpan;
-import android.view.View;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.jaygoo.widget.OnRangeChangedListener;
+import com.jaygoo.widget.RangeSeekBar;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
+import com.orientdata.lookforcustomers.bean.AddressCollectInfo;
 import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.network.api.ApiManager;
 import com.orientdata.lookforcustomers.network.api.BaseObserver;
 import com.orientdata.lookforcustomers.network.api.ParamsUtil;
 import com.orientdata.lookforcustomers.network.util.RxUtil;
-import com.orientdata.lookforcustomers.widget.MyTitle;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TestActivity extends AppCompatActivity {
 
-    @BindView(R.id.titleMsg)
-    MyTitle titleMsg;
 
-    @BindView(R.id.et_enterprise_signature)
-    EditText etEnterpriseSignature;
+    @BindView(R.id.seekbar5)
+    RangeSeekBar seekbar5;
+    @BindView(R.id.tv_no_limit)
+    TextView tvNoLimit;
+    @BindView(R.id.age_from)
+    TextView ageFrom;
+    @BindView(R.id.age_to)
+    TextView ageTo;
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.follow)
+    Button follow;
+    @BindView(R.id.list)
+    ListView list;
+    @BindView(R.id.dragView)
+    LinearLayout dragView;
+    @BindView(R.id.sliding_layout)
+    SlidingUpPanelLayout mLayout;
 
-    @BindView(R.id.tv_message_sign)
-    TextView tvMessageSign;
 
-    @BindView(R.id.tv_message_content_hint)
-    TextView tvMessageContentHint;
+    @OnClick(R.id.tv_no_limit)
+    public void onViewClicked() {
+        seekbar5.setValue(15, 70);
+        seekbar5.invalidate();
 
-    @BindView(R.id.etMsgContent)
-    EditText etMsgContent;
-
-    @BindView(R.id.tv_unsubscribe)
-    TextView tvUnsubscribe;
-
-
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_msg_task);
+        setContentView(R.layout.test_activity);
         ButterKnife.bind(this);
 
-//        NetWorkUtils.getSelectWord("123", new WrCallback<WrResponse<Integer>>() {
-//            @Override
-//            public void onSuccess(Response<WrResponse<Integer>> response) {
-//
-//            }
-//
-//            @Override
-//            public void onError(Response<WrResponse<Integer>> response) {
-//                super.onError(response);
-//            }
-//        });
-
-//        ApiManager.getInstence().getApiService()
-//                .getSignAndTd("000000")
-//                .compose(RxUtil.<WrResponse<MessageTypeBean>>rxSchedulerHelper())
-//                .subscribe(new BaseObserver<MessageTypeBean>() {
-//                    @Override
-//                    protected void onSuccees(WrResponse<MessageTypeBean> messgebean){
-//                        Logger.d("success"+ messgebean.getResult().getTdcontent());
-//                    }
-//
-//                    @Override
-//                    protected void onCodeError(WrResponse<MessageTypeBean> t) {
-//                        Logger.d("onCodeError");
-//                    }
-//
-//                    @Override
-//                    protected void onFailure(String errorInfo,boolean isNetWorkError)  {
-//                        Logger.d("errorInfo");
-//                    }
-//                });
-//
-//        ApiManager.getInstence().getApiService().appAddressPost("1","1","1")
-//                .compose(RxUtil.<WrResponse<Object>>rxSchedulerHelper())
-//                .subscribe(new BaseObserver<Object>() {
-//                    @Override
-//                    protected void onSuccees(WrResponse<Object> t) {
-//
-//                    }
-//
-//                    @Override
-//                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
-//
-//                    }
-//                });
+        mLayout.setAnchorPoint(0.7f);
+        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
 
 
-//        MDBasicRequestMap mdBasicRequestMap = new MDBasicRequestMap();
-//        mdBasicRequestMap.put("content", "123");
-//        MDSecureRequestMap map = new MDSecureRequestMap(mdBasicRequestMap);
+        List<String> your_array_list = Arrays.asList(
+                "This",
+                "Is",
+                "An",
+                "Example",
+                "ListView",
+                "That",
+                "You",
+                "Can",
+                "Scroll",
+                ".",
+                "It",
+                "Shows",
+                "How",
+                "Any",
+                "Scrollable",
+                "View",
+                "Can",
+                "Be",
+                "Included",
+                "As",
+                "A",
+                "Child",
+                "Of",
+                "SlidingUpPanelLayout"
+        );
+
+        // This is the array adapter, it takes the context of the activity as a
+        // first parameter, the type of list view as a second parameter and your
+        // array as a third parameter.
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                your_array_list);
+
+        list.setAdapter(arrayAdapter);
+
+
+        seekbar5.setValue(15, 70);
+        seekbar5.setOnRangeChangedListener(new OnRangeChangedListener() {
+
+            private float rightValue;
+            private float leftValue;
+
+            @Override
+            public void onRangeChanged(RangeSeekBar view, float min, float max, boolean isFromUser) {
+                //min is left seekbar value, max is right seekbar value
+                leftValue = min;
+                rightValue = max;
+            }
+
+            @Override
+            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
+                //start tracking touch
+            }
+
+            @Override
+            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
+
+                Logger.d("左边显示的值：" + leftValue);
+                Logger.d("右边显示的值：" + rightValue);
+
+                String leftStr = leftValue + "";
+                String lrightValueStr = rightValue + "";
+
+                ageFrom.setText(leftStr.substring(0, 2));
+                ageTo.setText(lrightValueStr.substring(0, 2));
+
+                if (leftStr.substring(0, 2).equals("15")) {
+                    ageFrom.setText("18及以下");
+                }
+                if (lrightValueStr.substring(0, 2).equals("70")) {
+                    ageFrom.setText("65及以下");
+                }
+            }
+        });
 
 
         HashMap<String, Object> map = ParamsUtil.getMap();
-        map.put("content","123");
-        ApiManager.getInstence().getApiService().selectWord(ParamsUtil.getParams(map))
-                .compose(RxUtil.<WrResponse<Integer>>rxSchedulerHelper())
-                .subscribe(new BaseObserver<Integer>() {
+        ApiManager.getInstence().getApiService().appAddressGet(ParamsUtil.getParams(map))
+                .compose(RxUtil.<WrResponse<List<AddressCollectInfo>>>rxSchedulerHelper())
+                .subscribe(new BaseObserver<List<AddressCollectInfo>>() {
                     @Override
-                    protected void onSuccees(WrResponse<Integer> t) {
+                    protected void onSuccees(WrResponse<List<AddressCollectInfo>> t) {
+                        List<AddressCollectInfo> result = t.getResult();
 
                     }
 
@@ -124,156 +162,7 @@ public class TestActivity extends AppCompatActivity {
                     }
                 });
 
-//
-//        ApiManager.getInstence().getApiService().delteAddress("1")
-//                .compose(RxUtil.<WrResponse<Object>>rxSchedulerHelper())
-//                .subscribe(new BaseObserver<Object>() {
-//                    @Override
-//                    protected void onSuccees(WrResponse<Object> t) {
-//
-//                    }
-//
-//                    @Override
-//                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
-//
-//                    }
-//                });
-
-//        NetWorkUtils.getSelectWord("1111", new WrCallback<WrResponse<Integer>>() {
-//            @Override
-//            public void onSuccess(Response<WrResponse<Integer>> response) {
-//
-//            }
-//
-//            @Override
-//            public void onError(Response<WrResponse<Integer>> response) {
-//                super.onError(response);
-//            }
-//        });
-
-
-
-
-
-        etEnterpriseSignature.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Logger.d("count:" + count);
-                String signContent = s.toString();
-                Logger.d("返回企业签名字符串:" + signContent);
-                etEnterpriseSignature.removeTextChangedListener(this);
-                if (!signContent.startsWith("【")&&signContent.endsWith("】")) {
-                    Logger.d("没有【");
-                    etEnterpriseSignature.setText("【" + signContent);
-                } else if (!signContent.startsWith("【")&&!signContent.endsWith("】")) {
-                    Logger.d("没有【】");
-                    etEnterpriseSignature.setText("【" + signContent + "】");
-                } else if (signContent.startsWith("【")&&!signContent.endsWith("】")) {
-                    Logger.d("没有】");
-                    etEnterpriseSignature.setText(signContent+"】");
-                } else{
-                    Logger.d("都有");
-                    etEnterpriseSignature.setText(signContent);
-                }
-
-                etEnterpriseSignature.setSelection(etEnterpriseSignature.getText().toString().length()-1);
-
-                //设置只能输入2-4位汉字
-                String str = stringFilter1(signContent);
-                if (!signContent.equals(str)) {
-                    //设置内容
-                    etEnterpriseSignature.setText(str);
-                    etEnterpriseSignature.setSelection(str.length());
-                }
-
-                if (etEnterpriseSignature.getText().toString().equals("")) {
-                    Logger.d("企业签名为空");
-                    tvMessageSign.setText("【请输入企业签名2-4个汉字】");
-                    SpannableStringBuilder span = new SpannableStringBuilder("请输入短信内容"+etMsgContent.getText());
-                    span.setSpan(new ForegroundColorSpan(Color.TRANSPARENT), 0, 12,
-                            Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                    etMsgContent.setHint(span);
-
-                } else {
-                    Logger.d("企业签名不为空");
-                    tvMessageSign.setText(etEnterpriseSignature.getText().toString());
-                    SpannableStringBuilder span = new SpannableStringBuilder("请输入短信内容"+etMsgContent.getText());
-                    span.setSpan(new ForegroundColorSpan(Color.TRANSPARENT), 0, 8,
-                            Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                    etMsgContent.setHint(span);
-                }
-
-                //设置输入短信的长度
-                etEnterpriseSignature.addTextChangedListener(this);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-
-            }
-        });
-
-
-        //输入短信内容时
-        etMsgContent.addTextChangedListener(new TextWatcher() {
-            private int temp;
-
-            @Override
-            public void beforeTextChanged(CharSequence s/*之前的文字内容*/, int start/*添加文字的位置(从0开始)*/, int count, int after/*添加的文字总数*/) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s/*之后的文字内容 */, int start/*添加文字的位置(从0开始)*/, int before/*之前的文字总数*/, int count) {
-                if (s.toString() != null) {
-                    String messageContent = s.toString();
-                    Logger.d("返回的短信的内容：" + messageContent);
-                    int length = s.toString().length();
-                    etMsgContent.removeTextChangedListener(this);
-                    etMsgContent.setText("              "+messageContent);
-
-                    tvMessageContentHint.setVisibility(View.GONE);
-                    tvMessageSign.setVisibility(View.GONE);
-                    if (messageContent.equals(tvMessageSign.getText().toString())) { //如果只有企业签名
-                        tvMessageContentHint.setVisibility(View.VISIBLE);
-                        tvMessageSign.setVisibility(View.VISIBLE);
-                        etMsgContent.setText("");
-                    } else if (!s.toString().contains(tvMessageSign.getText().toString())) {
-                        etMsgContent.setText(tvMessageSign.getText().toString() + s.toString());
-                        etMsgContent.setSelection(etMsgContent.getText().toString().length());
-                    } else {
-                        etMsgContent.setText(s.toString());
-                        etMsgContent.setSelection(etMsgContent.getText().toString().length());
-                    }
-                    etMsgContent.addTextChangedListener(this);
-                }
-            }
-
-
-
-            @Override
-            public void afterTextChanged (Editable s/*之后的文字内容*/){
-
-            }
-        });
-
     }
 
 
-
-
-    private String stringFilter1(String signContent) {
-        //只允许汉字
-        String regEx = "[^\u4E00-\u9FA5]{2,7}";
-        Pattern p = Pattern.compile(regEx);
-        Matcher m = p.matcher(signContent);
-        return m.replaceAll("").trim();
-    }
 }

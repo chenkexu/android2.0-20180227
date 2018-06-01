@@ -79,6 +79,7 @@ import com.orientdata.lookforcustomers.widget.abslistview.ViewHolder;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
 import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
+import com.qiniu.android.common.Constants;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -469,7 +470,7 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_task:
-                mCityPickPresent.AddAddressInfo("123","123","123");
+//                mCityPickPresent.AddAddressInfo("123","123","123");
                 break;
             case R.id.imageView_jingzhundingwei:
                 isFirstLoc = true;
@@ -477,8 +478,11 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
                 LbsManager.getInstance().getLocation(myListener);
                 break;
             case R.id.bt_go_orintion: //打开定向设置
-
                 intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
+                intent.putExtra(Constants.latitude, mCurrentLatLng.latitude+"");
+                intent.putExtra(Constants.longitude, mCurrentLatLng.longitude+"");
+                intent.putExtra("address", tv_at_create_find_customer_putlocation.getText().toString().trim());
+
                 if (CommonUtils.haveSDCard()) {
                     mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
                         @Override
@@ -507,6 +511,9 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
                 break;
         }
     }
+
+
+
 
     /**
      * 下一步验证

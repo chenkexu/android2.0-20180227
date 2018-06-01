@@ -78,6 +78,9 @@ public class CityPickPresent<T> extends BasePresenter<ICityPickView> {
                 });
     }
 
+
+
+
     @Override
     public void fecth() {
 

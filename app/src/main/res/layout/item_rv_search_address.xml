@@ -4,15 +4,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:padding="10dp"
-  >
-
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/tv_address"
-        android:text="蒂萨惊呆了空间撒空间打开撒即可大家撒肯德基萨科技的卡萨肯德基空间撒"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    android:padding="10dp">
 
     <TextView
         android:layout_marginTop="5dp"
@@ -21,6 +13,16 @@
         android:text="蒂萨惊呆了空间撒空间打开撒即可大家撒肯德基萨科技的卡萨肯德基空间撒"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/tv_address"
+        android:text="蒂萨惊呆了空间撒空间打开撒即可大家撒肯德基萨科技的卡萨肯德基空间撒"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
 
 
 </LinearLayout>

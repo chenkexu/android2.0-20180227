@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
+import com.orientdata.lookforcustomers.bean.AddressCollectInfo;
 import com.orientdata.lookforcustomers.bean.InterestCategory;
 import com.orientdata.lookforcustomers.bean.InterestTagImportOut;
 import com.orientdata.lookforcustomers.bean.OrientationSettingsOut;
@@ -29,6 +30,7 @@ import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.BusinessInterestDialog;
 import com.orientdata.lookforcustomers.widget.dialog.HobbyMultipleSelectDialog;
 import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
+import com.qiniu.android.common.Constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +47,7 @@ import vr.md.com.mdlibrary.utils.image.ImageUtil;
 
 /**
  * Created by wy on 2017/11/27.
- * 定向设置Activity
+ * 新的定向设置Activity
  */
 
 public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettingView, DirectionalSettingPresent<IDirectionalSettingView>> implements IDirectionalSettingView, View.OnClickListener {
@@ -116,7 +118,10 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private String[] industrysStr = {"餐饮", "3C数码", "汽车用品", "母婴用品", "美容美发", "鲜花礼品", "汽车用品", "自定义"};
     private String industryName;
 
-
+    private List<AddressCollectInfo> addressCollectInfos;
+    private String latitude;
+    private String longitude;
+    private String address;
 
 
     @Override
@@ -140,6 +145,23 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         if (settingOuts != null) {
             getData();
         }
+    }
+
+    @Override
+    public void getAllCollectionAddress(List<AddressCollectInfo> addressCollectInfo) {
+        addressCollectInfos = addressCollectInfo;
+    }
+
+
+    @Override
+    public void AddAddressSucess() {
+        ToastUtils.showShort("收藏成功");
+    }
+
+
+    @Override
+    public void AddAddressError() {
+        ToastUtils.showShort("收藏失败");
     }
 
 
@@ -191,11 +213,19 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
 
         aCache = ACache.get(this);
-        if (getIntent() != null) {
+        Intent intent = getIntent();
+        if (intent != null) {
             //上个页面返回cityCode和isReCreate
-            isReCreate = getIntent().getBooleanExtra("isReCreate", false);
-            Logger.d("isReCreate:---" + isReCreate);
-            cityCode = getIntent().getStringExtra("cityCode");
+            isReCreate = intent.getBooleanExtra("isReCreate", false);
+            cityCode = intent.getStringExtra("cityCode");
+            String path = intent.getStringExtra("path");
+
+            latitude = intent.getStringExtra(Constants.latitude);
+            longitude = intent.getStringExtra(Constants.longitude);
+            address = intent.getStringExtra("address");
+
+
+            ivBaiMapPic.setImageBitmap(ImageUtil.getFolderPic(path));
         }
 
         if (hobbyMap == null) {
@@ -203,9 +233,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         }
 
 
-        Intent intent = getIntent();
-        String path = intent.getStringExtra("path");
-        ivBaiMapPic.setImageBitmap(ImageUtil.getFolderPic(path));
     }
 
     /**
@@ -591,8 +618,8 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private void setEnable(boolean isEnable, RelativeLayout relativeLayout) {
         relativeLayout.setEnabled(isEnable);
     }
-    int ageFromPosition = -1;
 
+    int ageFromPosition = -1;
 
 
     /**
@@ -647,6 +674,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         }
         return -2;
     }
+
     int ageToPosition = -1;
 
     /**
@@ -737,9 +765,12 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-    @OnClick({R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
+    @OnClick({R.id.collect_address,R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.collect_address:
+                mPresent.AddAddressInfo(address,longitude,latitude);
+                break;
             case R.id.tv_canyin:
                 setTextState(0, true);
                 break;
@@ -1031,4 +1062,5 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         }
         return true;
     }
+
 }

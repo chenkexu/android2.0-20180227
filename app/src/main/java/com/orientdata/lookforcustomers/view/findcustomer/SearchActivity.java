@@ -26,8 +26,11 @@ import com.baidu.mapapi.search.poi.PoiSearch;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
+import com.orientdata.lookforcustomers.base.BaseActivity;
+import com.orientdata.lookforcustomers.bean.AddressCollectInfo;
 import com.orientdata.lookforcustomers.bean.AddressSearchRecode;
+import com.orientdata.lookforcustomers.bean.SettingOut;
+import com.orientdata.lookforcustomers.presenter.DirectionalSettingPresent;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.adapter.SeachAddressAdapter;
@@ -50,7 +53,9 @@ import butterknife.OnClick;
  * 搜索
  */
 
-public class SearchActivity extends WangrunBaseActivity implements View.OnClickListener, OnGetPoiSearchResultListener {
+public class SearchActivity extends BaseActivity<IDirectionalSettingView, DirectionalSettingPresent<IDirectionalSettingView>> implements
+        IDirectionalSettingView, View.OnClickListener,OnGetPoiSearchResultListener {
+
     @BindView(R.id.address_list)
     RecyclerView rvAddressList;
     private RelativeLayout rlRemind;//搜索记录和删除按钮
@@ -98,14 +103,12 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
         // TODO: 2018/5/24 查看所有的历史记录
         history = DataSupport.findAll(AddressSearchRecode.class);
 
-        if (history.size() == 0 || history == null) {
+        if (history == null || history.size() == 0 ) {
+            addressAdapter.setNewData(null);
             addressAdapter.setEmptyView(R.layout.layout_no_content,(ViewGroup) rvAddressList.getParent());
         }else{
             updateAddressSearchResult(history);
         }
-
-
-
 
 
         addressAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -113,7 +116,6 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<AddressSearchRecode> addressInfo = addressAdapter.getData();
                 AddressSearchRecode addressSearchRecode = addressInfo.get(position);
-
                 //保存到数据库
                 addressSearchRecode.saveOrUpdate("name=?",addressSearchRecode.getName());
 
@@ -147,6 +149,11 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
 
     }
 
+    @Override
+    protected DirectionalSettingPresent<IDirectionalSettingView> createPresent() {
+        return new DirectionalSettingPresent<>(this);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -156,7 +163,6 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
                     ToastUtils.showShort("搜索内容不能为空");
                     return;
                 }
-
                 Intent intent = new Intent();
                 intent.putExtra("searchValue", clearEdit.getText().toString().trim());
                 setResult(RESULT_OK, intent);
@@ -167,7 +173,6 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.ivDelete:
-//                showDialog();
                 break;
         }
     }
@@ -183,8 +188,7 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
             ivDelete.setVisibility(View.GONE);
             return;
         }
-        ivDelete.setVisibility(View.VISIBLE
-        );
+        ivDelete.setVisibility(View.VISIBLE);
         for (int i = 0; i < history.size(); i++) {
             final TextView textView = new TextView(this);
             FluidLayout.LayoutParams params = new FluidLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -301,8 +305,60 @@ public class SearchActivity extends WangrunBaseActivity implements View.OnClickL
                 break;
             case R.id.tv_collection://收藏
                 // TODO: 2018/5/30 请求接口
-
+                mPresent.getAllAddress();
                 break;
         }
     }
+
+
+    private void get(){
+
+    }
+
+
+
+    @Override
+    public void showLoading() {
+        showDefaultLoading();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideDefaultLoading();
+    }
+
+    @Override
+    public void getSelectSetting(SettingOut settingOuts) {
+
+    }
+
+    @Override
+    public void getAllCollectionAddress(List<AddressCollectInfo> addressCollectInfo) {
+        if (addressCollectInfo == null || addressCollectInfo.size() == 0 ) {
+            addressAdapter.setNewData(null);
+            addressAdapter.setEmptyView(R.layout.layout_no_content,(ViewGroup) rvAddressList.getParent());
+        }else{
+            history.clear();
+            for(AddressCollectInfo addressCollectInfo1:addressCollectInfo){
+                AddressSearchRecode addressSearchRecode = new AddressSearchRecode(Double.parseDouble(addressCollectInfo1.getLongitude()),
+                        Double.parseDouble(addressCollectInfo1.getLatitude()), "", addressCollectInfo1.getAddress());
+                history.add(addressSearchRecode);
+            }
+            updateAddressSearchResult(history);
+        }
+    }
+
+    @Override
+    public void AddAddressSucess() {
+
+    }
+
+    //操作失败
+    @Override
+    public void AddAddressError() {
+
+    }
+
+
+
 }

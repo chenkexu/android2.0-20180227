@@ -82,8 +82,7 @@ public abstract class WrCallback<T> extends AbsCallback<T> {
                 startError(101, gdResponse.getMsg());
                 response.close();
                 throw new IllegalStateException(gdResponse.getMsg());
-            }
-            else {     //有异常
+            } else {     //有异常
                 Logger.e(gdResponse.getCode()+"");
                 response.close();
                 throw new IllegalStateException(gdResponse.getMsg());

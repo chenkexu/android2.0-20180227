@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    sothree:umanoPanelHeight="68dp"
+    sothree:umanoShadowHeight="4dp"
+    sothree:umanoParallaxOffset="100dp"
+    sothree:umanoDragView="@+id/dragView"
+    sothree:umanoOverlay="true"
+    sothree:umanoScrollableView="@+id/list"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_no_limit"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="不限"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/age_from"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/age_to"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <com.jaygoo.widget.RangeSeekBar
+        android:id="@+id/seekbar5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rsb_mode="range"
+        app:rsb_range_interval="1"
+        app:rsb_min="15"
+        app:rsb_max="70"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:rsb_progress_height="4dp"
+        app:rsb_progress_radius="0dp"
+        app:rsb_progress_default_color="@color/rsbColorThumbPressed"
+        app:rsb_progress_color="@color/colorPrimary"
+        app:rsb_tick_mark_text_array="@array/ages"
+        app:rsb_tick_mark_text_size="8dp"
+        app:rsb_tick_mark_text_margin="-25dp"
+        app:rsb_tick_mark_number="11"
+        app:rsb_tick_mark_mode="other"
+        app:rsb_tick_mark_gravity="center"
+        app:rsb_tick_mark_text_color="@color/colorPrimary"
+        app:rsb_indicator_height="20dp"
+        app:rsb_thumb_size="22dp"
+        app:rsb_thumb_drawable="@drawable/seekbar_thumb"
+        app:rsb_indicator_padding_left="0dp"
+        app:rsb_indicator_padding_right="10dp"
+        />
+    </FrameLayout>
+
+
+    <!-- SLIDING LAYOUT -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="false"
+        android:id="@+id/dragView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"/>
+
+            <Button
+                android:id="@+id/follow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:gravity="center_vertical|right"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"/>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        </ListView>
+
+    </LinearLayout>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
