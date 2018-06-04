@@ -62,6 +62,7 @@ public class GuideActivity extends BasePermissionActivity{
                         finish();
                     }else{ //false进入主页面
                         startActivity(new Intent(GuideActivity.this, HomeActivity.class));
+//                        startActivity(new Intent(GuideActivity.this, MainHomeActivity.class));
                         finish();
                     }
                 }

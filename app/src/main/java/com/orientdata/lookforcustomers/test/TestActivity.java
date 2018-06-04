@@ -1,13 +1,17 @@
 package com.orientdata.lookforcustomers.test;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
 import com.orhanobut.logger.Logger;
@@ -18,9 +22,7 @@ import com.orientdata.lookforcustomers.network.api.ApiManager;
 import com.orientdata.lookforcustomers.network.api.BaseObserver;
 import com.orientdata.lookforcustomers.network.api.ParamsUtil;
 import com.orientdata.lookforcustomers.network.util.RxUtil;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,16 +41,20 @@ public class TestActivity extends AppCompatActivity {
     TextView ageFrom;
     @BindView(R.id.age_to)
     TextView ageTo;
-    @BindView(R.id.name)
-    TextView name;
-    @BindView(R.id.follow)
-    Button follow;
-    @BindView(R.id.list)
-    ListView list;
-    @BindView(R.id.dragView)
-    LinearLayout dragView;
-    @BindView(R.id.sliding_layout)
-    SlidingUpPanelLayout mLayout;
+    @BindView(R.id.bottom_sheet)
+    NestedScrollView bottomSheet;
+
+//    @BindView(R.id.dragView)
+//    LinearLayout dragView;
+//    @BindView(R.id.sliding_layout)
+//    SlidingUpPanelLayout mLayout;
+
+
+
+
+
+
+    BottomSheetBehavior behavior;
 
 
     @OnClick(R.id.tv_no_limit)
@@ -62,48 +68,15 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_activity);
+        ImmersionBar.with(this)
+                .statusBarDarkFont(true, 0.2f)
+                .statusBarView(R.id.top_view)
+                .fullScreen(true)
+                .init();
         ButterKnife.bind(this);
 
-        mLayout.setAnchorPoint(0.7f);
-        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
-
-
-        List<String> your_array_list = Arrays.asList(
-                "This",
-                "Is",
-                "An",
-                "Example",
-                "ListView",
-                "That",
-                "You",
-                "Can",
-                "Scroll",
-                ".",
-                "It",
-                "Shows",
-                "How",
-                "Any",
-                "Scrollable",
-                "View",
-                "Can",
-                "Be",
-                "Included",
-                "As",
-                "A",
-                "Child",
-                "Of",
-                "SlidingUpPanelLayout"
-        );
-
-        // This is the array adapter, it takes the context of the activity as a
-        // first parameter, the type of list view as a second parameter and your
-        // array as a third parameter.
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                your_array_list);
-
-        list.setAdapter(arrayAdapter);
+//        mLayout.setAnchorPoint(0.7f);
+//        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
 
 
         seekbar5.setValue(15, 70);
@@ -162,7 +135,62 @@ public class TestActivity extends AppCompatActivity {
                     }
                 });
 
+        behavior = BottomSheetBehavior.from(bottomSheet);
+
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                //这里是bottomSheet 状态的改变
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                    dimBackground(1.0f,0.5f);
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                //这里是拖拽中的回调，根据slideOffset可以做一些动画
+            }
+        });
+
+        findViewById(R.id.tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                } else {
+                    behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+        });
     }
 
+    private void dimBackground(final float from, final float to) {
 
+//        WindowManager.LayoutParams attributes = timeDialog.getWindow().getAttributes();
+//        DisplayMetrics metrics = getResources().getDisplayMetrics();
+//        attributes.width = (int) (metrics.widthPixels * 0.9);
+//        attributes.height = (int) (metrics.heightPixels * 0.9);
+//        attributes.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+//        attributes.dimAmount = 0.5f;
+//        timeDialog.getWindow().setAttributes(attributes);
+
+
+
+        final Window window = getWindow();
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(from, to);
+        valueAnimator.setDuration(500);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.alpha = (Float) animation.getAnimatedValue();
+                window.setAttributes(params);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            }
+        });
+
+        valueAnimator.start();
+    }
 }

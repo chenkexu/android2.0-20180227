@@ -41,6 +41,7 @@ import org.litepal.LitePal;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 import vr.md.com.mdlibrary.MyApp;
 
@@ -123,8 +124,8 @@ public class MyApplication extends MyApp {
 //        initUpush();
 
         //初始化极光推送
-//        JPushInterface.setDebugMode(true);
-//        JPushInterface.init(this);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
 
 
         //初始化数据库
@@ -152,6 +153,11 @@ public class MyApplication extends MyApp {
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)   //全局统一缓存时间，默认永不过期，可以不传
                 .setRetryCount(0);                              //全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
     }
+
+
+
+
+
 
     private void initUpush() {
 

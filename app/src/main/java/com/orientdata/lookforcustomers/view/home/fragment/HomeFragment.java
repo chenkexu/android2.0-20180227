@@ -481,8 +481,8 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
             case R.id.ll_fm_home_accountCertification:
                 // TODO: 2018/5/4 测试界面，待会删除。
 //                mPresent.getCertificateMsg(true);
-                startActivity(new Intent(getContext(), MainHomeActivity.class));
-//                startActivity(new Intent(getContext(), TestActivity.class));
+//                startActivity(new Intent(getContext(), MainHomeActivity.class));
+                startActivity(new Intent(getContext(), TestActivity.class));
                 break;
             case R.id.rlCreate:
                 if (userStatus == 2.0) {
@@ -530,8 +530,8 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 break;
             case R.id.ll_fm_home_accountRecharge:
                 // TODO: 2018/4/24 进入测试页面
-                startActivity(new Intent(getActivity(), TestActivity.class));
-
+//                startActivity(new Intent(getActivity(), TestActivity.class));
+                startActivity(new Intent(getContext(), MainHomeActivity.class));
 //                intent = new Intent(getActivity(), RechargeActivity.class);
 //                startActivity(intent);
 

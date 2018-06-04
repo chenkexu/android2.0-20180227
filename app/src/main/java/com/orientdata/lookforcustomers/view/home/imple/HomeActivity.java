@@ -43,6 +43,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
     private RelativeLayout rlMine;
     String cerStatus ="";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

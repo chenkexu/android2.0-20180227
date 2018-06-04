@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -80,6 +81,8 @@ import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
 import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
 import com.qiniu.android.common.Constants;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -101,7 +104,7 @@ import vr.md.com.mdlibrary.utils.ImageUtils2;
  */
 public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresent<ICityPickView>> implements ICityPickView, SensorEventListener, OnGetGeoCoderResultListener {
 
-
+    private static final String TAG = "DemoActivity";
     // 定位相关
     public MyLocationListenner myListener;
     @BindView(R.id.title)
@@ -210,6 +213,8 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     private int mCurrentRadiuPos;
     private CommonAdapter<String> strngCommonAdapter;
     private Intent intent;
+    private SlidingUpPanelLayout mLayout;
+
 
     protected boolean isImmersionBarEnabled() {
         return false;
@@ -235,6 +240,42 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
                 .statusBarView(R.id.top_view)
                 .fullScreen(true)
                 .init();
+
+//        GlideUtil.getInstance().loadAdImage(this,mIcon,imagerUrls.get(position),true);
+
+
+        mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        mLayout.setAnchorPoint(0.7f);
+        mLayout.setPanelState(PanelState.COLLAPSED);
+
+        mLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+
+            }
+
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+                Log.i(TAG, "onPanelStateChanged " + newState);
+                if (newState==PanelState.COLLAPSED) {  //折叠
+
+                }else if(newState == PanelState.ANCHORED){ //展开
+
+                }
+            }
+        });
+
+
+        //点击外部折叠
+        mLayout.setFadeOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //折叠
+                mLayout.setPanelState(PanelState.COLLAPSED);
+            }
+        });
+
+
     }
 
 
@@ -466,9 +507,20 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
 
 
 
-    @OnClick({R.id.imageView_jingzhundingwei,R.id.iv_task, R.id.bt_go_orintion, R.id.iv_service, R.id.ll_at_create_find_customer_search})
+    @OnClick({R.id.imageView_jingzhundingwei,R.id.iv_task, R.id.bt_go_orintion, R.id.iv_service,
+            R.id.image2, R.id.image3,R.id.image1,
+            R.id.ll_at_create_find_customer_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.image1:
+                Logger.d("image1");
+                break;
+            case R.id.image2:
+                Logger.d("image2");
+                break;
+            case R.id.image3:
+                Logger.d("image3");
+                break;
             case R.id.iv_task:
 //                mCityPickPresent.AddAddressInfo("123","123","123");
                 break;
@@ -1098,7 +1150,14 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
         //返回的时候 清除 定向缓存
         ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
 //        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
-        super.onBackPressed();
+        //展开 ，固定
+        if (mLayout != null &&
+                (mLayout.getPanelState() == PanelState.EXPANDED || mLayout.getPanelState() == PanelState.ANCHORED)) {
+            mLayout.setPanelState(PanelState.COLLAPSED);
+        } else {
+            super.onBackPressed();
+        }
+
     }
 
     @Override
