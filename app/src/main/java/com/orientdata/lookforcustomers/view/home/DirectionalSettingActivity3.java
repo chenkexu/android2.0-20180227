@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
+import com.hzn.lib.EasyTransition;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
@@ -72,7 +74,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     TextView tvCanyin;
     @BindView(R.id.ll_user_hobby)
     LinearLayout llUserHobby;
-    @BindView(R.id.iv_baiMapPic)
+    @BindView(R.id.bmapView)
     ImageView ivBaiMapPic;
 
 
@@ -124,15 +126,27 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private String address;
 
 
+
+
+    protected boolean isImmersionBarEnabled() {
+        return false;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directional_setting_new);
         ButterKnife.bind(this);
         initView();
-        initTitle();
         //获取缓存的数据
         mPresent.getSelectSetting(cityCode);
+        ImmersionBar.with(this)
+                .statusBarDarkFont(true, 0.2f)
+                .statusBarView(R.id.top_view)
+                .fullScreen(true)
+                .init();
+        EasyTransition.enter(this);
     }
 
 
@@ -183,7 +197,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
         String[] stringArraySex = getResources().getStringArray(R.array.sex);
         sexs = Arrays.asList(stringArraySex);//性别集合
-        titleDirectional = (MyTitle) findViewById(R.id.titleDirectional);
         age_from = (RelativeLayout) findViewById(R.id.age_from);
         age_to = (RelativeLayout) findViewById(R.id.age_to);
         sex = (RelativeLayout) findViewById(R.id.sex);
@@ -447,10 +460,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-    private void initTitle() {
-        titleDirectional.setTitleName(getString(R.string.direction_setting));
-        titleDirectional.setImageBack(this);
-    }
 
 
     @Override
@@ -1063,4 +1072,9 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        EasyTransition.exit(this);
+    }
 }

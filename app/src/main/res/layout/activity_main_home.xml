@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:sothree="http://schemas.android.com/apk/res-auto"
     android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
-    sothree:umanoPanelHeight="60dp"
-    sothree:umanoShadowHeight="0dp"
-    sothree:umanoParallaxOffset="0dp"
-    sothree:umanoDragView="@+id/dragView"
-    sothree:umanoOverlay="false"
-    sothree:umanoScrollableView="@+id/list">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
         android:orientation="vertical"
@@ -21,7 +14,7 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
 
@@ -49,41 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <!--底部控件-->
-                <RelativeLayout
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="50dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/linearLayout2">
 
-
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentLeft="true"
-                        android:id="@+id/imageView_jingzhundingwei"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@mipmap/icon_location" />
-
-                    <Button
-                        android:layout_centerInParent="true"
-                        android:background="@mipmap/show_direc"
-                        android:id="@+id/bt_go_orintion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:id="@+id/iv_service"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@mipmap/icon_kefu" />
-                </RelativeLayout>
 
 
                 <!--半径选择-->
@@ -123,7 +82,41 @@
                 </android.support.v7.widget.CardView>
 
 
+                <!--底部控件-->
+                <RelativeLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linearLayout2">
 
+
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/imageView_jingzhundingwei"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@mipmap/icon_location" />
+
+                    <Button
+                        android:layout_centerInParent="true"
+                        android:background="@mipmap/show_direc"
+                        android:id="@+id/bt_go_orintion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/iv_service"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@mipmap/icon_kefu" />
+                </RelativeLayout>
                 <TextView
                     android:textColor="#404040"
                     android:layout_centerHorizontal="true"
@@ -135,11 +128,9 @@
                     android:text="当前范围约有99999人"
                     android:textStyle="bold"
                     android:layout_above="@+id/linearLayout2" />
+
+
             </RelativeLayout>
-
-
-
-
 
         </LinearLayout>
 
@@ -199,70 +190,56 @@
     </FrameLayout>
 
 
-    <!-- SLIDING LAYOUT -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:clickable="true"
-        android:focusable="false"
-        android:id="@+id/dragView">
 
-        <LinearLayout
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="center_horizontal"
+
+
+
+
+
+    <android.support.v4.widget.NestedScrollView
+            android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="80dp"
+            app:layout_behavior="@string/bottom_sheet_behavior">
 
-            <ImageView
-                android:background="@drawable/banner_border"
-                android:id="@+id/image1"
-                android:src="@mipmap/ad_error"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:gravity="center_vertical" />
-        <!--</LinearLayout>-->
+        <LinearLayout
+            android:id="@+id/ll_banner_scroll"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="#00000000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:visibility="invisible"
+                android:gravity="center"
+                android:id="@+id/ll_down"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@mipmap/search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-            <ImageView
-                android:layout_marginTop="20dp"
-                android:background="@drawable/banner_border"
-                android:id="@+id/image2"
-                android:src="@mipmap/ad_error"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:gravity="center_vertical" />
+            </LinearLayout>
+            <com.orientdata.lookforcustomers.widget.MyListView
+                android:layout_marginTop="10dp"
+                android:id="@+id/lv_banner"
+                android:divider="#00000000"
+                android:dividerHeight="10dp"
+                android:scrollbars="none"
+                android:background="#00000000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-            <ImageView
-                android:layout_marginTop="20dp"
-                android:background="@drawable/banner_border"
-                android:id="@+id/image3"
-                android:src="@mipmap/ad_error"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:gravity="center_vertical" />
 
-        <!--<ListView-->
-            <!--android:background="@android:color/white"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:id="@+id/list"-->
-            <!--android:layout_height="wrap_content">-->
-        <!--</ListView>-->
+    </android.support.v4.widget.NestedScrollView>
 
-      </LinearLayout>
-    </LinearLayout>
-</com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

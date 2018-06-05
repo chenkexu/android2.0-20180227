@@ -165,6 +165,7 @@ dependencies {
     compile 'com.github.Jay-Goo:RangeSeekBar:v2.0.2'
     //底部弹出框架
     compile 'com.sothree.slidinguppanel:library:3.4.0'
+    compile 'com.github.huzenan:EasyTransition:v1.0.0'
 }
 allprojects {
     repositories {

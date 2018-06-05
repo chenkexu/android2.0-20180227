@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.app.MyApplication;
 import com.orientdata.lookforcustomers.bean.WrResponse;
+import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 
 import java.net.ConnectException;
@@ -59,11 +60,13 @@ public  abstract class BaseObserver<T> implements Observer<WrResponse<T>> {
             onFailure("服务器错误，请检查网络设置",true);
         } else {
             onFailure(e.getMessage(),false);
+            ToastUtils.showShort(e.getMessage());
         }
     }
 
     @Override
     public void onComplete() {
+
     }
 
 
@@ -72,6 +75,7 @@ public  abstract class BaseObserver<T> implements Observer<WrResponse<T>> {
         if (t.getCode() == -100) {
             startError(101, t.getMsg());
         }else{
+            ToastUtils.showShort(t.getMsg());
             onFailure(t.getMsg()+"",false);
         }
     }
@@ -108,8 +112,6 @@ public  abstract class BaseObserver<T> implements Observer<WrResponse<T>> {
         if(code == 101){
             reStartLogin();
         }
-
-
 //        Logger.d("需要重新登录");
 //        Intent intent = new Intent("com.microdreams.timeprints.error");
 //        intent.putExtra("error_code", code);

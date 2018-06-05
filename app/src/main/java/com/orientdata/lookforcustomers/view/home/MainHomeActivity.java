@@ -1,6 +1,7 @@
 package com.orientdata.lookforcustomers.view.home;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,9 +12,11 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -52,12 +55,15 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.gyf.barlibrary.ImmersionBar;
+import com.hzn.lib.EasyTransition;
+import com.hzn.lib.EasyTransitionOptions;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.AddressSearchRecode;
 import com.orientdata.lookforcustomers.bean.Area;
 import com.orientdata.lookforcustomers.bean.AreaOut;
+import com.orientdata.lookforcustomers.bean.BannerBean;
 import com.orientdata.lookforcustomers.bean.NextStepCheckBean;
 import com.orientdata.lookforcustomers.bean.PreOut;
 import com.orientdata.lookforcustomers.bean.TaskOut;
@@ -65,24 +71,23 @@ import com.orientdata.lookforcustomers.bean.TaskTypeBean;
 import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
-import com.orientdata.lookforcustomers.presenter.CityPickPresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
+import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
+import com.orientdata.lookforcustomers.view.agreement.MyWebViewActivity;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
-import com.orientdata.lookforcustomers.view.findcustomer.ICityPickView;
 import com.orientdata.lookforcustomers.view.findcustomer.SearchActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.MessageTaskActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.PageTaskActivity;
+import com.orientdata.lookforcustomers.widget.MyListView;
 import com.orientdata.lookforcustomers.widget.abslistview.CommonAdapter;
 import com.orientdata.lookforcustomers.widget.abslistview.ViewHolder;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
 import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
 import com.qiniu.android.common.Constants;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -102,7 +107,7 @@ import vr.md.com.mdlibrary.utils.ImageUtils2;
 /**
  * 创建寻客页面
  */
-public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresent<ICityPickView>> implements ICityPickView, SensorEventListener, OnGetGeoCoderResultListener {
+public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresenter<IHomeMainView>> implements IHomeMainView, SensorEventListener, OnGetGeoCoderResultListener {
 
     private static final String TAG = "DemoActivity";
     // 定位相关
@@ -120,6 +125,12 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     View top_view;
     @BindView(R.id.lv_radius)
     ListView lvRadius;
+    @BindView(R.id.lv_banner)
+    MyListView lvBanner;
+    @BindView(R.id.ll_down)
+    LinearLayout llDown;
+    @BindView(R.id.ll_banner_scroll)
+    LinearLayout llBannerScroll;
 
 
     private MyLocationConfiguration.LocationMode mCurrentMode;
@@ -130,7 +141,7 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     private String mLocProvinceName = "";
     private String mLocCityCode = "";
 
-    private CityPickPresent mCityPickPresent;
+    private MainHomePresenter mCityPickPresent;
     private List<AreaOut> mAreaOuts; //后台返回的城市列表的信息
     private LinearLayout ll_at_create_find_customer_location;
 
@@ -213,8 +224,7 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     private int mCurrentRadiuPos;
     private CommonAdapter<String> strngCommonAdapter;
     private Intent intent;
-    private SlidingUpPanelLayout mLayout;
-
+    private BottomSheetBehavior behavior;
 
     protected boolean isImmersionBarEnabled() {
         return false;
@@ -224,7 +234,7 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCityPickPresent = new CityPickPresent(this);
+        mCityPickPresent = new MainHomePresenter(this);
         setContentView(R.layout.activity_main_home);
         ButterKnife.bind(this);
         initView();
@@ -240,42 +250,13 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
                 .statusBarView(R.id.top_view)
                 .fullScreen(true)
                 .init();
-
-//        GlideUtil.getInstance().loadAdImage(this,mIcon,imagerUrls.get(position),true);
-
-
-        mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        mLayout.setAnchorPoint(0.7f);
-        mLayout.setPanelState(PanelState.COLLAPSED);
-
-        mLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
-            @Override
-            public void onPanelSlide(View panel, float slideOffset) {
-
-            }
-
-            @Override
-            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-                Log.i(TAG, "onPanelStateChanged " + newState);
-                if (newState==PanelState.COLLAPSED) {  //折叠
-
-                }else if(newState == PanelState.ANCHORED){ //展开
-
-                }
-            }
-        });
+        initData();
+    }
 
 
-        //点击外部折叠
-        mLayout.setFadeOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //折叠
-                mLayout.setPanelState(PanelState.COLLAPSED);
-            }
-        });
 
-
+    private void initData() {
+        getProvinceCity();
     }
 
 
@@ -297,8 +278,6 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
         MyLocationConfiguration mcf = new MyLocationConfiguration(mCurrentMode, true, mCurrentMarker, accuracyCircleFillColor, accuracyCircleStrokeColor);
 
 
-
-
         //隐藏百度地图的logo
         View baiduLogo = mMapView.getChildAt(1);
         if (baiduLogo != null && (baiduLogo instanceof ImageView || baiduLogo instanceof ZoomControls)) {
@@ -312,7 +291,7 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
 
 
         myListener = new MyLocationListenner();
-        getProvinceCity();
+
         // 初始化搜索模块，注册事件监听
         mSearch = GeoCoder.newInstance();
         mSearch.setOnGetGeoCodeResultListener(this);
@@ -366,10 +345,29 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
         });
     }
 
+
+    private void dimBackground(final int from, final int to) {
+
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(from, to);
+        valueAnimator.setDuration(500);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value = (int) animation.getAnimatedValue();
+                llBannerScroll.getBackground().setAlpha(value);
+            }
+        });
+
+        valueAnimator.start();
+    }
+
     /**
      * 初始化view，初始化内容
      */
     private void initView() {
+        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.sliding_layout);
+        View bottomSheet = coordinatorLayout.findViewById(R.id.bottom_sheet);
+        behavior = BottomSheetBehavior.from(bottomSheet);
         tv_at_create_find_customer_putlocation = (TextView) findViewById(R.id.tv_at_create_find_customer_putlocation);
         rl_map = findViewById(R.id.rl_map);
 
@@ -391,6 +389,35 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
 
         lvRadius.setAdapter(strngCommonAdapter);
 
+
+        //底部banner的拖动事件
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                //这里是bottomSheet 状态的改变，根据slideOffset可以做一些动画
+//                if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) { //折叠
+//                    llDown.setVisibility(View.GONE);
+//                    llBannerScroll.getBackground().mutate().setAlpha(255);
+//                } else { //展开
+//                    llDown.setVisibility(View.VISIBLE);
+//                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                //这里是拖拽中的回调，根据slideOffset可以做一些动画
+                Logger.d("slideOffset:" + slideOffset);
+                if (slideOffset == 1.0) {
+                    llDown.setVisibility(View.VISIBLE);
+                } else {
+                    llDown.setVisibility(View.INVISIBLE);
+//                    llBannerScroll.setBackground();
+
+                }
+            }
+        });
+
+
         //半径的点击事件
         lvRadius.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -403,8 +430,6 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
         });
 
     }
-
-
 
 
     //设置地图中心点的信息
@@ -505,21 +530,12 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     private String pagePrice = "";//页面单价
 
 
-
-
-    @OnClick({R.id.imageView_jingzhundingwei,R.id.iv_task, R.id.bt_go_orintion, R.id.iv_service,
-            R.id.image2, R.id.image3,R.id.image1,
-            R.id.ll_at_create_find_customer_search})
+    @OnClick({R.id.imageView_jingzhundingwei, R.id.iv_task, R.id.bt_go_orintion, R.id.iv_service,
+            R.id.ll_at_create_find_customer_search, R.id.ll_down})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.image1:
-                Logger.d("image1");
-                break;
-            case R.id.image2:
-                Logger.d("image2");
-                break;
-            case R.id.image3:
-                Logger.d("image3");
+            case R.id.ll_down:
+                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 break;
             case R.id.iv_task:
 //                mCityPickPresent.AddAddressInfo("123","123","123");
@@ -530,19 +546,31 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
                 LbsManager.getInstance().getLocation(myListener);
                 break;
             case R.id.bt_go_orintion: //打开定向设置
+                showDefaultLoading();
                 intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
-                intent.putExtra(Constants.latitude, mCurrentLatLng.latitude+"");
-                intent.putExtra(Constants.longitude, mCurrentLatLng.longitude+"");
+                intent.putExtra(Constants.latitude, mCurrentLatLng.latitude + "");
+                intent.putExtra(Constants.longitude, mCurrentLatLng.longitude + "");
                 intent.putExtra("address", tv_at_create_find_customer_putlocation.getText().toString().trim());
-
                 if (CommonUtils.haveSDCard()) {
-                    mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
+                    mBaiduMap.snapshotScope(null,new BaiduMap.SnapshotReadyCallback() {
                         @Override
                         public void onSnapshotReady(Bitmap bitmap) {
                             String baiduMapPath = ImageUtils2.saveBitmap(MainHomeActivity.this, bitmap);
+                            Logger.d(baiduMapPath);
+                            if (baiduMapPath!=null) {
+                                hideDefaultLoading();
                             intent.putExtra("path", baiduMapPath);
                             Logger.d("百度地图截图路径为：" + baiduMapPath);
-                            startActivity(intent);
+                            EasyTransitionOptions options =
+                                    EasyTransitionOptions.makeTransitionOptions(
+                                            MainHomeActivity.this,
+                                            findViewById(R.id.bt_go_orintion),
+                                            findViewById(R.id.bmapView));
+                                             // add as many views as you like
+
+                            // start transition
+                            EasyTransition.startActivity(intent, options);
+                            }
                         }
                     });
                 } else {
@@ -563,8 +591,6 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
                 break;
         }
     }
-
-
 
 
     /**
@@ -767,6 +793,7 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
      */
     private void getProvinceCity() {
         mCityPickPresent.getProvinceCityData();
+        mCityPickPresent.getBannerPic();
         if (isReCreate) {
             getPageType();
         }
@@ -792,14 +819,12 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
                     smsPrice = result.get("smsPrice");
                     pagePrice = result.get("pagePrice");
                 }
-
             }
         }, map);
     }
 
     /**
      * 获取省市列表
-     *
      * @param areaOuts
      */
     @Override
@@ -812,10 +837,27 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
 
 
     @Override
-    public void addAddress(Object object) {
+    public void getBannerSuc(final List<BannerBean> list) {
+        //设置
+        lvBanner.setAdapter(new CommonAdapter<BannerBean>(this, R.layout.item_lv_banner_home, list) {
+            @Override
+            protected void convert(ViewHolder viewHolder, BannerBean item, int position) {
+                ImageView imageView = viewHolder.getView(R.id.iv_banner);
+                GlideUtil.getInstance().loadAdImage(MainHomeActivity.this, imageView, item.getImageId(), true);
+            }
 
+        });
+
+        lvBanner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainHomeActivity.this,MyWebViewActivity.class);
+                intent.putExtra("url",list.get(position).getImageUrl());
+                intent.putExtra("title",list.get(position).getTitle());
+                startActivity(intent);
+            }
+        });
     }
-
 
     //地址转坐标的结果(手动选择城市，点击详情，搜索)
     @Override
@@ -882,8 +924,10 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
             return;
         }
+
         ReverseGeoCodeResult.AddressComponent addCom = result.getAddressDetail();
         String address = result.getAddress();
+
 
         if (mFromAction == 1) {//手动选择
 
@@ -1012,10 +1056,9 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     }
 
 
-
     @Override
-    protected CityPickPresent<ICityPickView> createPresent() {
-        return new CityPickPresent<>(this);
+    protected MainHomePresenter<IHomeMainView> createPresent() {
+        return new MainHomePresenter<>(this);
     }
 
 
@@ -1023,7 +1066,6 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
     public void onStart() {
         super.onStart();
     }
-
 
 
     //通过城市名称和省名找城市代码
@@ -1150,24 +1192,17 @@ public class MainHomeActivity extends BaseActivity<ICityPickView, CityPickPresen
         //返回的时候 清除 定向缓存
         ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
 //        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
-        //展开 ，固定
-        if (mLayout != null &&
-                (mLayout.getPanelState() == PanelState.EXPANDED || mLayout.getPanelState() == PanelState.ANCHORED)) {
-            mLayout.setPanelState(PanelState.COLLAPSED);
-        } else {
-            super.onBackPressed();
-        }
-
+        super.onBackPressed();
     }
 
     @Override
     public void showLoading() {
-
+        showDefaultLoading();
     }
 
     @Override
     public void hideLoading() {
-
+        hideDefaultLoading();
     }
 
 

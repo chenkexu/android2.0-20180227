@@ -168,15 +168,6 @@ public class TestActivity extends AppCompatActivity {
 
     private void dimBackground(final float from, final float to) {
 
-//        WindowManager.LayoutParams attributes = timeDialog.getWindow().getAttributes();
-//        DisplayMetrics metrics = getResources().getDisplayMetrics();
-//        attributes.width = (int) (metrics.widthPixels * 0.9);
-//        attributes.height = (int) (metrics.heightPixels * 0.9);
-//        attributes.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-//        attributes.dimAmount = 0.5f;
-//        timeDialog.getWindow().setAttributes(attributes);
-
-
 
         final Window window = getWindow();
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(from, to);

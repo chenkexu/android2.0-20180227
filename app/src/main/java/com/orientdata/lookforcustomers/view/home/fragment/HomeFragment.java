@@ -288,7 +288,6 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         showDefaultLoading();
         //获取banner信息
         map = new MDBasicRequestMap();
-        //map.put("userId", UserDataManeger.getInstance().getUserId());
         OkHttpClientManager.postAsyn(HttpConstant.SELECT_BANNER_INFO, new OkHttpClientManager.ResultCallback<BannerBeans>() {
             @Override
             public void onError(Exception e) {
