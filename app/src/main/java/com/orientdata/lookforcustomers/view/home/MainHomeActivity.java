@@ -17,6 +17,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -99,6 +100,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import q.rorbin.badgeview.QBadgeView;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 import vr.md.com.mdlibrary.utils.ImageUtils2;
@@ -131,6 +133,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     LinearLayout llDown;
     @BindView(R.id.ll_banner_scroll)
     LinearLayout llBannerScroll;
+    @BindView(R.id.iv_me)
+    ImageView ivMe;
 
 
     private MyLocationConfiguration.LocationMode mCurrentMode;
@@ -252,7 +256,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 .init();
         initData();
     }
-
 
 
     private void initData() {
@@ -531,9 +534,12 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
 
     @OnClick({R.id.imageView_jingzhundingwei, R.id.iv_task, R.id.bt_go_orintion, R.id.iv_service,
-            R.id.ll_at_create_find_customer_search, R.id.ll_down})
+            R.id.ll_at_create_find_customer_search, R.id.ll_down,R.id.iv_me})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_me:
+                ToastUtils.showShort("跳转到我的界面");
+                break;
             case R.id.ll_down:
                 behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 break;
@@ -552,25 +558,23 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 intent.putExtra(Constants.longitude, mCurrentLatLng.longitude + "");
                 intent.putExtra("address", tv_at_create_find_customer_putlocation.getText().toString().trim());
                 if (CommonUtils.haveSDCard()) {
-                    mBaiduMap.snapshotScope(null,new BaiduMap.SnapshotReadyCallback() {
+                    mBaiduMap.snapshotScope(null, new BaiduMap.SnapshotReadyCallback() {
                         @Override
                         public void onSnapshotReady(Bitmap bitmap) {
                             String baiduMapPath = ImageUtils2.saveBitmap(MainHomeActivity.this, bitmap);
                             Logger.d(baiduMapPath);
-                            if (baiduMapPath!=null) {
+                            if (baiduMapPath != null) {
                                 hideDefaultLoading();
-                            intent.putExtra("path", baiduMapPath);
-                            Logger.d("百度地图截图路径为：" + baiduMapPath);
-                            EasyTransitionOptions options =
-                                    EasyTransitionOptions.makeTransitionOptions(
-                                            MainHomeActivity.this,
-                                            findViewById(R.id.bt_go_orintion),
-                                            findViewById(R.id.bmapView));
-                                             // add as many views as you like
-
-                            // start transition
-                            EasyTransition.startActivity(intent, options);
+                                intent.putExtra("path", baiduMapPath);
+                                Logger.d("百度地图截图路径为：" + baiduMapPath);
+                                EasyTransitionOptions options =
+                                        EasyTransitionOptions.makeTransitionOptions(
+                                                MainHomeActivity.this,
+                                                findViewById(R.id.bt_go_orintion),
+                                                findViewById(R.id.bmapView));
+                                EasyTransition.startActivity(intent, options);
                             }
+
                         }
                     });
                 } else {
@@ -797,6 +801,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         if (isReCreate) {
             getPageType();
         }
+        new QBadgeView(this).bindTarget(ivMe).setBadgePadding(3,true).setBadgeGravity(Gravity.END | Gravity.TOP).setBadgeNumber(-1);
     }
 
     /**
@@ -825,6 +830,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
     /**
      * 获取省市列表
+     *
      * @param areaOuts
      */
     @Override
@@ -851,9 +857,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         lvBanner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainHomeActivity.this,MyWebViewActivity.class);
-                intent.putExtra("url",list.get(position).getImageUrl());
-                intent.putExtra("title",list.get(position).getTitle());
+                Intent intent = new Intent(MainHomeActivity.this, MyWebViewActivity.class);
+                intent.putExtra("url", list.get(position).getImageUrl());
+                intent.putExtra("title", list.get(position).getTitle());
                 startActivity(intent);
             }
         });
