@@ -14,6 +14,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import com.orhanobut.logger.Logger;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -127,10 +129,10 @@ public class ImageUtil {
      * 质量压缩
      *
      * @param image
-     * @param requiredSize 需要的大小多少kb
+     * @param
      * @return
      */
-    public static Bitmap compressBitmapByQuality(Bitmap image, int requiredSize) {
+    public static Bitmap compressBitmapByQuality(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         int options = 100;
@@ -148,10 +150,9 @@ public class ImageUtil {
      * 比例压缩
      *
      * @param image
-     * @param requiredSize 需要的大小多少kb
      * @return
      */
-    public static Bitmap compressBitmapByScale(Bitmap image, int requiredSize) {
+    public static Bitmap compressBitmapByScale(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(CompressFormat.JPEG, 100, baos);
         if (baos.toByteArray().length / 1024 > 1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
@@ -192,20 +193,22 @@ public class ImageUtil {
      * @param size  多少kb
      * @return
      */
-    public static byte[] compressImage(Bitmap image, int size) {
+    public static byte[] compressImage(Bitmap image) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         int options = 100;
-        while (baos.toByteArray().length / 1024 > size) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
-            System.out.println(baos.toByteArray().length / 1024);
+        Logger.d("原来截图大小为：" + baos.toByteArray().length / 1024);
+        while (baos.toByteArray().length / 1024 > 500) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
             baos.reset();// 重置baos即清空baos
             image.compress(CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
             options -= 10;// 每次都减少10
         }
-        System.out.println(baos.toByteArray().length / 1024);
+        Logger.d("截图大小为：" + baos.toByteArray().length / 1024);
         return baos.toByteArray();
     }
+
+
 
     // 将Bitmap转换成InputStream
     public static InputStream Bitmap2InputStream(Bitmap bm) {

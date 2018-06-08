@@ -13,6 +13,9 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +24,54 @@ import java.util.regex.Pattern;
  * Created by Phoenix on 2016/8/13.
  */
 public class CommonUtils {
+
+
+
+
+    public static int getRandom(int min,int max){
+
+        Random random = new Random();
+        int s = (random.nextInt(max) % (max - min + 1) + min);
+        return s;
+    }
+
+
+    public static Double getCityMapValue(String cityName){
+        HashMap<String, Double> cityMap = new HashMap<String, Double>() {
+            private static final long serialVersionUID = 1L;
+            {
+                put("北京市", 1.0);
+                put("上海市", 1.0);
+                put("广州市", 1.0);
+                put("深圳市", 1.0);
+                put("成都市", 0.98);
+                put("杭州市", 0.98);
+                put("武汉市", 0.98);
+                put("重庆市", 0.98);
+                put("南京市", 0.98);
+                put("天津市", 0.98);
+                put("苏州市", 0.98);
+                put("西安市", 0.98);
+                put("长沙市", 0.98);
+                put("沈阳市", 0.98);
+                put("青岛市", 0.98);
+                put("郑州市", 0.98);
+                put("大连市", 0.98);
+                put("东莞市", 0.98);
+                put("宁波市", 0.98);
+            }
+        };
+
+        for(Map.Entry<String,Double> entry:cityMap.entrySet()){
+            if (cityName.equals(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+
+        return 0.95;
+    }
+
+
     /**
      * 返回一定格式的时间
      *

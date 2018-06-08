@@ -3,6 +3,7 @@ package com.orientdata.lookforcustomers.view.home;
 import android.Manifest;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.hardware.Sensor;
@@ -10,9 +11,11 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
@@ -56,8 +59,6 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.gyf.barlibrary.ImmersionBar;
-import com.hzn.lib.EasyTransition;
-import com.hzn.lib.EasyTransitionOptions;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
@@ -94,6 +95,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,6 +106,7 @@ import q.rorbin.badgeview.QBadgeView;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 import vr.md.com.mdlibrary.utils.ImageUtils2;
+import vr.md.com.mdlibrary.utils.image.ImageUtil;
 
 
 /**
@@ -216,10 +219,12 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     //重要的变量
     private String mCityCode = "";  //创建任务的cityCode
     private String mThrowAddress;   //投放地址
-    private LatLng mCurrentLatLng; //当前的位置
+    private LatLng mCurrentLatLng; //当前的经纬度
     private String mCityName = ""; //城市名称
     private String mProvinceCode;  //省code
     private TextView tv_at_create_find_customer_putlocation;//最上面显示的投放位置
+
+
 
 
     private List<TextView> rudioss = new ArrayList<>();
@@ -229,6 +234,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private CommonAdapter<String> strngCommonAdapter;
     private Intent intent;
     private BottomSheetBehavior behavior;
+    private HashMap<String,Integer> cityMap;
+    private Double cityMapValue;
+    private int radiusRam;
 
     protected boolean isImmersionBarEnabled() {
         return false;
@@ -368,6 +376,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
      * 初始化view，初始化内容
      */
     private void initView() {
+
+
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.sliding_layout);
         View bottomSheet = coordinatorLayout.findViewById(R.id.bottom_sheet);
         behavior = BottomSheetBehavior.from(bottomSheet);
@@ -437,6 +447,31 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
     //设置地图中心点的信息
     private void setMapCenterInfo(LatLng latLng, int radius) {
+        cityMapValue = CommonUtils.getCityMapValue(mCityName);
+        Logger.d("当前的城市名:"+mCityName  + cityMapValue);
+        switch (radius){
+            case 500:
+                radiusRam = CommonUtils.getRandom(8000,12000);
+                break;
+            case 1000:
+                radiusRam = CommonUtils.getRandom(28000,32000);
+                break;
+            case 2000:
+                radiusRam = CommonUtils.getRandom(90000,110000);
+                break;
+            case 3000:
+                radiusRam = CommonUtils.getRandom(290000,310000);
+                break;
+            case 5000:
+                radiusRam = CommonUtils.getRandom(900000,1100000);
+                break;
+            case 10000:
+                radiusRam = CommonUtils.getRandom(1800000,2200000);
+                break;
+        }
+        tvPersonNum.setText("当前范围约有"+(int)(radiusRam*cityMapValue)+"人");
+
+
         if (mBaiduMap == null || latLng == null) {
             Logger.e("mBaiduMap为空。。。。。");
             return;
@@ -557,29 +592,37 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 intent.putExtra(Constants.latitude, mCurrentLatLng.latitude + "");
                 intent.putExtra(Constants.longitude, mCurrentLatLng.longitude + "");
                 intent.putExtra("address", tv_at_create_find_customer_putlocation.getText().toString().trim());
-                if (CommonUtils.haveSDCard()) {
                     mBaiduMap.snapshotScope(null, new BaiduMap.SnapshotReadyCallback() {
+                        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                         @Override
                         public void onSnapshotReady(Bitmap bitmap) {
-                            String baiduMapPath = ImageUtils2.saveBitmap(MainHomeActivity.this, bitmap);
-                            Logger.d(baiduMapPath);
-                            if (baiduMapPath != null) {
+                            if (bitmap!=null) {
                                 hideDefaultLoading();
-                                intent.putExtra("path", baiduMapPath);
-                                Logger.d("百度地图截图路径为：" + baiduMapPath);
-                                EasyTransitionOptions options =
-                                        EasyTransitionOptions.makeTransitionOptions(
-                                                MainHomeActivity.this,
-                                                findViewById(R.id.bt_go_orintion),
-                                                findViewById(R.id.bmapView));
-                                EasyTransition.startActivity(intent, options);
+                                byte[] bytes = ImageUtil.compressImage(bitmap);
+                                intent.putExtra("bitmap", bytes);
                             }
-
+//                            String baiduMapPath = ImageUtils2.saveBitmap(MainHomeActivity.this, bitmap);
+//                            Logger.d(baiduMapPath);
+//                            if (baiduMapPath != null) {
+//                                hideDefaultLoading();
+//                                intent.putExtra("path", baiduMapPath);
+//                                Logger.d("百度地图截图路径为：" + baiduMapPath);
+//
+//                            }
+                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainHomeActivity.this, btGoOrintion, getString(R.string.share_view));
+                            if (modelFiltering()) {
+                                startActivity(intent, options.toBundle());
+                            } else {
+                                startActivity(intent);
+                            }
+//                            EasyTransitionOptions options =
+//                                        EasyTransitionOptions.makeTransitionOptions(
+//                                                MainHomeActivity.this,
+//                                                findViewById(R.id.bt_go_orintion),
+//                                                findViewById(R.id.bmapView));
+//                                EasyTransition.startActivity(intent, options);
                         }
                     });
-                } else {
-                    ToastUtils.showShort("没有SD卡!");
-                }
                 break;
             case R.id.iv_service:
                 final String url = "mqqwpa://im/chat?chat_type=wpa&uin=2280249239";
@@ -930,10 +973,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
             return;
         }
-
         ReverseGeoCodeResult.AddressComponent addCom = result.getAddressDetail();
         String address = result.getAddress();
-
 
         if (mFromAction == 1) {//手动选择
 
@@ -945,6 +986,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
             mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
             locationFlag = 100;
+            moveMapTo(result.getLocation().latitude, result.getLocation().longitude, true, mScaleLevel[mCurrentScaleLevelPositon]);
+            setMapCenterInfo(result.getLocation(), mCircleRadius[0]);
+
         } else if (mFromAction == 3) {
             Logger.d("获得了经纬度转换地址的回调（来自地图平移）城市为：" + addCom.city);
             //来自地图平移
@@ -967,9 +1011,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             tv_at_create_find_customer_putlocation.setText(address);
         }
         mCurrentLatLng = result.getLocation();
+
         if (!TextUtils.isEmpty(mCityName)) {
             Logger.d("最终获得的mCityName是:" + mCityName);
-//            tv_at_create_find_customer_location.setText(mCityName.trim().toCharArray(), 0, 3);
             requestCityStatus(mCityName);
         }
         //手动拖动地图后的地址
@@ -1016,8 +1060,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 Logger.d("首次定位。。。");
                 isFirstLoc = false;
                 mCurrentScaleLevelPositon = 0;
-                moveMapTo(ll.latitude, ll.longitude, true, mScaleLevel[mCurrentScaleLevelPositon]);
-                setMapCenterInfo(mCurrentLatLng, mCircleRadius[0]);
 
             }
         }
@@ -1242,6 +1284,15 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         } else {
             mBaiduMap.setMapStatus(msu);
         }
+    }
+
+    /**
+     * 机型适配
+     *
+     * @return 返回true表示非三星机型且Android 6.0以上
+     */
+    private boolean modelFiltering() {
+        return !Build.MANUFACTURER.contains(Constants.SAMSUNG) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
 }

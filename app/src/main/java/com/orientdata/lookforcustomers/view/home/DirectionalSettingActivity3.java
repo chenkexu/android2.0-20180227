@@ -3,17 +3,26 @@ package com.orientdata.lookforcustomers.view.home;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ResourceUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.gyf.barlibrary.ImmersionBar;
-import com.hzn.lib.EasyTransition;
+import com.jaygoo.widget.OnRangeChangedListener;
+import com.jaygoo.widget.RangeSeekBar;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
@@ -23,6 +32,8 @@ import com.orientdata.lookforcustomers.bean.InterestTagImportOut;
 import com.orientdata.lookforcustomers.bean.OrientationSettingsOut;
 import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.presenter.DirectionalSettingPresent;
+import com.orientdata.lookforcustomers.util.BitmapUtil;
+import com.orientdata.lookforcustomers.util.GsonUtils;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
@@ -31,7 +42,6 @@ import com.orientdata.lookforcustomers.widget.FluidLayout;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.BusinessInterestDialog;
 import com.orientdata.lookforcustomers.widget.dialog.HobbyMultipleSelectDialog;
-import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
 import com.qiniu.android.common.Constants;
 
 import java.util.ArrayList;
@@ -44,7 +54,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.utils.image.ImageUtil;
+
+import static com.orientdata.lookforcustomers.R.id.iv_xunke_now;
 
 
 /**
@@ -68,6 +79,8 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
     @BindView(R.id.tv_car)
     TextView tvCar;
+
+
     @BindView(R.id.directionHobbyInfo)
     FluidLayout directionHobbyInfo; //用户兴趣爱好，自定义标签
     @BindView(R.id.tv_canyin)
@@ -76,13 +89,49 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     LinearLayout llUserHobby;
     @BindView(R.id.bmapView)
     ImageView ivBaiMapPic;
+    @BindView(R.id.top_view)
+    View topView;
+    @BindView(R.id.iv_kefu)
+    ImageView ivKefu;
+    @BindView(R.id.collect_address)
+    ImageView collectAddress;
+    @BindView(iv_xunke_now)
+    ImageView ivXunkeNow;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
+    @BindView(R.id.tv_scope)
+    TextView tvScope;
+    @BindView(R.id.rv_sex)
+    RecyclerView rvSex;
+    @BindView(R.id.rv_age)
+    RecyclerView rvAge;
+
+    @BindView(R.id.age_from)
+    TextView ageFrom;
+    @BindView(R.id.age_to)
+    TextView ageTo;
+    @BindView(R.id.ll_age)
+    LinearLayout agell;
+
+    @BindView(R.id.seekbar)
+    RangeSeekBar seekbar;
+    @BindView(R.id.tvLeftText)
+    TextView tvLeftText;
+
+
+    @BindView(R.id.imageView4)
+    ImageView imageView4;
+
+    @BindView(R.id.bt_go_orintion)
+    ScrollView scrollView;
+    @BindView(R.id.tv_person_num)
+    TextView tvPersonNum;
 
 
     private MyTitle titleDirectional;
     private SettingOut settingOuts = null; //后台返回的数据
     private RelativeLayout age_from;
     private RelativeLayout age_to;//年龄
-    private RelativeLayout sex;//性别
 
     private RelativeLayout hobby_from;
     private RelativeLayout hobby_to;//商业兴趣
@@ -94,7 +143,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
 
     private TextView tv_mHobbyOne;//商业兴趣 一级
-    private TextView tvSave;//保存按钮
+    private ImageView tvSave;//保存按钮
     private TextView tv_mAgeFrom;
     private TextView tv_mAgeTo;
     private TextView tv_mSex;
@@ -118,15 +167,20 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
     private String industryNameStr = ""; //选择的行业
     private String[] industrysStr = {"餐饮", "3C数码", "汽车用品", "母婴用品", "美容美发", "鲜花礼品", "汽车用品", "自定义"};
-    private String industryName;
+    private String[] sexsSelects = {"不限", "男", "女"};
+    private String[] agesSelects = {"不限", "自定义"};
 
+    private int sexPosition = 0;
+
+    private String industryName;
     private List<AddressCollectInfo> addressCollectInfos;
     private String latitude;
     private String longitude;
     private String address;
 
-
-
+    private String ageF = ""; //最后的起始年龄
+    private String ageB = "";  //最后的终止年龄
+    private String sex = "";   //性别
 
     protected boolean isImmersionBarEnabled() {
         return false;
@@ -146,7 +200,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
                 .statusBarView(R.id.top_view)
                 .fullScreen(true)
                 .init();
-        EasyTransition.enter(this);
+//        EasyTransition.enter(this);
     }
 
 
@@ -197,13 +251,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
         String[] stringArraySex = getResources().getStringArray(R.array.sex);
         sexs = Arrays.asList(stringArraySex);//性别集合
-        age_from = (RelativeLayout) findViewById(R.id.age_from);
-        age_to = (RelativeLayout) findViewById(R.id.age_to);
-        sex = (RelativeLayout) findViewById(R.id.sex);
-        tvSave = (TextView) findViewById(R.id.tvSave);
-        tv_mAgeFrom = age_from.findViewById(R.id.tvLeftText);
-        tv_mAgeTo = age_to.findViewById(R.id.tvLeftText);
-        tv_mSex = sex.findViewById(R.id.tvLeftText);
 
         hobby_from = (RelativeLayout) findViewById(R.id.hobby_from);
         hobby_to = (RelativeLayout) findViewById(R.id.hobby_to);
@@ -213,17 +260,87 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         tv_mHobbyOne = hobby_from.findViewById(R.id.tvLeftText);
         tv_mHobbyTo = hobby_to.findViewById(R.id.tvLeftText);
 
-        tv_mAgeFrom.setText("不限");
-        tv_mAgeTo.setText("不限");
-        tv_mSex.setText("不限");
-        age_from.setOnClickListener(this);
-        age_to.setOnClickListener(this);
-        sex.setOnClickListener(this);
-
+        ivXunkeNow.setOnClickListener(this);
         hobby_from.setOnClickListener(this);
         hobby_to.setOnClickListener(this);
-        tvSave.setOnClickListener(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvAge.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rvSex.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
+        final Adapter adapterAge = new Adapter(Arrays.asList(agesSelects));
+        final Adapter adaptersex = new Adapter(Arrays.asList(sexsSelects));
+
+        rvAge.setAdapter(adapterAge);
+        rvSex.setAdapter(adaptersex);
+
+        adaptersex.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                sexPosition = position;
+                sex = sexsSelects[position];
+                // TODO: 2018/6/7 更新附近的人
+                String ageJson = ResourceUtils.readAssets2String("dataAge.json");
+                HashMap<String, Object> ageJsonMap = GsonUtils.parseJsonToMap(ageJson);
+                Logger.d("ageJson:"+ ageJsonMap);
+                adaptersex.notifyDataSetChanged();
+            }
+        });
+
+        adapterAge.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                sexPosition = position;
+
+                if (position == 0) { //不限
+                    ageF = "不限";
+                    ageB = "不限";
+                } else { //自定义
+
+                }
+                adapterAge.notifyDataSetChanged();
+            }
+        });
+
+
+
+        seekbar.setValue(15, 70);
+        seekbar.setOnRangeChangedListener(new OnRangeChangedListener() {
+
+            private float rightValue;
+            private float leftValue;
+
+            @Override
+            public void onRangeChanged(RangeSeekBar view, float min, float max, boolean isFromUser) {
+                //min is left seekbar value, max is right seekbar value
+                leftValue = min;
+                rightValue = max;
+            }
+
+            @Override
+            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
+
+                Logger.d("左边显示的值：" + leftValue);
+                Logger.d("右边显示的值：" + rightValue);
+
+                String leftStr = leftValue + "";
+                String lrightValueStr = rightValue + "";
+
+                ageFrom.setText(leftStr.substring(0, 2));
+                ageTo.setText(lrightValueStr.substring(0, 2));
+
+                if (leftStr.substring(0, 2).equals("15")) {
+                    ageFrom.setText("18及以下");
+                }
+                if (lrightValueStr.substring(0, 2).equals("70")) {
+                    ageTo.setText("65及以下");
+                }
+            }
+        });
 
         aCache = ACache.get(this);
         Intent intent = getIntent();
@@ -232,13 +349,12 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
             isReCreate = intent.getBooleanExtra("isReCreate", false);
             cityCode = intent.getStringExtra("cityCode");
             String path = intent.getStringExtra("path");
-
             latitude = intent.getStringExtra(Constants.latitude);
             longitude = intent.getStringExtra(Constants.longitude);
             address = intent.getStringExtra("address");
-
-
-            ivBaiMapPic.setImageBitmap(ImageUtil.getFolderPic(path));
+            byte[] bitmaps = intent.getByteArrayExtra("bitmap");
+            ivBaiMapPic.setImageBitmap(BitmapUtil.Bytes2Bitmap(bitmaps));
+//            ivBaiMapPic.setImageBitmap(ImageUtil.getFolderPic(path));
         }
 
         if (hobbyMap == null) {
@@ -246,6 +362,27 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         }
 
 
+    }
+
+
+    public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
+
+        public Adapter(@Nullable List<String> data) {
+            super(R.layout.item_categroy_select, data);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, String item) {
+            int layoutPosition = helper.getLayoutPosition();
+            helper.setText(R.id.tv_title, item);
+            if (sexPosition == layoutPosition) {
+                helper.setTextColor(R.id.tv_title, getResources().getColor(R.color.white));
+                helper.setBackgroundRes(R.id.rl_title, R.drawable.btn_selec);
+            } else {
+                helper.setTextColor(R.id.tv_title, getResources().getColor(R.color.text_gray));
+                helper.setBackgroundRes(R.id.rl_title, R.drawable.btn_no_selec);
+            }
+        }
     }
 
     /**
@@ -299,20 +436,17 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         if (orientationSettingsOut == null) { //如果没有缓存数据，会拿到后台返回的数据进行更新界面
             Logger.d("没有缓存的数据。。");
             //定向设置 无缓存信息
-            ageFromPosition = -1;
-            ageToPosition = -1;
-            sexPosition = -1;
             hobbyFromPosition = -1;
         } else { //有数据需要显示
             Logger.d("orientationSettingsOut不为空，获取到了缓存的数据。。");
             if (isReCreate) {  //上个任务的任务的详情
                 setMapData(); //再次创建任务保留的数据
             }
-
             //获取年龄性别
-            String ageF = orientationSettingsOut.getAgeF();
-            String ageB = orientationSettingsOut.getAgeB();
-            String sex = orientationSettingsOut.getSex();
+            String ageFCache = orientationSettingsOut.getAgeF();
+            String ageBCache = orientationSettingsOut.getAgeB();
+            String sexCache = orientationSettingsOut.getSex();
+            // TODO: 2018/6/7  设置年龄和性别
 
             if (industryMark.equals("0")) { //行业
                 switch (industryName) {
@@ -342,15 +476,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
                 industrys.get(7).setSelected(true);
                 llUserHobby.setVisibility(View.VISIBLE);
             }
-
-            ageFromPosition = getIndex(agesFrom, ageF); //获取年龄在集合中的位置
-            ageToPosition = getIndex(agesTo, ageB) - ageFromPosition;
-            sexPosition = getIndex(sexs, sex);
-
-            //设置年龄和性别
-            tv_mAgeFrom.setText(ageFromPosition == -1 ? "" : ageF);
-            tv_mAgeTo.setText(ageToPosition == -1 ? "" : ageB);
-            tv_mSex.setText(sexPosition == -1 ? "" : sex);
 
         }
     }
@@ -460,24 +585,9 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.age_from: //选择用户起始年龄
-                showAgeFromDialog(agesFrom, tv_mAgeFrom);
-                break;
-            case R.id.age_to:  //选择用户结束年龄
-                if (tv_mAgeFrom.getText().toString().equals("不限")) {
-                    tv_mAgeTo.setText("不限");
-                    return;
-                }
-                showAgeToDialog(agesTo, tv_mAgeTo);
-                break;
-            case R.id.sex:
-                showSexDialog(sexs, tv_mSex);
-                break;
             case R.id.hobby_from://兴趣爱好
                 if (settingOuts.getIco() == null) {
                     ToastUtils.showShort("请检查网络连接");
@@ -491,10 +601,9 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
                 }
                 showHobbyToDialog(settingOuts.getIco().get(hobbyFromPosition).getEri(), tv_mHobbyTo);
                 break;
-            case R.id.tvSave: //保存数据
-                String ageF = tv_mAgeFrom.getText().toString().trim();
-                String ageB = tv_mAgeTo.getText().toString().trim();
-                String sex = tv_mSex.getText().toString().trim();
+            case iv_xunke_now: //保存数据
+                // TODO: 2018/6/7 性别，年龄
+
 
                 if (TextUtils.isEmpty(ageF) || TextUtils.isEmpty(ageB)) {
                     ToastUtils.showShort("请选择用户年龄");
@@ -603,6 +712,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
     }
 
+
     /**
      * 保存之前 自上而下判空 并提示
      */
@@ -618,6 +728,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         return true;
     }
 
+
     /**
      * 设置是否可点
      *
@@ -626,134 +737,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
      */
     private void setEnable(boolean isEnable, RelativeLayout relativeLayout) {
         relativeLayout.setEnabled(isEnable);
-    }
-
-    int ageFromPosition = -1;
-
-
-    /**
-     * 显示第一个年龄的选择dialog
-     *
-     * @param listString
-     * @param view
-     */
-    private void showAgeFromDialog(List<String> listString, final TextView view) {
-        if (listString != null && listString.size() > 0) { //年龄有数据
-            listString = listString.subList(0, listString.size() - 1);
-            final SettingStringDialog dialog = new SettingStringDialog(this, R.style.Theme_Light_Dialog);
-            dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
-                @Override
-                public void onChangeListener(String data, int position) {
-                    view.setText(data);
-                    dialog.dismiss();
-                    if (updateToView(position, ageToPosition, ageFromPosition, tv_mAgeTo) != -2) {
-                        ageToPosition = updateToView(position, ageToPosition, ageFromPosition, tv_mAgeTo);
-                    }
-                    ageFromPosition = position;
-                    setEnable(true, age_to);
-                }
-            });
-            dialog.setUpData(listString);
-            dialog.setSelect(ageFromPosition);
-            dialog.show();
-        }
-    }
-
-
-    /**
-     * 第一项选择变化 导致第二项内容变化 更新第二项的position 和 textview内的内容
-     *
-     * @param curPosition  第一项当前选择的position
-     * @param toPosition   第二项前一次选择的position
-     * @param fromPosition 第一项前一次选择的position
-     * @param tv           第二项 textview
-     * @return -2无效 不改变值
-     */
-    private int updateToView(int curPosition, int toPosition, int fromPosition, TextView tv) {
-        if (toPosition != -1) {
-            int curAgeToPostion = toPosition + fromPosition;//当前所选的年龄第二项 在list中的position
-            if (curPosition > curAgeToPostion) {
-                //第二项选择的不在范围内 置空
-                tv.setText("");
-                return -1;
-            } else {
-                //年龄二级选择增加了项   更新ageToPosition的位置
-                return (fromPosition - curPosition) + toPosition;
-            }
-        }
-        return -2;
-    }
-
-    int ageToPosition = -1;
-
-    /**
-     * 显示第二个年龄的选择dialog
-     *
-     * @param listString
-     * @param view
-     */
-    private void showAgeToDialog(List<String> listString, final TextView view) {
-        if (listString != null) {
-            //显示 （ageFromPosition - size-1）
-            String tv_mAgeFromStr = tv_mAgeFrom.getText().toString().trim();
-
-            if (tv_mAgeFromStr.equals("0岁")) {
-                listString = listString.subList(2, listString.size() - 1);
-            } else {
-                listString = listString.subList(ageFromPosition, listString.size());
-            }
-            final SettingStringDialog dialog = new SettingStringDialog(this, R.style.Theme_Light_Dialog);
-            dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
-                @Override
-                public void onChangeListener(String data, int position) {
-                    view.setText(data);
-                    dialog.dismiss();
-                    ageToPosition = position;
-                }
-            });
-            dialog.setUpData(listString);
-            dialog.setSelect(ageToPosition);
-            dialog.show();
-        }
-    }
-
-
-    private int getIndex(List<String> list, String str) {
-        if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
-                if (str.equals(list.get(i))) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
-
-    int sexPosition = -1;
-
-
-    /**
-     * 性别选择
-     *
-     * @param listString
-     * @param view
-     */
-    private void showSexDialog(List<String> listString, final TextView view) {
-        if (listString != null && listString.size() > 0) {
-            final SettingStringDialog dialog = new SettingStringDialog(this, R.style.Theme_Light_Dialog);
-            dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
-                @Override
-                public void onChangeListener(String data, int position) {
-                    view.setText(data);
-                    dialog.dismiss();
-                    sexPosition = position;
-                }
-            });
-            dialog.setUpData(listString);
-            dialog.setSelect(sexPosition);
-            dialog.show();
-        }
     }
 
 
@@ -774,11 +757,11 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-    @OnClick({R.id.collect_address,R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
+    @OnClick({R.id.collect_address, R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.collect_address:
-                mPresent.AddAddressInfo(address,longitude,latitude);
+            case R.id.collect_address: //收藏地址
+                mPresent.AddAddressInfo(address, longitude, latitude);
                 break;
             case R.id.tv_canyin:
                 setTextState(0, true);
@@ -1075,6 +1058,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        EasyTransition.exit(this);
+        ActivityCompat.finishAfterTransition(this);
+//        EasyTransition.exit(this);
     }
 }

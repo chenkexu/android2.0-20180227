@@ -182,10 +182,6 @@ public class ImageUtils2 {
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
-        Log.i(TAG, w + "---------------" + h);
-        // 现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
-        // float hh = 800f;// 这里设置高度为800f
-        // float ww = 480f;// 这里设置宽度为480f
         float hh = 512f;
         float ww = 512f;
         // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可

@@ -32,6 +32,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import vr.md.com.mdlibrary.utils.ImageUtils2;
+
 public class BitmapUtil {
 
 
@@ -280,6 +282,7 @@ public class BitmapUtil {
 	 * @return
      */
 	public static byte[] Bitmap2Bytes(Bitmap bm) {
+		ImageUtils2.compressScale(bm);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
 		return baos.toByteArray();

@@ -13,6 +13,9 @@ public final class Constants {
 
 
     public static final String address = "address";
-
+    /**
+     * Phone MANUFACTURER
+     */
+    public static final String SAMSUNG = "samsung";
 
 }
