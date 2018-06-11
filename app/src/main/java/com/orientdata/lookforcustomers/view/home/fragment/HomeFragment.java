@@ -285,6 +285,15 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 }
             }
         }, map);
+
+
+
+
+
+
+
+
+
         showDefaultLoading();
         //获取banner信息
         map = new MDBasicRequestMap();
@@ -439,7 +448,6 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
 
         tv_user_status = view.findViewById(R.id.tv_user_status);
         tv_useId = view.findViewById(R.id.tv_useId);
-
         tv_fm_home_accountBalance = view.findViewById(R.id.tv_fm_home_accountBalance);
         titleView = view.findViewById(R.id.title);
         tv_fm_home_blockBalance = view.findViewById(R.id.tv_fm_home_blockBalance);

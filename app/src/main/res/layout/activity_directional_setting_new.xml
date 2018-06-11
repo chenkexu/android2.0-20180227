@@ -20,16 +20,7 @@
             android:layout_height="250dp"
             android:transitionName="@string/share_view">
 
-            <TextView
-                android:id="@+id/tv_person_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/linearLayout2"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="当前范围约有99999人"
-                android:textColor="#404040"
-                android:textStyle="bold" />
+
 
             <ImageView
                 android:id="@+id/bmapView"
@@ -39,6 +30,7 @@
                 android:src="@mipmap/bg_add_publish" />
 
             <LinearLayout
+                android:id="@+id/ll_kefu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -60,6 +52,17 @@
                     android:src="@mipmap/icon_kefu" />
             </LinearLayout>
 
+            <TextView
+                android:layout_above="@id/ll_kefu"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/tv_person_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="当前范围符合您标签的约有99999人"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </RelativeLayout>
 
 
@@ -178,35 +181,46 @@
                                 android:gravity="center_horizontal" />
 
                             <LinearLayout
+                                android:visibility="gone"
+                                android:layout_marginLeft="10dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:background="@drawable/btn_selec"
                                 android:id="@+id/ll_age"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
                                 <TextView
+                                    android:textColor="@color/white"
                                     android:id="@+id/age_from"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="0" />
+                                    android:text="18及以下" />
 
                                 <TextView
+                                    android:textColor="@color/white"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="--" />
 
                                 <TextView
+                                    android:textColor="@color/white"
                                     android:id="@+id/age_to"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="2" />
+                                    android:text="65及以上" />
                             </LinearLayout>
 
 
                         </LinearLayout>
 
                         <com.jaygoo.widget.RangeSeekBar
+                            android:visibility="gone"
                             android:id="@+id/seekbar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -229,182 +243,104 @@
                             app:rsb_tick_mark_mode="other"
                             app:rsb_tick_mark_number="11"
                             app:rsb_tick_mark_text_array="@array/ages"
-                            app:rsb_tick_mark_text_color="@color/colorPrimary"
+                            app:rsb_tick_mark_text_color="@color/black"
                             app:rsb_tick_mark_text_margin="-25dp"
                             app:rsb_tick_mark_text_size="8dp" />
 
                     </LinearLayout>
 
 
-                    <!--您的所属行业-->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-                        android:drawableLeft="@mipmap/hangye"
-                        android:drawablePadding="6dp"
-                        android:text="按行业投放"
-                        android:textColor="@color/text_gray"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                    <!--按行业投放的标签-->
-
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
                         android:layout_marginTop="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+
+                        <!--您的所属行业-->
                         <TextView
-                            android:id="@+id/tv_canyin"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/selector_recharge_tv_checked2"
-                            android:gravity="center"
-                            android:text="餐饮"
-                            android:textColor="@drawable/button_color"
-                            android:textSize="14sp" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
+                            android:drawablePadding="6dp"
+                            android:text="您的所属行业"
+                            android:textColor="@color/text_gray"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+
+                        <!--按行业投放的标签-->
+                        <LinearLayout
+                            android:paddingTop="10dp"
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tv_3c"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/selector_recharge_tv_checked2"
-                                android:gravity="center"
-                                android:text="3C数码"
-                                android:textColor="@drawable/button_color"
-                                android:textSize="14sp" />
+                                style="@style/direction_border_style"
+                                android:id="@+id/tv_no_limit"
+                                android:text="不限" />
+                            <TextView
+                                style="@style/direction_border_style"
+                                android:id="@+id/tv_car"
+                                android:text="汽车用品" />
+                            <TextView
+                                style="@style/direction_border_style"
+                                android:id="@+id/tv_muying"
+                                android:text="母婴用品" />
+                            <TextView
+                                android:id="@+id/tv_hair"
+                                style="@style/direction_border_style"
+                                android:text="美容美发" />
+                            <TextView
+                                style="@style/direction_border_style"
+                                android:layout_marginRight="0dp"
+                                android:id="@+id/tv_flower"
+                                android:text="鲜花礼品" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/tv_baihe"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/selector_recharge_tv_checked2"
-                                android:gravity="center"
-                                android:text="日用百货"
-                                android:textColor="@drawable/button_color"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tv_muying"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/selector_recharge_tv_checked2"
-                            android:gravity="center"
-                            android:text="母婴用品"
-                            android:textColor="@drawable/button_color"
-                            android:textSize="14sp" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:orientation="horizontal">
+                                style="@style/direction_border_style"
+                                android:layout_weight="0"
+                                android:text="日用百货"/>
 
                             <TextView
-                                android:id="@+id/tv_hair"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/selector_recharge_tv_checked2"
-                                android:gravity="center"
-                                android:text="美容美发"
-                                android:textColor="@drawable/button_color"
-                                android:textSize="14sp" />
+                                android:id="@+id/tv_3c"
+                                style="@style/direction_border_style"
+                                android:layout_weight="0"
+                                android:text="3C数码" />
 
                             <TextView
-                                android:id="@+id/tv_flower"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/selector_recharge_tv_checked2"
-                                android:gravity="center"
-                                android:text="鲜花礼品"
-                                android:textColor="@drawable/button_color"
-                                android:textSize="14sp" />
+                                android:id="@+id/tv_canyin"
+                                style="@style/direction_border_style"
+                                android:layout_weight="0"
+                                android:text="餐饮" />
+
+                            <TextView
+                                android:id="@+id/zidingyi"
+                                style="@style/direction_border_style"
+                                android:layout_weight="0"
+                                android:text="自定义" />
+
                         </LinearLayout>
 
+                     </LinearLayout>
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tv_car"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/selector_recharge_tv_checked2"
-                            android:gravity="center"
-                            android:text="汽车用品"
-                            android:textColor="@drawable/button_color"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/zidingyi"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:background="@drawable/selector_recharge_tv_checked2"
-                            android:gravity="center"
-                            android:text="自定义"
-                            android:textColor="@drawable/button_color"
-                            android:textSize="14sp" />
-
-
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/hobby_set_remind2"
-                        android:textColor="@color/c_DB010B"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                   </LinearLayout>
 
                 <!--用户偏好-->
                 <LinearLayout
@@ -414,20 +350,18 @@
                     android:background="@color/c_ffffff"
                     android:orientation="vertical"
                     android:paddingBottom="15dp"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center_vertical">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:gravity="center_horizontal"
                             android:text="用户偏好："
                             android:textColor="@color/text_gray"
@@ -465,27 +399,30 @@
                         android:id="@+id/directionHobbyInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="15dp"
-                        android:background="@drawable/bg_round_border"
+                        android:background="@drawable/btn_no_selec_border"
                         android:padding="10dp"
                         android:visibility="gone" />
 
                     <TextView
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:background="@drawable/btn_selec_red_border"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="15dp"
                         android:text="@string/hobby_set_remind"
-                        android:textColor="@color/c_DB010B"
+                        android:textColor="@color/white"
                         android:textSize="11sp" />
 
                 </LinearLayout>
 
-
             </LinearLayout>
+
         </ScrollView>
 
 

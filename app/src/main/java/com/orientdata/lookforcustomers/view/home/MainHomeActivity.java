@@ -83,6 +83,7 @@ import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.findcustomer.SearchActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.MessageTaskActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.PageTaskActivity;
+import com.orientdata.lookforcustomers.view.home.fragment.MeActivity;
 import com.orientdata.lookforcustomers.widget.MyListView;
 import com.orientdata.lookforcustomers.widget.abslistview.CommonAdapter;
 import com.orientdata.lookforcustomers.widget.abslistview.ViewHolder;
@@ -573,6 +574,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_me:
+                Intent intent = new Intent(this, MeActivity.class);
+                startActivity(intent);
                 ToastUtils.showShort("跳转到我的界面");
                 break;
             case R.id.ll_down:
@@ -588,10 +591,12 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 break;
             case R.id.bt_go_orintion: //打开定向设置
                 showDefaultLoading();
-                intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
-                intent.putExtra(Constants.latitude, mCurrentLatLng.latitude + "");
-                intent.putExtra(Constants.longitude, mCurrentLatLng.longitude + "");
-                intent.putExtra("address", tv_at_create_find_customer_putlocation.getText().toString().trim());
+                this.intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
+                this.intent.putExtra(Constants.latitude, mCurrentLatLng.latitude + "");
+                this.intent.putExtra(Constants.longitude, mCurrentLatLng.longitude + "");
+                this.intent.putExtra("cityCode", mCityCode);
+
+                this.intent.putExtra("address", tv_at_create_find_customer_putlocation.getText().toString().trim());
                     mBaiduMap.snapshotScope(null, new BaiduMap.SnapshotReadyCallback() {
                         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                         @Override
@@ -599,7 +604,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                             if (bitmap!=null) {
                                 hideDefaultLoading();
                                 byte[] bytes = ImageUtil.compressImage(bitmap);
-                                intent.putExtra("bitmap", bytes);
+                                MainHomeActivity.this.intent.putExtra("bitmap", bytes);
                             }
 //                            String baiduMapPath = ImageUtils2.saveBitmap(MainHomeActivity.this, bitmap);
 //                            Logger.d(baiduMapPath);
@@ -611,9 +616,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 //                            }
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainHomeActivity.this, btGoOrintion, getString(R.string.share_view));
                             if (modelFiltering()) {
-                                startActivity(intent, options.toBundle());
+                                startActivity(MainHomeActivity.this.intent, options.toBundle());
                             } else {
-                                startActivity(intent);
+                                startActivity(MainHomeActivity.this.intent);
                             }
 //                            EasyTransitionOptions options =
 //                                        EasyTransitionOptions.makeTransitionOptions(
@@ -633,8 +638,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 }
                 break;
             case R.id.ll_at_create_find_customer_search: //打开搜索页面
-                intent = new Intent(this, SearchActivity.class);
-                startActivityForResult(intent, 2);
+                this.intent = new Intent(this, SearchActivity.class);
+                startActivityForResult(this.intent, 2);
                 break;
         }
     }

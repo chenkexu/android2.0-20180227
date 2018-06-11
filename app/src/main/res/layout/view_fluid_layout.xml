@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/btn_no_selec_border"
+    android:layout_height="wrap_content">
+
+
+
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_fiud"
+        android:padding="5dp"
+        android:text="日用百货"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+    <ImageView
+        android:layout_toRightOf="@id/tv_fiud"
+        android:id="@+id/iv_fiud"
+        android:src="@mipmap/dele"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

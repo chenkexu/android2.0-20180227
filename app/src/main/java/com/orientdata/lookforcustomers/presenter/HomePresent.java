@@ -23,6 +23,7 @@ import java.util.List;
  */
 
 public class HomePresent<T> extends BasePresenter<IHomeView> {
+
     private IHomeView mHomeView;
     private ICertificateModel mCertificateModel = new CertificateModelImple();
     private IImgModel mImgModel = new ImgModelImple();

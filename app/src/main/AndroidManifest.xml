@@ -362,6 +362,12 @@
             android:name=".view.home.DirectionalSettingActivity3"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.home.fragment.MeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.home.ReportActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:theme="@style/AppTheme.Transparent"
             android:name=".view.home.MainHomeActivity"
             android:screenOrientation="portrait" />

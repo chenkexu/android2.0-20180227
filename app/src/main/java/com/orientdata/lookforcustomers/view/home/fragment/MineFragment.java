@@ -168,6 +168,8 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                     }
                     //TODO
                     mMapInfoBeans = response.getResult();
+
+
                     //是 String 名称
                     if (mMapInfoBeans.containsKey("name")) {
                         name = (String) mMapInfoBeans.get("name");
@@ -526,6 +528,8 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
             }
         }
     }
+
+
 
 
     //头像上传完成之后

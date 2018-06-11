@@ -90,12 +90,13 @@ public abstract class WangrunBaseFragment<V, T extends BasePresenter<V>> extends
 
     /**
      * 构建具体的Presenter
-     *
      * @return
      */
     protected abstract T createPresent();
+
     @Subscribe
     public void imgClipResult(ImgClipResultEvent imgClipResultEvent) {
+
     }
 
 }
