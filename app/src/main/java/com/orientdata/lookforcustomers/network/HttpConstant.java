@@ -193,6 +193,10 @@ public class HttpConstant {
     public static final String SELECT_ANNOUNCEMENT_INFO = HOST_URL + "app/announcement/selectAnnouncementInfo";
 
 
+    //查询当前任务的数量
+    public static final String GET_TASK_COUNT = HOST_URL + "app/task/getTaskCount";
+
+
 
 
 

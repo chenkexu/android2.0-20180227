@@ -84,6 +84,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
     }
 
     private void initView() {
+        mImmersionBar.fitsSystemWindows(true).statusBarDarkFont(false).statusBarColor(R.color.colorPrimary).init();
         rlHome = (RelativeLayout) findViewById(R.id.rl_main_home);
         rlSearch = (RelativeLayout) findViewById(R.id.rl_main_search);
         rlReport = (RelativeLayout) findViewById(R.id.rl_main_report);

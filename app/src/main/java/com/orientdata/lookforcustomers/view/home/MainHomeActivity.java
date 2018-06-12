@@ -109,6 +109,8 @@ import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 import vr.md.com.mdlibrary.utils.ImageUtils2;
 import vr.md.com.mdlibrary.utils.image.ImageUtil;
 
+import static com.orientdata.lookforcustomers.util.CommonUtils.getRandom2;
+
 
 /**
  * 创建寻客页面
@@ -183,6 +185,10 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     int[] mCircleRadius = {500, 1000, 2000, 3000, 5000, 10000};//米
     String[] mCircleRadiusKM = {"500M", "1KM", "2KM", "3KM", "5KM", "10KM"};
     String[] mCircleRadiusM = {"500", "1000", "2000", "3000", "5000", "10000"};
+    private  String CurrentCircleRadius = "500";
+
+
+
     List<String> mCircleRadiusKMLists = new ArrayList<>();//{"10KM", "5KM", "3KM", "2KM", "1KM", "500M"}范围半径数组
     private int mRadiusFromPosition = 0;
     private static final int accuracyCircleFillColor = 0x00FFFF88;
@@ -318,7 +324,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             public void onMapClick(LatLng latLng) {
                 mCurrentLatLng = latLng;
                 moveMapTo(latLng.latitude, latLng.longitude, true);
-                setMapCenterInfo(latLng, mCircleRadius[0]);
+                setMapCenterInfo(latLng, mCircleRadiusM[0]);
             }
 
             @Override
@@ -345,7 +351,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             @Override
             public void onMapStatusChangeFinish(MapStatus mapStatus) {
                 mCurrentLatLng = mapStatus.target;
-                setMapCenterInfo(mapStatus.target, mCircleRadius[0]);
+                setMapCenterInfo(mapStatus.target, mCircleRadiusM[0]);
                 //开始坐标转地址
                 mFromAction = 3;//来自地图移动
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption()
@@ -403,6 +409,19 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
         lvRadius.setAdapter(strngCommonAdapter);
 
+        //半径的点击事件
+        lvRadius.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mCurrentRadiuPos = position;
+                CurrentCircleRadius = mCircleRadiusM[position];
+                // 刷新listview
+                strngCommonAdapter.notifyDataSetChanged();
+                setMapCenterInfo(mCurrentLatLng, mCircleRadiusM[position]);
+            }
+        });
+
+
 
         //底部banner的拖动事件
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -432,47 +451,14 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         });
 
 
-        //半径的点击事件
-        lvRadius.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mCurrentRadiuPos = position;
-                // 刷新listview
-                strngCommonAdapter.notifyDataSetChanged();
-                setMapCenterInfo(mCurrentLatLng, mCircleRadius[position]);
-            }
-        });
 
     }
 
 
     //设置地图中心点的信息
-    private void setMapCenterInfo(LatLng latLng, int radius) {
-        cityMapValue = CommonUtils.getCityMapValue(mCityName);
-        Logger.d("当前的城市名:"+mCityName  + cityMapValue);
-        switch (radius){
-            case 500:
-                radiusRam = CommonUtils.getRandom(8000,12000);
-                break;
-            case 1000:
-                radiusRam = CommonUtils.getRandom(28000,32000);
-                break;
-            case 2000:
-                radiusRam = CommonUtils.getRandom(90000,110000);
-                break;
-            case 3000:
-                radiusRam = CommonUtils.getRandom(290000,310000);
-                break;
-            case 5000:
-                radiusRam = CommonUtils.getRandom(900000,1100000);
-                break;
-            case 10000:
-                radiusRam = CommonUtils.getRandom(1800000,2200000);
-                break;
-        }
-        tvPersonNum.setText("当前范围约有"+(int)(radiusRam*cityMapValue)+"人");
-
-
+    private void setMapCenterInfo(LatLng latLng, String radius) {
+        int personNum = getRandom2(radius , mCityName);
+        tvPersonNum.setText("当前范围约有" + personNum + "人");
         if (mBaiduMap == null || latLng == null) {
             Logger.e("mBaiduMap为空。。。。。");
             return;
@@ -483,7 +469,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
          */
         CircleOptions oCircle = new CircleOptions().fillColor(0x260077FF)
                 .center(latLng).stroke(new Stroke(5, 0x00000000))
-                .radius(radius);
+                .radius(Integer.parseInt(radius));
 
         //绘制中心图标
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.icon_center);
@@ -513,13 +499,13 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 if (data != null) {
                     AddressSearchRecode addressInfo = (AddressSearchRecode) data.getSerializableExtra("searchValue");
                     mCurrentLatLng = new LatLng(addressInfo.getLatitude(), addressInfo.getLongitude());
-                    moveMapTo(addressInfo.getLatitude(), addressInfo.getLongitude(), true);
-                    setMapCenterInfo(mCurrentLatLng, mCircleRadius[0]);
                     //开始坐标转地址
                     mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                             .location(mCurrentLatLng)
                             .newVersion(0));
                     mFromAction = 4;
+                    moveMapTo(addressInfo.getLatitude(), addressInfo.getLongitude(), true);
+                    setMapCenterInfo(mCurrentLatLng, mCircleRadiusM[0]);
                 }
                 break;
             case 3: //定向设置
@@ -590,13 +576,23 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 LbsManager.getInstance().getLocation(myListener);
                 break;
             case R.id.bt_go_orintion: //打开定向设置
-                showDefaultLoading();
-                this.intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
-                this.intent.putExtra(Constants.latitude, mCurrentLatLng.latitude + "");
-                this.intent.putExtra(Constants.longitude, mCurrentLatLng.longitude + "");
-                this.intent.putExtra("cityCode", mCityCode);
 
+                this.intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
+                this.intent.putExtra(Constants.latitude, mCurrentLatLng.latitude + ""); //精度
+                this.intent.putExtra(Constants.longitude, mCurrentLatLng.longitude + ""); //维度
+                this.intent.putExtra("cityCode", mCityCode); //城市编码
+                //投放变径
+                this.intent.putExtra(Constants.CurrentCircleRadius,CurrentCircleRadius);
+                //投放的城市名
+                this.intent.putExtra(Constants.mCityName,mCityName);
+
+
+
+                //地点名称
                 this.intent.putExtra("address", tv_at_create_find_customer_putlocation.getText().toString().trim());
+
+
+                showDefaultLoading();
                     mBaiduMap.snapshotScope(null, new BaiduMap.SnapshotReadyCallback() {
                         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                         @Override
@@ -992,7 +988,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
             locationFlag = 100;
             moveMapTo(result.getLocation().latitude, result.getLocation().longitude, true, mScaleLevel[mCurrentScaleLevelPositon]);
-            setMapCenterInfo(result.getLocation(), mCircleRadius[0]);
+            setMapCenterInfo(result.getLocation(), mCircleRadiusM[0]);
 
         } else if (mFromAction == 3) {
             Logger.d("获得了经纬度转换地址的回调（来自地图平移）城市为：" + addCom.city);
@@ -1014,9 +1010,10 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
             mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
             tv_at_create_find_customer_putlocation.setText(address);
+            moveMapTo(result.getLocation().latitude, result.getLocation().longitude, true);
+            setMapCenterInfo(result.getLocation(), mCircleRadiusM[0]);
         }
         mCurrentLatLng = result.getLocation();
-
         if (!TextUtils.isEmpty(mCityName)) {
             Logger.d("最终获得的mCityName是:" + mCityName);
             requestCityStatus(mCityName);
@@ -1025,6 +1022,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         if (result.getAddressDetail() != null) {
             tv_at_create_find_customer_putlocation.setText(result.getAddress());
         }
+
+
     }
 
 

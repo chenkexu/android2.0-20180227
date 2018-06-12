@@ -21,7 +21,6 @@
             android:transitionName="@string/share_view">
 
 
-
             <ImageView
                 android:id="@+id/bmapView"
                 android:layout_width="match_parent"
@@ -53,12 +52,12 @@
             </LinearLayout>
 
             <TextView
-                android:layout_above="@id/ll_kefu"
-                android:layout_marginBottom="20dp"
                 android:id="@+id/tv_person_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@id/ll_kefu"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:text="当前范围符合您标签的约有99999人"
                 android:textColor="@color/black"
@@ -181,51 +180,51 @@
                                 android:gravity="center_horizontal" />
 
                             <LinearLayout
-                                android:visibility="gone"
-                                android:layout_marginLeft="10dp"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:background="@drawable/btn_selec"
                                 android:id="@+id/ll_age"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/btn_selec"
+                                android:orientation="horizontal"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="5dp"
+                                android:visibility="gone">
 
                                 <TextView
-                                    android:textColor="@color/white"
                                     android:id="@+id/age_from"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="18及以下" />
+                                    android:text="18及以下"
+                                    android:textColor="@color/white" />
 
                                 <TextView
-                                    android:textColor="@color/white"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="--" />
+                                    android:text="--"
+                                    android:textColor="@color/white" />
 
                                 <TextView
-                                    android:textColor="@color/white"
                                     android:id="@+id/age_to"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="65及以上" />
+                                    android:text="65及以上"
+                                    android:textColor="@color/white" />
                             </LinearLayout>
 
 
                         </LinearLayout>
 
                         <com.jaygoo.widget.RangeSeekBar
-                            android:visibility="gone"
                             android:id="@+id/seekbar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
+                            android:visibility="gone"
                             app:rsb_indicator_height="20dp"
                             app:rsb_indicator_padding_left="0dp"
                             app:rsb_indicator_padding_right="10dp"
@@ -251,18 +250,18 @@
 
 
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@color/white"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:orientation="vertical">
 
 
                         <!--您的所属行业-->
                         <TextView
-                            android:background="@color/white"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="@color/white"
                             android:drawablePadding="6dp"
                             android:text="您的所属行业"
                             android:textColor="@color/text_gray"
@@ -272,34 +271,38 @@
 
                         <!--按行业投放的标签-->
                         <LinearLayout
-                            android:paddingTop="10dp"
-                            android:background="@color/white"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginRight="10dp"
+                            android:background="@color/white"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingTop="10dp">
 
                             <TextView
-                                style="@style/direction_border_style"
                                 android:id="@+id/tv_no_limit"
+                                style="@style/direction_border_style"
                                 android:text="不限" />
+
                             <TextView
-                                style="@style/direction_border_style"
                                 android:id="@+id/tv_car"
-                                android:text="汽车用品" />
-                            <TextView
                                 style="@style/direction_border_style"
+                                android:text="汽车用品" />
+
+                            <TextView
                                 android:id="@+id/tv_muying"
+                                style="@style/direction_border_style"
                                 android:text="母婴用品" />
+
                             <TextView
                                 android:id="@+id/tv_hair"
                                 style="@style/direction_border_style"
                                 android:text="美容美发" />
+
                             <TextView
+                                android:id="@+id/tv_flower"
                                 style="@style/direction_border_style"
                                 android:layout_marginRight="0dp"
-                                android:id="@+id/tv_flower"
                                 android:text="鲜花礼品" />
 
                         </LinearLayout>
@@ -316,7 +319,7 @@
                                 android:id="@+id/tv_baihe"
                                 style="@style/direction_border_style"
                                 android:layout_weight="0"
-                                android:text="日用百货"/>
+                                android:text="日用百货" />
 
                             <TextView
                                 android:id="@+id/tv_3c"
@@ -338,9 +341,9 @@
 
                         </LinearLayout>
 
-                     </LinearLayout>
+                    </LinearLayout>
 
-                   </LinearLayout>
+                </LinearLayout>
 
                 <!--用户偏好-->
                 <LinearLayout
@@ -406,15 +409,15 @@
                         android:visibility="gone" />
 
                     <TextView
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:background="@drawable/btn_selec_red_border"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="15dp"
+                        android:background="@drawable/btn_selec_red_border"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
                         android:text="@string/hobby_set_remind"
                         android:textColor="@color/white"
                         android:textSize="11sp" />

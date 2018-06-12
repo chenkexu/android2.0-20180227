@@ -96,87 +96,89 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:background="@color/bg_red"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/bg_red"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:textStyle="bold"
-                android:textColor="@color/bg_yellow"
-                android:textSize="30sp"
-                android:text="8976"
                 android:id="@+id/tv_account_balance"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-            <TextView
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:text="账户余额"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:text="8976"
                 android:textColor="@color/bg_yellow"
                 android:textSize="30sp"
-                android:text="8976"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="账户余额"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
                 android:id="@+id/tv_account_froze"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-            <TextView
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:text="冻结金额"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:text="8976"
                 android:textColor="@color/bg_yellow"
                 android:textSize="30sp"
-                android:text="8976"
-                android:id="@+id/tv_account_commission"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textStyle="bold" />
 
 
             <TextView
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:text="佣金余额"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="冻结金额"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_account_commission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8976"
+                android:textColor="@color/bg_yellow"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="佣金余额"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </LinearLayout>

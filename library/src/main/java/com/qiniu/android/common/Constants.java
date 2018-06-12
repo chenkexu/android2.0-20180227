@@ -10,6 +10,8 @@ public final class Constants {
 
     public static final String latitude = "latitude";
     public static final String longitude = "longitude";
+    public static final String CurrentCircleRadius = "CurrentCircleRadius";
+    public static final String mCityName = "mCityName";
 
 
     public static final String address = "address";

@@ -113,11 +113,11 @@ public class GsonUtils<T> {
 	 * @param json
 	 * @return
 	 */
-	public static HashMap<String, Object> parseJsonToMap(String json) {
+	public static HashMap<String, Map<String,String>> parseJsonToMap(String json) {
 		Gson gson = new Gson();
 		Type type = new TypeToken<HashMap<String, Object>>() {
 		}.getType();
-		HashMap<String, Object> map = null;
+		HashMap<String, Map<String,String>> map = null;
 		try {
 			map = gson.fromJson(json, type);
 		} catch (Exception e) {

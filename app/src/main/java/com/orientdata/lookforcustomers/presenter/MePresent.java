@@ -6,6 +6,7 @@ import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.bean.TradeSelfout;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.bean.UserInfoBean;
+import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.event.MyMoneyEvent;
 import com.orientdata.lookforcustomers.event.SearchListEvent;
 import com.orientdata.lookforcustomers.event.UploadImgEvent;
@@ -15,11 +16,16 @@ import com.orientdata.lookforcustomers.model.imple.CertificateModelImple;
 import com.orientdata.lookforcustomers.model.imple.ImgModelImple;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
+import com.orientdata.lookforcustomers.network.api.ApiManager;
+import com.orientdata.lookforcustomers.network.api.BaseObserver;
+import com.orientdata.lookforcustomers.network.api.ParamsUtil;
+import com.orientdata.lookforcustomers.network.util.RxUtil;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.home.imple.IMeView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +47,23 @@ public class MePresent<T> extends BasePresenter<IMeView> {
         this.mHomeView = mHomeView;
     }
 
+
+
+    public void getTaskCount(){
+        HashMap<String, Object> map = ParamsUtil.getMap();
+        ApiManager.getInstence().getApiService().getTaskCount(ParamsUtil.getParams(map))
+                .compose(RxUtil.<WrResponse<Object>>rxSchedulerHelper())
+                .subscribe(new BaseObserver<Object>() {
+                    @Override
+                    protected void onSuccees(WrResponse<Object> t) {
+
+                    }
+
+                    @Override
+                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
+                    }
+                });
+    }
 
     /**
      * 获取账号 佣金 和 余额

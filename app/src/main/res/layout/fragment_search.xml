@@ -53,12 +53,7 @@
         android:divider="@null"
         android:layout_marginTop="10dp"
         android:dividerHeight="0dp" />
-    <include
-        android:id="@+id/linearCreateSearch"
-        android:layout_alignParentBottom="true"
-        layout="@layout/pull_down_text_view3"
-        android:layout_height="84dp"
-        android:layout_width="match_parent" />
+
 
 
 </RelativeLayout>

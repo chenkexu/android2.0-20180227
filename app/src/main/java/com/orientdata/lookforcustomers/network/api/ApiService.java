@@ -50,5 +50,7 @@ public interface ApiService {
     @GET("app/address")
     Observable<WrResponse<List<AddressCollectInfo>>> appAddressGet(@QueryMap HashMap<String, Object> map);
 
-
+    //查询任务数量
+    @GET("app/task/getTaskCount")
+    Observable<WrResponse<Object>> getTaskCount(@QueryMap HashMap<String, Object> map);
 }

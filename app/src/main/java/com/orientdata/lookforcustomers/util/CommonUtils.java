@@ -8,6 +8,9 @@ import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import com.blankj.utilcode.util.ResourceUtils;
+import com.orhanobut.logger.Logger;
+
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -25,15 +28,104 @@ import java.util.regex.Pattern;
  */
 public class CommonUtils {
 
+    private String ageF = "不限"; //最后的起始年龄
+    private String ageB = "不限";  //最后的终止年龄
+    private String sex = "不限";   //性别
+    private String industryStr = "不限"; //行业
+    private  int labelNum = 0;
 
 
 
-    public static int getRandom(int min,int max){
+    public static String getPersonNum(String currentCircleRadius,String cityName,String ageF,String ageB,String sex,String industryStr,int labelNum){
+        String ageValue = "1";
+
+        Logger.d("选择的参数为: "+currentCircleRadius+","+cityName+","+ageF+","+ageB+","+sex+","+industryStr+","+labelNum);
+        int personNumStr = CommonUtils.getRandom2(currentCircleRadius, cityName);
+        if (sex.equals("不限")) {
+            personNumStr = (int) (personNumStr * 1.0);
+        }else{
+            personNumStr = (int) (personNumStr * 0.5);
+        }
+
+        // TODO: 2018/6/12 年龄选择
+        String ageJson = ResourceUtils.readAssets2String("dataAge.json");
+        HashMap<String, Map<String,String>> ageJsonMap = GsonUtils.parseJsonToMap(ageJson);
+        for(Map.Entry<String,Map<String,String>> entry:ageJsonMap.entrySet()){
+            if (ageF.equals(entry.getKey())) {
+                Map<String, String> value = entry.getValue();
+                for(Map.Entry<String,String> entry2:value.entrySet()){
+                    if (ageB.equals(entry2.getKey())) {
+                        ageValue = entry2.getValue();
+                        Logger.d("ageValue: "+ageValue);
+                    }
+                }
+            }
+        }
+
+        personNumStr = (int) (personNumStr * Double.parseDouble(ageValue));
+
+
+
+        if (industryStr.equals("不限")) {
+            personNumStr = (int) (personNumStr * 1.0);
+        } else if (industryStr.equals("自定义")) {
+            if (labelNum==6) {
+                personNumStr = (int)(personNumStr * labelNum * 1.0);
+            }else{
+                personNumStr = (int)(personNumStr * labelNum * 0.1666);
+            }
+        } else {
+            double randomDouble = getRandomDouble(0.72, 0.82);
+            personNumStr = (int) (personNumStr * randomDouble);
+        }
+        return "当前范围符合您标签的约有"+ personNumStr +"人";
+    }
+
+
+    public static double getRandomDouble(double min, double max){
+        double d = min + Math.random() * max % (max - min + 1);
+        return d;
+    }
+
+
+
+
+    public static int getRandom(int min, int max){
 
         Random random = new Random();
         int s = (random.nextInt(max) % (max - min + 1) + min);
         return s;
     }
+
+
+    public static int getRandom2(String radius,String cityName){
+        Logger.d("当前的城市名:"+cityName);
+        int radiusRam = 0;
+        switch (radius){
+            case "500":
+                radiusRam = CommonUtils.getRandom(8000, 12000);
+                break;
+            case "1000":
+                radiusRam = CommonUtils.getRandom(28000,32000);
+                break;
+            case "2000":
+                radiusRam = CommonUtils.getRandom(90000,110000);
+                break;
+            case "3000":
+                radiusRam = CommonUtils.getRandom(290000,310000);
+                break;
+            case "5000":
+                radiusRam = CommonUtils.getRandom(900000,1100000);
+                break;
+            case "10000":
+                radiusRam = CommonUtils.getRandom(1800000,2200000);
+                break;
+        }
+        Double cityMapValue = CommonUtils.getCityMapValue(cityName);
+        int personNum = (int)(radiusRam * cityMapValue);
+        return personNum;
+    }
+
 
 
     public static Double getCityMapValue(String cityName){

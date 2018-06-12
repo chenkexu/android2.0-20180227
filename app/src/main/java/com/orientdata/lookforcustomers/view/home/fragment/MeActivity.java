@@ -36,6 +36,7 @@ import com.orientdata.lookforcustomers.view.home.RechargeActivity;
 import com.orientdata.lookforcustomers.view.home.ReportActivity;
 import com.orientdata.lookforcustomers.view.home.imple.IMeView;
 import com.orientdata.lookforcustomers.view.mine.ShareToGetCommissionActivity;
+import com.orientdata.lookforcustomers.view.mine.TaskListActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.CommissionWithDrawActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.SettingActivity;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
@@ -46,6 +47,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
@@ -85,19 +87,18 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     private MePresent mePresent;
     private ACache aCache = null;//数据缓存
 
-    private String[] taskStatusStr = {"审核中","待投放","投放中","投放结束","审核失败"};
+    private String[] taskStatusStr = {"审核中", "待投放", "投放中", "投放结束", "审核失败"};
 
-    private int[] taskStatusPics = {R.drawable.ic_logo,R.drawable.ic_logo,
-            R.drawable.ic_logo,R.drawable.ic_logo,R.drawable.ic_logo};
+    private int[] taskStatusPics = {R.drawable.ic_logo, R.drawable.ic_logo,
+            R.drawable.ic_logo, R.drawable.ic_logo, R.drawable.ic_logo};
 
-    private String[] myStr = {"账户充值","账户认证","报表统计","发票管理","佣金提现",
-                                "分享赚佣金","在线客服","邀请码","设置"};
+    private String[] myStr = {"账户充值", "账户认证", "报表统计", "发票管理", "佣金提现",
+            "分享赚佣金", "在线客服", "邀请码", "设置"};
 
 
-    private int[] myStrPics = {R.drawable.ic_logo,R.drawable.ic_logo,R.drawable.ic_logo,R.drawable.ic_logo,
-            R.drawable.ic_logo,R.drawable.ic_logo,
-            R.drawable.ic_logo,R.drawable.ic_logo,R.drawable.ic_logo};
-
+    private int[] myStrPics = {R.drawable.ic_logo, R.drawable.ic_logo, R.drawable.ic_logo, R.drawable.ic_logo,
+            R.drawable.ic_logo, R.drawable.ic_logo,
+            R.drawable.ic_logo, R.drawable.ic_logo, R.drawable.ic_logo};
 
 
     private List<HomeBean> imagesAndTitles = new ArrayList<>();
@@ -111,10 +112,26 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     private String moreMoney;
 
 
+
+    @OnClick({R.id.tv_phone_no, R.id.tv_more_task})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_phone_no:
+                break;
+            case R.id.tv_more_task:
+                Intent intent = new Intent(MeActivity.this, TaskListActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine);
+        mImmersionBar.fitsSystemWindows(true).statusBarDarkFont(false).statusBarColor(R.color.colorPrimary).init();
         ButterKnife.bind(this);
         mePresent = new MePresent(this);
         initView();
@@ -122,16 +139,16 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     }
 
     private void initView() {
-        for(int i=0;i<taskStatusPics.length;i++){
+        for (int i = 0; i < taskStatusPics.length; i++) {
             HomeBean homeBean = new HomeBean(taskStatusStr[i], taskStatusPics[i]);
             imagesAndTitles.add(homeBean);
         }
-        for(int i=0;i<myStr.length;i++){
+        for (int i = 0; i < myStr.length; i++) {
             HomeBean homeBean = new HomeBean(myStr[i], myStrPics[i]);
             imagesAndTitles2.add(homeBean);
         }
-        rvTask.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        rvMine.setLayoutManager(new GridLayoutManager(this,4));
+        rvTask.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rvMine.setLayoutManager(new GridLayoutManager(this, 4));
         Adapter taskAdapter = new Adapter(imagesAndTitles);
         Adapter meAdapter = new Adapter(imagesAndTitles2);
         rvTask.setAdapter(taskAdapter);
@@ -139,7 +156,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         taskAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (position){
+                switch (position) {
                     case 0: //审核中
                         break;
                     case 1: //待投放
@@ -157,7 +174,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (position){
+                switch (position) {
                     case 0: //账户充值
                         intent = new Intent(MeActivity.this, RechargeActivity.class);
                         startActivity(intent);
@@ -183,31 +200,31 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
                         break;
                     case 5: //分享佣金
                         //赚取佣金 获取Url
-                            showDefaultLoading();
-                            MDBasicRequestMap map = new MDBasicRequestMap();
-                            map.put("userId", UserDataManeger.getInstance().getUserId());
-                            OkHttpClientManager.postAsyn(HttpConstant.CREATE_URL, new OkHttpClientManager.ResultCallback<URLBean>() {
-                                @Override
-                                public void onError(Exception e) {
-                                    ToastUtils.showShort(e.getMessage());
-                                    hideDefaultLoading();
-                                }
+                        showDefaultLoading();
+                        MDBasicRequestMap map = new MDBasicRequestMap();
+                        map.put("userId", UserDataManeger.getInstance().getUserId());
+                        OkHttpClientManager.postAsyn(HttpConstant.CREATE_URL, new OkHttpClientManager.ResultCallback<URLBean>() {
+                            @Override
+                            public void onError(Exception e) {
+                                ToastUtils.showShort(e.getMessage());
+                                hideDefaultLoading();
+                            }
 
-                                @Override
-                                public void onResponse(URLBean re) {
-                                    if (re.getCode() == 0) {
-                                        String url = re.getResult();
-                                        if (!TextUtils.isEmpty(url)) {
-                                            Intent intent1 = new Intent(MeActivity.this, ShareToGetCommissionActivity.class);
-                                            intent1.putExtra("url", url);
-                                            startActivity(intent1);
-                                        } else {
-                                            ToastUtils.showShort("获取分享链接失败");
-                                        }
+                            @Override
+                            public void onResponse(URLBean re) {
+                                if (re.getCode() == 0) {
+                                    String url = re.getResult();
+                                    if (!TextUtils.isEmpty(url)) {
+                                        Intent intent1 = new Intent(MeActivity.this, ShareToGetCommissionActivity.class);
+                                        intent1.putExtra("url", url);
+                                        startActivity(intent1);
+                                    } else {
+                                        ToastUtils.showShort("获取分享链接失败");
                                     }
-                                    hideDefaultLoading();
                                 }
-                            }, map);
+                                hideDefaultLoading();
+                            }
+                        }, map);
                         break;
                     case 6://在线客服
                         final String url = "mqqwpa://im/chat?chat_type=wpa&uin=2280249239";
@@ -235,6 +252,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         aCache = ACache.get(this);
         mPresent.getUserData();
         mPresent.getCommission();
+        mPresent.getTaskCount();
     }
 
 
@@ -252,56 +270,55 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     @Override
     public void getCertificateMsg(CertificationOut certificationOut, boolean isCertificate) {
 
-            String cerStatus = "";
-            String remindString = "";
-            int imgResId = 0;
-            String btText = "";
-            int authStatus = -1;
-            if (certificationOut == null) {
-                //未认证
-                cerStatus = getString(R.string.no_cer);
-                remindString = getString(R.string.no_certified);
-                imgResId = R.mipmap.go_pass;
-                btText = getString(R.string.go_cer);
+        String cerStatus = "";
+        String remindString = "";
+        int imgResId = 0;
+        String btText = "";
+        int authStatus = -1;
+        if (certificationOut == null) {
+            //未认证
+            cerStatus = getString(R.string.no_cer);
+            remindString = getString(R.string.no_certified);
+            imgResId = R.mipmap.go_pass;
+            btText = getString(R.string.go_cer);
 //            账户未认证，去认证
-            } else {
-                //认证状态 1审核中 2审核通过 3审核拒绝
-                authStatus = certificationOut.getAuthStatus();
-                if (authStatus == 1 || authStatus == 4) {
-                    //审核中
-                    cerStatus = getString(R.string.cer_ing);
-                    remindString = getString(R.string.cer_waiting);
-                    imgResId = R.mipmap.pass_ing;
-                    btText = getString(R.string.go_watch);
-                } else if (authStatus == 3) {
-                    //审核拒绝
-                    cerStatus = getString(R.string.no_pass);
-                    remindString = getString(R.string.not_pass);
-                    imgResId = R.mipmap.no_pass;
-                    btText = getString(R.string.re_go_cer);
-                }
+        } else {
+            //认证状态 1审核中 2审核通过 3审核拒绝
+            authStatus = certificationOut.getAuthStatus();
+            if (authStatus == 1 || authStatus == 4) {
+                //审核中
+                cerStatus = getString(R.string.cer_ing);
+                remindString = getString(R.string.cer_waiting);
+                imgResId = R.mipmap.pass_ing;
+                btText = getString(R.string.go_watch);
+            } else if (authStatus == 3) {
+                //审核拒绝
+                cerStatus = getString(R.string.no_pass);
+                remindString = getString(R.string.not_pass);
+                imgResId = R.mipmap.no_pass;
+                btText = getString(R.string.re_go_cer);
             }
-            if (authStatus != 2) {
-                final RemindDialog dialog = new RemindDialog(MeActivity.this,"", remindString, imgResId, btText);
-                dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
-                    @Override
-                    public void doCertificate() {
-                        dialog.dismiss();
-                        startActivity(new Intent(MeActivity.this, CertificationActivity.class));
-                    }
-                });
-                dialog.setCancelable(true);
-                dialog.show();
-            } else {
-                //审核通过
-                if (isCertificate) {
+        }
+        if (authStatus != 2) {
+            final RemindDialog dialog = new RemindDialog(MeActivity.this, "", remindString, imgResId, btText);
+            dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
+                @Override
+                public void doCertificate() {
+                    dialog.dismiss();
                     startActivity(new Intent(MeActivity.this, CertificationActivity.class));
-                } else {
-                    startActivity(new Intent(MeActivity.this, CreateFindCustomerActivity.class));
                 }
+            });
+            dialog.setCancelable(true);
+            dialog.show();
+        } else {
+            //审核通过
+            if (isCertificate) {
+                startActivity(new Intent(MeActivity.this, CertificationActivity.class));
+            } else {
+                startActivity(new Intent(MeActivity.this, CreateFindCustomerActivity.class));
             }
+        }
     }
-
 
 
     @Override
@@ -342,8 +359,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         userHead = myMoneyEvent.userHead;
         upMoney = myMoneyEvent.upMoney;
         moreMoney = myMoneyEvent.moreMoney;
-        tvAccountCommission.setText(commission+"");
-
+        tvAccountCommission.setText(commission + "");
     }
 
 
@@ -352,7 +368,9 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         return new MePresent<>(this);
     }
 
-    class Adapter extends BaseQuickAdapter<HomeBean,BaseViewHolder> {
+
+
+    class Adapter extends BaseQuickAdapter<HomeBean, BaseViewHolder> {
 
         public Adapter(@Nullable List<HomeBean> data) {
             super(R.layout.item_gv_me, data);
@@ -360,8 +378,8 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
 
         @Override
         protected void convert(BaseViewHolder helper, HomeBean item) {
-            helper.setImageResource(R.id.iv_logo,item.getPic());
-            helper.setText(R.id.tv_name,item.getName());
+            helper.setImageResource(R.id.iv_logo, item.getPic());
+            helper.setText(R.id.tv_name, item.getName());
         }
     }
 }
