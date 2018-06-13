@@ -81,11 +81,12 @@ public class ConfirmDialog extends Dialog {
         if(!TextUtils.isEmpty(rightText)){
             tvConfirm.setText(rightText);
         }
-
         tvRemind.setText(remindString);
+
+
+
         tvCancel.setOnClickListener(new clickListener());
         tvConfirm.setOnClickListener(new clickListener());
-
         Window dialogWindow = getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用

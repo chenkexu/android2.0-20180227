@@ -38,6 +38,7 @@ import com.orientdata.lookforcustomers.view.findcustomer.IDirectionalSettingView
 import com.orientdata.lookforcustomers.widget.FluidLayout;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.BusinessInterestDialog;
+import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.HobbyMultipleSelectDialog;
 import com.qiniu.android.common.Constants;
 
@@ -238,8 +239,22 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
+    private void showDialog() {
+        final ConfirmDialog dialog = new ConfirmDialog(this, getString(R.string.dir_quess),"我已了解");
+        dialog.show();
+        dialog.setClickListenerInterface(new ConfirmDialog.ClickListenerInterface() {
+            @Override
+            public void doCancel() {
+                dialog.dismiss();
+            }
+            @Override
+            public void doConfirm() {
 
-
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelVisibility(View.GONE);
+    }
 
     private void initView() {
 
@@ -282,10 +297,15 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         rvAge.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvSex.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        final Adapter adapterAge = new Adapter(Arrays.asList(agesSelects));
-        final Adapter adaptersex = new Adapter(Arrays.asList(sexsSelects));
-        rvAge.setAdapter(adapterAge);
+        final Adapter adaptersex = new Adapter(Arrays.asList(sexsSelects),1);
         rvSex.setAdapter(adaptersex);
+
+        final Adapter adapterAge = new Adapter(Arrays.asList(agesSelects),0);
+
+        rvAge.setAdapter(adapterAge);
+
+
+
 
         adaptersex.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -394,9 +414,11 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
 
     public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
+        private int type;
 
-        public Adapter(@Nullable List<String> data) {
+        public Adapter(@Nullable List<String> data,int type) {
             super(R.layout.item_categroy_select, data);
+            this.type = type;
         }
 
         @Override
@@ -406,12 +428,17 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
             if (sexPosition == layoutPosition) {
                 helper.setTextColor(R.id.tv_title, getResources().getColor(R.color.white));
                 helper.setBackgroundRes(R.id.rl_title, R.drawable.btn_selec);
+            } else if(type == 0){
+                helper.setTextColor(R.id.tv_title, getResources().getColor(R.color.text_gray_new));
+                helper.setBackgroundRes(R.id.rl_title, R.drawable.btn_no_selec_border);
             } else {
-                helper.setTextColor(R.id.tv_title, getResources().getColor(R.color.text_gray));
+                helper.setTextColor(R.id.tv_title, getResources().getColor(R.color.gray_small));
                 helper.setBackgroundRes(R.id.rl_title, R.drawable.btn_no_selec);
             }
         }
     }
+
+
 
     /**
      * 获取定向设置 当前用户的缓存数据（缓存中的数据）
@@ -788,9 +815,15 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-    @OnClick({R.id.collect_address,R.id.tv_no_limit, R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
+    @OnClick({R.id.collect_address,R.id.iv_back,R.id.tv_quess,R.id.tv_no_limit, R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_quess:
+                showDialog();
+                break;
+            case R.id.iv_back:
+                finish();
+                break;
             case R.id.collect_address: //收藏地址
                 mPresent.AddAddressInfo(address, longitude, latitude);
                 break;
@@ -828,6 +861,9 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
             tvPersonNum.setText(personNumStr);
         }
     }
+
+
+
 
 
     /**

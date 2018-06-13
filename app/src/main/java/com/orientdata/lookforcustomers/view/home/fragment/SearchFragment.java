@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
@@ -19,10 +18,7 @@ import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.bean.Task;
 import com.orientdata.lookforcustomers.event.SearchListEvent;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
-import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
-import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
-import com.orientdata.lookforcustomers.view.findcustomer.CreateFindCustomerActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.TaskDetailActivity;
 import com.orientdata.lookforcustomers.view.home.IHomeView;
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
@@ -44,7 +40,7 @@ import java.util.List;
 
 public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHomeView>> implements View.OnClickListener,XListView.IXListViewListener,IHomeView {
     private LinearLayout typeChoose1,typeChoose2;
-    private RelativeLayout linearCreateSearch;
+//    private RelativeLayout linearCreateSearch;
     private HomePresent mHomePresent;
     private TextView chooseText1,chooseText2;
     private ArrayList<String> listStr = null;
@@ -84,10 +80,8 @@ public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<I
         typeChoose2 = view.findViewById(R.id.typeChoose2);
         chooseText1 = typeChoose1.findViewById(R.id.tvLeftText);
         chooseText2 = typeChoose2.findViewById(R.id.tvLeftText);
-        linearCreateSearch = view.findViewById(R.id.linearCreateSearch);
         typeChoose1.setOnClickListener(this);
         typeChoose2.setOnClickListener(this);
-        linearCreateSearch.setOnClickListener(this);
         titleSearch.setTitleName("寻客管理");
         mListView.setPullLoadEnable(true);
         mListView.setXListViewListener(this);
@@ -127,16 +121,16 @@ public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<I
             case R.id.typeChoose2:
                 showStringDialog2();
                 break;
-            case R.id.linearCreateSearch:
-                double userStatus = Double.parseDouble(aCache.getAsString(SharedPreferencesTool.USER_STATUS));
-                if(userStatus == 2.0){
-                    //黑名单
-                    ToastUtils.showShort("账户异常，请联系客服");
-                }else{
-                    aCache.remove(SharedPreferencesTool.DIRECTION_HISTORY);
-                    startActivity(new Intent(getContext(), CreateFindCustomerActivity.class));
-                }
-                break;
+//            case R.id.linearCreateSearch:
+//                double userStatus = Double.parseDouble(aCache.getAsString(SharedPreferencesTool.USER_STATUS));
+//                if(userStatus == 2.0){
+//                    //黑名单
+//                    ToastUtils.showShort("账户异常，请联系客服");
+//                }else{
+//                    aCache.remove(SharedPreferencesTool.DIRECTION_HISTORY);
+//                    startActivity(new Intent(getContext(), CreateFindCustomerActivity.class));
+//                }
+//                break;
         }
     }
     private int choosePosition1 = 0;

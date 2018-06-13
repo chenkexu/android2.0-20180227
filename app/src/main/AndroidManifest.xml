@@ -368,6 +368,10 @@
             android:name=".view.home.fragment.MeActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.mine.MessageActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".view.home.ReportActivity"
             android:screenOrientation="portrait" />
         <activity

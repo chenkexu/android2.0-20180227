@@ -1,12 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_title"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/c_ffffff"
     android:orientation="vertical">
 
+
+    <!--搜索框-->
     <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@mipmap/home_title"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_at_create_find_customer_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_navigate_before" />
+
+            <com.orientdata.lookforcustomers.widget.ClearableEditText
+                android:layout_marginLeft="5dp"
+                android:id="@+id/clearEdit"
+                style="@style/common_edittext1"
+                android:layout_width="0dp"
+                android:layout_weight="11"
+                android:layout_height="29dp"
+                android:layout_gravity="center_vertical"
+                android:cursorVisible="true"
+                android:hint="请输入搜索内容"
+                android:layout_marginRight="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="15dp" />
+
+            <ImageView
+                android:id="@+id/rightText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_search" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+  <!--  <LinearLayout
         android:layout_marginLeft="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,73 +104,79 @@
             android:visibility="visible"
             android:text="搜索" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:background="@color/c_fafafa" />
 
-    <RelativeLayout
-        android:id="@+id/rlRemind"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvSearchRecordd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:drawableLeft="@mipmap/hot"
-            android:drawablePadding="7dp"
-            android:text="搜索记录"
-            android:textColor="@color/text_gray"
-            android:textSize="17sp" />
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/rl_title_search"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
 
-        <ImageView
-            android:id="@+id/ivDelete"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_alignBottom="@+id/tvSearchRecordd"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:src="@mipmap/delete" />
-    </RelativeLayout>
+                <TextView
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="50dp"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@mipmap/icon_history"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="15sp"
+                    android:id="@+id/tv_history"
+                    android:gravity="center"
+                    android:text="历史记录"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
 
-    <LinearLayout
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tv_history"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="历史记录"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#D3D3D3"
+                    android:layout_width="0.2dp"
+                    android:layout_height="match_parent" />
 
-        <TextView
-            android:background="#d8d8d8"
-            android:layout_width="2dp"
-            android:layout_height="match_parent" />
+                <TextView
+                    android:drawablePadding="10dp"
+                    android:layout_alignParentRight="true"
+                    android:drawableLeft="@mipmap/icon_collect"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="15sp"
+                    android:id="@+id/tv_collection"
+                    android:gravity="center"
+                    android:text="收藏地址"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_collection"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="收藏地址"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-    <include layout="@layout/line_gray"/>
+            <include layout="@layout/line_gray"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/address_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/address_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
+            <include layout="@layout/rv_footer_search" />
+
+        </LinearLayout>
+</android.support.v7.widget.CardView>
 
 </LinearLayout>

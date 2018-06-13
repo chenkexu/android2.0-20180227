@@ -35,8 +35,10 @@ import com.orientdata.lookforcustomers.view.home.InvoiceActivity;
 import com.orientdata.lookforcustomers.view.home.RechargeActivity;
 import com.orientdata.lookforcustomers.view.home.ReportActivity;
 import com.orientdata.lookforcustomers.view.home.imple.IMeView;
+import com.orientdata.lookforcustomers.view.mine.MessageActivity;
 import com.orientdata.lookforcustomers.view.mine.ShareToGetCommissionActivity;
 import com.orientdata.lookforcustomers.view.mine.TaskListActivity;
+import com.orientdata.lookforcustomers.view.mine.imple.AccountBalanceActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.CommissionWithDrawActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.SettingActivity;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
@@ -58,8 +60,7 @@ import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implements IMeView {
     @BindView(R.id.margin)
     View margin;
-    @BindView(R.id.iv_setting)
-    TextView ivSetting;
+
     @BindView(R.id.rl_title)
     RelativeLayout rlTitle;
     @BindView(R.id.iv_head_portrait)
@@ -110,21 +111,39 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     private String userHead;
     private String upMoney;
     private String moreMoney;
+    private Intent intent;
 
 
-
-    @OnClick({R.id.tv_phone_no, R.id.tv_more_task})
+    @OnClick({R.id.tv_phone_no, R.id.tv_more_task,R.id.iv_message, R.id.ll_account_balance, R.id.ll_account_froze, R.id.ll_account_commission})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_phone_no:
                 break;
             case R.id.tv_more_task:
-                Intent intent = new Intent(MeActivity.this, TaskListActivity.class);
+                intent = new Intent(MeActivity.this, TaskListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.iv_message:
+                intent = new Intent(MeActivity.this, MessageActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_account_froze:
+            case R.id.ll_account_balance:
+                intent = new Intent(MeActivity.this, AccountBalanceActivity.class);
+                intent.putExtra("balance", balance);
+                intent.putExtra("frozenAmount", frozenAmount);
+                startActivity(intent);
+                break;
+            case R.id.ll_account_commission:
+                intent = new Intent(MeActivity.this, CommissionWithDrawActivity.class);
+                intent.putExtra("moreMoney", moreMoney);
+                intent.putExtra("commission", commission);
+                intent.putExtra("subCount", subCount);
+                intent.putExtra("upMoney", upMoney);
                 startActivity(intent);
                 break;
         }
     }
-
 
 
     @Override
@@ -168,6 +187,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
                 }
             }
         });
+
         meAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 
             private Intent intent;
@@ -367,6 +387,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     protected MePresent<IMeView> createPresent() {
         return new MePresent<>(this);
     }
+
 
 
 

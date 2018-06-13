@@ -59,7 +59,10 @@
     <string name="sub_confirm">确定</string>
     <string name="sub_fail">提交失败</string>
     <string name="sub_fail_txt">返回</string>
-    <string name="confirm_remind">确定删除全部历史记录？</string>
+    <string name="confirm_remind">您确定要清空搜索历史吗？</string>
+    <string name="dir_quess">所属行业标签，是系统根据海量客户历史投放数据,经过大数据分析和处理,选择投放效果最佳的标签</string>
+
+
     <!--创建寻客-->
     <string name="direction_setting">定向设置</string>
     <string name="page_task_setting">创建页面任务</string>

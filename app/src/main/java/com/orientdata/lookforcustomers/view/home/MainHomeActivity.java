@@ -244,6 +244,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private HashMap<String,Integer> cityMap;
     private Double cityMapValue;
     private int radiusRam;
+    private AddressSearchRecode addressInfo;
 
     protected boolean isImmersionBarEnabled() {
         return false;
@@ -332,6 +333,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 return false;
             }
         });
+
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
             @Override
             public void onMapStatusChangeStart(MapStatus mapStatus) {
@@ -383,8 +385,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
      * 初始化view，初始化内容
      */
     private void initView() {
-
-
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.sliding_layout);
         View bottomSheet = coordinatorLayout.findViewById(R.id.bottom_sheet);
         behavior = BottomSheetBehavior.from(bottomSheet);
@@ -407,6 +407,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             }
         };
 
+
         lvRadius.setAdapter(strngCommonAdapter);
 
         //半径的点击事件
@@ -420,8 +421,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 setMapCenterInfo(mCurrentLatLng, mCircleRadiusM[position]);
             }
         });
-
-
 
         //底部banner的拖动事件
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -449,8 +448,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 }
             }
         });
-
-
 
     }
 
@@ -497,7 +494,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 break;
             case 2://搜索
                 if (data != null) {
-                    AddressSearchRecode addressInfo = (AddressSearchRecode) data.getSerializableExtra("searchValue");
+                    addressInfo = (AddressSearchRecode) data.getSerializableExtra("searchValue");
                     mCurrentLatLng = new LatLng(addressInfo.getLatitude(), addressInfo.getLongitude());
                     //开始坐标转地址
                     mSearch.reverseGeoCode(new ReverseGeoCodeOption()
@@ -586,11 +583,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 //投放的城市名
                 this.intent.putExtra(Constants.mCityName,mCityName);
 
-
-
                 //地点名称
                 this.intent.putExtra("address", tv_at_create_find_customer_putlocation.getText().toString().trim());
-
 
                 showDefaultLoading();
                     mBaiduMap.snapshotScope(null, new BaiduMap.SnapshotReadyCallback() {
@@ -989,7 +983,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             locationFlag = 100;
             moveMapTo(result.getLocation().latitude, result.getLocation().longitude, true, mScaleLevel[mCurrentScaleLevelPositon]);
             setMapCenterInfo(result.getLocation(), mCircleRadiusM[0]);
-
+            if (result.getAddressDetail() != null) {
+                tv_at_create_find_customer_putlocation.setText(result.getAddress());
+            }
         } else if (mFromAction == 3) {
             Logger.d("获得了经纬度转换地址的回调（来自地图平移）城市为：" + addCom.city);
             //来自地图平移
@@ -1003,6 +999,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             mProvinceName = addCom.province;
             mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
             mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
+            if (result.getAddressDetail() != null) {
+                tv_at_create_find_customer_putlocation.setText(result.getAddress());
+            }
         } else if (mFromAction == 4) {
             Logger.d("获得了经纬度转换地址的回调（来自搜索）城市为：" + addCom.city);
             mCityName = addCom.city;
@@ -1012,17 +1011,15 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             tv_at_create_find_customer_putlocation.setText(address);
             moveMapTo(result.getLocation().latitude, result.getLocation().longitude, true);
             setMapCenterInfo(result.getLocation(), mCircleRadiusM[0]);
+            if (result.getAddressDetail() != null) {
+                tv_at_create_find_customer_putlocation.setText(addressInfo.getAddress());
+            }
         }
         mCurrentLatLng = result.getLocation();
         if (!TextUtils.isEmpty(mCityName)) {
             Logger.d("最终获得的mCityName是:" + mCityName);
             requestCityStatus(mCityName);
         }
-        //手动拖动地图后的地址
-        if (result.getAddressDetail() != null) {
-            tv_at_create_find_customer_putlocation.setText(result.getAddress());
-        }
-
 
     }
 

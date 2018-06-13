@@ -13,8 +13,8 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/btn_no_selec_border"
         android:gravity="center"
-        android:textColor="@color/c_414141"
-        android:textSize="14sp" />
+        android:textColor="@color/text_gray_new"
+        android:textSize="13sp" />
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"

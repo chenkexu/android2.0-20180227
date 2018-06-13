@@ -112,11 +112,6 @@ public class HomePresent<T> extends BasePresenter<IHomeView> {
     }
 
 
-
-
-
-
-
     public void getSearchList() {
         //-1代表不传 0全部
         getSearchList(0, 0, -1, -1);

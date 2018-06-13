@@ -9,6 +9,8 @@
 
 
     <TextView
+        android:textSize="15sp"
+        android:textColor="@color/text_gray_new"
         android:gravity="center"
         android:id="@+id/tv_fiud"
         android:padding="5dp"

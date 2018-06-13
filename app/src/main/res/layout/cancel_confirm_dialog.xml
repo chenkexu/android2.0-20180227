@@ -1,52 +1,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:background="@drawable/shape_circle_white_load_bg1"
     android:orientation="vertical">
 
-<TextView
-    android:paddingLeft="80dp"
-    android:paddingRight="80dp"
-    android:id="@+id/tvRemind"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="15sp"
-    android:textColor="@color/text_gray"
-    android:layout_marginTop="30dp"
-    android:layout_gravity="center_horizontal"
-    android:text="确定删除全部历史记录"/>
+
+    <TextView
+        android:id="@+id/tvRemind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@color/text_gray"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/dir_quess"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal"
-        android:gravity="center"
-        >
+        android:gravity="center">
         <TextView
+            android:visibility="gone"
             android:id="@+id/tvCancel"
             android:layout_width="86dp"
             android:layout_height="match_parent"
             android:background="@drawable/round_border"
             android:gravity="center"
             android:text="取消"
+            android:layout_marginRight="30dp"
             android:textColor="@color/c_999999"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textSize="14sp" />
         <TextView
             android:id="@+id/tvConfirm"
             android:layout_width="86dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
             android:background="@drawable/bac_rec_border"
             android:gravity="center"
             android:text="删除"
             android:visibility="visible"
             android:textColor="@color/colorPrimary"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textSize="15sp" />
     </LinearLayout>
 
 

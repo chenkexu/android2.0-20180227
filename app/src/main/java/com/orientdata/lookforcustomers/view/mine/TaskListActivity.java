@@ -43,7 +43,7 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
 
     private XListView mListView;
     private MyAdapter mAdapter;
-    private static List<Task> searchList = null;
+    private  List<Task> searchList = null;
     int page = 1;
     int size = 10;
 
@@ -51,14 +51,12 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = getLayoutInflater().inflate(R.layout.fragment_search,null);
+        View view = getLayoutInflater().inflate(R.layout.activity_task_list,null);
         setContentView(view);
         initData();
         intiView(view);
         updateData();
     }
-
-
 
     public void updateData() {
         Logger.d("获取寻客管理的内容");
@@ -175,9 +173,7 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
         dialog.show();
     }
 
-
     SearchListBean searchListBean;
-
 
     @Subscribe
     public void searchListResult(SearchListEvent searchListEvent) {
@@ -218,6 +214,7 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
         page++;
         updateData();
     }
+
     private void onLoad() {
         mListView.stopRefresh();
         mListView.stopLoadMore();

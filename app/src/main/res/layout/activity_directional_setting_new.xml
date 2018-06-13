@@ -41,15 +41,22 @@
                     android:id="@+id/iv_kefu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_kefu" />
+                    android:src="@mipmap/icon_kefu_dir" />
 
                 <ImageView
                     android:id="@+id/collect_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_kefu" />
+                    android:src="@mipmap/icon_collect_dir"/>
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_margin="15dp"
+                android:src="@mipmap/icon_bac_dir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/tv_person_num"
@@ -90,11 +97,12 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:textSize="19sp"
+                            android:textColor="@color/text_gray_new"
                             android:id="@+id/tv_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="朝阳区亚运村安立路9号"
-                            android:textStyle="bold" />
+                            android:text="朝阳区亚运村安立路9号" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -109,7 +117,7 @@
                                 android:gravity="center_horizontal"
                                 android:maxLines="1"
                                 android:text="覆盖范围："
-                                android:textColor="@color/text_gray"
+                                android:textColor="#A7A7A7"
                                 android:textSize="14sp" />
 
                             <TextView
@@ -119,11 +127,9 @@
                                 android:gravity="center_horizontal"
                                 android:maxLines="1"
                                 android:text="3公里"
-                                android:textColor="@color/text_gray"
+                                android:textColor="#A7A7A7"
                                 android:textSize="14sp" />
                         </LinearLayout>
-
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -146,7 +152,7 @@
                                 android:gravity="center"
                                 android:maxLines="1"
                                 android:text="性别："
-                                android:textColor="@color/text_gray"
+                                android:textColor="@color/text_gray_new"
                                 android:textSize="14sp" />
 
                             <android.support.v7.widget.RecyclerView
@@ -170,7 +176,7 @@
                                 android:gravity="center_horizontal"
                                 android:maxLines="1"
                                 android:text="年龄："
-                                android:textColor="@color/text_gray"
+                                android:textColor="@color/text_gray_new"
                                 android:textSize="14sp" />
 
                             <android.support.v7.widget.RecyclerView
@@ -250,6 +256,7 @@
 
 
                     <LinearLayout
+                        android:paddingTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -259,25 +266,26 @@
 
                         <!--您的所属行业-->
                         <TextView
-                            android:layout_width="match_parent"
+                            android:id="@+id/tv_quess"
+                            android:drawableRight="@mipmap/icon_ques"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:background="@color/white"
                             android:drawablePadding="6dp"
                             android:text="您的所属行业"
-                            android:textColor="@color/text_gray"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/text_gray_new"
+                            android:textSize="15sp" />
 
 
                         <!--按行业投放的标签-->
                         <LinearLayout
+                            android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginRight="10dp"
                             android:background="@color/white"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingTop="10dp">
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/tv_no_limit"
@@ -352,7 +360,6 @@
                     android:layout_height="wrap_content"
                     android:background="@color/c_ffffff"
                     android:orientation="vertical"
-                    android:paddingBottom="15dp"
                     android:visibility="visible">
 
                     <LinearLayout
@@ -437,7 +444,7 @@
             android:layout_below="@id/rl_map"
             android:layout_marginRight="20dp"
             android:layout_marginTop="-35dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/icon_find" />
 
     </RelativeLayout>
 
