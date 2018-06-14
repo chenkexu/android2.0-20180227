@@ -113,6 +113,7 @@ public class DirectionalSettingPresent<T> extends BasePresenter<IDirectionalSett
 
                     @Override
                     protected void onFailure(String errorInfo, boolean isNetWorkError) {
+                        ToastUtils.showShort(errorInfo);
                         mDirectionSetting.hideLoading();
                     }
                 });

@@ -124,47 +124,53 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <RelativeLayout
+                android:gravity="center_vertical"
                 android:id="@+id/rl_title_search"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp">
 
                 <TextView
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginRight="50dp"
-                    android:drawablePadding="10dp"
-                    android:drawableLeft="@mipmap/icon_history"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:textSize="15sp"
+                    android:textColor="@color/text_gray_new"
+                    android:drawableLeft="@mipmap/icon_history_sel"
                     android:id="@+id/tv_history"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="15dp"
+                    android:drawablePadding="10dp"
                     android:gravity="center"
                     android:text="历史记录"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:textSize="15sp" />
+
+
+
 
                 <TextView
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="#D3D3D3"
                     android:layout_width="0.2dp"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#D3D3D3" />
 
                 <TextView
-                    android:drawablePadding="10dp"
-                    android:layout_alignParentRight="true"
-                    android:drawableLeft="@mipmap/icon_collect"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:textSize="15sp"
                     android:id="@+id/tv_collection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@mipmap/icon_collect"
+                    android:drawablePadding="10dp"
                     android:gravity="center"
                     android:text="收藏地址"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:textSize="15sp" />
             </RelativeLayout>
 
             <include layout="@layout/line_gray"/>

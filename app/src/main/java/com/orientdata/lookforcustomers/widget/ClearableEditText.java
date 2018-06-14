@@ -47,7 +47,7 @@ public class ClearableEditText extends AppCompatEditText implements View.OnTouch
     }
 
     private void init(final Context context) {
-        final Drawable drawable = ContextCompat.getDrawable(context, R.mipmap.close);
+        final Drawable drawable = ContextCompat.getDrawable(context, R.mipmap.dele);
         mClearTextIcon = drawable;
         mClearTextIcon.setBounds(0, 0, mClearTextIcon.getIntrinsicHeight(), mClearTextIcon.getIntrinsicHeight());
         setClearIconVisible(false);

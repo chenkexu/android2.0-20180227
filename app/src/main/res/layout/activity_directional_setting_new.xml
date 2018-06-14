@@ -11,10 +11,12 @@
 
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
+
             android:id="@+id/rl_map"
             android:layout_width="match_parent"
             android:layout_height="250dp"
@@ -48,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_collect_dir"/>
+                    android:src="@mipmap/icon_collect_no"/>
             </LinearLayout>
 
             <ImageView
@@ -81,10 +83,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:paddingLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -355,6 +357,7 @@
 
                 <!--用户偏好-->
                 <LinearLayout
+                    android:paddingLeft="10dp"
                     android:id="@+id/ll_user_hobby"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -363,6 +366,7 @@
                     android:visibility="visible">
 
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_marginRight="15dp"

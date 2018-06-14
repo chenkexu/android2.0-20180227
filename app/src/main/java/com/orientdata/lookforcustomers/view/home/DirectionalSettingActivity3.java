@@ -1,6 +1,7 @@
 package com.orientdata.lookforcustomers.view.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -60,7 +61,6 @@ import static com.orientdata.lookforcustomers.R.id.iv_xunke_now;
  * Created by wy on 2017/11/27.
  * 新的定向设置Activity
  */
-
 public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettingView, DirectionalSettingPresent<IDirectionalSettingView>> implements IDirectionalSettingView, View.OnClickListener {
     @BindView(R.id.tv_3c)
     TextView tv3c;
@@ -229,12 +229,14 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
     @Override
     public void AddAddressSucess() {
+        collectAddress.setImageResource(R.mipmap.icon_collect_dir);
         ToastUtils.showShort("收藏成功");
     }
 
 
     @Override
     public void AddAddressError() {
+        collectAddress.setImageResource(R.mipmap.icon_collect_no);
         ToastUtils.showShort("收藏失败");
     }
 
@@ -815,11 +817,20 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-    @OnClick({R.id.collect_address,R.id.iv_back,R.id.tv_quess,R.id.tv_no_limit, R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
+    @OnClick({R.id.collect_address,R.id.iv_back,R.id.tv_quess,R.id.tv_no_limit,R.id.iv_kefu,
+            R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_quess:
                 showDialog();
+                break;
+            case R.id.iv_kefu:
+                final String url = "mqqwpa://im/chat?chat_type=wpa&uin=2280249239";
+                if (CommonUtils.checkApkExist(this, "com.tencent.mobileqq")) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                } else {
+                    ToastUtils.showShort("本机未安装QQ应用,请下载安装。");
+                }
                 break;
             case R.id.iv_back:
                 finish();
@@ -861,9 +872,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
             tvPersonNum.setText(personNumStr);
         }
     }
-
-
-
 
 
     /**

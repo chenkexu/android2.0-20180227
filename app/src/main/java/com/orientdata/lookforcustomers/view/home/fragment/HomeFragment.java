@@ -38,7 +38,7 @@ import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
-import com.orientdata.lookforcustomers.test.TestActivity;
+import com.orientdata.lookforcustomers.test.TestActivity2;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.DateTool;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
@@ -489,7 +489,7 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                 // TODO: 2018/5/4 测试界面，待会删除。
 //                mPresent.getCertificateMsg(true);
 //                startActivity(new Intent(getContext(), MainHomeActivity.class));
-                startActivity(new Intent(getContext(), TestActivity.class));
+                startActivity(new Intent(getContext(), TestActivity2.class));
                 break;
             case R.id.rlCreate:
                 if (userStatus == 2.0) {

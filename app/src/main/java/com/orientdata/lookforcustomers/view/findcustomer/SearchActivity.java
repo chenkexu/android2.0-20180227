@@ -1,6 +1,8 @@
 package com.orientdata.lookforcustomers.view.findcustomer;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -64,6 +66,10 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
     RelativeLayout rlTitleSearch;
     @BindView(R.id.rl_clear)
     RelativeLayout rlClear;
+    @BindView(R.id.tv_history)
+    TextView tvHistory;
+    @BindView(R.id.tv_collection)
+    TextView tvCollection;
 
 
     private ImageView right_btn;//关闭
@@ -81,19 +87,21 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_history://历史记录
+                clickHistory();
                 // TODO: 2018/5/24 查看所有的历史记录
                 history = findAll(AddressSearchRecode.class);
                 if (history.size() == 0 || history == null) {
                     addressAdapter.setEmptyView(R.layout.layout_no_content, (ViewGroup) rvAddressList.getParent());
                 } else {
-                    updateAddressSearchResult(history,2);
+                    updateAddressSearchResult(history, 2);
                 }
                 break;
             case R.id.tv_collection://收藏
+                clickCollect();
                 // TODO: 2018/5/30 请求接口
                 mPresent.getAllAddress();
                 break;
-            case R.id.iv_back://
+            case R.id.iv_back://返回
                 finish();
                 break;
             case R.id.tv_clear_history://清空历史记录
@@ -114,10 +122,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
         rightText = findViewById(R.id.rightText);
         rightText.setOnClickListener(this);
 
-
 //        view = getLayoutInflater().inflate(R.layout.rv_footer_search, (ViewGroup) rvAddressList.getParent(), false);
-
-
         // POI搜索API
         mPoiSearch = PoiSearch.newInstance();
         mPoiSearch.setOnGetPoiSearchResultListener(this);
@@ -129,9 +134,12 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
         addressAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         addressAdapter.isFirstOnly(false);
         rvAddressList.setAdapter(addressAdapter);
+
+        clickHistory();
+
         // TODO: 2018/5/24 查看所有的历史记录
         history = DataSupport.limit(15).order("id desc").find(AddressSearchRecode.class);
-        updateAddressSearchResult(history,2);
+        updateAddressSearchResult(history, 2);
 
         addressAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -159,7 +167,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
                 String s1 = s.toString();
                 if (TextUtils.isEmpty(s1)) {
                     rlTitleSearch.setVisibility(View.VISIBLE);
-                    updateAddressSearchResult(history,2);
+                    updateAddressSearchResult(history, 2);
                 } else {
                     rlTitleSearch.setVisibility(View.GONE);
                     addressAdapter.setNewData(null);
@@ -210,11 +218,12 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
             public void doCancel() {
                 dialog.dismiss();
             }
+
             @Override
             public void doConfirm() {
                 DataSupport.deleteAll(AddressSearchRecode.class);
                 history = findAll(AddressSearchRecode.class);
-                updateAddressSearchResult(history,2);
+                updateAddressSearchResult(history, 2);
                 dialog.dismiss();
             }
         });
@@ -228,6 +237,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
             public void doCancel() {
                 dialog.dismiss();
             }
+
             @Override
             public void doConfirm() {
                 dialog.dismiss();
@@ -260,18 +270,50 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
                 AddressSearchRecode addressResult = new AddressSearchRecode(poiInfo);
                 results.add(addressResult);
             }
-            updateAddressSearchResult(results,1);
+            updateAddressSearchResult(results, 1);
             return;
         }
     }
 
+    private void clickHistory(){
+        tvHistory.setTextColor(getResources().getColor(R.color.text_gray_new));
+        tvCollection.setTextColor(getResources().getColor(R.color.no_selec));
+        Drawable img_history, img_collect;
+        Resources res = getResources();
+        img_history = res.getDrawable(R.mipmap.icon_history_sel);
+        img_collect = res.getDrawable(R.mipmap.icon_collect);
+        img_history.setBounds(0, 0, img_history.getMinimumWidth(), img_history.getMinimumHeight());
+
+        img_collect.setBounds(0, 0, img_collect.getMinimumWidth(), img_collect.getMinimumHeight());
+
+        tvHistory.setCompoundDrawables(img_history, null, null, null); //设置左图标
+        tvCollection.setCompoundDrawables(img_collect, null, null, null); //设置左图标
+    }
+
+
+    private void clickCollect(){
+
+        tvHistory.setTextColor(getResources().getColor(R.color.no_selec));
+        tvCollection.setTextColor(getResources().getColor(R.color.text_gray_new));
+
+        Drawable img_history, img_collect;
+        Resources res = getResources();
+        img_history = res.getDrawable(R.mipmap.icon_history);
+        img_collect = res.getDrawable(R.mipmap.icon_collect_sel);
+        img_history.setBounds(0, 0, img_history.getMinimumWidth(), img_history.getMinimumHeight());
+
+        img_collect.setBounds(0, 0, img_collect.getMinimumWidth(), img_collect.getMinimumHeight());
+
+        tvHistory.setCompoundDrawables(img_history, null, null, null); //设置左图标
+        tvCollection.setCompoundDrawables(img_collect, null, null, null); //设置左图标
+    }
 
     //更新搜索的结果
-    private void updateAddressSearchResult(List<AddressSearchRecode> results,int type) {
+    private void updateAddressSearchResult(List<AddressSearchRecode> results, int type) {
 
         if (type == 2 && results.size() > 0) {
             rlClear.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             rlClear.setVisibility(View.GONE);
         }
         addressAdapter.setDataType(type);
@@ -319,6 +361,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
 
     @Override
     public void getAllCollectionAddress(List<AddressCollectInfo> addressCollectInfo) {
+
         if (addressCollectInfo == null || addressCollectInfo.size() == 0) {
             addressAdapter.setNewData(null);
             addressAdapter.setEmptyView(R.layout.layout_no_content, (ViewGroup) rvAddressList.getParent());
@@ -329,16 +372,17 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
                         Double.parseDouble(addressCollectInfo1.getLatitude()), "", addressCollectInfo1.getAddress());
                 history.add(addressSearchRecode);
             }
-            updateAddressSearchResult(history,3);
+            updateAddressSearchResult(history, 3);
         }
     }
+
 
     @Override
     public void AddAddressSucess() {
 
     }
 
-    //操作失败
+    //添加收藏失败
     @Override
     public void AddAddressError() {
 

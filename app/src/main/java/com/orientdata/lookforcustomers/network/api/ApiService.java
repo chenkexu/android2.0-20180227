@@ -53,4 +53,19 @@ public interface ApiService {
     //查询任务数量
     @GET("app/task/getTaskCount")
     Observable<WrResponse<Object>> getTaskCount(@QueryMap HashMap<String, Object> map);
+
+
+    //查询任务投递信息
+    @GET("app/taskThrowExpedite")
+    Observable<WrResponse<Object>> getTaskThrowExpedite(@QueryMap HashMap<String, Object> map);
+
+
+    //获取消息和公告列表
+    Observable<WrResponse<Object>> selectMsgAndAnnouncement(@QueryMap HashMap<String, Object> map);
+
+
+    //获取任务单价和任务几天之后可以创建
+    Observable<WrResponse<Object>> selectPriceAndDate(@QueryMap HashMap<String, Object> map);
+
+
 }

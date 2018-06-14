@@ -4,13 +4,19 @@ import com.orientdata.lookforcustomers.bean.Area;
 import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.BannerBean;
 import com.orientdata.lookforcustomers.bean.BannerBeans;
+import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.model.IProvinceCityModel;
 import com.orientdata.lookforcustomers.model.imple.ProvinceCityModelImple;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
+import com.orientdata.lookforcustomers.network.api.ApiManager;
+import com.orientdata.lookforcustomers.network.api.BaseObserver;
+import com.orientdata.lookforcustomers.network.api.ParamsUtil;
+import com.orientdata.lookforcustomers.network.util.RxUtil;
 import com.orientdata.lookforcustomers.presenter.BasePresenter;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
@@ -30,6 +36,28 @@ public class MainHomePresenter<T> extends BasePresenter<IHomeMainView> {
         this.iCityPickView = iHomeMainView;
     }
 
+
+
+
+    //获取任务投递的细节
+    public void getTaskDeliveryInfo(){
+        HashMap<String, Object> map = ParamsUtil.getMap();
+        ApiManager.getInstence().getApiService().getTaskThrowExpedite(ParamsUtil.getParams(map))
+                .compose(RxUtil.<WrResponse<Object>>rxSchedulerHelper())
+                .subscribe(new BaseObserver<Object>() {
+                    @Override
+                    protected void onSuccees(WrResponse<Object> t) {
+
+                    }
+
+                    @Override
+                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
+
+                    }
+                });
+
+
+    }
 
     public void getProvinceCityData() {
         if (mProvinceModel != null) {

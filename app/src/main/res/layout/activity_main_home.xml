@@ -194,6 +194,9 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+            <include layout="@layout/activity_task_delivery"/>
+
         </LinearLayout>
 
     </FrameLayout>
@@ -239,7 +242,9 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-
     </android.support.v4.widget.NestedScrollView>
+
+
+
 
 </android.support.design.widget.CoordinatorLayout>
