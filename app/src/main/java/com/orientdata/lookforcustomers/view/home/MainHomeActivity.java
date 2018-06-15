@@ -288,13 +288,12 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 final GoodView goodView = new GoodView(this);
                 goodView.setImage(getResources().getDrawable(R.mipmap.main_lighting));
                 goodView.setDistance(120);
-                if (coolingTime >= 60) {
+
+                if (coolingTime >= 60 && clickFlag) {
                     tvCoolingTime.setVisibility(View.VISIBLE);
                     tvtime.setVisibility(View.GONE);
-                    ToastUtils.showShort("让我休息一下吧！");
                     clickFlag = false;
                     tvCoolingTime.start(60000);
-
                     tvCoolingTime.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
                         @Override
                         public void onEnd(CountdownView cv) {
@@ -303,13 +302,15 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                             coolingTime = 0;
                         }
                     });
-                }else if(clickFlag){
+                } else if(coolingTime >= 60 && !clickFlag){
+                    ToastUtils.showShort("让我休息一下吧！");
+                } else if(clickFlag){
                     goodView.show(ivSpeed);
                     coolingTime = coolingTime + 10;
                     tvCoolingTime.setVisibility(View.GONE);
                     tvtime.setVisibility(View.VISIBLE);
                     tvtime.setText(coolingTime+" s");
-                    // TODO: 2018/6/14 投递条数和剩余天数开始变化。 
+                    // TODO: 2018/6/14 投递条数和剩余天数开始变化。
                 }
 
                 break;

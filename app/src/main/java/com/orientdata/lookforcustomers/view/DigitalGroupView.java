@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -16,7 +17,7 @@ import com.orientdata.lookforcustomers.util.DisplayUtils;
  */
 public class DigitalGroupView extends LinearLayout {
     private static final int DEFAULT_COLOR = Color.BLACK;
-    private static final int DEFAULT_TEXT_SIZE = 16;
+    private static final int DEFAULT_TEXT_SIZE = 8;
     private static final int DEFAULT_FIGURE_COUNT = 1;
     private static final int DEFAULT_INTERVAL = 2;
     private int mFigureCount = DEFAULT_FIGURE_COUNT;
@@ -26,6 +27,12 @@ public class DigitalGroupView extends LinearLayout {
     private int mDigits = 0;
     private int[] mParsedDigits;
 
+
+    public int getmDigits() {
+        return mDigits;
+    }
+
+
     public DigitalGroupView(Context context) {
         super(context);
 
@@ -34,7 +41,6 @@ public class DigitalGroupView extends LinearLayout {
 
     public DigitalGroupView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         init(context, attrs);
     }
 
@@ -43,13 +49,11 @@ public class DigitalGroupView extends LinearLayout {
 
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DigitalGroupView);
-
             mFigureCount = a.getInteger(R.styleable.DigitalGroupView_digiGroupFigureCounts, DEFAULT_FIGURE_COUNT);
             mColor = a.getColor(R.styleable.DigitalGroupView_digiGroupColor, Color.BLACK);
             mTextSize = a.getDimensionPixelSize(R.styleable.DigitalGroupView_digiGroupTextSize, DEFAULT_TEXT_SIZE);
             mTextInterval = a.getDimensionPixelOffset(R.styleable.DigitalGroupView_digiGroupInterval, DEFAULT_INTERVAL);
         }
-
         resetChildren();
     }
 
@@ -105,7 +109,6 @@ public class DigitalGroupView extends LinearLayout {
     public void setDigits(int digits) {
         digits = Math.abs(digits);
         mDigits = digits;
-
         parseDigits();
         play();
     }
@@ -147,6 +150,8 @@ public class DigitalGroupView extends LinearLayout {
             DigitalView v = new DigitalView(getContext());
             LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
+            v.setBackground(getResources().getDrawable(R.drawable.round_border_dilevery));
+            params.gravity = Gravity.CENTER;
             if (i > 0)
                 params.leftMargin = dp2px(mTextInterval);
             v.setLayoutParams(params);

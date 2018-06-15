@@ -26,14 +26,15 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:id="@+id/ll_text"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:layout_margin="10dp"
+            android:layout_margin="7dp"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:textSize="11sp"
+                android:textSize="9sp"
                 android:layout_weight="1"
                 android:text="寻客任务订单正在投放中"
                 android:textColor="#6F6F6F"
@@ -58,15 +59,15 @@
                 app:suffixMinute="分钟"
                 app:suffixSecond="秒"
                 app:suffixTextColor="#6F6F6F"
-                app:suffixTextSize="11sp"
+                app:suffixTextSize="9sp"
                 app:timeTextColor="#6F6F6F"
-                app:timeTextSize="11sp"/>
+                app:timeTextSize="9sp"/>
 
             <TextView
                 android:textStyle="bold"
                 android:id="@+id/tv_show_detail"
                 android:layout_marginTop="5dp"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 android:layout_weight="1"
                 android:text="查看详情"
                 android:textColor="#6F6F6F"
@@ -75,10 +76,25 @@
 
         </LinearLayout>
 
+        <com.orientdata.lookforcustomers.view.DigitalGroupView
+            android:gravity="center"
+            android:layout_toRightOf="@id/ll_text"
+            android:layout_centerVertical="true"
+            android:id="@+id/digital"
+            android:layout_toLeftOf="@+id/ll_jiasu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:digiGroupColor="@color/colorAccent"
+            app:digiGroupFigureCounts="7"
+            app:digiGroupInterval="1dp"
+            app:digiGroupTextSize="6sp"
+            android:layout_marginTop="30dp"/>
+
         <LinearLayout
+            android:id="@+id/ll_jiasu"
             android:layout_centerVertical="true"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
             android:orientation="vertical"
             android:gravity="center"

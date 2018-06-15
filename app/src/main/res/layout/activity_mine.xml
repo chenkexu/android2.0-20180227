@@ -5,234 +5,307 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical">
-    <View
-        android:background="@color/colorPrimary"
-        android:id="@+id/margin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/status_bar_height"/>
-
-    <!--标题-->
-    <RelativeLayout
-        android:id="@+id/rl_title"
-        android:padding="10dp"
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/bg_white"
-            android:text="我的"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_centerVertical="true"
-            android:id="@+id/iv_message"
-            android:layout_alignParentRight="true"
-            android:textSize="13sp"
-            android:textColor="@color/bg_white"
-            android:text="设置"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
-    <!--个人信息-->
-    <RelativeLayout
-        android:id="@+id/linear_company"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp">
-
-
-        <ImageView
-            android:scaleType="centerCrop"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/iv_head_portrait"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/head_default" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:layout_toLeftOf="@id/image"
-            android:layout_toRightOf="@id/iv_head_portrait"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_company_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/company"
-                android:textColor="@color/bg_white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_phone_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="北京东方网润科技有限公司"
-                android:textColor="@color/bg_white"
-                android:textSize="10sp" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/image"
-            style="@style/mine_right_img"
-            android:layout_centerVertical="true"
-            app:srcCompat="@mipmap/next" />
-
-    </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_red"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/ll_account_balance"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_account_balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="8976"
-                android:textColor="@color/bg_yellow"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="账户余额"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_account_froze"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_account_froze"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="8976"
-                android:textColor="@color/bg_yellow"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="冻结金额"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_account_commission"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_account_commission"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="8976"
-                android:textColor="@color/bg_yellow"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="佣金余额"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:background="@color/bg_yellow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:text="我的寻客"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/tv_more_task"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:text="更多"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_task"
-            android:layout_below="@id/tv_more_task"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
+            <View
+                android:background="@color/colorPrimary"
+                android:id="@+id/margin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/status_bar_height"/>
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_zoom"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/me_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <!--标题-->
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:id="@+id/rl_title"
+                    android:padding="10dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/me_icon_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
 
-    </RelativeLayout>
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/icon_me_meesage_no"
+                        android:id="@+id/iv_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
 
 
-    <RelativeLayout
-        android:layout_marginTop="20dp"
-        android:background="@color/bg_yellow"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+                <!--个人信息-->
+                <RelativeLayout
+                    android:layout_below="@id/rl_title"
+                    android:id="@+id/linear_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp">
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_mine"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:id="@+id/iv_head_portrait"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/head_default" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toLeftOf="@id/image"
+                        android:layout_toRightOf="@id/iv_head_portrait"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_company_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ID：XXXXXXXXXXX"
+                            android:textColor="@color/bg_white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="性别：男"
+                            android:textColor="@color/bg_white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/ic_navigate"
+                        style="@style/mine_right_img"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/tv_status"
+                        android:text="账户未认证"
+                        android:textColor="@color/bg_white"
+                        android:textSize="13sp" />
 
 
-    </RelativeLayout>
+                </RelativeLayout>
 
+            </RelativeLayout>
+
+
+
+            <android.support.v7.widget.CardView
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal"
+                app:cardCornerRadius="1dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:id="@+id/ll_account_balance"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_account_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8976"
+                            android:textColor="@color/radius"
+                            android:textSize="15sp" />
+
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="账户余额"
+                            android:textColor="#B3B3B3"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_account_froze"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_account_froze"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8976"
+                            android:textColor="@color/radius"
+                            android:textSize="15sp" />
+
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="冻结金额"
+                            android:textColor="#B3B3B3"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_account_commission"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_account_commission"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8976"
+                            android:textColor="@color/radius"
+                            android:textSize="15sp"
+                            android:textStyle="normal" />
+
+
+                        <TextView
+                            android:id="@+id/textView23"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="佣金余额"
+                            android:textColor="#B3B3B3"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+
+
+            <android.support.v7.widget.CardView
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:cardCornerRadius="1dp"
+                app:cardElevation="3dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:text="我的寻客"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView24" />
+
+                    <TextView
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/me_next"
+                        android:padding="10dp"
+                        android:id="@+id/tv_more_task"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#B3B3B3"
+                        android:textSize="15sp"
+                        android:text="更多"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+
+                    <View
+                        android:id="@+id/line"
+                        android:layout_below="@id/tv_more_task"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/line_color" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/rv_task"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView24"/>
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:cardCornerRadius="1dp"
+                app:cardElevation="5dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/rv_mine"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
 
 </LinearLayout>

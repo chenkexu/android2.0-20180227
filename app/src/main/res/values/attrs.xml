@@ -55,12 +55,18 @@
     </declare-styleable>
 
 
+    <declare-styleable name="ObservableScrollView">
+        <attr name="zoomId" format="reference|integer" />
+        <attr name="maxZoom" format="dimension" />
+    </declare-styleable>
 
 
     <declare-styleable name="DigitalView">
         <attr name="digiColor" format="color"/>
         <attr name="digiTextSize" format="dimension"/>
     </declare-styleable>
+
+
 
     <declare-styleable name="DigitalGroupView">
 

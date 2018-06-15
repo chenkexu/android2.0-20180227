@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -67,10 +66,9 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     ImageView ivHeadPortrait;
     @BindView(R.id.tv_company_name)
     TextView tvCompanyName;
-    @BindView(R.id.tv_phone_no)
-    TextView tvPhoneNo;
-    @BindView(R.id.image)
-    ImageView image;
+
+
+
     @BindView(R.id.linear_company)
     RelativeLayout linearCompany;
     @BindView(R.id.tv_account_balance)
@@ -90,16 +88,20 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
 
     private String[] taskStatusStr = {"审核中", "待投放", "投放中", "投放结束", "审核失败"};
 
-    private int[] taskStatusPics = {R.drawable.ic_logo, R.drawable.ic_logo,
-            R.drawable.ic_logo, R.drawable.ic_logo, R.drawable.ic_logo};
+    private int[] taskStatusPics = {R.mipmap.me_task_exmine_ing,R.mipmap.me_task_pre,
+            R.mipmap.me_task_ing,R.mipmap.me_task_over,
+            R.mipmap.me_task_error
+            };
 
     private String[] myStr = {"账户充值", "账户认证", "报表统计", "发票管理", "佣金提现",
-            "分享赚佣金", "在线客服", "邀请码", "设置"};
+            "分享佣金", "在线客服", "邀请码", "设置"};
 
 
-    private int[] myStrPics = {R.drawable.ic_logo, R.drawable.ic_logo, R.drawable.ic_logo, R.drawable.ic_logo,
-            R.drawable.ic_logo, R.drawable.ic_logo,
-            R.drawable.ic_logo, R.drawable.ic_logo, R.drawable.ic_logo};
+    private int[] myStrPics = {R.mipmap.iv_balance_account,R.mipmap.iv_renzheng,
+            R.mipmap.iv_report,R.mipmap.iv_invoice,
+            R.mipmap.iv_my_commission,R.mipmap.iv_share,R.mipmap.iv_service,
+            R.mipmap.iv_share_code,R.mipmap.iv_setting
+    };
 
 
     private List<HomeBean> imagesAndTitles = new ArrayList<>();
@@ -114,11 +116,9 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     private Intent intent;
 
 
-    @OnClick({R.id.tv_phone_no, R.id.tv_more_task,R.id.iv_message, R.id.ll_account_balance, R.id.ll_account_froze, R.id.ll_account_commission})
+    @OnClick({R.id.tv_more_task,R.id.iv_message, R.id.ll_account_balance, R.id.ll_account_froze, R.id.ll_account_commission})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_phone_no:
-                break;
             case R.id.tv_more_task:
                 intent = new Intent(MeActivity.this, TaskListActivity.class);
                 startActivity(intent);
@@ -166,8 +166,8 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
             HomeBean homeBean = new HomeBean(myStr[i], myStrPics[i]);
             imagesAndTitles2.add(homeBean);
         }
-        rvTask.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rvMine.setLayoutManager(new GridLayoutManager(this, 4));
+        rvMine.setLayoutManager(new GridLayoutManager(this, 5));
+        rvTask.setLayoutManager(new GridLayoutManager(this, 5));
         Adapter taskAdapter = new Adapter(imagesAndTitles);
         Adapter meAdapter = new Adapter(imagesAndTitles2);
         rvTask.setAdapter(taskAdapter);
@@ -270,6 +270,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
 
     private void initData() {
         aCache = ACache.get(this);
+        showDefaultLoading();
         mPresent.getUserData();
         mPresent.getCommission();
         mPresent.getTaskCount();
@@ -372,6 +373,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
 
     @Override
     public void getMyMoney(MyMoneyEvent myMoneyEvent) {
+        hideDefaultLoading();
         balance = myMoneyEvent.balance;
         commission = myMoneyEvent.commission;
         frozenAmount = myMoneyEvent.frozenAmount;
