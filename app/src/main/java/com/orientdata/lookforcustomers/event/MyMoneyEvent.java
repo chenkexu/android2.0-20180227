@@ -19,6 +19,10 @@ public class MyMoneyEvent {
     public String moreMoney;//每日可提现次数
 
 
+    public String name = "";//
+
+
+
 
 
 }

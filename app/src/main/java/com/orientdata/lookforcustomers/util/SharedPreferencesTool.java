@@ -49,6 +49,9 @@ public class SharedPreferencesTool {
     public static final String MessageTaskCacheBean="MessageTaskCacheBean";//保存的短信的信息
 
 
+    public static final String user ="user";//保存的短信的信息
+
+
 
 
     private Context context;

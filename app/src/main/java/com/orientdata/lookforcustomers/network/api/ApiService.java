@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
-import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -40,9 +39,8 @@ public interface ApiService {
 
     //删除地址
     @FormUrlEncoded
-    @DELETE("app/address")
+    @POST("app/address_delete")
     Observable<WrResponse<Object>> appAddressDelete(@FieldMap HashMap<String, Object> map);
-
 
 
 

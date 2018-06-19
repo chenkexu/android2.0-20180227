@@ -94,8 +94,10 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     View topView;
     @BindView(R.id.iv_kefu)
     ImageView ivKefu;
+
     @BindView(R.id.collect_address)
     ImageView collectAddress;
+
     @BindView(iv_xunke_now)
     ImageView ivXunkeNow;
     @BindView(R.id.tv_address)
@@ -174,7 +176,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private int sexPosition = 0;
 
     private String industryName;
-    private List<AddressCollectInfo> addressCollectInfos;
+    private AddressCollectInfo addressCollectInfo;
     private String latitude;
     private String longitude;
     private String address;
@@ -187,10 +189,72 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private String mCityName;
     private String currentCircleRadius;
     private String personNumStr;
-
+    private boolean mIsLike = false;
 
     protected boolean isImmersionBarEnabled() {
         return false;
+    }
+
+    @OnClick({R.id.collect_address,R.id.iv_back,R.id.tv_quess,R.id.tv_no_limit,R.id.iv_kefu,
+            R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_quess:
+                showDialog();
+                break;
+            case R.id.iv_kefu:
+                final String url = "mqqwpa://im/chat?chat_type=wpa&uin=2280249239";
+                if (CommonUtils.checkApkExist(this, "com.tencent.mobileqq")) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                } else {
+                    ToastUtils.showShort("本机未安装QQ应用,请下载安装。");
+                }
+                break;
+            case R.id.iv_back:
+                finish();
+                break;
+            case R.id.collect_address: //收藏地址
+                if (mIsLike) {
+                    //取消收藏
+                    mPresent.appAddressDelete(addressCollectInfo.getId());
+                }else{
+                    //收藏
+                    mPresent.AddAddressInfo(address, longitude.substring(0,longitude.indexOf(".")+5), latitude.substring(0,latitude.indexOf(".")+5));
+                }
+                break;
+            case R.id.tv_canyin:
+                setTextState(0, true);
+                break;
+            case R.id.tv_3c:
+                setTextState(1, true);
+                break;
+            case R.id.tv_baihe:  //日百
+                setTextState(2, true);
+                break;
+            case R.id.tv_muying: //母婴
+                setTextState(3, true);
+                break;
+            case R.id.tv_hair:  //美容美发
+                setTextState(4, true);
+                break;
+            case R.id.tv_flower://鲜花礼品
+                setTextState(5, true);
+                break;
+            case R.id.tv_car:  //汽车
+                setTextState(6, true);
+                break;
+            case R.id.zidingyi://自定义
+                setTextState(7, true);
+                llUserHobby.setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_no_limit://不限
+                setTextState(8, true);
+                break;
+        }
+        if (!industryStr.equals("自定义")) {
+            personNumStr = CommonUtils.getPersonNum(currentCircleRadius, mCityName, ageF, ageB, sex, industryStr, labelNum);
+            tvPersonNum.setText(personNumStr);
+        }
     }
 
 
@@ -200,13 +264,19 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         setContentView(R.layout.activity_directional_setting_new);
         ButterKnife.bind(this);
         initView();
-        mPresent.getSelectSetting(cityCode);
+        initData();
+
         ImmersionBar.with(this)
                 .statusBarDarkFont(true, 0.2f)
                 .statusBarView(R.id.top_view)
                 .fullScreen(true)
                 .init();
 //        EasyTransition.enter(this);
+    }
+
+    private void initData() {
+        mPresent.getSelectSetting(cityCode);
+        mPresent.getAllAddress();
     }
 
 
@@ -223,7 +293,22 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
     @Override
     public void getAllCollectionAddress(List<AddressCollectInfo> addressCollectInfo) {
-        addressCollectInfos = addressCollectInfo;
+        if (addressCollectInfo == null || addressCollectInfo.size() == 0) {
+            return;
+        }
+
+        for (AddressCollectInfo address : addressCollectInfo){
+            if (address.getLatitude().equals(latitude.substring(0,latitude.indexOf(".")+5))
+                    && address.getLongitude().equals(longitude.substring(0,longitude.indexOf(".")+5))) {
+                this.addressCollectInfo = address;
+                collectAddress.setImageResource(R.mipmap.icon_collect_dir);
+                mIsLike = true;
+                return;
+            }else{
+                mIsLike = false;
+            }
+
+        }
     }
 
 
@@ -817,61 +902,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-    @OnClick({R.id.collect_address,R.id.iv_back,R.id.tv_quess,R.id.tv_no_limit,R.id.iv_kefu,
-            R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_quess:
-                showDialog();
-                break;
-            case R.id.iv_kefu:
-                final String url = "mqqwpa://im/chat?chat_type=wpa&uin=2280249239";
-                if (CommonUtils.checkApkExist(this, "com.tencent.mobileqq")) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-                } else {
-                    ToastUtils.showShort("本机未安装QQ应用,请下载安装。");
-                }
-                break;
-            case R.id.iv_back:
-                finish();
-                break;
-            case R.id.collect_address: //收藏地址
-                mPresent.AddAddressInfo(address, longitude, latitude);
-                break;
-            case R.id.tv_canyin:
-                setTextState(0, true);
-                break;
-            case R.id.tv_3c:
-                setTextState(1, true);
-                break;
-            case R.id.tv_baihe:  //日百
-                setTextState(2, true);
-                break;
-            case R.id.tv_muying: //母婴
-                setTextState(3, true);
-                break;
-            case R.id.tv_hair:  //美容美发
-                setTextState(4, true);
-                break;
-            case R.id.tv_flower://鲜花礼品
-                setTextState(5, true);
-                break;
-            case R.id.tv_car:  //汽车
-                setTextState(6, true);
-                break;
-            case R.id.zidingyi://自定义
-                setTextState(7, true);
-                llUserHobby.setVisibility(View.VISIBLE);
-                break;
-            case R.id.tv_no_limit://不限
-                setTextState(8, true);
-                break;
-        }
-        if (!industryStr.equals("自定义")) {
-            personNumStr = CommonUtils.getPersonNum(currentCircleRadius, mCityName, ageF, ageB, sex, industryStr, labelNum);
-            tvPersonNum.setText(personNumStr);
-        }
-    }
+
 
 
     /**

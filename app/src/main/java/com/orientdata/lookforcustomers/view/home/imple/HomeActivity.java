@@ -290,7 +290,6 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
         } else {
             //认证状态 1审核中 2审核通过 3审核拒绝
             authStatus = certificationOut.getAuthStatus();
-
             // TODO: 2018/4/17 测试弹窗
             if (authStatus == 1 || authStatus == 4) {
                 //审核中

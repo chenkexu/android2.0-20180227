@@ -183,6 +183,8 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
                         tv_company_name.setText("账户未认证，去认证");
                     }
 
+
+
                     /*        userHead
                     是 String 头像路径*/
                     if (mMapInfoBeans.containsKey("userHead")) {

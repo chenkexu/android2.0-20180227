@@ -25,6 +25,15 @@ public class AddressSearchRecode extends DataSupport implements Serializable {
     private String city;
     private String address;
 
+    private int addressId;
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
 
     // KEEP FIELDS - put your custom fields here
 	private int recodeType;
@@ -51,11 +60,12 @@ public class AddressSearchRecode extends DataSupport implements Serializable {
         this.address = address;
     }
 
-    public AddressSearchRecode(Double longitude, Double latitude, String name, String address) {
+    public AddressSearchRecode(Double longitude, Double latitude, String name, String address,int id) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.name = name;
         this.address = address;
+        this.addressId = id;
     }
 
     public Double getLongitude() {

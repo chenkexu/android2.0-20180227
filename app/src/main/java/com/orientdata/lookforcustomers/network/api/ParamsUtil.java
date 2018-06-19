@@ -20,14 +20,11 @@ public class ParamsUtil {
         return mdBasicRequestMap;
     }
 
-
     public  static  HashMap<String,Object> getParams(HashMap<String,Object> params){
-
-        MDSecureRequestMap map = new MDSecureRequestMap(mdBasicRequestMap);
-
+        MDSecureRequestMap map = new MDSecureRequestMap(params);
         return map;
     }
 
-
+    
 
 }

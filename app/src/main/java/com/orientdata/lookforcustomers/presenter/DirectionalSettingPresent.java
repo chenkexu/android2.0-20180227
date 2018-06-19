@@ -53,22 +53,22 @@ public class DirectionalSettingPresent<T> extends BasePresenter<IDirectionalSett
     public void appAddressDelete(int addressId) {
         mDirectionSetting.showLoading();
         HashMap<String, Object> map = ParamsUtil.getMap();
-        map.put("addressId", addressId);
-
+        map.put("addressId",addressId+"");
         ApiManager.getInstence().getApiService().appAddressDelete(ParamsUtil.getParams(map))
-                .compose(RxUtil.<WrResponse<Object>>rxSchedulerHelper())
-                .subscribe(new BaseObserver<Object>() {
-                    @Override
-                    protected void onSuccees(WrResponse<Object> t) {
-                        mDirectionSetting.hideLoading();
-                    }
+            .compose(RxUtil.<WrResponse<Object>>rxSchedulerHelper())
+            .subscribe(new BaseObserver<Object>() {
+        @Override
+        protected void onSuccees(WrResponse<Object> t) {
+            mDirectionSetting.hideLoading();
+            getAllAddress();
+        }
 
-                    @Override
-                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
-                        mDirectionSetting.hideLoading();
-                    }
-                });
-    }
+        @Override
+        protected void onFailure(String errorInfo, boolean isNetWorkError) {
+            mDirectionSetting.hideLoading();
+        }
+    });
+}
 
 
     //添加收藏
@@ -101,6 +101,7 @@ public class DirectionalSettingPresent<T> extends BasePresenter<IDirectionalSett
     public void getAllAddress() {
         mDirectionSetting.showLoading();
         HashMap<String, Object> map = ParamsUtil.getMap();
+
         ApiManager.getInstence().getApiService().appAddressGet(ParamsUtil.getParams(map))
                 .compose(RxUtil.<WrResponse<List<AddressCollectInfo>>>rxSchedulerHelper())
                 .subscribe(new BaseObserver<List<AddressCollectInfo>>() {

@@ -1,5 +1,7 @@
 package com.orientdata.lookforcustomers.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by wy on 2017/10/31.
  */
@@ -85,12 +87,25 @@ public class LoginResultBean {
         }
     }
 
-    public static class UserBean {
+    public static class UserBean implements Serializable{
+        private static final long serialVersionUID = 5672599786603971040L;
         /**
          * userId : 1
          */
 
+        private String userNo;
+
+
         private String userId;
+
+
+        public String getUserNo() {
+            return userNo == null ? "" : userNo;
+        }
+
+        public void setUserNo(String userNo) {
+            this.userNo = userNo;
+        }
 
         public String getUserId() {
             return userId;

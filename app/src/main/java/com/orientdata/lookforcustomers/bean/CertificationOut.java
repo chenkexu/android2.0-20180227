@@ -27,8 +27,19 @@ public class CertificationOut implements Serializable{
     private String address;//	是	String	地址
     private int tradeOneId;//	是	int	一级id
     private int tradeTwoId;//	是	int	二级id
+
     private int authStatus;//	是	int	认证状态 1审核中 2审核通过 3审核拒绝 4审核中
+
     private List<QualificationCertificationUser> ulist;//	是	list<QualificationCertificationUser>	认证图片
+
+
+
+
+
+
+
+
+
 
     public int getCertificationId() {
         return certificationId;

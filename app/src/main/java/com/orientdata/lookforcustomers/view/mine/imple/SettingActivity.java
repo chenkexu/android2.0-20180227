@@ -171,7 +171,7 @@ public class SettingActivity extends BaseActivity<ILoginAndRegisterView, LoginAn
      * 退出确定框
      */
     private void showLogoutDialog(){
-        final ConfirmDialog dialog = new ConfirmDialog(this,"确定退出登录吗？","确定");
+        final ConfirmDialog dialog = new ConfirmDialog(this,"确定退出登录吗？","确定","取消");
         dialog.show();
         dialog.setClickListenerInterface(new ConfirmDialog.ClickListenerInterface() {
             @Override

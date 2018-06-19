@@ -12,6 +12,9 @@ public class AddressCollectInfo {
     private  String latitude;
     private  String address;
 
+
+
+
     public int getId() {
         return id;
     }

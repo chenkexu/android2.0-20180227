@@ -168,11 +168,6 @@ public class MePresent<T> extends BasePresenter<IMeView> {
                         String upMoney = (String) mMapInfoBeans.get("upMoney");
                     }
 
-
-
-
-
-
                     MyMoneyEvent moneyEvent = new MyMoneyEvent();
                     moneyEvent.commission = commission;
                     moneyEvent.balance = balance;
@@ -181,6 +176,7 @@ public class MePresent<T> extends BasePresenter<IMeView> {
                     moneyEvent.userHead = userHead;
                     moneyEvent.phone = phone;
                     moneyEvent.moreMoney = moreMoney;
+                    moneyEvent.name = name;
 
                     mHomeView.getMyMoney(moneyEvent);
                 }
@@ -207,6 +203,8 @@ public class MePresent<T> extends BasePresenter<IMeView> {
     public void fecth() {
 
     }
+
+
 
     /**
      * @param isCertificate 获取认证信息

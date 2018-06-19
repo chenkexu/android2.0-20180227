@@ -4,6 +4,7 @@ import com.orientdata.lookforcustomers.bean.LoginResultBean;
 import com.orientdata.lookforcustomers.model.ILoginModel;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
+import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
@@ -36,6 +37,8 @@ public class LoginModelImple implements ILoginModel {
                 if (response.getErr().getCode() == 0) {
                     UserDataManeger.getInstance().setUserId(response.getUser().getUserId());
                     UserDataManeger.getInstance().saveUserToken(response.getToken());
+                    //todo 存储user对象
+                    SharedPreferencesTool.getInstance().setObject(response.getUser(), SharedPreferencesTool.user);
                     loginComplete.onSuccess(response.isNewUser());
                 }
             }

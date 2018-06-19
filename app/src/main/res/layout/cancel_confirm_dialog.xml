@@ -19,37 +19,42 @@
         android:text="@string/dir_quess"/>
 
     <LinearLayout
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal"
         android:gravity="center">
+
         <TextView
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
-            android:visibility="gone"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:id="@+id/tvConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/bac_rec_border"
+            android:gravity="center"
+            android:text="确定"
+            android:visibility="visible"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:visibility="visible"
             android:id="@+id/tvCancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/round_border"
             android:gravity="center"
             android:text="取消"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
             android:textColor="@color/c_999999"
-            android:textSize="14sp" />
-        <TextView
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
-            android:id="@+id/tvConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/bac_rec_border"
-            android:gravity="center"
-            android:text="删除"
-            android:visibility="visible"
-            android:textColor="@color/colorPrimary"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
 

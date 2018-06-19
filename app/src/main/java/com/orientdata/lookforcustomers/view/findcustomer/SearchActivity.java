@@ -91,6 +91,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
                 // TODO: 2018/5/24 查看所有的历史记录
                 history = findAll(AddressSearchRecode.class);
                 if (history.size() == 0 || history == null) {
+                    addressAdapter.setNewData(null);
                     addressAdapter.setEmptyView(R.layout.layout_no_content, (ViewGroup) rvAddressList.getParent());
                 } else {
                     updateAddressSearchResult(history, 2);
@@ -156,6 +157,8 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
             }
         });
 
+
+
         clearEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -181,14 +184,20 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
 
             }
         });
-
-
+        addressAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<AddressSearchRecode> addressInfo = addressAdapter.getData();
+                AddressSearchRecode addressSearchRecode = addressInfo.get(position);
+                showDeleteDialog(addressSearchRecode);
+            }
+        });
     }
 
-    @Override
-    protected DirectionalSettingPresent<IDirectionalSettingView> createPresent() {
-        return new DirectionalSettingPresent<>(this);
-    }
+
+
+
+
 
 
     @Override
@@ -229,7 +238,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
         });
     }
 
-    private void showDeleteDialog() {
+    private void showDeleteDialog(final AddressSearchRecode addressSearchRecode) {
         final ConfirmDialog dialog = new ConfirmDialog(this, "您确定要取消收藏地址吗？");
         dialog.show();
         dialog.setClickListenerInterface(new ConfirmDialog.ClickListenerInterface() {
@@ -240,6 +249,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
 
             @Override
             public void doConfirm() {
+                mPresent.appAddressDelete(addressSearchRecode.getAddressId());
                 dialog.dismiss();
             }
         });
@@ -369,7 +379,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
             history.clear();
             for (AddressCollectInfo addressCollectInfo1 : addressCollectInfo) {
                 AddressSearchRecode addressSearchRecode = new AddressSearchRecode(Double.parseDouble(addressCollectInfo1.getLongitude()),
-                        Double.parseDouble(addressCollectInfo1.getLatitude()), "", addressCollectInfo1.getAddress());
+                        Double.parseDouble(addressCollectInfo1.getLatitude()), "", addressCollectInfo1.getAddress(),addressCollectInfo1.getId());
                 history.add(addressSearchRecode);
             }
             updateAddressSearchResult(history, 3);
@@ -388,5 +398,8 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
 
     }
 
-
+    @Override
+    protected DirectionalSettingPresent<IDirectionalSettingView> createPresent() {
+        return new DirectionalSettingPresent<>(this);
+    }
 }

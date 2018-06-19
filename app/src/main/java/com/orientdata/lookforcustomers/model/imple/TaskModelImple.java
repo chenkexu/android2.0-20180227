@@ -64,6 +64,7 @@ public class TaskModelImple implements ITaskModel {
         MDBasicRequestMap map = new MDBasicRequestMap();
         map.put("userId", UserDataManeger.getInstance().getUserId());
         map.put("taskId",taskId+"");
+
         OkHttpClientManager.getAsyn(url, new OkHttpClientManager.ResultCallback<ErrBean>() {
 
             @Override

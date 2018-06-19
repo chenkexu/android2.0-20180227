@@ -12,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.HomeBean;
+import com.orientdata.lookforcustomers.bean.LoginResultBean;
 import com.orientdata.lookforcustomers.bean.URLBean;
 import com.orientdata.lookforcustomers.bean.UserInfoBean;
 import com.orientdata.lookforcustomers.event.MyMoneyEvent;
@@ -25,11 +27,12 @@ import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.MePresent;
 import com.orientdata.lookforcustomers.util.CommonUtils;
+import com.orientdata.lookforcustomers.util.GlideUtil;
+import com.orientdata.lookforcustomers.util.L;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.certification.impl.CertificationActivity;
-import com.orientdata.lookforcustomers.view.findcustomer.CreateFindCustomerActivity;
 import com.orientdata.lookforcustomers.view.home.InvoiceActivity;
 import com.orientdata.lookforcustomers.view.home.RechargeActivity;
 import com.orientdata.lookforcustomers.view.home.ReportActivity;
@@ -49,8 +52,12 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bingoogolapple.badgeview.BGABadgeFrameLayout;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
+
+import static com.orientdata.lookforcustomers.R.id.tv_company_name;
+
 
 /**
  * Created by ckx on 2018/6/11.
@@ -64,9 +71,6 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     RelativeLayout rlTitle;
     @BindView(R.id.iv_head_portrait)
     ImageView ivHeadPortrait;
-    @BindView(R.id.tv_company_name)
-    TextView tvCompanyName;
-
 
 
     @BindView(R.id.linear_company)
@@ -83,24 +87,33 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     RecyclerView rvTask;
     @BindView(R.id.rv_mine)
     RecyclerView rvMine;
+    @BindView(tv_company_name)
+    TextView tvCompanyName;
+    @BindView(R.id.tv_phone)
+    TextView tvPhone;
+    @BindView(R.id.tv_status)
+    TextView tvStatus;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+
     private MePresent mePresent;
     private ACache aCache = null;//数据缓存
 
     private String[] taskStatusStr = {"审核中", "待投放", "投放中", "投放结束", "审核失败"};
 
-    private int[] taskStatusPics = {R.mipmap.me_task_exmine_ing,R.mipmap.me_task_pre,
-            R.mipmap.me_task_ing,R.mipmap.me_task_over,
+    private int[] taskStatusPics = {R.mipmap.me_task_exmine_ing, R.mipmap.me_task_pre,
+            R.mipmap.me_task_ing, R.mipmap.me_task_over,
             R.mipmap.me_task_error
-            };
+    };
 
     private String[] myStr = {"账户充值", "账户认证", "报表统计", "发票管理", "佣金提现",
             "分享佣金", "在线客服", "邀请码", "设置"};
 
 
-    private int[] myStrPics = {R.mipmap.iv_balance_account,R.mipmap.iv_renzheng,
-            R.mipmap.iv_report,R.mipmap.iv_invoice,
-            R.mipmap.iv_my_commission,R.mipmap.iv_share,R.mipmap.iv_service,
-            R.mipmap.iv_share_code,R.mipmap.iv_setting
+    private int[] myStrPics = {R.mipmap.iv_balance_account, R.mipmap.iv_renzheng,
+            R.mipmap.iv_report, R.mipmap.iv_invoice,
+            R.mipmap.iv_my_commission, R.mipmap.iv_share, R.mipmap.iv_service,
+            R.mipmap.iv_share_code, R.mipmap.iv_setting
     };
 
 
@@ -115,13 +128,33 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     private String moreMoney;
     private Intent intent;
 
+    private String cerStatus = "";
+    private String remindString = "";
+    private int imgResId = 0;
+    private  String btText = "";
+    private int authStatus = -1;
 
-    @OnClick({R.id.tv_more_task,R.id.iv_message, R.id.ll_account_balance, R.id.ll_account_froze, R.id.ll_account_commission})
+
+
+
+
+
+
+
+
+    @OnClick({R.id.tv_more_task, R.id.iv_message, R.id.iv_back,R.id.linear_company,
+            R.id.ll_account_balance, R.id.ll_account_froze, R.id.ll_account_commission})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_more_task:
                 intent = new Intent(MeActivity.this, TaskListActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.linear_company:
+                showAuthenticationStatus();
+                break;
+            case R.id.iv_back:
+                 finish();
                 break;
             case R.id.iv_message:
                 intent = new Intent(MeActivity.this, MessageActivity.class);
@@ -200,7 +233,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
                         startActivity(intent);
                         break;
                     case 1: //账户认证
-                        mPresent.getCertificateMsg(true);
+                        showAuthenticationStatus();
                         break;
                     case 2: //报表统计
                         intent = new Intent(MeActivity.this, ReportActivity.class);
@@ -268,11 +301,32 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     }
 
 
+    private void showAuthenticationStatus(){
+        if (authStatus != 2) {
+            final RemindDialog dialog = new RemindDialog(MeActivity.this, "", remindString, imgResId, btText);
+            dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
+                @Override
+                public void doCertificate() {
+                    dialog.dismiss();
+                    startActivity(new Intent(MeActivity.this, CertificationActivity.class));
+                }
+            });
+            dialog.setCancelable(true);
+            dialog.show();
+        } else {
+            //审核通过
+            startActivity(new Intent(MeActivity.this, CertificationActivity.class));
+        }
+    }
+
     private void initData() {
         aCache = ACache.get(this);
+        LoginResultBean.UserBean user = (LoginResultBean.UserBean) SharedPreferencesTool.getInstance().getObjectFromShare(SharedPreferencesTool.user);
+        tvCompanyName.setText("ID: "+user.getUserNo()+"");
         showDefaultLoading();
-        mPresent.getUserData();
+        //获取账号 佣金 和 余额
         mPresent.getCommission();
+        mPresent.getCertificateMsg(true);
         mPresent.getTaskCount();
     }
 
@@ -288,21 +342,17 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     }
 
 
+
     @Override
     public void getCertificateMsg(CertificationOut certificationOut, boolean isCertificate) {
 
-        String cerStatus = "";
-        String remindString = "";
-        int imgResId = 0;
-        String btText = "";
-        int authStatus = -1;
         if (certificationOut == null) {
             //未认证
             cerStatus = getString(R.string.no_cer);
             remindString = getString(R.string.no_certified);
             imgResId = R.mipmap.go_pass;
             btText = getString(R.string.go_cer);
-//            账户未认证，去认证
+//          账户未认证，去认证
         } else {
             //认证状态 1审核中 2审核通过 3审核拒绝
             authStatus = certificationOut.getAuthStatus();
@@ -320,26 +370,11 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
                 btText = getString(R.string.re_go_cer);
             }
         }
-        if (authStatus != 2) {
-            final RemindDialog dialog = new RemindDialog(MeActivity.this, "", remindString, imgResId, btText);
-            dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
-                @Override
-                public void doCertificate() {
-                    dialog.dismiss();
-                    startActivity(new Intent(MeActivity.this, CertificationActivity.class));
-                }
-            });
-            dialog.setCancelable(true);
-            dialog.show();
-        } else {
-            //审核通过
-            if (isCertificate) {
-                startActivity(new Intent(MeActivity.this, CertificationActivity.class));
-            } else {
-                startActivity(new Intent(MeActivity.this, CreateFindCustomerActivity.class));
-            }
-        }
+        tvStatus.setText(cerStatus);
+
     }
+
+
 
 
     @Override
@@ -350,9 +385,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         int authStatus = ((Double) map.get("authStatus")).intValue();// 是 int 认证状态 1未认证 2审核中3已认证4审核未通过
         Double userStatus = (Double) map.get("userStatus");//是 int 1 正常 2 黑名单 3 黑名单审核中
 
-
-        tvAccountFroze.setText(CommonUtils.formatFloatNumber(frozenAmount));
-        tvAccountBalance.setText(CommonUtils.formatFloatNumber(balance));
+        String userNo = (String) map.get("userNo");
 
         if (authStatus != 3) { //未认证
 
@@ -381,7 +414,25 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         userHead = myMoneyEvent.userHead;
         upMoney = myMoneyEvent.upMoney;
         moreMoney = myMoneyEvent.moreMoney;
+
+
+        tvAccountFroze.setText(CommonUtils.formatFloatNumber(frozenAmount));
+        tvAccountBalance.setText(CommonUtils.formatFloatNumber(balance));
         tvAccountCommission.setText(commission + "");
+
+
+        if (!TextUtils.isEmpty(userHead)) {
+            L.e("头像地址是："+userHead);
+            GlideUtil.getInstance().loadHeadImage(this,ivHeadPortrait,userHead,true);
+        } else {
+            Glide.with(this).load(R.mipmap.head_default).into(ivHeadPortrait);
+        }
+        tvPhone.setText("手机号:"+myMoneyEvent.phone);
+
+
+
+
+
     }
 
 
@@ -389,8 +440,6 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     protected MePresent<IMeView> createPresent() {
         return new MePresent<>(this);
     }
-
-
 
 
     class Adapter extends BaseQuickAdapter<HomeBean, BaseViewHolder> {
@@ -403,6 +452,25 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         protected void convert(BaseViewHolder helper, HomeBean item) {
             helper.setImageResource(R.id.iv_logo, item.getPic());
             helper.setText(R.id.tv_name, item.getName());
+
+            BGABadgeFrameLayout mBadgeView = helper.getView(R.id.badge_view);
+
+            switch (item.getName()) {
+                case "审核中":
+                    mBadgeView.showTextBadge("3");
+                    break;
+                case "待投放":
+
+                    break;
+                case "投放中":
+
+                    break;
+                case "投放结束":
+
+                    break;
+                case "审核失败":
+                    break;
+            }
         }
     }
 }

@@ -50,8 +50,11 @@ public class SeachAddressAdapter extends BaseQuickAdapter<AddressSearchRecode,Ba
 
         if (type == 3) {
             helper.setVisible(R.id.iv_delete, true);
+            helper.setVisible(R.id.iv_icon_address, false);
+
         }else{
             helper.setVisible(R.id.iv_delete, false);
+            helper.setVisible(R.id.iv_icon_address, true);
         }
 
 
@@ -59,6 +62,9 @@ public class SeachAddressAdapter extends BaseQuickAdapter<AddressSearchRecode,Ba
 
 
     }
+
+
+
 
     public abstract static class AdapterItem<T> {
         private T source;
