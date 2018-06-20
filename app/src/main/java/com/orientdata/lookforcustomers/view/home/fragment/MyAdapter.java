@@ -79,15 +79,34 @@ public class MyAdapter extends BaseAdapter implements View.OnClickListener{
         }
 
         Task task = getItem(position);
-        if (null != task)
-        {
-            viewHolder.ivStatus.setImageResource(task.getType()==1?R.mipmap.msg_task:R.mipmap.page_task);
+        if (null != task) {
+
+
+
             viewHolder.tvTitle.setText(task.getTaskName());
-            if(task.getStatus() == 2||task.getStatus()==4){
-                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.c_DB010B));
-            }else{
+
+
+
+            if(task.getStatus() == 2||task.getStatus()==4){ //审核失败
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.shenhe_error));
+                viewHolder.ivStatus.setImageResource(R.mipmap.order_error);
+            }else if(task.getStatus() == 1){ //审核中
+                viewHolder.ivStatus.setImageResource(R.mipmap.order_ing);
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.c_9c9c9c));
+            }else if(task.getStatus() == 6){ //待投放
+                viewHolder.ivStatus.setImageResource(R.mipmap.order_pre);
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.shenhe_pre));
+            }else if(task.getStatus() == 7){  //投放中
+                viewHolder.ivStatus.setImageResource(R.mipmap.order_suc);
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.shenhe_sucuess));
+            }else if(task.getStatus() == 8){ //投放结束
+                viewHolder.ivStatus.setImageResource(R.mipmap.order_suc);
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.shenhe_over));
+            }else{
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.gray_small));
             }
+
+
             viewHolder.tvStatus.setText(getStatus(task.getStatus()));
         }
 
@@ -100,6 +119,8 @@ public class MyAdapter extends BaseAdapter implements View.OnClickListener{
         public TextView tvTitle;
         public TextView tvStatus;
     }
+
+
     @Override
     public void onClick(View v) {
 

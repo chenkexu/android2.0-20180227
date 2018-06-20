@@ -9,10 +9,10 @@ public class HttpConstant {
 //    public static final String HOST_URL = "http://wrc.geekdana.com/netrun-app/";
 //    public static final String HOST_URL = "http://wrtest.geekdana.com:1580/netrun-app/";
 //    public static final String HOST_URL = "http://172.31.12.89:8080/netrun-app/";
-    public static final String HOST_URL = "http://sms2.qisu100.com/netrun-app/";
+//    public static final String HOST_URL = "http://sms2.qisu100.com/netrun-app/";
 
     //正式环境
-//    public static final String HOST_URL = "http://wra.xunkevip.cn/netrun-app/";
+    public static final String HOST_URL = "http://wra.xunkevip.cn/netrun-app/";
 
     /**
      * 判断手机号是否注册
@@ -192,15 +192,8 @@ public class HttpConstant {
     /*发票详情*/
     public static final String SELECT_ANNOUNCEMENT_INFO = HOST_URL + "app/announcement/selectAnnouncementInfo";
 
-
     //查询当前任务的数量
     public static final String GET_TASK_COUNT = HOST_URL + "app/task/getTaskCount";
-
-
-
-
-
-
 
 
 

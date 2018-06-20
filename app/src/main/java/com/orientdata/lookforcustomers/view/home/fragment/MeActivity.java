@@ -208,16 +208,21 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         taskAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (position) {
-                    case 0: //审核中
-                        break;
-                    case 1: //待投放
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                }
+                Intent intent = new Intent(MeActivity.this, TaskListActivity.class);
+
+//                switch (position) {
+//                    case 0: //审核中
+//                        break;
+//                    case 1: //待投放
+//                        break;
+//                    case 2:
+//                        break;
+//                    case 3:
+//                        break;
+//                }
+                String taskType = taskStatusStr[position];
+                intent.putExtra("taskType", taskType);
+                startActivity(intent);
             }
         });
 

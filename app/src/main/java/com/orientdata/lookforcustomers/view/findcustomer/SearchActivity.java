@@ -399,6 +399,17 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
     }
 
     @Override
+    public void deleteAddressSucess() {
+        ToastUtils.showShort("删除成功");
+        mPresent.getAllAddress();
+    }
+
+    @Override
+    public void deleteAddressError() {
+        ToastUtils.showShort("删除失败");
+    }
+
+    @Override
     protected DirectionalSettingPresent<IDirectionalSettingView> createPresent() {
         return new DirectionalSettingPresent<>(this);
     }

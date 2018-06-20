@@ -16,4 +16,6 @@ public interface IDirectionalSettingView extends BaseView {
     void getAllCollectionAddress(List<AddressCollectInfo> addressCollectInfo);
     void AddAddressSucess();
     void AddAddressError();
+    void deleteAddressSucess();
+    void deleteAddressError();
 }

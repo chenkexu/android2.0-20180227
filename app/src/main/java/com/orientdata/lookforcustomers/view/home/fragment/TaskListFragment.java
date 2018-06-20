@@ -1,18 +1,14 @@
 package com.orientdata.lookforcustomers.view.home.fragment;
 
+import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.base.WangrunBaseFragment;
+import com.orientdata.lookforcustomers.base.LazyLoadFragment;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.bean.Task;
@@ -21,10 +17,8 @@ import com.orientdata.lookforcustomers.presenter.HomePresent;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.findcustomer.TaskDetailActivity;
 import com.orientdata.lookforcustomers.view.home.IHomeView;
-import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.xlistview.XListView;
 import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter;
-import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -33,72 +27,73 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wy on 2017/10/30.
- *
- * 寻客Fragment
+ * Created by ckx on 2018/6/20.
  */
 
-public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHomeView>> implements View.OnClickListener,XListView.IXListViewListener,IHomeView {
-    private LinearLayout typeChoose1,typeChoose2;
-//    private RelativeLayout linearCreateSearch;
-    private HomePresent mHomePresent;
-    private TextView chooseText1,chooseText2;
+public class TaskListFragment extends LazyLoadFragment<IHomeView, HomePresent<IHomeView>> implements View.OnClickListener, XListView.IXListViewListener, IHomeView {
+    private  int status;
+    XListView mListView;
+
+
     private ArrayList<String> listStr = null;
     private ArrayList<String> listStatus = null;
-    private MyTitle titleSearch;
-
-    private XListView mListView;
     private MyAdapter mAdapter;
     private static List<Task> searchList = null;
     int page = 1;
     int size = 10;
     private ACache aCache = null;//数据缓存
+    private Context context;
+    private TextView textView;
 
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
-        initData();
-        intiView(view);
-        updateData();
-        return view;
+    public void onAttach(Context context) {
+        this.context = context;
+        super.onAttach(context);
     }
 
-    public void updateData() {
-        Logger.d("获取寻客管理的内容");
+    @Override
+    protected int setContentView() {
+        return R.layout.fragment_search2;
+    }
+
+    @Override
+    protected void lazyLoad() {
+        AddData();
+        intiView();
+        updateData(getStatus(fragmentTitle));
+    }
+
+
+
+
+    public void updateData(int typeChoose) {
+        Logger.d("获取寻客管理的内容" + typeChoose);
         //类型，状态，第几页，size
-        mHomePresent.getSearchList(choosePosition1,typeChoose,page,size);
+        mPresent.getSearchList(1, typeChoose, page, size);
     }
 
-    private void intiView(View view){
-        aCache = ACache.get(getContext());
-        mHomePresent = ((HomeActivity)getActivity()).getPresent();
-        typeChoose1 = view.findViewById(R.id.typeChoose1);
-        mListView = view.findViewById(R.id.xListView);
-        titleSearch = view.findViewById(R.id.titleSearch);
-        typeChoose2 = view.findViewById(R.id.typeChoose2);
-        chooseText1 = typeChoose1.findViewById(R.id.tvLeftText);
-        chooseText2 = typeChoose2.findViewById(R.id.tvLeftText);
-        typeChoose1.setOnClickListener(this);
-        typeChoose2.setOnClickListener(this);
-        titleSearch.setTitleName("寻客管理");
+
+
+    private void intiView() {
+        mListView = findViewById(R.id.xListView);
+        textView = findViewById(R.id.tv_null);
         mListView.setPullLoadEnable(true);
         mListView.setXListViewListener(this);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (searchList!=null && searchList.size()>0 && position>0 &&(position-1)<searchList.size()) {
+                if (searchList != null && searchList.size() > 0 && position > 0 && (position - 1) < searchList.size()) {
                     //进入详情页
                     Intent intent = new Intent(getContext(), TaskDetailActivity.class);
-                    intent.putExtra("taskId",searchList.get(position-1).getTaskId());
+                    intent.putExtra("taskId", searchList.get(position - 1).getTaskId());
                     startActivity(intent);
                 }
             }
         });
     }
 
-    private void initData(){
+    private void AddData() {
         listStr = new ArrayList<>();
         listStr.add("全部");
         listStr.add("短信");
@@ -114,38 +109,30 @@ public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<I
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.typeChoose1:
                 showStringDialog();
                 break;
             case R.id.typeChoose2:
                 showStringDialog2();
                 break;
-//            case R.id.linearCreateSearch:
-//                double userStatus = Double.parseDouble(aCache.getAsString(SharedPreferencesTool.USER_STATUS));
-//                if(userStatus == 2.0){
-//                    //黑名单
-//                    ToastUtils.showShort("账户异常，请联系客服");
-//                }else{
-//                    aCache.remove(SharedPreferencesTool.DIRECTION_HISTORY);
-//                    startActivity(new Intent(getContext(), CreateFindCustomerActivity.class));
-//                }
-//                break;
         }
     }
+
+
     private int choosePosition1 = 0;
-    private int choosePosition2 = 0;
     private int typeChoose = -1;//选择的类型 status的值
-    private void showStringDialog(){
-        final SettingStringDialog dialog = new SettingStringDialog(getContext(),R.style.Theme_Light_Dialog);
+
+    private void showStringDialog() {
+        final SettingStringDialog dialog = new SettingStringDialog(getContext(), R.style.Theme_Light_Dialog);
         dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
             @Override
             public void onChangeListener(String data, int position) {
                 dialog.dismiss();
                 page = 1;
-                chooseText1.setText(listStr.get(position));
+//                chooseText1.setText(listStr.get(position));
                 choosePosition1 = position;
-                updateData();
+//                updateData();
                 isLoadMore = false;
             }
         });
@@ -155,64 +142,70 @@ public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<I
     }
 
 
-    private int getStatus(String type){
-        int  status = -1;
-        if("审核中".equals(type)){
+    public static int getStatus(String type) {
+        int status = -1;
+        if ("审核中".equals(type)) {
             status = 1;
-        }else if("审核失败".equals(type)){
+        } else if ("审核失败".equals(type)) {
             status = 2;
-        }else if("待投放".equals(type)){
+        } else if ("待投放".equals(type)) {
             status = 6;
-        }else if("投放中".equals(type)){
+        } else if ("投放中".equals(type)) {
             status = 7;
-        }else if("投放结束".equals(type)){
+        } else if ("投放结束".equals(type)) {
             status = 8;
         }
         return status;
     }
+
     boolean isLoadMore = false;
 
-    private void showStringDialog2(){
-        final SettingStringDialog dialog = new SettingStringDialog(getContext(),R.style.Theme_Light_Dialog);
+
+    private void showStringDialog2() {
+        final SettingStringDialog dialog = new SettingStringDialog(getContext(), R.style.Theme_Light_Dialog);
         dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
             @Override
             public void onChangeListener(String data, int position) {
                 dialog.dismiss();
                 page = 1;
-                chooseText2.setText(listStatus.get(position));
-                choosePosition2 = position;
+//                chooseText2.setText(listStatus.get(position));
                 typeChoose = getStatus(listStatus.get(position));
-                updateData();
+//                updateData();
                 isLoadMore = false;
             }
         });
         dialog.setUpData(listStatus);
-        dialog.setSelect(choosePosition2);
         dialog.show();
     }
 
-
     SearchListBean searchListBean;
-
 
     @Subscribe
     public void searchListResult(SearchListEvent searchListEvent) {
         searchListBean = searchListEvent.searchListBean;
-        if(searchListBean!=null) {
-            if(searchListBean.isHasMore()){ //有更多数据
-                mListView.setLoadState(XListViewFooter.STATE_NORMAL);
-            }else{              //没有更多数据
-                mListView.setLoadState(XListViewFooter.STATE_NO_MORE);
-            }
-            if(page == 1){
-                //refresh
-                searchList = searchListBean.getResult();
+        if (searchListBean != null) {
+            if (searchListBean.getTotalCount() == 0) {
+                mListView.setVisibility(View.GONE);
+                textView.setVisibility(View.VISIBLE);
             }else{
-                //loadMore
-                searchList.addAll(searchList.size(),searchListBean.getResult());
+                textView.setVisibility(View.GONE);
+                mListView.setVisibility(View.VISIBLE);
+                if (searchListBean.isHasMore()) { //有更多数据
+                    mListView.setLoadState(XListViewFooter.STATE_NORMAL);
+                } else {              //没有更多数据
+                    mListView.setLoadState(XListViewFooter.STATE_NO_MORE);
+                }
+                if (page == 1) {
+                    //refresh
+                    searchList = searchListBean.getResult();
+                } else {
+                    //loadMore
+                    searchList.addAll(searchList.size(), searchListBean.getResult());
+                }
             }
+
         }
-        mAdapter = new MyAdapter(getContext(),searchList);
+        mAdapter = new MyAdapter(getContext(), searchList);
         mListView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
         onLoad();
@@ -221,41 +214,25 @@ public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<I
 
     @Override
     public void onRefresh() {
-        if(searchList!=null){
+        if (searchList != null) {
             searchList.clear();
         }
         page = 1;
-        updateData();
+        updateData(getStatus(fragmentTitle));
     }
 
 
     @Override
     public void onLoadMore() {
         page++;
-        updateData();
+        updateData(getStatus(fragmentTitle));
     }
+
     private void onLoad() {
         mListView.stopRefresh();
         mListView.stopLoadMore();
         mListView.setRefreshTime("刚刚");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /*下面没有用*/
@@ -266,16 +243,22 @@ public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<I
 
     @Override
     public void showLoading() {
-
+        showDefaultLoading();
     }
 
     @Override
     public void hideLoading() {
-
+        hideDefaultLoading();
     }
 
     @Override
     public void getCertificateMsg(CertificationOut certificationOut, boolean isCertificate) {
 
     }
+
+    public static TaskListFragment getInstance() {
+        TaskListFragment sf = new TaskListFragment();
+        return sf;
+    }
+
 }

@@ -60,12 +60,14 @@ public class DirectionalSettingPresent<T> extends BasePresenter<IDirectionalSett
         @Override
         protected void onSuccees(WrResponse<Object> t) {
             mDirectionSetting.hideLoading();
-            getAllAddress();
+            mDirectionSetting.deleteAddressSucess();
+
         }
 
         @Override
         protected void onFailure(String errorInfo, boolean isNetWorkError) {
             mDirectionSetting.hideLoading();
+            mDirectionSetting.deleteAddressError();
         }
     });
 }

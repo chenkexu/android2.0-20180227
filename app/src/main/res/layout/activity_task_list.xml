@@ -1,59 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:background="@color/c_fafafa"
-    android:paddingBottom="20dp"
+    android:layout_centerHorizontal="true"
     android:orientation="vertical">
-    <View
-        android:background="@color/bg_white"
-        android:layout_alignParentTop="true"
-        android:id="@+id/margin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/status_bar_height"/>
+
     <com.orientdata.lookforcustomers.widget.MyTitle
         android:id="@+id/titleSearch"
         android:layout_below="@id/margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <LinearLayout
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:layout_gravity="center"
+        tl:tl_tab_padding="7dp"
+        android:id="@+id/tl_5"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        tl:tl_indicator_color="@color/colorPrimary"
+        tl:tl_underline_color="#1A000000"
+        tl:tl_textSelectColor="@color/colorPrimary"
+        tl:tl_textUnselectColor="#404040"
+        tl:tl_indicator_corner_radius="1.5dp"
+        tl:tl_indicator_height="3dp"
+        tl:tl_indicator_width="40dp"/>
+
+  <!--  <com.flyco.tablayout.SlidingTabLayout
+        tl:tl_underline_height="1dp"
+        tl:tl_indicator_margin_left="2dp"
+        tl:tl_underline_color="@color/colorPrimary"
+        tl:tl_textSelectColor="@color/colorPrimary"
+        tl:tl_textUnselectColor="#404040"
+        tl:tl_indicator_corner_radius="1.5dp"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@color/c_ffffff"
-        android:layout_below="@+id/titleSearch"
-        android:id="@+id/linearLayout">
-        <include
-            android:id="@+id/typeChoose1"
-            layout="@layout/pull_down_text_view2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:background="@color/c_D9D9D9"/>
-        <include
-            android:id="@+id/typeChoose2"
-            layout="@layout/pull_down_text_view2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-    </LinearLayout>
-    <com.orientdata.lookforcustomers.view.xlistview.XListView
-        android:id="@+id/xListView"
+        android:layout_height="48dp"
+        tl:tl_indicator_width="10dp"/>-->
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="84dp"
-        android:divider="@null"
-        android:layout_marginTop="10dp"
-        android:dividerHeight="0dp" />
+        android:layout_height="match_parent"/>
 
-
-
-</RelativeLayout>
+</LinearLayout>

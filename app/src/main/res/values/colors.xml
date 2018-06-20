@@ -57,6 +57,18 @@
     <color name="c_fda32b">#fda32b</color>
     <color name="c_000000">#000000</color>
 
+
+
+    <color name="shenhe_ing">#FF943E</color>
+    <color name="shenhe_error">#F25642</color>
+    <color name="shenhe_pre">#4F7BE4</color>
+    <color name="shenhe_sucuess">#15BC83</color>
+    <color name="shenhe_over">#0079FF</color>
+
+
+
+
+
     <color name="c_C3ABDF">#02ab9a</color>
 
     <color name="c_888888">#7F7F7F</color>

@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.event.ImgClipResultEvent;
 import com.orientdata.lookforcustomers.presenter.BasePresenter;
@@ -24,7 +23,6 @@ public abstract class WangrunBaseFragment<V, T extends BasePresenter<V>> extends
     protected T mPresent;
     private Dialog progressDialog;
     private BaseActivity baseActivity;
-    protected ImmersionBar mImmersionBar;
 
 
     @Override

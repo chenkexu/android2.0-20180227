@@ -163,9 +163,7 @@
         <activity
             android:name=".view.findcustomer.SearchActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.findcustomer.impl.DirectionalSettingActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".view.findcustomer.impl.DirectionalSettingActivity2"
             android:screenOrientation="portrait" />

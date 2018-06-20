@@ -3,240 +3,98 @@ package com.orientdata.lookforcustomers.view.mine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
+import com.flyco.tablayout.SlidingTabLayout;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
-import com.orientdata.lookforcustomers.bean.SearchListBean;
-import com.orientdata.lookforcustomers.bean.Task;
-import com.orientdata.lookforcustomers.event.SearchListEvent;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
-import com.orientdata.lookforcustomers.view.findcustomer.TaskDetailActivity;
 import com.orientdata.lookforcustomers.view.home.IHomeView;
-import com.orientdata.lookforcustomers.view.home.fragment.MyAdapter;
-import com.orientdata.lookforcustomers.view.xlistview.XListView;
-import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter;
+import com.orientdata.lookforcustomers.view.home.fragment.TaskListFragment;
 import com.orientdata.lookforcustomers.widget.MyTitle;
-import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
-
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-/**
- * 关于我们
- */
-public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>> implements View.OnClickListener,XListView.IXListViewListener,IHomeView {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private LinearLayout typeChoose1,typeChoose2;
-//    private RelativeLayout linearCreateSearch;
-    private TextView chooseText1,chooseText2;
-    private ArrayList<String> listStr = null;
-    private ArrayList<String> listStatus = null;
-    private MyTitle titleSearch;
+import static com.orientdata.lookforcustomers.R.id.vp;
 
-    private XListView mListView;
-    private MyAdapter mAdapter;
-    private  List<Task> searchList = null;
-    int page = 1;
-    int size = 10;
+
+public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>> implements IHomeView {
+
+    @BindView(R.id.titleSearch)
+    MyTitle titleSearch;
+
+    @BindView(R.id.tl_5)
+    SlidingTabLayout tl5;
+    @BindView(vp)
+    ViewPager viewPager;
+
+
+
+
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private final String[] mTitles = {
+            "全部", "审核中", "审核失败"
+            , "待投放", "投放中", "投放结束"
+    };
+
+
+
+    private MyPagerAdapter mAdapter;
+
+
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = getLayoutInflater().inflate(R.layout.activity_task_list,null);
+        View view = getLayoutInflater().inflate(R.layout.activity_task_list, null);
         setContentView(view);
+        ButterKnife.bind(this);
+        initView();
         initData();
-        intiView(view);
-        updateData();
-    }
 
-    public void updateData() {
-        Logger.d("获取寻客管理的内容");
-        //类型，状态，第几页，size
-        mPresent.getSearchList(choosePosition1,typeChoose,page,size);
-    }
+        ButterKnife.bind(this);
 
-    private void intiView(View view){
-        typeChoose1 = view.findViewById(R.id.typeChoose1);
-        mListView = view.findViewById(R.id.xListView);
-        titleSearch = view.findViewById(R.id.titleSearch);
-        typeChoose2 = view.findViewById(R.id.typeChoose2);
-        chooseText1 = typeChoose1.findViewById(R.id.tvLeftText);
-        chooseText2 = typeChoose2.findViewById(R.id.tvLeftText);
-        typeChoose1.setOnClickListener(this);
-        typeChoose2.setOnClickListener(this);
-        titleSearch.setTitleName("寻客管理");
-        mListView.setPullLoadEnable(true);
-        mListView.setXListViewListener(this);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (searchList!=null && searchList.size()>0 && position>0 &&(position-1)<searchList.size()) {
-                    //进入详情页
-                    Intent intent = new Intent(TaskListActivity.this, TaskDetailActivity.class);
-                    intent.putExtra("taskId",searchList.get(position-1).getTaskId());
-                    startActivity(intent);
-                }
-            }
-        });
-    }
-
-    private void initData(){
-        listStr = new ArrayList<>();
-        listStr.add("全部");
-        listStr.add("短信");
-        listStr.add("页面");
-        listStatus = new ArrayList<>();
-        listStatus.add("全部");
-        listStatus.add("审核中");
-        listStatus.add("审核失败");
-        listStatus.add("待投放");
-        listStatus.add("投放中");
-        listStatus.add("投放结束");
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.typeChoose1:
-                showStringDialog();
-                break;
-            case R.id.typeChoose2:
-                showStringDialog2();
-                break;
+        for (String title : mTitles) {
+            TaskListFragment fragment = TaskListFragment.getInstance();
+            fragment.setTitle(title);
+            mFragments.add(fragment);
         }
-    }
-    private int choosePosition1 = 0;
-    private int choosePosition2 = 0;
-    private int typeChoose = -1;//选择的类型 status的值
-
-    private void showStringDialog(){
-        final SettingStringDialog dialog = new SettingStringDialog(TaskListActivity.this,R.style.Theme_Light_Dialog);
-        dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
-            @Override
-            public void onChangeListener(String data, int position) {
-                dialog.dismiss();
-                page = 1;
-                chooseText1.setText(listStr.get(position));
-                choosePosition1 = position;
-                updateData();
-                isLoadMore = false;
-            }
-        });
-        dialog.setUpData(listStr);
-        dialog.setSelect(choosePosition1);
-        dialog.show();
-    }
-
-
-    private int getStatus(String type){
-        int  status = -1;
-        if("审核中".equals(type)){
-            status = 1;
-        }else if("审核失败".equals(type)){
-            status = 2;
-        }else if("待投放".equals(type)){
-            status = 6;
-        }else if("投放中".equals(type)){
-            status = 7;
-        }else if("投放结束".equals(type)){
-            status = 8;
+        mAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(mAdapter);
+        viewPager.setOffscreenPageLimit(0);
+        tl5.setViewPager(viewPager);
+        Intent intent = getIntent();
+        String tasktype = intent.getStringExtra("taskType");
+        if (tasktype!=null) {
+            int positon = Arrays.binarySearch(mTitles, tasktype);
+            viewPager.setCurrentItem(positon);
+        }else{
+            viewPager.setCurrentItem(0);
         }
-        return status;
-    }
-    boolean isLoadMore = false;
 
-    private void showStringDialog2(){
-        final SettingStringDialog dialog = new SettingStringDialog(TaskListActivity.this,R.style.Theme_Light_Dialog);
-        dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
-            @Override
-            public void onChangeListener(String data, int position) {
-                dialog.dismiss();
-                page = 1;
-                chooseText2.setText(listStatus.get(position));
-                choosePosition2 = position;
-                typeChoose = getStatus(listStatus.get(position));
-                updateData();
-                isLoadMore = false;
-            }
-        });
-        dialog.setUpData(listStatus);
-        dialog.setSelect(choosePosition2);
-        dialog.show();
-    }
 
-    SearchListBean searchListBean;
-
-    @Subscribe
-    public void searchListResult(SearchListEvent searchListEvent) {
-        searchListBean = searchListEvent.searchListBean;
-        if(searchListBean!=null) {
-            if(searchListBean.isHasMore()){ //有更多数据
-                mListView.setLoadState(XListViewFooter.STATE_NORMAL);
-            }else{              //没有更多数据
-                mListView.setLoadState(XListViewFooter.STATE_NO_MORE);
-            }
-            if(page == 1){
-                //refresh
-                searchList = searchListBean.getResult();
-            }else{
-                //loadMore
-                searchList.addAll(searchList.size(),searchListBean.getResult());
-            }
-        }
-        mAdapter = new MyAdapter(TaskListActivity.this,searchList);
-        mListView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-        onLoad();
     }
 
 
-    @Override
-    public void onRefresh() {
-        if(searchList!=null){
-            searchList.clear();
-        }
-        page = 1;
-        updateData();
+    private void initView() {
+        titleSearch.setTitleName("我的寻客");
+        titleSearch.setImageBack(this);
     }
 
 
-    @Override
-    public void onLoadMore() {
-        page++;
-        updateData();
+    private void initData() {
+
     }
-
-    private void onLoad() {
-        mListView.stopRefresh();
-        mListView.stopLoadMore();
-        mListView.setRefreshTime("刚刚");
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /*下面没有用*/
@@ -259,5 +117,30 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
     @Override
     public void getCertificateMsg(CertificationOut certificationOut, boolean isCertificate) {
 
+    }
+
+
+
+
+
+    private class MyPagerAdapter extends FragmentPagerAdapter {
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mTitles[position];
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
+        }
     }
 }

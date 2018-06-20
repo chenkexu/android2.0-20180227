@@ -164,7 +164,7 @@ dependencies {
     compile 'org.litepal.android:core:1.5.0'
     compile 'com.github.Jay-Goo:RangeSeekBar:v2.0.2'
     //底部弹出框架
-    compile 'com.sothree.slidinguppanel:library:3.4.0'
+    //compile 'com.sothree.slidinguppanel:library:3.4.0'
     //共享元素
     compile 'com.github.huzenan:EasyTransition:v1.0.0'
     //角标
@@ -172,7 +172,9 @@ dependencies {
     //点赞
     compile 'com.wx.goodview:goodview:1.0.0'
 
-    compile 'com.robinhood.ticker:ticker:2.0.0'
+    //compile 'com.robinhood.ticker:ticker:2.0.0'
+    //tab
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
 }
 allprojects {
     repositories {

@@ -3,7 +3,6 @@ package com.orientdata.lookforcustomers.view.findcustomer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,14 +16,11 @@ import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.event.DeleteTaskEvent;
 import com.orientdata.lookforcustomers.event.TaskInfoEvent;
 import com.orientdata.lookforcustomers.presenter.TaskPresent;
-import com.orientdata.lookforcustomers.util.CommonUtils;
-import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.ImagePagerActivity;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.widget.MyTitle;
-import com.orientdata.lookforcustomers.widget.dialog.ConfirmSubmitDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -35,8 +31,7 @@ import java.util.List;
  * Created by wy on 2017/11/25.
  * 寻客管理-任务详情
  */
-
-public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITaskView>> implements ITaskView,View.OnClickListener{
+public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITaskView>> implements ITaskView{
     private MyTitle myTitle;
     private TextView tvType;
     private TextView tvDirection;
@@ -58,44 +53,12 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
-        initView();
         initTitle();
         mPresent.getTaskDetail(task_id);
     }
-    private void initView(){
-        aCache = ACache.get(this);
-        task_id = getIntent().getIntExtra("taskId",0);
-        myTitle = findViewById(R.id.myTitle);
-        tvType = findViewById(R.id.tvType);
-        taskId = findViewById(R.id.taskId);
-        tvDirection = findViewById(R.id.tvDirection);
-        ivDirection = findViewById(R.id.ivDirection);
-        taskName = findViewById(R.id.taskName);
-        taskBudget = findViewById(R.id.taskBudget);
-        runTime = findViewById(R.id.runTime);
-        runAddress = findViewById(R.id.runAddress);
-        runRadius = findViewById(R.id.runRadius);
-        tvImgUrl = findViewById(R.id.tvImgUrl);
-        tvStatus = findViewById(R.id.tvStatus);
-        ivAd = findViewById(R.id.ivAd);
-        msgMoney = findViewById(R.id.msgMoney);
-        linearPage = findViewById(R.id.linearPage);
-        linearMessage = findViewById(R.id.linearMessage);
-        issuNum = findViewById(R.id.issuNum);
-        searchMoney = findViewById(R.id.searchMoney);
-        displayNum = findViewById(R.id.displayNum);
-        clickNum = findViewById(R.id.clickNum);
-        tvTestNum = findViewById(R.id.tvTestNum);
-        tvDelete = findViewById(R.id.tvDelete);
-        linearAd = findViewById(R.id.linearAd);
-        linearMsg = findViewById(R.id.linearMsg);
-        tvMsgContent = findViewById(R.id.tvMsgContent);
-        tvDirection.setOnClickListener(this);
-        ivDirection.setOnClickListener(this);
-        tvTestNum.setOnClickListener(this);
-        tvDelete.setOnClickListener(this);
-        ivAd.setOnClickListener(this);
-    }
+
+
+
     private void initTitle(){
         myTitle.setRightText("再次创建");
         myTitle.setTitleName("寻客管理");
@@ -118,55 +81,10 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
         });
     }
 
-    private void showBigPhoto(ImageView view,String path){
-        ImagePagerActivity.ImageSize imageSize = new ImagePagerActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
-        List<String> photoUrls = new ArrayList<>();
-        photoUrls.add(path);
-        ImagePagerActivity.startImagePagerActivity(this,photoUrls,0,imageSize);
-    }
 
 
-    private void updateView(){
-        if(taskOut != null){
-            if(taskOut.getType()==1){
-                linearAd.setVisibility(View.GONE);
-                linearMsg.setVisibility(View.VISIBLE);
-                tvType.setText("任务类型：短信");
-                tvMsgContent.setText(taskOut.getContent());
-                linearMessage.setVisibility(View.VISIBLE);
-                linearPage.setVisibility(View.GONE);
-                issuNum.setText(taskOut.getIssuedCount()+"");
-                msgMoney.setText(taskOut.getXunMoney()+"");
-            }else{
-                linearAd.setVisibility(View.VISIBLE);
-                linearMsg.setVisibility(View.GONE);
-                tvType.setText("任务类型：页面");
-                if(taskOut.getTemplateUrl() == null){
-                    tvImgUrl.setText("图片链接：");
-                }else{
-                    tvImgUrl.setText("图片链接："+taskOut.getTemplateUrl());
-                }
-                if(!TextUtils.isEmpty(taskOut.getAdImgid())){
-//                    Glide.with(this).load(taskOut.getAdImgid()).into(ivAd);
-                    GlideUtil.getInstance().loadAdImage(this,ivAd,taskOut.getAdImgid(),true);
-                    imagePath = taskOut.getAdImgid();
-                }
-                linearMessage.setVisibility(View.GONE);
-                linearPage.setVisibility(View.VISIBLE);
-                searchMoney.setText(taskOut.getXunMoney()+"");
-                displayNum.setText(taskOut.getIssuedCount()+"");
-                clickNum.setText(taskOut.getClickCount()+"");
-            }
-            taskId.setText(taskOut.getTaskId()+"");
-            tvStatus.setText(getStatus(taskOut.getStatus()));
-            taskName.setText(taskOut.getTaskName());
-            taskBudget.setText(taskOut.getBudget().intValue()+"元");
-            runTime.setText(CommonUtils.getDateStr(taskOut.getThrowStartdate(),"yyyy/MM/dd")+"-"+CommonUtils.getDateStr(taskOut.getThrowEnddate(),"yyyy/MM/dd"));
-            runAddress.setText(taskOut.getThrowAddress());
-            runRadius.setText(taskOut.getRangeRadius());
 
-        }
-    }
+
 
     /**
      *任务状态
@@ -188,50 +106,8 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
         }
         return type;
     }
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.ivDirection:
-            case R.id.tvDirection:
-                //定向设置页面
-                Intent intent = new Intent(this,DirectionDetailActivity.class);
-//                intent.putExtra("orientationSetting",taskOut.getOrientationSettingsOut());
-                intent.putExtra("taskOut",taskOut);
 
-                startActivity(intent);
-                break;
-            case R.id.tvTestNum:
-                //测试号
-                Intent intent1 = new Intent(this,TestPhoneListActivity.class);
-                intent1.putExtra("testCmPhone",taskOut.getTestCmPhone());
-                intent1.putExtra("testCuPhone",taskOut.getTestCuPhone());
-                intent1.putExtra("testCtPhone",taskOut.getTestCtPhone());
-                startActivity(intent1);
-                break;
-            case R.id.tvDelete:
-                //删除对话框
-                final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this,"确定删除任务？","删除后无法恢复，请谨慎操作");
-                dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
-                    @Override
-                    public void doCancel() {
-                        dialog.dismiss();
-                    }
 
-                    @Override
-                    public void doConfirm() {
-                        dialog.dismiss();
-                        mPresent.deletTask(task_id);
-                    }
-                });
-                dialog.show();
-
-                break;
-            case R.id.ivAd:
-                showBigPhoto(ivAd,imagePath);
-                break;
-        }
-
-    }
 
     @Override
     public void showLoading() {
@@ -262,10 +138,11 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
     public void taskInfoReslt(TaskInfoEvent taskInfoEvent){
         if(taskInfoEvent.taskInfoBean.getCode() == 0){
             taskOut = taskInfoEvent.taskInfoBean.getResult();
-            updateView();
         }
 
     }
+
+
     @Subscribe
     public void deleteTask(DeleteTaskEvent deleteTaskEvent){
         if(deleteTaskEvent.errBean.getCode() == 0){
@@ -273,5 +150,12 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
             closeActivity(TaskDetailActivity.class);
         }
 
+    }
+
+    private void showBigPhoto(ImageView view,String path){
+        ImagePagerActivity.ImageSize imageSize = new ImagePagerActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
+        List<String> photoUrls = new ArrayList<>();
+        photoUrls.add(path);
+        ImagePagerActivity.startImagePagerActivity(this,photoUrls,0,imageSize);
     }
 }

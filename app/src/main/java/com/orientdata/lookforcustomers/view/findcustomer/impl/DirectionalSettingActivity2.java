@@ -164,6 +164,16 @@ public class DirectionalSettingActivity2 extends BaseActivity<IDirectionalSettin
 
     }
 
+    @Override
+    public void deleteAddressSucess() {
+
+    }
+
+    @Override
+    public void deleteAddressError() {
+
+    }
+
 
     private void initView() {
         industrys.add(tvCanyin);

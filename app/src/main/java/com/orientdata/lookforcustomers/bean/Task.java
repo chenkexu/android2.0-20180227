@@ -15,8 +15,12 @@ public class Task implements Serializable {
     private String taskName;//任务名称
     private int userId;//用户id
     private int type;//1 短信 2页面
+
+
     //1 审核中(平台) 2审核未通过(平台) 3准备中(运营商) 4审核未通过(运营商) 5准备中 6待投放 7投放中 8投放完 9暂停任务 10恢复任务 11终止任务
     private int status;
+
+
     private String rangeRadius;//半径范围
     private BigDecimal budget;//任务预算
     private BigDecimal actualAmount;//	实际钱数

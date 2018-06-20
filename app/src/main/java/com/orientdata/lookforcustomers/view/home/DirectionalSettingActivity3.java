@@ -189,7 +189,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private String mCityName;
     private String currentCircleRadius;
     private String personNumStr;
-    private boolean mIsLike = false;
+    private boolean mIsLike = false; //没有收藏
 
     protected boolean isImmersionBarEnabled() {
         return false;
@@ -316,6 +316,8 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     public void AddAddressSucess() {
         collectAddress.setImageResource(R.mipmap.icon_collect_dir);
         ToastUtils.showShort("收藏成功");
+        mIsLike = true;
+        mPresent.getAllAddress();
     }
 
 
@@ -323,6 +325,22 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     public void AddAddressError() {
         collectAddress.setImageResource(R.mipmap.icon_collect_no);
         ToastUtils.showShort("收藏失败");
+        mIsLike = false;
+    }
+
+
+    @Override
+    public void deleteAddressSucess() {
+        collectAddress.setImageResource(R.mipmap.icon_collect_no);
+        ToastUtils.showShort("已取消收藏");
+        mIsLike = false;
+    }
+
+    @Override
+    public void deleteAddressError() {
+        collectAddress.setImageResource(R.mipmap.icon_collect_dir);
+        ToastUtils.showShort("取消收藏失败");
+        mIsLike = true;
     }
 
 
@@ -894,6 +912,8 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     public void hideLoading() {
         hideDefaultLoading();
     }
+
+
 
 
     @Override

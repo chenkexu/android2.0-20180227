@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_fafafa"
+    android:orientation="vertical">
+
+    <com.orientdata.lookforcustomers.view.xlistview.XListView
+        android:id="@+id/xListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:divider="#D8D8D8"
+        android:dividerHeight="1dp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_null"
+        android:gravity="center"
+        android:drawablePadding="20dp"
+        android:drawableTop="@mipmap/order_null"
+        android:layout_centerInParent="true"
+        android:textSize="18sp"
+        android:textColor="@color/text_gray"
+        android:text="暂无数据"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+   <!-- <ImageView
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@mipmap/order_null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />-->
+
+
+
+
+</RelativeLayout>
