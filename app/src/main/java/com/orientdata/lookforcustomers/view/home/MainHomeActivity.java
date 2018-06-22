@@ -18,7 +18,6 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -81,6 +80,7 @@ import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.agreement.MyWebViewActivity;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.findcustomer.SearchActivity;
+import com.orientdata.lookforcustomers.view.findcustomer.TaskDeliveryView;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.MessageTaskActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.PageTaskActivity;
 import com.orientdata.lookforcustomers.view.home.fragment.MeActivity;
@@ -91,7 +91,6 @@ import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
 import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
 import com.qiniu.android.common.Constants;
-import com.wx.goodview.GoodView;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -104,7 +103,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.iwgang.countdownview.CountdownView;
 import q.rorbin.badgeview.QBadgeView;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
@@ -143,22 +141,34 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     LinearLayout llBannerScroll;
     @BindView(R.id.iv_me)
     ImageView ivMe;
-    @BindView(R.id.iv_close_task)
-    ImageView ivCloseTask;
-    @BindView(R.id.tv_remain_time)
-    CountdownView tvRemainTime;
-    @BindView(R.id.tv_show_detail)
-    TextView tvShowDetail;
-    @BindView(R.id.iv_speed)
-    ImageView ivSpeed;
-    @BindView(R.id.tv_cooling_time)
-    CountdownView tvCoolingTime;
-    @BindView(R.id.cd_task_delivery)
-    CardView cdTaskDelivery;
+
+//
+//    @BindView(R.id.iv_close_task)
+//    ImageView ivCloseTask;
+//    @BindView(R.id.tv_remain_time)
+//    CountdownView tvRemainTime;
+//    @BindView(R.id.tv_show_detail)
+//    TextView tvShowDetail;
+//    @BindView(R.id.iv_speed)
+//    ImageView ivSpeed;
+//    @BindView(R.id.tv_cooling_time)
+//    CountdownView tvCoolingTime;
+//    @BindView(R.id.cd_task_delivery)
+//    CardView cdTaskDelivery;
+//
+
     @BindView(R.id.iv_task)
     ImageView ivTask;
+
+
     @BindView(R.id.tv_time)
     TextView tvtime;
+
+
+    @BindView(R.id.task_delivery)
+    TaskDeliveryView taskDeliveryView;
+
+
 
 
     private MyLocationConfiguration.LocationMode mCurrentMode;
@@ -272,48 +282,23 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
 
     @OnClick({R.id.imageView_jingzhundingwei, R.id.iv_task,
-            R.id.bt_go_orintion, R.id.iv_service,R.id.iv_close_task, R.id.iv_speed,
+            R.id.bt_go_orintion, R.id.iv_service,
             R.id.ll_at_create_find_customer_search, R.id.ll_down, R.id.iv_me})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_task: //显示任务进行中的布局
                 ivTask.setVisibility(View.GONE);
-                cdTaskDelivery.setVisibility(View.VISIBLE);
+                taskDeliveryView.setVisibility(View.VISIBLE);
                 break;
-            case R.id.iv_close_task: //关闭任务
-                ivTask.setVisibility(View.VISIBLE);
-                cdTaskDelivery.setVisibility(View.GONE);
-                break;
-            case R.id.iv_speed: //加速
-                final GoodView goodView = new GoodView(this);
-                goodView.setImage(getResources().getDrawable(R.mipmap.main_lighting));
-                goodView.setDistance(120);
+//            case R.id.iv_close_task: //关闭任务
+//                ivTask.setVisibility(View.VISIBLE);
+//                cdTaskDelivery.setVisibility(View.GONE);
+//                break;
 
-                if (coolingTime >= 60 && clickFlag) {
-                    tvCoolingTime.setVisibility(View.VISIBLE);
-                    tvtime.setVisibility(View.GONE);
-                    clickFlag = false;
-                    tvCoolingTime.start(60000);
-                    tvCoolingTime.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
-                        @Override
-                        public void onEnd(CountdownView cv) {
-                            Logger.d("倒计时结束了");
-                            clickFlag = true;
-                            coolingTime = 0;
-                        }
-                    });
-                } else if(coolingTime >= 60 && !clickFlag){
-                    ToastUtils.showShort("让我休息一下吧！");
-                } else if(clickFlag){
-                    goodView.show(ivSpeed);
-                    coolingTime = coolingTime + 10;
-                    tvCoolingTime.setVisibility(View.GONE);
-                    tvtime.setVisibility(View.VISIBLE);
-                    tvtime.setText(coolingTime+" s");
-                    // TODO: 2018/6/14 投递条数和剩余天数开始变化。
-                }
+//            case R.id.iv_speed: //加速
+//
+//                break;
 
-                break;
             case R.id.iv_me:
                 Intent intent = new Intent(this, MeActivity.class);
                 startActivity(intent);
@@ -415,8 +400,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
 
     private void initData() {
-        long time4 = (long)2 * 24 * 60 * 60;
-        tvRemainTime.start(time4);
+//        long time4 = (long)2 * 24 * 60 * 60;
+//        tvRemainTime.start(time4);
         getProvinceCity();
     }
 
@@ -575,6 +560,19 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 //                    llBannerScroll.setBackground();
 
                 }
+            }
+        });
+
+        taskDeliveryView.setOnItemClickListener(new TaskDeliveryView.OnClickListener() {
+            @Override
+            public void showTaskDetail() {
+
+            }
+
+            @Override
+            public void hideTaskDelivery() {
+                ivTask.setVisibility(View.VISIBLE);
+                taskDeliveryView.setVisibility(View.GONE);
             }
         });
 

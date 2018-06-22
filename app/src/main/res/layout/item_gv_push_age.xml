@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="25dp"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:max="9999"
+        android:progress="1596"
+        android:id="@+id/progressBar_age"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:progressDrawable="@drawable/custom_progressbar2" />
+
+    <TextView
+        android:id="@+id/tv_age_ratio"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="5%"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+
+
+    <TextView
+        android:id="@+id/tv_age"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
+        android:layout_alignParentRight="true"
+        android:textColor="#404040"
+        android:text="18及以下-20"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

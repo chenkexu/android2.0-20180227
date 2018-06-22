@@ -3,7 +3,6 @@
     android:id="@+id/layout_title"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c_fafafa"
     android:orientation="vertical">
     <com.orientdata.lookforcustomers.widget.MyTitle
         android:id="@+id/myTitle"
@@ -11,8 +10,10 @@
         android:layout_height="wrap_content" />
 
     <ScrollView
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -20,19 +21,88 @@
 
             <ImageView
                 android:id="@+id/iv_order_image1"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/order_detail_ing"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/order_detail_over" />
 
             <ImageView
                 android:layout_marginTop="5dp"
                 android:id="@+id/iv_order_image2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/order_big_ing"
+                android:src="@mipmap/order_big_ing" />
+
+            <android.support.v7.widget.CardView
+                 style="@style/order_cardView_style"
+                android:visibility="visible"
+                android:id="@+id/cd_task_delivery2">
+
+                <com.orientdata.lookforcustomers.view.findcustomer.TaskDeliveryView
+                    android:id="@+id/task_delivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                style="@style/order_cardView_style"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp">
+
+                <LinearLayout
+                    android:paddingLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/tv_order_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="订单ID"
+                        android:textColor="@color/text_gray"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_order_create_time"
+                        style="@style/order_text_style"
+                        android:text="创建时间" />
+
+                    <TextView
+                        android:id="@+id/tv_order_err_descr"
+                        style="@style/order_text_style"
+                        android:textColor="#F25642"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+            <!--详情-->
+            <com.orientdata.lookforcustomers.view.findcustomer.OrderDetailView
+                android:layout_marginTop="4dp"
+                android:id="@+id/orderView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <include layout="@layout/include_order_detail"/>
+
+            <!--报告-->
+            <com.orientdata.lookforcustomers.view.findcustomer.PushResultReport
+                android:id="@+id/report_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
+
+
         </LinearLayout>
 
     </ScrollView>

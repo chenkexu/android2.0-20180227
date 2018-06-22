@@ -58,7 +58,6 @@ public class MyTitle extends RelativeLayout {
         mViewRight = (ViewGroup) mView.findViewById(R.id.right);
         mViewUnderLine = mView.findViewById(R.id.view_under_line);
         textViewLeftTwo = (TextView) mView.findViewById(R.id.left_text_two);
-
     }
 
     /**
@@ -133,7 +132,7 @@ public class MyTitle extends RelativeLayout {
      */
     public void setImageBack(final Activity activity) {
         if (activity != null) {
-            setLeftImage(R.drawable.bg_back_btn, new OnClickListener() {
+            setLeftImage(R.mipmap.ic_navigate_before, new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     activity.finish();

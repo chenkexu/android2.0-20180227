@@ -6,10 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="5dp"
-    app:cardElevation="10dp"
-    android:layout_marginLeft="14dp"
-    android:layout_marginRight="14dp"
-    android:background="#ffffff">
+    app:cardElevation="10dp">
 
     <RelativeLayout
         android:gravity="center_vertical"
@@ -64,6 +61,7 @@
                 app:timeTextSize="9sp"/>
 
             <TextView
+
                 android:textStyle="bold"
                 android:id="@+id/tv_show_detail"
                 android:layout_marginTop="5dp"
@@ -86,8 +84,8 @@
             android:layout_height="wrap_content"
             app:digiGroupColor="@color/colorAccent"
             app:digiGroupFigureCounts="7"
-            app:digiGroupInterval="1dp"
-            app:digiGroupTextSize="6sp"
+            app:digiGroupInterval="0.8dp"
+            app:digiGroupTextSize="5sp"
             android:layout_marginTop="30dp"/>
 
         <LinearLayout

@@ -136,6 +136,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
         addressAdapter.isFirstOnly(false);
         rvAddressList.setAdapter(addressAdapter);
 
+
         clickHistory();
 
         // TODO: 2018/5/24 查看所有的历史记录

@@ -8,7 +8,6 @@
 
     <!--Title,默认显示-->
     <TextView
-        android:textStyle="bold"
         android:id="@+id/text_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -16,12 +15,13 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:textColor="@color/gray"
+        android:textColor="@color/text_gray"
         android:textSize="18sp"
         tools:text="title" />
 
     <!--左边按钮,默认隐藏-->
     <RelativeLayout
+        android:layout_marginLeft="5dp"
         android:id="@+id/back_layout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -30,9 +30,10 @@
         tools:visibility="visible">
 
         <ImageView
+            android:src="@mipmap/ic_navigate_before"
             android:id="@+id/back_btn"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
             android:visibility="gone"
@@ -69,11 +70,11 @@
 
     <!--右边的按钮,默认隐藏-->
     <RelativeLayout
+        android:layout_alignBottom="@id/text_title"
         android:id="@+id/right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:gravity="center_vertical|right"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -90,16 +91,18 @@
             android:id="@+id/right_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
             android:gravity="center"
             android:maxLines="1"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:textColor="@color/gray"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:visibility="gone"
             tools:text="Right"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 
     <View

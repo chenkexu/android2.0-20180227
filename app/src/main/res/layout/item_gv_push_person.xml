@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="25dp"
+    android:layout_marginTop="10dp">
+
+
+
+    <TextView
+        android:textSize="15sp"
+        android:layout_weight="1"
+        android:textColor="#B3B3B3"
+        android:id="@+id/tv_phone_num"
+        android:layout_alignParentLeft="true"
+        android:gravity="left|center_vertical"
+        android:text="158XXXX4036"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+
+
+    <TextView
+        android:textSize="15sp"
+        android:gravity="right|center_vertical"
+        android:layout_weight="1"
+        android:id="@+id/tv_age"
+        android:layout_marginRight="10dp"
+        android:textColor="#B3B3B3"
+        android:text="触达成功"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

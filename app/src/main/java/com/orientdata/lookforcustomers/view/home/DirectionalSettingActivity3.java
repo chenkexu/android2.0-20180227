@@ -1,6 +1,8 @@
 package com.orientdata.lookforcustomers.view.home;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -38,6 +40,7 @@ import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.findcustomer.IDirectionalSettingView;
 import com.orientdata.lookforcustomers.widget.FluidLayout;
 import com.orientdata.lookforcustomers.widget.MyTitle;
+import com.orientdata.lookforcustomers.widget.ShadowDrawable;
 import com.orientdata.lookforcustomers.widget.dialog.BusinessInterestDialog;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.HobbyMultipleSelectDialog;
@@ -98,8 +101,9 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     @BindView(R.id.collect_address)
     ImageView collectAddress;
 
-    @BindView(iv_xunke_now)
+    @BindView(R.id.iv_xunke_now)
     ImageView ivXunkeNow;
+
     @BindView(R.id.tv_address)
     TextView tvAddress;
     @BindView(R.id.tv_scope)
@@ -397,6 +401,14 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         ivXunkeNow.setOnClickListener(this);
         hobby_from.setOnClickListener(this);
         hobby_to.setOnClickListener(this);
+
+
+
+        ShadowDrawable.setShadowDrawable(ivBaiMapPic, ShadowDrawable.SHAPE_CIRCLE, Color.parseColor("#FF3D00"),
+                dpToPx(8), Color.parseColor("#991DE9B6"), dpToPx(6), dpToPx(4), dpToPx(4));
+
+
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvAge.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -1214,5 +1226,8 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         super.onBackPressed();
         ActivityCompat.finishAfterTransition(this);
 //        EasyTransition.exit(this);
+    }
+    private int dpToPx(int dp) {
+        return (int) (Resources.getSystem().getDisplayMetrics().density * dp + 0.5f);
     }
 }

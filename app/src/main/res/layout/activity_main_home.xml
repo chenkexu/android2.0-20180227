@@ -195,7 +195,18 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <include layout="@layout/activity_task_delivery"/>
+
+            <com.orientdata.lookforcustomers.view.findcustomer.TaskDeliveryView
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:visibility="visible"
+                android:id="@+id/task_delivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+           <!-- <include layout="@layout/activity_task_delivery"/>-->
+
+
 
         </LinearLayout>
 

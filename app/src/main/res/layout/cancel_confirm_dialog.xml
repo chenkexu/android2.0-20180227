@@ -3,7 +3,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+    android:paddingRight="8dp"
     android:background="@drawable/shape_circle_white_load_bg1"
     android:orientation="vertical">
 

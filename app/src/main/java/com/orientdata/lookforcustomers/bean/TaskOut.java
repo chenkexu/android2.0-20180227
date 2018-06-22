@@ -2,7 +2,9 @@ package com.orientdata.lookforcustomers.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by wy on 2017/12/6.
@@ -26,14 +28,14 @@ public class TaskOut implements Serializable{
     private BigDecimal actualAmount;//	是	bigdecimal	实际支出
     private int invoiceStatus;//	是	int	开发票状态 1未开 2已开
     private int orientationSettingsId;//	是	int	定向设置id
-    private Date throwStartdate;//	是	Date	任务开始日期
+    private String throwStartdate;//	是	Date	任务开始日期
     private Date throwEnddate;//	是	Date	任务结束日期
     private int estimatePeoplerno;//	是	int	预计投放人数
     private String content;//	是	String	短信内容
     private String provinceCode;//	是	String	省code
     private String cityCode;//	是	String	城市code
     private String throwAddress;//	是	String	投放地址
-    private Date createDate;//	是	Date	创建日期
+    private String createDate;//	是	Date	创建日期
     private int delFlag;//	是	int	删除状态 0正常 1删除
     private BigDecimal longitude;//	是	bigdecimal	经度
     private BigDecimal dimension;//	是	bigdecimal	纬度
@@ -49,6 +51,29 @@ public class TaskOut implements Serializable{
     private int customFlag;
     private String industryName;
 
+
+    private List<String> phone;
+
+    private TaskThrowInfo taskThrowInfo;
+
+    public List<String> getPhone() {
+        if (phone == null) {
+            return new ArrayList<>();
+        }
+        return phone;
+    }
+
+    public void setPhone(List<String> phone) {
+        this.phone = phone;
+    }
+
+    public TaskThrowInfo getTaskThrowInfo() {
+        return taskThrowInfo;
+    }
+
+    public void setTaskThrowInfo(TaskThrowInfo taskThrowInfo) {
+        this.taskThrowInfo = taskThrowInfo;
+    }
 
     public BigDecimal getXunMoney() {
         return xunMoney;
@@ -178,11 +203,11 @@ public class TaskOut implements Serializable{
         this.orientationSettingsId = orientationSettingsId;
     }
 
-    public Date getThrowStartdate() {
+    public String getThrowStartdate() {
         return throwStartdate;
     }
 
-    public void setThrowStartdate(Date throwStartdate) {
+    public void setThrowStartdate(String throwStartdate) {
         this.throwStartdate = throwStartdate;
     }
 
@@ -234,11 +259,11 @@ public class TaskOut implements Serializable{
         this.throwAddress = throwAddress;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
@@ -365,7 +390,7 @@ public class TaskOut implements Serializable{
                 ", actualAmount 实际支出：=" + actualAmount +
                 ", invoiceStatus 开发票状态：=" + invoiceStatus +
                 ", orientationSettingsId=" + orientationSettingsId +
-                ", throwStartdate 任务开始日期：=" + throwStartdate.getTime() +
+                ", throwStartdate 任务开始日期：=" + throwStartdate+
                 ", throwEnddate 任务结束日期=" + throwEnddate.getTime() +
                 ", estimatePeoplerno 预计投放人数:=" + estimatePeoplerno +
                 ", content 短信内容:='" + content + '\'' +

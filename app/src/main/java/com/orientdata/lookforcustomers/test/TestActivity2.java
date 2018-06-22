@@ -1,15 +1,19 @@
 package com.orientdata.lookforcustomers.test;
 
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.util.CountDownTimerUtils;
 import com.orientdata.lookforcustomers.view.DigitalGroupView;
+import com.orientdata.lookforcustomers.widget.ShadowDrawable;
 
 public class TestActivity2 extends AppCompatActivity {
 
@@ -21,7 +25,9 @@ public class TestActivity2 extends AppCompatActivity {
     private int num = 0;
 
 
-
+    private int dpToPx(int dp) {
+        return (int) (Resources.getSystem().getDisplayMetrics().density * dp + 0.5f);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +35,14 @@ public class TestActivity2 extends AppCompatActivity {
 
         buttonPlay = (Button) findViewById(R.id.button_play);
         digitalGroupView = (DigitalGroupView) findViewById(R.id.digital);
+        ImageView imageView =  findViewById(R.id.imageView);
+
+        ShadowDrawable.setShadowDrawable(imageView, new int[] {
+                        Color.parseColor("#536DFE"), Color.parseColor("#7C4DFF")}, dpToPx(8),
+                Color.parseColor("#997C4DFF"), dpToPx(5), dpToPx(5), dpToPx(5));
+
+
+
 
 
 
