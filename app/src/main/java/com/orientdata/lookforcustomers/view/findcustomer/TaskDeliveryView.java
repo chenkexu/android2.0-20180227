@@ -114,7 +114,6 @@ public class TaskDeliveryView extends FrameLayout {
                     tvtime.setText(coolingTime+" s");
                     // TODO: 2018/6/14 投递条数和剩余天数开始变化。
                 }
-
                 break;
             case R.id.tv_show_detail://查看详情
                 onItemClickListener.showTaskDetail();
@@ -136,8 +135,6 @@ public class TaskDeliveryView extends FrameLayout {
     public void setOnItemClickListener(OnClickListener listener) {
         onItemClickListener = listener;
     }
-
-
 
 
 }

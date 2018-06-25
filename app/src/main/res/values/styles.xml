@@ -209,7 +209,6 @@
 
 
     <style name="order_text_style">
-
         <item name="android:textColor">@color/order_gray_small</item>
         <item name="android:textSize">16sp</item>
         <item name="android:layout_width">wrap_content</item>
@@ -218,9 +217,7 @@
         <item name="android:text">目标人群</item>
     </style>
 
-    android:layout_marginTop="4dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
+
 
     <style name="order_cardView_style">
         <item name="android:layout_marginTop">5dp</item>

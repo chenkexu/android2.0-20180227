@@ -266,7 +266,9 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                         double signstate = (double) response.getResult().get("signstate");
                         String tdcontent = (String) response.getResult().get("tdcontent");
                         tvUnsubscribe.setText(tdcontent); //设置回复退订
+
                         tvNum.setText(tdcontent.length() + "");
+
 
                         // TODO: 2018/5/3 设置缓存信息
                         if ((int) signstate == 0) { //自定义
@@ -471,8 +473,6 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                     }
                 }
 
-                //设置输入短信的长度
-//                numCount = tvMessageSign.getText().length() + tvUnsubscribe.getText().length()+etMsgContent.getText().length() ;
                 // TODO: 2018/4/17 这里字数统计有bug
                 Logger.d("字数为：" + numCount);
                 tvNum.setText(numCount + "");
@@ -540,17 +540,13 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                                 tvMessageContentHint.setVisibility(View.VISIBLE);
                                 tvMessageSign.setVisibility(View.VISIBLE);
                                 etMsgContent.setText("");
-//                                temp = numCount;
                             } else if (!s.toString().contains(etEnterpriseSignature.getText().toString())) { //如果不包含企业签名（第一次输入）
                                 etMsgContent.setText(etEnterpriseSignature.getText().toString() + s.toString());
                                 etMsgContent.setSelection(etMsgContent.getText().toString().length());
-//                                temp = length + numCount;
                             } else { //如果包含企业签名和其他的内容
                                 etMsgContent.setText(s.toString());
                                 // TODO: 2018/4/28 这里修改了一下显示的光标
                                 etMsgContent.setSelection(start+count);
-//                                etMsgContent.setSelection(etMsgContent.getText().toString().length());
-//                                temp = length + numCount;
                             }
                     }
 
@@ -591,6 +587,9 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
                 tvNum.setText("" + numCount);
             }
         });
+
+
+
 
         //输入任务预算时：
         etBudget.addTextChangedListener(new TextWatcher() {
@@ -963,9 +962,7 @@ public class MessageTaskActivity extends BaseActivity<ITaskView, TaskPresent<ITa
             ToastUtils.showShort("请先选择开始时间。");
             return;
         }
-        //Calendar calendar1 = Calendar.getInstance();
-        //calendar1.add(Calendar.DAY_OF_MONTH, day);
-        //startDateText1 = DateTool.parseCalendar2Str(calendar1, "yyyy-MM-dd");
+
         // TODO: 2018/5/9   再次获取时间
         mNowDateText = tvDateFrom.getText().toString().trim();
         startDateText1 = mNowDateText;

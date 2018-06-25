@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.AgePushBean;
 import com.orientdata.lookforcustomers.bean.TaskOut;
@@ -147,30 +146,45 @@ public class PushResultReport extends FrameLayout {
         BigDecimal b2 = new BigDecimal(taskOut.getEstimatePeoplerno()+"");
         double doubleValue = b1.divide(b2, 2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
+
         tvPushPersonRatio.setText(doubleValue+"%");
-
-
         progressbar.setProgress(taskThrowInfo.getMan());
         tvManRatio.setText(taskThrowInfo.getMan()+"%");
         tvWomanRatio.setText(taskThrowInfo.getWoman()+"%");
 
 
-        List<Integer> ages = new ArrayList<>();
-        ages.add((int) (taskThrowInfo.getAge0_20()*100));
-        ages.add((int) (taskThrowInfo.getAge20_25()*100));
-        ages.add((int) (taskThrowInfo.getAge25_30()*100));
-        ages.add((int) (taskThrowInfo.getAge30_35()*100));
-        ages.add((int) (taskThrowInfo.getAge35_40()*100));
-        ages.add((int) (taskThrowInfo.getAge40_45()*100));
-        ages.add((int) (taskThrowInfo.getAge45_50()*100));
-        ages.add((int) (taskThrowInfo.getAge50_55()*100));
-        ages.add((int) (taskThrowInfo.getAge55_60()*100));
-        ages.add((int) (taskThrowInfo.getAge60_()*100));
-        Logger.d("ages: "+ages);
+//        List<Integer> ages = new ArrayList<>();
+//        ages.add((int) (taskThrowInfo.getAge0_20()*100));
+//        ages.add((int) (taskThrowInfo.getAge20_25()*100));
+//        ages.add((int) (taskThrowInfo.getAge25_30()*100));
+//        ages.add((int) (taskThrowInfo.getAge30_35()*100));
+//        ages.add((int) (taskThrowInfo.getAge35_40()*100));
+//        ages.add((int) (taskThrowInfo.getAge40_45()*100));
+//        ages.add((int) (taskThrowInfo.getAge45_50()*100));
+//        ages.add((int) (taskThrowInfo.getAge50_55()*100));
+//        ages.add((int) (taskThrowInfo.getAge55_60()*100));
+//        ages.add((int) (taskThrowInfo.getAge60_()*100));
+//        Logger.d("ages: "+ages);
+
+
+        List<Double> ages2 = new ArrayList<>();
+        ages2.add(taskThrowInfo.getAge0_20());
+        ages2.add(taskThrowInfo.getAge20_25());
+        ages2.add(taskThrowInfo.getAge25_30());
+        ages2.add(taskThrowInfo.getAge30_35());
+        ages2.add(taskThrowInfo.getAge35_40());
+        ages2.add(taskThrowInfo.getAge40_45());
+        ages2.add(taskThrowInfo.getAge45_50());
+        ages2.add(taskThrowInfo.getAge50_55());
+        ages2.add(taskThrowInfo.getAge55_60());
+        ages2.add(taskThrowInfo.getAge60_());
+
+
 
         agePushBeans = new ArrayList<>();
         for (int i=0;i<agesArray.length;i++){
-            AgePushBean agePushBean = new AgePushBean((ages.get(i))*0.01, agesArray[i], ages.get(i));
+            double v = new BigDecimal(ages2.get(i)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            AgePushBean agePushBean = new AgePushBean(v, agesArray[i], (int)(ages2.get(i)*100));
             agePushBeans.add(agePushBean);
         }
         rvAgePush.setAdapter(new AgeAdapter(agePushBeans));

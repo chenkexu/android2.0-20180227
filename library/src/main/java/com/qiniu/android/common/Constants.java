@@ -20,4 +20,10 @@ public final class Constants {
      */
     public static final String SAMSUNG = "samsung";
 
+
+    public static final String all_person = "all_person";
+    public static final String mProvinceCode = "mProvinceCode";
+
+
+
 }

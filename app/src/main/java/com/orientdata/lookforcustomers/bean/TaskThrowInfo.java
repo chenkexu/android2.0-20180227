@@ -18,9 +18,9 @@ public class TaskThrowInfo implements Serializable {
         private double age35_40;
         private double age40_45;
         private double age45_50;
-        private int age50_55;
+        private double age50_55;
         private double age55_60;
-        private int age60_;
+        private double age60_;
         private String createDate;
 
         public int getId() {
@@ -111,11 +111,11 @@ public class TaskThrowInfo implements Serializable {
             this.age45_50 = age45_50;
         }
 
-        public int getAge50_55() {
+        public double getAge50_55() {
             return age50_55;
         }
 
-        public void setAge50_55(int age50_55) {
+        public void setAge50_55(double age50_55) {
             this.age50_55 = age50_55;
         }
 
@@ -127,11 +127,11 @@ public class TaskThrowInfo implements Serializable {
             this.age55_60 = age55_60;
         }
 
-        public int getAge60_() {
+        public double getAge60_() {
             return age60_;
         }
 
-        public void setAge60_(int age60_) {
+        public void setAge60_(double age60_) {
             this.age60_ = age60_;
         }
 

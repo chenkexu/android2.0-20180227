@@ -12,7 +12,6 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
@@ -65,13 +64,8 @@ import com.orientdata.lookforcustomers.bean.AddressSearchRecode;
 import com.orientdata.lookforcustomers.bean.Area;
 import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.BannerBean;
-import com.orientdata.lookforcustomers.bean.NextStepCheckBean;
-import com.orientdata.lookforcustomers.bean.PreOut;
 import com.orientdata.lookforcustomers.bean.TaskOut;
-import com.orientdata.lookforcustomers.bean.TaskTypeBean;
 import com.orientdata.lookforcustomers.manager.LbsManager;
-import com.orientdata.lookforcustomers.network.HttpConstant;
-import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.GlideUtil;
@@ -81,8 +75,6 @@ import com.orientdata.lookforcustomers.view.agreement.MyWebViewActivity;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.findcustomer.SearchActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.TaskDeliveryView;
-import com.orientdata.lookforcustomers.view.findcustomer.impl.MessageTaskActivity;
-import com.orientdata.lookforcustomers.view.findcustomer.impl.PageTaskActivity;
 import com.orientdata.lookforcustomers.view.home.fragment.MeActivity;
 import com.orientdata.lookforcustomers.widget.MyListView;
 import com.orientdata.lookforcustomers.widget.abslistview.CommonAdapter;
@@ -92,21 +84,15 @@ import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
 import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
 import com.qiniu.android.common.Constants;
 
-import java.io.File;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import q.rorbin.badgeview.QBadgeView;
-import vr.md.com.mdlibrary.UserDataManeger;
-import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
-import vr.md.com.mdlibrary.utils.ImageUtils2;
 import vr.md.com.mdlibrary.utils.image.ImageUtil;
 
 import static com.orientdata.lookforcustomers.util.CommonUtils.getRandom2;
@@ -319,6 +305,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 this.intent.putExtra(Constants.latitude, mCurrentLatLng.latitude + ""); //精度
                 this.intent.putExtra(Constants.longitude, mCurrentLatLng.longitude + ""); //维度
                 this.intent.putExtra("cityCode", mCityCode); //城市编码
+                this.intent.putExtra(Constants.mProvinceCode, mProvinceCode); //省编码
+
                 //投放变径
                 this.intent.putExtra(Constants.CurrentCircleRadius, CurrentCircleRadius);
                 //投放的城市名
@@ -326,6 +314,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
                 //地点名称
                 this.intent.putExtra("address", tv_at_create_find_customer_putlocation.getText().toString().trim());
+
+
 
                 showDefaultLoading();
                 mBaiduMap.snapshotScope(null, new BaiduMap.SnapshotReadyCallback() {
@@ -683,131 +673,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
 
 
-    /**
-     * 下一步验证
-     */
-    private void toNext() {
-        //投放地址
-        mThrowAddress = tv_at_create_find_customer_putlocation.getText().toString().trim();
-        int type = -666;
-        //覆盖范围
-        String rangeRadius = mCircleRadiusM[mCurrentScaleLevelPositon];
-
-        String longitude = String.valueOf(mCurrentLatLng.longitude);
-
-        if (TextUtils.isEmpty(longitude)) {
-            ToastUtils.showShort("定位失败，请选择业务城市");
-            return;
-        }
-        BigDecimal b_longitude = BigDecimal.valueOf(Double.valueOf(longitude));
-        String latitude = String.valueOf(mCurrentLatLng.latitude);
-
-        if (TextUtils.isEmpty(latitude)) {
-            ToastUtils.showShort("定位失败，请选择业务城市");
-            return;
-        }
-        if (TextUtils.isEmpty(mCityCode)) {
-            ToastUtils.showShort("定位失败，请选择业务城市");
-            return;
-        }
-        BigDecimal b_latitude = BigDecimal.valueOf(Double.valueOf(latitude));
-        if (TextUtils.isEmpty(ageF)
-                || TextUtils.isEmpty(ageB)
-                || TextUtils.isEmpty(sex)) {
-            ToastUtils.showShort("请设置定向设置");
-            return;
-        } else {
-            MDBasicRequestMap map = new MDBasicRequestMap();
-            map.put("userId", UserDataManeger.getInstance().getUserId());
-            // TODO: 2018/4/4 去掉了预算参数
-            map.put("longitude", b_longitude + "");
-            map.put("latitude", b_latitude + "");
-            map.put("cityCode", mCityCode);
-
-            //通过验证到下一步页面
-            final Intent intent = new Intent();
-            if (type == 1) { //创建短信任务
-                intent.setClass(MainHomeActivity.this, MessageTaskActivity.class);
-            } else if (type == 2) { //创建页面任务
-                intent.setClass(MainHomeActivity.this, PageTaskActivity.class);
-            }
-
-            intent.putExtra("ageF", ageF);
-            intent.putExtra("ageB", ageB);
-            intent.putExtra("sex", sex);
-            intent.putExtra("interestIds", interestIds);
-            intent.putExtra("cityCode", mCityCode);
-            intent.putExtra("throwAddress", mThrowAddress);
-            intent.putExtra("type", type);
-//            intent.putExtra("taskName", taskName);
-            intent.putExtra("rangeRadius", rangeRadius);
-            intent.putExtra("longitude", longitude);
-            intent.putExtra("dimension", latitude);
-            intent.putExtra("address", mThrowAddress);
-            intent.putExtra("cityName", mCityName);
-            intent.putExtra("pagePrice", pagePrice);
-            intent.putExtra("smsPrice", smsPrice);
-            intent.putExtra("mProvinceCode", mProvinceCode);
-            intent.putExtra("industryMark", industryMark);
-            intent.putExtra("industryNameStr", industryNameStr);
-            intent.putExtra("isReCreate", isReCreate);
-
-
-            final int type2 = type;
-
-            //下一步验证
-            showDefaultLoading();
-            // TODO: 2018/4/4 接口改了，参数少传了一个
-            OkHttpClientManager.postAsyn(HttpConstant.SELECT_NEXT_STEP_CHECK, new OkHttpClientManager.ResultCallback<NextStepCheckBean>() {
-                @Override
-                public void onError(Exception e) {
-                    hideDefaultLoading();
-                    ToastUtils.showShort(e.getMessage());
-                }
-
-                @Override
-                public void onResponse(NextStepCheckBean response) {
-                    hideDefaultLoading();
-                    if (response.getCode() == 0) {
-                        PreOut preOut = response.getResult();
-                        if (preOut == null) {
-                            ToastUtils.showShort("后台错误！");
-                            return;
-                        }
-                        intent.putExtra("day", preOut.getDay());//限制天数
-                        intent.putExtra("minMoney", preOut.getMinMoney());//限制钱数
-
-                        if (type2 == 1) {//短信
-                            startActivity(intent);
-                        } else if (type2 == 2) {//页面
-                            //截图   // 截图，在SnapshotReadyCallback中保存图片到 sd 卡
-                            mMapClippath = Environment.getExternalStorageDirectory().getPath() + "/ClipPhoto/cache/";
-                            File dir = new File(mMapClippath);
-                            if (!dir.exists()) {
-                                dir.mkdirs();
-                            }
-                            mMapClippath = mMapClippath + "map.png";
-                            if (CommonUtils.haveSDCard()) {
-                                mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
-                                    @Override
-                                    public void onSnapshotReady(Bitmap bitmap) {
-                                        String baiduMapPath = ImageUtils2.saveBitmap(MainHomeActivity.this, bitmap);
-                                        intent.putExtra("mapPath", baiduMapPath);
-                                        Logger.d("百度地图截图路径为：" + baiduMapPath);
-                                        startActivity(intent);
-                                    }
-                                });
-                            } else {
-                                ToastUtils.showShort("没有SD卡!");
-                            }
-                        }
-
-                    }
-
-                }
-            }, map);
-        }
-    }
 
 
     /**
@@ -886,35 +751,10 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private void getProvinceCity() {
         mCityPickPresent.getProvinceCityData();
         mCityPickPresent.getBannerPic();
-        if (isReCreate) {
-            getPageType();
-        }
         new QBadgeView(this).bindTarget(ivMe).setBadgePadding(3, true).setBadgeGravity(Gravity.END | Gravity.TOP).setBadgeNumber(-1);
     }
 
-    /**
-     * 获取任务类型
-     */
-    private void getPageType() {
-        MDBasicRequestMap map = new MDBasicRequestMap();
-        map.put("userId", UserDataManeger.getInstance().getUserId());
-        map.put("cityCode", mCityCode);
-        OkHttpClientManager.postAsyn(HttpConstant.SELECT_TASK_TYPE, new OkHttpClientManager.ResultCallback<TaskTypeBean>() {
-            @Override
-            public void onError(Exception e) {
-                ToastUtils.showShort(e.getMessage());
-            }
 
-            @Override
-            public void onResponse(TaskTypeBean response) {
-                if (response.getCode() == 0) {
-                    Map<String, String> result = response.getResult();
-                    smsPrice = result.get("smsPrice");
-                    pagePrice = result.get("pagePrice");
-                }
-            }
-        }, map);
-    }
 
     /**
      * 获取省市列表

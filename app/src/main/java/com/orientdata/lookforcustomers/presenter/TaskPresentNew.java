@@ -1,34 +1,37 @@
 package com.orientdata.lookforcustomers.presenter;
 
 import com.orientdata.lookforcustomers.bean.ErrBean;
+import com.orientdata.lookforcustomers.bean.MyInfoBean;
 import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.bean.TaskInfoBean;
-import com.orientdata.lookforcustomers.bean.TradeSelfout;
-import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.event.DeleteTaskEvent;
 import com.orientdata.lookforcustomers.event.TaskInfoEvent;
 import com.orientdata.lookforcustomers.model.IImgModel;
 import com.orientdata.lookforcustomers.model.ITaskModel;
 import com.orientdata.lookforcustomers.model.imple.ImgModelImple;
 import com.orientdata.lookforcustomers.model.imple.TaskModelImple;
+import com.orientdata.lookforcustomers.network.HttpConstant;
+import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.findcustomer.ITaskView;
+import com.orientdata.lookforcustomers.view.findcustomer.impl.ITaskViewNew;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.List;
+import vr.md.com.mdlibrary.UserDataManeger;
+import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
 /**
  * Created by wy on 2017/11/18.
  * 寻客
  */
 
-public class TaskPresent<T> extends BasePresenter<ITaskView> {
-    private ITaskView mPageTaskView;
+public class TaskPresentNew<T> extends BasePresenter<ITaskViewNew> {
+
+    private ITaskViewNew mPageTaskView;
     private ITaskModel mSelectSettingModel = new TaskModelImple();
     private IImgModel mImgModel = new ImgModelImple();
 
-    public TaskPresent(ITaskView mPageTaskView) {
+    public TaskPresentNew(ITaskViewNew mPageTaskView) {
         this.mPageTaskView = mPageTaskView;
     }
 
@@ -57,30 +60,36 @@ public class TaskPresent<T> extends BasePresenter<ITaskView> {
         }
     }
 
-    public void uploadImg(int type,String picPath){
-        if(mImgModel!=null){
-            mPageTaskView.showLoading();
-            mImgModel.uploadImg(new IImgModel.Complete() {
+    //获取签名信息
+    public void getSignAndTd(String mProvinceCode){
+        mPageTaskView.showLoading();
+        MDBasicRequestMap map = new MDBasicRequestMap();
+        map.put("userId", UserDataManeger.getInstance().getUserId());
+        map.put("provincecode", mProvinceCode);
 
-                @Override
-                public void onSuccess(UploadPicBean uploadPicBean) {
-                    mPageTaskView.hideLoading();
-                    mPageTaskView.uploadPicSuc(uploadPicBean);
+        OkHttpClientManager.postAsyn(HttpConstant.GET_SIGN_AND_TD, new OkHttpClientManager.ResultCallback<MyInfoBean>() {
+            @Override
+            public void onError(Exception e) {
+                mPageTaskView.hideLoading();
+                ToastUtils.showShort(e.getMessage());
+                mPageTaskView.hideLoading();
+            }
+            @Override
+            public void onResponse(MyInfoBean response) {
+                mPageTaskView.hideLoading();
+                if (response.getCode() == 0) {
+                    if (response.getResult() == null || response.getResult().size() <= 0) {
+                        mPageTaskView.hideLoading();
+                        return;
+                    }
+                    mPageTaskView.getSignAndTd(response);
                 }
-
-                @Override
-                public void onGetModelListSuc(List<TradeSelfout> modelList) {
-
-                }
-
-                @Override
-                public void onError(int code, String message) {
-                    mPageTaskView.hideLoading();
-                    ToastUtils.showShort(message);
-                }
-            },type,picPath);
+            }
+        }, map);
         }
-    }
+
+
+
 
 
     public void getTaskDetail(int taskId){
@@ -104,6 +113,7 @@ public class TaskPresent<T> extends BasePresenter<ITaskView> {
             },taskId);
         }
     }
+
     public void deletTask(int taskId){
         if(mImgModel!=null){
             mPageTaskView.showLoading();

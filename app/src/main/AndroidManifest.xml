@@ -154,6 +154,11 @@
             android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
+            android:name=".view.findcustomer.MessageTaskNewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
             android:name=".view.certification.WathchCertificationActivity"
             android:screenOrientation="portrait" />
         <activity
