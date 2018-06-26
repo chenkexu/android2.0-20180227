@@ -1,297 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/c_fafafa"
     android:orientation="vertical">
+
+
     <com.orientdata.lookforcustomers.widget.MyTitle
         android:id="@+id/title"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <!--目标人群-->
-        <TextView
-            android:textSize="20sp"
-            android:text="目标人群"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="年龄:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="9"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="性别:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="9"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="用户偏好:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="9"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!--投放范围-->
-        <TextView
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:text="投放范围"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="投放地址:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="4"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="投放范围:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="4"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!--短信内容-->
-        <TextView
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:text="短信内容"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="订单名称:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="4"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="短信签名:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="4"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="短信内容:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="4"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!--推送设置-->
-        <TextView
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:text="推送设置"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="推送人数：:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="4"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="推送时间:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="4"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="测试号码:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="4"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!--订单金额-->
-        <TextView
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:text="订单金额"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="短信推送费:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="4"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="大数据人群筛选费:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="4"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:text="赠送金额:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="4"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
-
-
 
     <Button
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_selec"
+        android:id="@+id/btn_submit"
         android:text="我已确认"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <ScrollView
+        android:layout_below="@id/title"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.orientdata.lookforcustomers.view.findcustomer.OrderDetailView
+            android:id="@+id/orderView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.orientdata.lookforcustomers.view.findcustomer.OrderDetailView>
 
-</LinearLayout>
+    </ScrollView>
+
+
+
+</RelativeLayout>

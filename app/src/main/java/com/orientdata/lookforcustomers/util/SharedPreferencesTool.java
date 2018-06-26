@@ -52,6 +52,12 @@ public class SharedPreferencesTool {
     public static final String user ="user";//保存的短信的信息
 
 
+    public static final String msgContent ="msgContent";//保存的短信的信息
+
+
+
+
+
 
 
     private Context context;

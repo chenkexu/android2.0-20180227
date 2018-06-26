@@ -3,6 +3,7 @@ package com.orientdata.lookforcustomers.view.findcustomer.impl;
 import com.orientdata.lookforcustomers.base.BaseView;
 import com.orientdata.lookforcustomers.bean.MyInfoBean;
 import com.orientdata.lookforcustomers.bean.SettingOut;
+import com.orientdata.lookforcustomers.bean.TaskBasicInfo;
 
 /**
  * Created by wy on 2017/11/18.
@@ -12,4 +13,7 @@ import com.orientdata.lookforcustomers.bean.SettingOut;
 public interface ITaskViewNew extends BaseView {
     void createCustomer(SettingOut settingOuts);
     void getSignAndTd(MyInfoBean response);
+
+    void getCreateTaskBasicInfo(TaskBasicInfo taskBasicInfo);
+
 }

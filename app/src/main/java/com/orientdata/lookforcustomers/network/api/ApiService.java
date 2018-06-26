@@ -2,6 +2,8 @@ package com.orientdata.lookforcustomers.network.api;
 
 import com.orientdata.lookforcustomers.bean.AddressCollectInfo;
 import com.orientdata.lookforcustomers.bean.MessageTypeBean;
+import com.orientdata.lookforcustomers.bean.TaskBasicInfo;
+import com.orientdata.lookforcustomers.bean.TaskCountBean;
 import com.orientdata.lookforcustomers.bean.WrResponse;
 
 import java.util.HashMap;
@@ -50,12 +52,24 @@ public interface ApiService {
 
     //查询任务数量
     @GET("app/task/getTaskCount")
-    Observable<WrResponse<Object>> getTaskCount(@QueryMap HashMap<String, Object> map);
+    Observable<WrResponse<TaskCountBean>> getTaskCount(@QueryMap HashMap<String, Object> map);
+
+    //获取创建任务的基本信息, 进入创建任务页面时获取创建任务的基本信息，目前为支
+    @FormUrlEncoded
+    @POST("app/getCreateTaskBasicInfo")
+    Observable<WrResponse<TaskBasicInfo>> getCreateTaskBasicInfo(@FieldMap HashMap<String, Object> map);
+
 
 
     //查询任务投递信息
     @GET("app/taskThrowExpedite")
     Observable<WrResponse<Object>> getTaskThrowExpedite(@QueryMap HashMap<String, Object> map);
+
+
+
+
+
+
 
 
     //获取消息和公告列表

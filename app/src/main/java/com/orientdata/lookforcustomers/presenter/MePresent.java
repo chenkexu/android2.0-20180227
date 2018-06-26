@@ -3,6 +3,7 @@ package com.orientdata.lookforcustomers.presenter;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.MyInfoBean;
 import com.orientdata.lookforcustomers.bean.SearchListBean;
+import com.orientdata.lookforcustomers.bean.TaskCountBean;
 import com.orientdata.lookforcustomers.bean.TradeSelfout;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.bean.UserInfoBean;
@@ -52,11 +53,11 @@ public class MePresent<T> extends BasePresenter<IMeView> {
     public void getTaskCount(){
         HashMap<String, Object> map = ParamsUtil.getMap();
         ApiManager.getInstence().getApiService().getTaskCount(ParamsUtil.getParams(map))
-                .compose(RxUtil.<WrResponse<Object>>rxSchedulerHelper())
-                .subscribe(new BaseObserver<Object>() {
+                .compose(RxUtil.<WrResponse<TaskCountBean>>rxSchedulerHelper())
+                .subscribe(new BaseObserver<TaskCountBean>() {
                     @Override
-                    protected void onSuccees(WrResponse<Object> t) {
-
+                    protected void onSuccees(WrResponse<TaskCountBean> t) {
+                        mHomeView.getTaskCount(t.getResult());
                     }
 
                     @Override

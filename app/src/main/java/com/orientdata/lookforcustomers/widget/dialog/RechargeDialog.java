@@ -27,9 +27,10 @@ public class RechargeDialog extends Dialog {
     private ClickListenerInterface clickListenerInterface;
     private TextView tvSubmitRemind;
     private String submitRemind = "";
-
+    String cancelText="";
     public interface ClickListenerInterface {
         void doCertificate();
+        void doCancel();
     }
 
     /**
@@ -39,13 +40,25 @@ public class RechargeDialog extends Dialog {
      * @param imgResId 图片
      * @param confirmText  按钮文字
      */
-    public RechargeDialog(Context context, String submitStatus, String confirmText, int imgResId) {
+    public RechargeDialog(Context context, String submitStatus, String confirmText, String cancelText,int imgResId) {
+        super(context, R.style.RemindDialog);
+        this.context = context;
+        this.imgResId = imgResId;
+        this.submitStatus = submitStatus;
+        this.confirmText = confirmText;
+        this.cancelText = cancelText;
+    }
+
+
+    public RechargeDialog(Context context, String submitStatus, String confirmText,int imgResId) {
         super(context, R.style.RemindDialog);
         this.context = context;
         this.imgResId = imgResId;
         this.submitStatus = submitStatus;
         this.confirmText = confirmText;
     }
+
+
     public RechargeDialog(Context context, String submitStatus, String confirmText, int imgResId, String submitRemind) {
         super(context, R.style.RemindDialog);
         this.context = context;
@@ -68,6 +81,8 @@ public class RechargeDialog extends Dialog {
         TextView tvSubmitStatus = view.findViewById(R.id.tvSubmitStatus);
         ImageView ivSubmitStatus = view.findViewById(R.id.ivSubmitStatus);
         TextView tvConfirm = view.findViewById(R.id.tvConfirm);
+        TextView tvCancel = view.findViewById(R.id.tvCancel);
+
         tvSubmitRemind = view.findViewById(R.id.tvSubmitRemind);
         if(!TextUtils.isEmpty(submitRemind)){
             tvSubmitRemind.setText(submitRemind);
@@ -76,10 +91,24 @@ public class RechargeDialog extends Dialog {
             tvSubmitRemind.setVisibility(View.GONE);
         }
 
+        if(!TextUtils.isEmpty(cancelText)){
+            tvCancel.setText(cancelText);
+            tvCancel.setVisibility(View.VISIBLE);
+        }else{
+            tvCancel.setVisibility(View.GONE);
+        }
+
         tvSubmitStatus.setText(submitStatus);
         ivSubmitStatus.setImageResource(imgResId);
+
+
+
         tvConfirm.setText(confirmText);
         tvConfirm.setOnClickListener(new clickListener());
+        tvCancel.setText(cancelText);
+        tvCancel.setOnClickListener(new clickListener());
+
+
 
         Window dialogWindow = getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
@@ -88,6 +117,8 @@ public class RechargeDialog extends Dialog {
         dialogWindow.setAttributes(lp);
     }
 
+
+
     private class clickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -95,6 +126,9 @@ public class RechargeDialog extends Dialog {
             switch (id) {
                 case R.id.tvConfirm:
                     clickListenerInterface.doCertificate();
+                    break;
+                case R.id.tvCancel:
+                    clickListenerInterface.doCancel();
                     break;
             }
         }

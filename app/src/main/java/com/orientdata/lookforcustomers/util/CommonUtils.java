@@ -37,15 +37,22 @@ public class CommonUtils {
 
 
     public static String getPersonNum(String currentCircleRadius,String cityName,String ageF,String ageB,String sex,String industryStr,int labelNum){
-        String ageValue = "1";
+        String ageValue = "";
+
+        double sexValue = 1.0;
+        double intersValue = 1.0;
 
         Logger.d("选择的参数为: "+currentCircleRadius+","+cityName+","+ageF+","+ageB+","+sex+","+industryStr+","+labelNum);
         int personNumStr = CommonUtils.getRandom2(currentCircleRadius, cityName);
+
         if (sex.equals("不限")) {
-            personNumStr = (int) (personNumStr * 1.0);
+            sexValue = 1.0;
+//            personNumStr = (int) (personNumStr * 1.0);
         }else{
-            personNumStr = (int) (personNumStr * 0.5);
+            sexValue = 0.5;
+//            personNumStr = (int) (personNumStr * 0.5);
         }
+
 
         // TODO: 2018/6/12 年龄选择
         String ageJson = ResourceUtils.readAssets2String("dataAge.json");
@@ -62,24 +69,32 @@ public class CommonUtils {
             }
         }
 
-        personNumStr = (int) (personNumStr * Double.parseDouble(ageValue));
-
-
+//        personNumStr = (int) (personNumStr * (Double.parseDouble(ageValue)+sexValue) * 0.5);
 
         if (industryStr.equals("不限")) {
-            personNumStr = (int) (personNumStr * 1.0);
+            intersValue = intersValue * 1.0;
+//            personNumStr = (int) (personNumStr * 1.0);
         } else if (industryStr.equals("自定义")) {
             if (labelNum==6) {
-                personNumStr = (int)(personNumStr * labelNum * 1.0);
+                intersValue = labelNum * 1.0;
+//                personNumStr = (int)(personNumStr * labelNum * 1.0);
             }else{
-                personNumStr = (int)(personNumStr * labelNum * 0.1666);
+                intersValue = labelNum * 0.1666;
+//                personNumStr = (int)(personNumStr * labelNum * 0.1666);
             }
         } else {
             double randomDouble = getRandomDouble(0.72, 0.82);
-            personNumStr = (int) (personNumStr * randomDouble);
+            intersValue = randomDouble * 0.5;
+//            personNumStr = (int) (personNumStr * randomDouble * 0.5);
         }
+
+        personNumStr = (int) (personNumStr * ((sexValue + Double.parseDouble(ageValue)) * 0.5 + intersValue * 0.5));
+
         return "当前范围符合您标签的约有"+ personNumStr +"人";
     }
+
+
+
 
 
     public static double getRandomDouble(double min, double max){

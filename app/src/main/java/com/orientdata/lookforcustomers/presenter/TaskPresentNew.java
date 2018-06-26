@@ -3,7 +3,9 @@ package com.orientdata.lookforcustomers.presenter;
 import com.orientdata.lookforcustomers.bean.ErrBean;
 import com.orientdata.lookforcustomers.bean.MyInfoBean;
 import com.orientdata.lookforcustomers.bean.SettingOut;
+import com.orientdata.lookforcustomers.bean.TaskBasicInfo;
 import com.orientdata.lookforcustomers.bean.TaskInfoBean;
+import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.event.DeleteTaskEvent;
 import com.orientdata.lookforcustomers.event.TaskInfoEvent;
 import com.orientdata.lookforcustomers.model.IImgModel;
@@ -12,10 +14,16 @@ import com.orientdata.lookforcustomers.model.imple.ImgModelImple;
 import com.orientdata.lookforcustomers.model.imple.TaskModelImple;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
+import com.orientdata.lookforcustomers.network.api.ApiManager;
+import com.orientdata.lookforcustomers.network.api.BaseObserver;
+import com.orientdata.lookforcustomers.network.api.ParamsUtil;
+import com.orientdata.lookforcustomers.network.util.RxUtil;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.ITaskViewNew;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
 
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
@@ -89,6 +97,26 @@ public class TaskPresentNew<T> extends BasePresenter<ITaskViewNew> {
         }
 
 
+
+    public void getCreateTaskBasicInfo(String mProvinceCode){
+
+        HashMap<String, Object> map = ParamsUtil.getMap();
+        map.put("provinceCode",mProvinceCode);
+
+        ApiManager.getInstence().getApiService().getCreateTaskBasicInfo(ParamsUtil.getParams(map))
+                .compose(RxUtil.<WrResponse<TaskBasicInfo>>rxSchedulerHelper())
+                .subscribe(new BaseObserver<TaskBasicInfo>() {
+                    @Override
+                    protected void onSuccees(WrResponse<TaskBasicInfo> t) {
+                            mPageTaskView.getCreateTaskBasicInfo(t.getResult());
+                    }
+
+                    @Override
+                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
+
+                    }
+                });
+    }
 
 
 

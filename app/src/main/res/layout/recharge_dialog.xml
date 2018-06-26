@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -10,7 +9,6 @@
         android:id="@+id/tvSubmitStatus"
         android:textSize="20sp"
         android:textColor="@color/text_gray"
-        android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:text="操作成功"
         android:layout_width="wrap_content"
@@ -39,21 +37,41 @@
         android:src="@mipmap/icon_dialog_success" />
 
 
-    <TextView
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/tvConfirm"
-        android:layout_width="150dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/bac_rec_border"
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="确定"
-        android:textColor="@color/colorPrimary"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+、
+        <TextView
+            android:visibility="gone"
+            android:layout_marginRight="30dp"
+            android:id="@+id/tvCancel"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/round_border"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/c_999999"
+            android:textSize="15sp" />
 
 
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bac_rec_border"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+
+
+
+    </LinearLayout>
 </LinearLayout>

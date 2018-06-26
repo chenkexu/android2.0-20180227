@@ -29,19 +29,16 @@ import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.AddressCollectInfo;
 import com.orientdata.lookforcustomers.bean.InterestCategory;
 import com.orientdata.lookforcustomers.bean.InterestTagImportOut;
-import com.orientdata.lookforcustomers.bean.OrientationSettingsOut;
 import com.orientdata.lookforcustomers.bean.PreOut;
 import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.presenter.DirectionalSettingPresentNew;
 import com.orientdata.lookforcustomers.util.BitmapUtil;
 import com.orientdata.lookforcustomers.util.CommonUtils;
-import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.findcustomer.MessageTaskNewActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.impl.IDirectionalSettingView3;
 import com.orientdata.lookforcustomers.widget.FluidLayout;
-import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.orientdata.lookforcustomers.widget.ShadowDrawable;
 import com.orientdata.lookforcustomers.widget.dialog.BusinessInterestDialog;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
@@ -57,7 +54,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import vr.md.com.mdlibrary.UserDataManeger;
 
 
 /**
@@ -134,7 +130,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     TextView tvPersonNum;
 
 
-    private MyTitle titleDirectional;
     private SettingOut settingOuts = null; //后台返回的数据
     private RelativeLayout age_from;
     private RelativeLayout age_to;//年龄
@@ -143,16 +138,11 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private RelativeLayout hobby_to;//商业兴趣
 
 
-    boolean isFirstCheckModel = true;
-    private TextView tv_mModelOne;//机型 一级
-    private FluidLayout directionBaseInfo;
+
 
 
     private TextView tv_mHobbyOne;//商业兴趣 一级
-    private ImageView tvSave;//保存按钮
-    private TextView tv_mAgeFrom;
-    private TextView tv_mAgeTo;
-    private TextView tv_mSex;
+
 
     private TextView tv_mHobbyTo;//商业兴趣 二级
 
@@ -162,8 +152,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private List<String> hobbyList = new ArrayList<>(); //兴趣点数组集合
     private Map<String, List<String>> hobbyMap = null;//存储兴趣Map(key：兴趣名称，value:二级兴趣点)
 
-    private OrientationSettingsOut orientationSettingsOut = null;//数据缓存，之前的任务的数据
-    private boolean isReCreate = false;//是否是再次创建寻客
+//    private OrientationSettingsOut orientationSettingsOut = null;//数据缓存，之前的任务的数据
     private List<String> agesFrom = new ArrayList<>();
     private List<String> agesTo = new ArrayList<>();
     private List<String> sexs = new ArrayList<>();
@@ -191,13 +180,16 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private String ageB = "不限";  //最后的终止年龄
     private String sex = "不限";   //性别
     private String industryStr = "不限"; //行业
-    private  int labelNum = 1;  //标签的数量
+    private  int labelNum = 0;  //标签的数量
     private String mCityName;
     private String currentCircleRadius;
     private String cityCode = ""; //当前城市的cityCode
     private String mProvinceCode = ""; //当前城市的cityCode
 
     private String personNumStr; //符合标签的总人数
+
+    private String interestIds = "";//兴趣名称数组,以逗号隔开的 如 "教育,学前教育,东磁教育"
+
     private boolean mIsLike = false; //没有收藏
 
 
@@ -212,14 +204,14 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     @Override
     public void getPretask(PreOut preOut) {
 
+
+
         Logger.d("定向设置的内容是:"+ageF+ageB+sex+industryStr+cityCode);
         Intent intent = new Intent(this, MessageTaskNewActivity.class);
-
 
         intent.putExtra("ageF", ageF);
         intent.putExtra("ageB", ageB);
         intent.putExtra("sex", sex);
-//        intent.putExtra("interestIds", interestIds);
         intent.putExtra("cityCode", cityCode);
         intent.putExtra("throwAddress", address);
         intent.putExtra("type", 1);
@@ -229,27 +221,103 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         intent.putExtra("address", address);
         intent.putExtra("cityName", mCityName);
 
-//        intent.putExtra("mProvinceCode", mProvinceCode);
-
         intent.putExtra("industryMark", industryMark);
         intent.putExtra("industryNameStr", industryNameStr);
-        intent.putExtra("isReCreate", isReCreate);
+
+        intent.putExtra("interestIds", interestIds); //兴趣点。
 
         intent.putExtra("day", preOut.getDay());//限制天数
         intent.putExtra("minMoney", preOut.getMinMoney());//最低预算
+
+        personNumStr = tvPersonNum.getText().toString();
+
         personNumStr = personNumStr.substring(12, personNumStr.length()-1);
+
         intent.putExtra(Constants.all_person,personNumStr);
         intent.putExtra(Constants.mProvinceCode,mProvinceCode);
 
         startActivity(intent);
     }
 
-    @OnClick({R.id.collect_address,R.id.iv_back,R.id.tv_quess,R.id.tv_no_limit,R.id.iv_kefu, R.id.iv_xunke_now,
+
+
+
+
+    private  void obtainData() {
+        for (Map.Entry<String, List<String>> map : hobbyMap.entrySet()) {
+            String key = map.getKey(); //查到的兴趣名称
+            List<String> listStr = map.getValue();//查到的兴趣二级标签
+            // TODO: 2018/4/18 这里不添加兴趣名称
+//                    interestIds += key + ",";
+            for (String str : listStr) {
+                interestIds += str + ",";
+            }
+        }
+        if (!TextUtils.isEmpty(interestIds)) {
+            //去掉最后一个逗号
+            interestIds = interestIds.substring(0, interestIds.length() - 1);
+        }
+
+        // TODO: 2018/4/20 校验行业是否为空
+        if (!getTextState()) {
+            ToastUtils.showShort("请选择行业");
+            return;
+        }
+        //检查商业兴趣是否为空
+        if (checkEmpty(interestIds)) {
+            if (industrys.get(7).isSelected()) { //如果选的自定义
+                industryMark = "1";
+                industryNameStr = "自定义";
+            } else {
+                industryMark = "0";
+                if (industrys.get(0).isSelected()) {
+                    industryNameStr = "餐饮";
+                } else if (industrys.get(1).isSelected()) {
+                    industryNameStr = "3C数码";
+                } else if (industrys.get(2).isSelected()) {
+                    industryNameStr = "日用百货";
+                } else if (industrys.get(3).isSelected()) {
+                    industryNameStr = "母婴用品";
+                } else if (industrys.get(4).isSelected()) {
+                    industryNameStr = "美容美发";
+                } else if (industrys.get(5).isSelected()) {
+                    industryNameStr = "鲜花礼品";
+                } else if (industrys.get(6).isSelected()) {
+                    industryNameStr = "汽车用品";
+                } else if (industrys.get(8).isSelected()) {
+                    industryNameStr = "不限";
+                }
+            }
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @OnClick({R.id.collect_address, R.id.iv_back, R.id.tv_quess, R.id.tv_no_limit, R.id.iv_kefu, R.id.iv_xunke_now,
             R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
-    public void onViewClicked(View view) {
+    public void onViewClicked (View view){
         switch (view.getId()) {
             case R.id.iv_xunke_now:
-                mPresent.selectPretask(latitude,longitude,cityCode);
+                obtainData();
+                mPresent.selectPretask(latitude, longitude, cityCode);
                 break;
             case R.id.tv_quess:
                 showDialog();
@@ -269,9 +337,9 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
                 if (mIsLike) {
                     //取消收藏
                     mPresent.appAddressDelete(addressCollectInfo.getId());
-                }else{
+                } else {
                     //收藏
-                    mPresent.AddAddressInfo(address, longitude.substring(0,longitude.indexOf(".")+5), latitude.substring(0,latitude.indexOf(".")+5));
+                    mPresent.AddAddressInfo(address, longitude.substring(0, longitude.indexOf(".") + 5), latitude.substring(0, latitude.indexOf(".") + 5));
                 }
                 break;
             case R.id.tv_canyin:
@@ -303,15 +371,12 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
                 setTextState(8, true);
                 break;
         }
-        if (!industryStr.equals("自定义")) {
-            personNumStr = CommonUtils.getPersonNum(currentCircleRadius, mCityName, ageF, ageB, sex, industryStr, labelNum);
-            tvPersonNum.setText(personNumStr);
-        }
+
     }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directional_setting_new);
         ButterKnife.bind(this);
@@ -326,6 +391,9 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 //        EasyTransition.enter(this);
     }
 
+
+
+
     private void initData() {
         mPresent.getSelectSetting(cityCode);
         mPresent.getAllAddress();
@@ -337,9 +405,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     public void getSelectSetting(SettingOut settingOuts) {
         if (settingOuts != null) {
             this.settingOuts = settingOuts;
-        }
-        if (settingOuts != null) {
-            getData();
         }
     }
 
@@ -474,6 +539,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
 
 
+
         adaptersex.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -557,7 +623,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         Intent intent = getIntent();
         if (intent != null) {
             //上个页面返回cityCode和isReCreate
-            isReCreate = intent.getBooleanExtra("isReCreate", false);
             cityCode = intent.getStringExtra("cityCode");
             mProvinceCode = intent.getStringExtra(Constants.mProvinceCode);
 
@@ -573,6 +638,10 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
             tvAddress.setText(address);
             tvScope.setText(currentCircleRadius);
             ivBaiMapPic.setImageBitmap(BitmapUtil.Bytes2Bitmap(bitmaps));
+            if (!industryStr.equals("自定义")) {
+                personNumStr = CommonUtils.getPersonNum(currentCircleRadius, mCityName, ageF, ageB, sex, industryStr, labelNum);
+                tvPersonNum.setText(personNumStr);
+            }
         }
 
         if (hobbyMap == null) {
@@ -609,204 +678,17 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
 
 
-    /**
-     * 获取定向设置 当前用户的缓存数据（缓存中的数据）
-     */
-    private void getData() {
-        if (isReCreate) {
-            Logger.d("再次创建任务，用的是之前任务的数据");
-            orientationSettingsOut = (OrientationSettingsOut) getIntent().getSerializableExtra("orientationSettingsOut");
-            List<String> xingquStr = orientationSettingsOut.getXingqu();
-            industryName = getIntent().getStringExtra("industryName");//行业名称
-            industryMark = getIntent().getStringExtra("customFlag");//是否自定义
-//            updateData();
-            setHobby(orientationSettingsOut);
-        } else {  //不是点击详情进来，是缓存的数据
-            ArrayList<OrientationSettingsOut> list = (ArrayList<OrientationSettingsOut>) aCache.getAsObject(SharedPreferencesTool.DIRECTION_HISTORY);
-            if (list != null) {
-                Logger.d("读取本地缓存的内容" + list.size());
-                for (OrientationSettingsOut direction : list) {
-                    if (UserDataManeger.getInstance().getUserId().equals(direction.getUserId() + "")) {
-                        orientationSettingsOut = direction; //使用本地中的数据
-                        break;
-                    }
-                }
-                industryName = orientationSettingsOut.getIndustryName();//行业名称
-                industryMark = orientationSettingsOut.getIndustryMark();//是否自定义
-
-            } else {
-                Logger.d("没有任何数据，重新进行输入数据");
-            }
-            if (settingOuts != null) {
-//                updateData();
-//                setList(orientationSettingsOut);//
-                if (orientationSettingsOut != null) {
-
-                    setHobby(orientationSettingsOut);
-                }
-            }
-        }
-    }
 
 
-    //第一步：更新界面
-    private void updateData() {
-        boolean visibility = settingOuts.isVisibility();
-        if (visibility) { //true
-            zidingyi.setVisibility(View.INVISIBLE);
-        } else {
-            zidingyi.setVisibility(View.VISIBLE);
-        }
-        if (orientationSettingsOut == null) { //如果没有缓存数据，会拿到后台返回的数据进行更新界面
-            Logger.d("没有缓存的数据。。");
-            //定向设置 无缓存信息
-            hobbyFromPosition = -1;
-        } else { //有数据需要显示
-            Logger.d("orientationSettingsOut不为空，获取到了缓存的数据。。");
-            if (isReCreate) {  //上个任务的任务的详情
-                setMapData(); //再次创建任务保留的数据
-            }
-            //获取年龄性别
-            String ageFCache = orientationSettingsOut.getAgeF();
-            String ageBCache = orientationSettingsOut.getAgeB();
-            String sexCache = orientationSettingsOut.getSex();
-            // TODO: 2018/6/7  设置年龄和性别
-
-            if (industryMark.equals("0")) { //行业
-                switch (industryName) {
-                    case "餐饮":
-                        industrys.get(0).setSelected(true);
-                        break;
-                    case "3C数码":
-                        industrys.get(1).setSelected(true);
-                        break;
-                    case "日用百货":
-                        industrys.get(2).setSelected(true);
-                        break;
-                    case "母婴用品":
-                        industrys.get(3).setSelected(true);
-                        break;
-                    case "美容美发":
-                        industrys.get(4).setSelected(true);
-                        break;
-                    case "鲜花礼品":
-                        industrys.get(5).setSelected(true);
-                        break;
-                    case "汽车用品":
-                        industrys.get(6).setSelected(true);
-                        break;
-                }
-            } else { //自定义，显示下面得到兴趣标签
-                industrys.get(7).setSelected(true);
-                llUserHobby.setVisibility(View.VISIBLE);
-            }
-
-        }
-    }
 
 
-    //设置兴趣爱好 ，设置缓存数据
-    public void setList(OrientationSettingsOut orientationSettingsOut) {
-        Logger.d("setList-orientationSettingsOut:" + orientationSettingsOut);
-        List<String> listHobby = orientationSettingsOut.getXingqu();
-        if (listHobby != null) {
-            listHobby.clear();
-        }
-        //如果之前缓存中有兴趣爱好，就保存。
-        if (orientationSettingsOut.getHobbyMap() != null) {
-            for (Map.Entry<String, List<String>> map : orientationSettingsOut.getHobbyMap().entrySet()) {
-                String key = map.getKey();
-                List<String> listIntrest = map.getValue();
-                listHobby.addAll(listIntrest);
-            }
-
-        }
-        setHobby(orientationSettingsOut);
-    }
-
-    /**
-     * 设置兴趣的数据 并更新界面 （设置缓存数据）
-     */
-    private void setHobby(OrientationSettingsOut orientationSettingsOut) {
-        Logger.d("setHobby-orientationSettingsOut:" + orientationSettingsOut);
-        if (hobbyMap == null) {
-            hobbyMap = new HashMap<>();
-        }
-        if (orientationSettingsOut.getHobbyMap() != null) {
-            hobbyMap.putAll(orientationSettingsOut.getHobbyMap());
-        }
-        if (hobbyList == null) {
-            hobbyList = new ArrayList<>();
-        }
-
-        //如果设置了兴趣
-        if (orientationSettingsOut.getXingqu() != null) {  //设置数据缓存中的兴趣
-            hobbyList.addAll(orientationSettingsOut.getXingqu());
-            //更新settingOuts.getXingqu
-            for (Map.Entry<String, List<String>> map : hobbyMap.entrySet()) {
-                String key = map.getKey();
-                tv_mHobbyOne.setText(key); //设置用户偏好起始
-                List<String> listStr = map.getValue();
-                for (int i = 0; i < settingOuts.getIco().size(); i++) {
-                    if (settingOuts.getIco().get(i).getIndustryName().equals(key)) {
-                        hobbyFromPosition = i;
-                        settingOuts.getIco().get(i).setChecked(true);
-                        List<InterestCategory> listCategory = settingOuts.getIco().get(i).getEri();
-                        if (listCategory != null) {
-                            for (int j = 0; j < listCategory.size(); j++) {
-                                for (String str : listStr) {
-                                    if (str.equals(listCategory.get(j).getIndustryName())) {
-                                        listCategory.get(j).setChecked(true);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-            addHobbyToFrame(hobbyList);//框中内容
-        }
-
-    }
 
 
-    /**
-     * 设置orientationSettingsOut对象中商业兴趣hobbyMap 的数据（设置缓存数据）
-     */
-    private void setMapData() {
-        Map<String, List<String>> hobbyMap = new HashMap<>();
-        List<InterestTagImportOut> interestTagImportOuts = settingOuts.getIco();
-        for (int i = 0; i < interestTagImportOuts.size(); i++) {
-            InterestTagImportOut interestTagImportOut = interestTagImportOuts.get(i);
 
-            String name = interestTagImportOut.getIndustryName();//返回兴趣的名称
 
-            for (String str : orientationSettingsOut.getXingqu()) {  //从提交的兴趣名称数组里面查询
-                if (name.equals(str)) { //如果找到了一样的名称
-                    //查找 相应的List
-                    List<String> listIntrest = new ArrayList<>();
-                    List<InterestCategory> erps = interestTagImportOut.getEri();
-                    if (erps != null) {
-                        for (int j = 0; j < erps.size(); j++) {
-                            String nameIntrest = erps.get(j).getIndustryName();
-                            for (String str1 : orientationSettingsOut.getXingqu()) {
-                                if (nameIntrest.equals(str1)) {
-                                    listIntrest.add(str1);
-                                }
-                            }
-                            if (j == erps.size() - 1) {
-                                hobbyMap.put(name, listIntrest);
-                            }
-                        }
 
-                    }
-                }
-            }
-        }
-        orientationSettingsOut.setHobbyMap(hobbyMap);
-    }
+
+
 
 
     @Override
@@ -1179,6 +1061,8 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
                     if (len > 0) { //(hobbyFromPosition代表选择的兴趣名称的位置)
                         //把兴趣点添加到hobbyMap中
                         hobbyMap.put(settingOuts.getIco().get(hobbyFromPosition).getIndustryName(), listStr);
+
+
                         addHobbyToFrame(hobbyList);
                         //将后台返回的兴趣点设置成已选择
                         settingOuts.getIco().get(hobbyFromPosition).setChecked(true);

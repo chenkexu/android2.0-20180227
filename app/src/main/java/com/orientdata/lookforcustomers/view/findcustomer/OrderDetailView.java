@@ -108,6 +108,13 @@ public class OrderDetailView extends FrameLayout {
     }
 
 
+
+    public void hideTitle(){
+        cdTaskOrder.setVisibility(GONE);
+    }
+
+
+
     public void setData(TaskOut taskOut) {
         if (taskOut != null) {
             tvSex.setText("性别：" + taskOut.getOrientationSettingsOut().getSex());

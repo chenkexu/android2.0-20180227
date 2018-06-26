@@ -12,6 +12,9 @@ import java.util.List;
  */
 
 public class TaskOut implements Serializable{
+    private static final long serialVersionUID = 463278410952742534L;
+
+
     private BigDecimal xunMoney;//	是	 	消费寻币
     private int showCount;//	是	 	展现量
     private int issuedCount;//	是	 	下发成功量

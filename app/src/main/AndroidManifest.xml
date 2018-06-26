@@ -158,6 +158,17 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
         </activity>
+
+
+        <activity
+            android:name=".view.findcustomer.impl.OrderConfirmActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
+
+
+
         <activity
             android:name=".view.certification.WathchCertificationActivity"
             android:screenOrientation="portrait" />

@@ -20,6 +20,7 @@ import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.HomeBean;
 import com.orientdata.lookforcustomers.bean.LoginResultBean;
+import com.orientdata.lookforcustomers.bean.TaskCountBean;
 import com.orientdata.lookforcustomers.bean.URLBean;
 import com.orientdata.lookforcustomers.bean.UserInfoBean;
 import com.orientdata.lookforcustomers.event.MyMoneyEvent;
@@ -133,13 +134,10 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     private int imgResId = 0;
     private  String btText = "";
     private int authStatus = -1;
-
-
-
-
-
-
-
+    private int throwingTaskCount;
+    private int examineTaskCount;
+    private int waitThrowTaskCount;
+    private Adapter taskAdapter;
 
 
     @OnClick({R.id.tv_more_task, R.id.iv_message, R.id.iv_back,R.id.linear_company,
@@ -201,7 +199,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         }
         rvMine.setLayoutManager(new GridLayoutManager(this, 5));
         rvTask.setLayoutManager(new GridLayoutManager(this, 5));
-        Adapter taskAdapter = new Adapter(imagesAndTitles);
+        taskAdapter = new Adapter(imagesAndTitles);
         Adapter meAdapter = new Adapter(imagesAndTitles2);
         rvTask.setAdapter(taskAdapter);
 
@@ -440,6 +438,14 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
 
     }
 
+    @Override
+    public void getTaskCount(TaskCountBean taskCountBean) {
+        throwingTaskCount = taskCountBean.getThrowingTaskCount();
+        examineTaskCount = taskCountBean.getExamineTaskCount();
+        waitThrowTaskCount = taskCountBean.getWaitThrowTaskCount();
+        taskAdapter.notifyDataSetChanged();
+    }
+
 
     @Override
     protected MePresent<IMeView> createPresent() {
@@ -462,13 +468,21 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
 
             switch (item.getName()) {
                 case "审核中":
-                    mBadgeView.showTextBadge("3");
+
+                    if (examineTaskCount!=0) {
+                        mBadgeView.showTextBadge(examineTaskCount+"");
+                    }
+
                     break;
                 case "待投放":
-
+                    if (waitThrowTaskCount!=0) {
+                        mBadgeView.showTextBadge(waitThrowTaskCount+"");
+                    }
                     break;
                 case "投放中":
-
+                    if (throwingTaskCount!=0) {
+                        mBadgeView.showTextBadge(throwingTaskCount+"");
+                    }
                     break;
                 case "投放结束":
 

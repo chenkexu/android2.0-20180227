@@ -86,6 +86,11 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                             public void doCertificate() {
                                 rechargeDialog.dismiss();
                             }
+
+                            @Override
+                            public void doCancel() {
+
+                            }
                         });
                         rechargeDialog.show();
                         //更新个人信息
@@ -105,6 +110,11 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                                 @Override
                                 public void doCertificate() {
                                     rechargeDialog.dismiss();
+                                }
+
+                                @Override
+                                public void doCancel() {
+
                                 }
                             });
                             rechargeDialog.show();
@@ -450,6 +460,11 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     public void doCertificate() {
                         rechargeDialog.dismiss();
                     }
+
+                    @Override
+                    public void doCancel() {
+
+                    }
                 });
                 rechargeDialog.show();
                 break;
@@ -463,6 +478,11 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     @Override
                     public void doCertificate() {
                         rechargeDialog.dismiss();
+                    }
+
+                    @Override
+                    public void doCancel() {
+
                     }
                 });
                 rechargeDialog.show();
