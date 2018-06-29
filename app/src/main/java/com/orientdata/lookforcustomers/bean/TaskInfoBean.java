@@ -8,6 +8,9 @@ package com.orientdata.lookforcustomers.bean;
 public class TaskInfoBean extends ErrBean{
     private TaskOut result;
 
+
+
+
     public TaskOut getResult() {
         return result;
     }

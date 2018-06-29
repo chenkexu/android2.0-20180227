@@ -576,7 +576,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         });
 
 
-        seekbar.setValue(15, 70);
+        seekbar.setValue(15, 65);
         seekbar.setOnRangeChangedListener(new OnRangeChangedListener() {
 
             private float rightValue;
@@ -608,7 +608,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
                 if (leftStr.substring(0, 2).equals("15")) {
                     ageFrom.setText("18及以下");
                 }
-                if (lrightValueStr.substring(0, 2).equals("70")) {
+                if (lrightValueStr.substring(0, 2).equals("65")) {
                     ageTo.setText("65及以上");
                 }
                 ageF = ageFrom.getText().toString();
@@ -636,7 +636,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
             address = intent.getStringExtra("address");
             byte[] bitmaps = intent.getByteArrayExtra("bitmap");
             tvAddress.setText(address);
-            tvScope.setText(currentCircleRadius);
+            tvScope.setText(currentCircleRadius+"m");
             ivBaiMapPic.setImageBitmap(BitmapUtil.Bytes2Bitmap(bitmaps));
             if (!industryStr.equals("自定义")) {
                 personNumStr = CommonUtils.getPersonNum(currentCircleRadius, mCityName, ageF, ageB, sex, industryStr, labelNum);

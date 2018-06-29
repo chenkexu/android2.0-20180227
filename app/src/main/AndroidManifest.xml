@@ -385,6 +385,9 @@
         <activity
             android:name=".view.mine.MessageActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mine.MessageAndNoticeActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".view.home.ReportActivity"

@@ -17,6 +17,7 @@ import com.orientdata.lookforcustomers.presenter.HomePresent;
 import com.orientdata.lookforcustomers.view.home.IHomeView;
 import com.orientdata.lookforcustomers.view.home.fragment.TaskListFragment;
 import com.orientdata.lookforcustomers.widget.MyTitle;
+import com.qiniu.android.common.Constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,9 +62,7 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
         ButterKnife.bind(this);
         initView();
         initData();
-
         ButterKnife.bind(this);
-
         for (String title : mTitles) {
             TaskListFragment fragment = TaskListFragment.getInstance();
             fragment.setTitle(title);
@@ -74,7 +73,7 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
         viewPager.setOffscreenPageLimit(0);
         tl5.setViewPager(viewPager);
         Intent intent = getIntent();
-        String tasktype = intent.getStringExtra("taskType");
+        String tasktype = intent.getStringExtra(Constants.taskType);
         if (tasktype!=null) {
             int positon = Arrays.binarySearch(mTitles, tasktype);
             viewPager.setCurrentItem(positon);

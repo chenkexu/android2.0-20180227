@@ -22,6 +22,9 @@
             android:src="@mipmap/msg_task" />
 
         <TextView
+            android:maxEms="13"
+            android:ellipsize="end"
+            android:lines="1"
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,9 +34,11 @@
             android:layout_toRightOf="@+id/ivStatus"
             android:textSize="14sp"
             android:textColor="@color/text_gray"
-            android:text="创建寻客" />
+            android:text="客创建寻客创建寻客创建寻客寻客创客创建寻客创建寻客创建寻客寻客创建寻客寻客创建寻客创建寻客建寻客寻客创建寻客创建寻客" />
 
         <TextView
+            android:gravity="right"
+            android:layout_toRightOf="@id/tvTitle"
             android:layout_alignParentRight="true"
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"

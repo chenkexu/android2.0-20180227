@@ -20,6 +20,7 @@ import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.util.AnimationUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -135,7 +136,7 @@ public class OrderDetailView extends FrameLayout {
                 tvUserHobby.setText("用户偏好：" +"自定义：" + hobbyStr.toString());
             }
 
-            tvOrderRadius.setText("投放范围：" + taskOut.getRangeRadius());
+            tvOrderRadius.setText("投放范围：" + taskOut.getRangeRadius()+"m");
             tvOrderAddress.setText("投放地址：" + taskOut.getThrowAddress());
             tvOrderName.setText("订单名称：" + taskOut.getTaskName());
             tvOrderContent.setText("短信内容：" + taskOut.getContent());
@@ -143,16 +144,42 @@ public class OrderDetailView extends FrameLayout {
             tvOrderPushTime.setText("推送时间：" + taskOut.getThrowStartdate());
 
             tvOrderPushPerson.setText("推送人数：" + taskOut.getEstimatePeoplerno()+"人");
-            if (!TextUtils.isEmpty(taskOut.getTestCmPhone()) && !TextUtils.isEmpty(taskOut.getTestCtPhone())
-                    && !TextUtils.isEmpty(taskOut.getTestCuPhone())) {
-                tvOrderTestPhone.setText("测试号码：" + "" + taskOut.getTestCmPhone() +
-                        "," + taskOut.getTestCuPhone() + "," + taskOut.getTestCtPhone());
-            }else{
-                tvOrderTestPhone.setVisibility(View.GONE);
+
+
+
+            List<String> testPhones = new ArrayList<>();
+            testPhones.add("移动: "+taskOut.getTestCmPhone());
+            testPhones.add(","+"联通："+taskOut.getTestCtPhone());
+            testPhones.add(","+"电信: "+taskOut.getTestCuPhone());
+
+            if (TextUtils.isEmpty(taskOut.getTestCmPhone())) {
+                testPhones.set(0,"");
             }
 
+            if (TextUtils.isEmpty(taskOut.getTestCtPhone())) {
+                testPhones.set(1,"");
+            }
+
+            if (TextUtils.isEmpty(taskOut.getTestCuPhone())) {
+                testPhones.set(2,"");
+            }
+
+            StringBuffer sb = new StringBuffer();
+            if (TextUtils.isEmpty(taskOut.getTestCmPhone())
+                    && TextUtils.isEmpty(taskOut.getTestCtPhone())
+                    && TextUtils.isEmpty(taskOut.getTestCuPhone())) {
+                tvOrderTestPhone.setVisibility(View.GONE);
+            }else{
+
+                for(int i=0;i< testPhones.size();i++){
+                    sb.append(testPhones.get(i));
+                }
+                tvOrderTestPhone.setText("测试号码："+sb.toString());
+            }
         }
     }
+
+
 
 
 

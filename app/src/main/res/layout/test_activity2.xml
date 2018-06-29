@@ -17,6 +17,7 @@
         android:layout_marginTop="30dp"/>
 
     <EditText
+        android:text="2098"
         android:id="@+id/edit_digital"
         android:layout_width="100dp"
         android:layout_height="wrap_content"

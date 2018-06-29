@@ -52,12 +52,33 @@ public class TaskOut implements Serializable{
     private String testCtPhone;
 
     private int customFlag;
+    private int peoples;
     private String industryName;
 
+    public int getPeoples() {
+        return peoples;
+    }
+
+    public void setPeoples(int peoples) {
+        this.peoples = peoples;
+    }
 
     private List<String> phone;
 
     private TaskThrowInfo taskThrowInfo;
+
+    private OrderDeliveryBean expediteInfo;
+
+
+    public OrderDeliveryBean getOrderDeliveryBean() {
+        return expediteInfo;
+    }
+
+    public void setOrderDeliveryBean(OrderDeliveryBean orderDeliveryBean) {
+        this.expediteInfo = orderDeliveryBean;
+    }
+
+
 
     public List<String> getPhone() {
         if (phone == null) {
@@ -414,4 +435,7 @@ public class TaskOut implements Serializable{
                 ", testCtPhone='" + testCtPhone + '\'' +
                 '}';
     }
+
+
+
 }

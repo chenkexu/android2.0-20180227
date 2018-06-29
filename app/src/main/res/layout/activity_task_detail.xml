@@ -42,6 +42,7 @@
                 android:id="@+id/cd_task_delivery2">
 
                 <com.orientdata.lookforcustomers.view.findcustomer.TaskDeliveryView
+                    android:visibility="gone"
                     android:id="@+id/task_delivery"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -97,10 +98,11 @@
 
             <!--报告-->
             <com.orientdata.lookforcustomers.view.findcustomer.PushResultReport
+
                 android:id="@+id/report_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
 
         </LinearLayout>

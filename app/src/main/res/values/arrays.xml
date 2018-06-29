@@ -97,9 +97,12 @@
         <item>50</item>
         <item>55</item>
         <item>60</item>
-        <item>65</item>
-        <item>65以上</item>
+        <item>65及以上</item>
     </string-array>
+
+
+
+
 
     <string-array name="sex">
         <item>男</item>

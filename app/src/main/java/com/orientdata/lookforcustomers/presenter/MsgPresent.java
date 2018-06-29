@@ -72,6 +72,8 @@ public class MsgPresent<T> extends BasePresenter<IMsgView> {
             },ids);
         }
     }
+
+
     public void msgInfo(int pushMessageId){
         if(mMsgModel!=null){
             mMsgView.showLoading();
@@ -92,4 +94,17 @@ public class MsgPresent<T> extends BasePresenter<IMsgView> {
             },pushMessageId);
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

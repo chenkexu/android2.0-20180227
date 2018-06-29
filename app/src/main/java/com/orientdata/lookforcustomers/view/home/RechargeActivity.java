@@ -65,6 +65,7 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
     private static final int ZHIFUBAO = 1;
     private TextView tv_offline_recharge_btn;
     private Double mRechargeMinMoney = 0.0;
+
     //创建Hanler对象,处理支付宝支付回调
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -134,12 +135,10 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
     public void getCommission(){
         MDBasicRequestMap map = new MDBasicRequestMap();
         map.put("userId", UserDataManeger.getInstance().getUserId());
-//        mCommissionView.showLoading();
         OkHttpClientManager.postAsyn(HttpConstant.SELECT_SHOW_MY_INFO, new OkHttpClientManager.ResultCallback<MyInfoBean>() {
             @Override
             public void onError(Exception e) {
                 ToastUtils.showShort(e.getMessage());
-//                mCommissionView.hideLoading();
             }
 
             @Override
@@ -342,6 +341,7 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
             return;
         }
         if (rb_zhifubao.isChecked()) {
+
             ToastUtils.showShort("支付宝支付:" + value);
             //支付宝支付
             MDBasicRequestMap map = new MDBasicRequestMap();
@@ -467,6 +467,7 @@ public class RechargeActivity extends WangrunBaseActivity implements View.OnClic
                     }
                 });
                 rechargeDialog.show();
+                getCommission();
                 break;
             case cancle:
                 Toast.makeText(this, "取消支付", Toast.LENGTH_SHORT).show();

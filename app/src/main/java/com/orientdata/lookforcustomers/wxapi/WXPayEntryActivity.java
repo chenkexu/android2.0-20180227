@@ -54,7 +54,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp baseResp) {
         switch (baseResp.errCode) {
             case 0:
-                getCommission();
+//                getCommission();
                 setPayResult(wxPayResult.success);
                 break;
             case -1:
@@ -66,20 +66,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             default:
                 break;
         }
-
-
-//        if (baseResp.errCode == 0) {
-//            getCommission();
-////            rechargeDialog.show();
-//            Toast.makeText(getApplicationContext(), "支付成功！", Toast.LENGTH_LONG).show();
-//            //EventBus.getDefault().post(new WXPayEvent(true));
-//            finish();
-//        } else {
-////            rechargeDialog.show();
-//            Toast.makeText(getApplicationContext(), "支付失败！", Toast.LENGTH_LONG).show();
-//            //EventBus.getDefault().post(new WXPayEvent(false));
-//            finish();
-//        }
     }
 
     public enum wxPayResult {success, fail, cancle, error}

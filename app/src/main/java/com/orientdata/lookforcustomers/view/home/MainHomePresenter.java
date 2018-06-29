@@ -4,6 +4,7 @@ import com.orientdata.lookforcustomers.bean.Area;
 import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.BannerBean;
 import com.orientdata.lookforcustomers.bean.BannerBeans;
+import com.orientdata.lookforcustomers.bean.OrderDeliveryBean;
 import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.model.IProvinceCityModel;
 import com.orientdata.lookforcustomers.model.imple.ProvinceCityModelImple;
@@ -41,23 +42,30 @@ public class MainHomePresenter<T> extends BasePresenter<IHomeMainView> {
 
     //获取任务投递的细节
     public void getTaskDeliveryInfo(){
-        HashMap<String, Object> map = ParamsUtil.getMap();
-        ApiManager.getInstence().getApiService().getTaskThrowExpedite(ParamsUtil.getParams(map))
-                .compose(RxUtil.<WrResponse<Object>>rxSchedulerHelper())
-                .subscribe(new BaseObserver<Object>() {
-                    @Override
-                    protected void onSuccees(WrResponse<Object> t) {
 
+        HashMap<String, Object> map = ParamsUtil.getMap();
+        ApiManager.getInstence().getApiService().getNewestTaskThrowExpedite(ParamsUtil.getParams(map))
+                .compose(RxUtil.<WrResponse<OrderDeliveryBean>>rxSchedulerHelper())
+                .subscribe(new BaseObserver<OrderDeliveryBean>() {
+                    @Override
+                    protected void onSuccees(WrResponse<OrderDeliveryBean> t) {
+                        if (t.getResult()!=null) {
+                            iCityPickView.getTaskDeliveryInfo(t.getResult());
+                        }
                     }
 
                     @Override
                     protected void onFailure(String errorInfo, boolean isNetWorkError) {
-
+                        ToastUtils.showShort(errorInfo);
                     }
                 });
 
 
     }
+
+
+
+
 
     public void getProvinceCityData() {
         if (mProvinceModel != null) {

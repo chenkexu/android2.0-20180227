@@ -57,6 +57,8 @@ import butterknife.OnClick;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
 
+import static com.qiniu.android.common.Constants.taskOut;
+
 
 /**
  * Created by wy on 2017/11/27.
@@ -68,7 +70,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
     @BindView(R.id.tv_person)
     TextView tvPerson;
     @BindView(R.id.et_push_person)
-    EditText etPushPerson;
+    EditText etPushPerson; //我要推送给多少人
     @BindView(R.id.tv_balance_account)
     TextView tvBalanceAccount;
     @BindView(R.id.progressBar)
@@ -137,7 +139,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
     private String startdate;
     private String industryMark;
     private String industryNameStr;
-    private double minMoney;
+    private double minMoney = 1000;
     private String signStr;
     private String contentAll;
     private MessageTaskCacheBean messageTaskCacheBean;
@@ -146,8 +148,9 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
     private int numCount;//输入的字数
     private String allPerson; //推送的总人数
     private String pushPersonNum = "";
-    private int balance;
-    private int smsPriceouter;
+    private double balance;//余额
+    private int smsPriceouter; //单价
+    private TaskOut taskout;
 
 
     @Override
@@ -181,6 +184,9 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
 
 
 
+
+
+
     @OnClick({R.id.tv_push_time, R.id.btn_submit,R.id.iv_ques})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -199,13 +205,14 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                 if (TextUtils.isEmpty(pushPersonNum)) {
                     ToastUtils.showShort("请输入推送人数");
                     isSubmitting = false;
+                    return;
                 }
 
                 if (Integer.parseInt(pushPersonNum)<1000 || Integer.parseInt(pushPersonNum) > Integer.parseInt(allPerson)) {
                     ToastUtils.showShort("推送人数需要大于1000小于"+allPerson);
                     isSubmitting = false;
+                    return;
                 }
-
 
                 if (TextUtils.isEmpty(signStr)) {
                     ToastUtils.showShort("请输入企业签名");
@@ -249,7 +256,8 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
 
                 boolean toogle = toggleBold.getToogle();
 
-                if (toogle) {
+
+                if (!toogle) {
                     testCmPhone = "";
                     testCuPhone = "";
                     testCtPhone = "";
@@ -336,8 +344,12 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                             map.put("industryMark", industryMark); //是否自定义行业
                             map.put("industry", industryNameStr); //行业名称
 
+                            map.put("peoples", allPerson); //行业名称
+
 
                             intent.putExtra("map", map);
+
+                            intent.putExtra(Constants.balance,balance);
 
                             startdate = tvPushTime.getText().toString().trim();
                             // TODO: 2018/4/9 加上退订
@@ -401,23 +413,38 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
 
     private void initData() {
         // TODO: 2018/6/25 单价，余额接口。签名接口
-        mPresent.getSignAndTd(mProvinceCode);
+//        mPresent.getSignAndTd(mProvinceCode);
         mPresent.getCreateTaskBasicInfo(mProvinceCode);
     }
 
+
+
     @Override
-    public void getSignAndTd(MyInfoBean response) {
-        double id = (double) response.getResult().get("id");
-        String provincecode = (String) response.getResult().get("provincecode");
-        double signstate = (double) response.getResult().get("signstate");
-        String tdcontent = (String) response.getResult().get("tdcontent");
+    public void getCreateTaskBasicInfo(TaskBasicInfo taskBasicInfo) {
+        balance = taskBasicInfo.getBalance();
+        tvBalanceAccount.setText("余额："+taskBasicInfo.getBalance()+"元");
+        smsPrice = taskBasicInfo.getSmsPriceouter()+"";
+        tvMessagePrice.setText("短信（"+smsPrice+"元/条）");
+        day = Integer.parseInt(taskBasicInfo.getReservationCycle());
+
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.add(Calendar.DAY_OF_MONTH, day);
+        startDateText = DateTool.parseCalendar2Str(calendar1, "yyyy-MM-dd");
+
+        //推送时间
+        tvPushTime.setText(startDateText);
+
+        TaskBasicInfo.SignAndTdBean signAndTd = taskBasicInfo.getSignAndTd();
+        String tdcontent = signAndTd.getTdcontent();
+        int signstate = signAndTd.getSignstate();
 
         tvUnsubscribe.setText(tdcontent); //设置回复退订
         int length = tdcontent.length();
         tvNum.setText("还可以输入"+(70 - length)+"字符");
 
         // TODO: 2018/5/3 设置缓存信息
-        if ((int) signstate == 0) { //自定义
+        if (signstate == 0) { //自定义
+
             if (messageTaskCacheBean != null) { //有缓存信息
                 Logger.d(messageTaskCacheBean.toString());
                 if (!TextUtils.isEmpty(messageTaskCacheBean.getSignStr())) {
@@ -426,22 +453,17 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                 if (!TextUtils.isEmpty(messageTaskCacheBean.getContent())) {
                     etMsgContent.setText(messageTaskCacheBean.getContent());
                 }
+
+                String substring = taskout.getContent().substring(0, taskout.getContent().indexOf("】") + 1);
+                etEnterpriseSignature.setText(substring);
             }
         } else { //固定签名
-            String sign = (String) response.getResult().get("sign");
+            String sign = signAndTd.getSign();
             etEnterpriseSignature.setText(sign);
             setEnable();
         }
-        Logger.d("-----" + provincecode + signstate + tdcontent);
-    }
 
 
-    @Override
-    public void getCreateTaskBasicInfo(TaskBasicInfo taskBasicInfo) {
-        balance = taskBasicInfo.getBalance();
-        tvBalanceAccount.setText("余额："+taskBasicInfo.getBalance()+"元");
-        smsPriceouter = taskBasicInfo.getSmsPriceouter();
-        tvMessagePrice.setText("短信（"+smsPriceouter+"元/条）");
     }
 
 
@@ -452,51 +474,91 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
     }
 
 
+
+
     private void initIntentData() {
         Intent intent = getIntent();
         if (intent != null) {
-            ageF = intent.getStringExtra("ageF");
-            ageB = intent.getStringExtra("ageB");
-            sex = intent.getStringExtra("sex");
-            interestIds = intent.getStringExtra("interestIds");
-            cityCode = intent.getStringExtra("cityCode");
-            throwAddress = intent.getStringExtra("throwAddress");
-//            taskName = intent.getStringExtra("taskName");
-            rangeRadius = intent.getStringExtra("rangeRadius");
-            longitude = intent.getStringExtra("longitude");
-            smsPrice = intent.getStringExtra("smsPrice");
-            dimension = intent.getStringExtra("dimension");
-            day = intent.getIntExtra("day", 3);
-            mCityName = intent.getStringExtra("cityName");
-            mProvinceCode = intent.getStringExtra(Constants.mProvinceCode);
+            boolean isReCreate = intent.getBooleanExtra(Constants.isReCreate, false);
 
-            industryMark = intent.getStringExtra("industryMark");
-            industryNameStr = intent.getStringExtra("industryNameStr");
-
-
-            isReCreate = intent.getBooleanExtra("isReCreate", false);
             minMoney = intent.getDoubleExtra("minMoney", 1000);
-            // TODO: 2018/4/23 测试号也得传过来
-            Logger.d("省Code:---" + mProvinceCode);
-            // TODO: 2018/4/7 这个地方先去掉单价
+            if (isReCreate) {  //再次创建
+                taskout = (TaskOut) intent.getSerializableExtra(taskOut);
+                ageF = taskout.getOrientationSettingsOut().getAgeF();
+                ageB = taskout.getOrientationSettingsOut().getAgeB();
+                sex = taskout.getOrientationSettingsOut().getSex();
 
-            allPerson = intent.getStringExtra(Constants.all_person);
+                List<String> xingqu = taskout.getOrientationSettingsOut().getXingqu();//兴趣数组
+                for (int i = 0; i < xingqu.size(); i++) {
+                    if (i == 0) {
+                        interestIds = interestIds + xingqu.get(i);
+                    } else {
+                        interestIds = interestIds + "," + xingqu.get(i);
+                    }
+                }
+                Logger.d("再次创建任务返回的兴趣数组：" + interestIds);
+                industryNameStr = taskout.getIndustryName(); //行业名称
+                industryMark = taskout.getCustomFlag() + "";//是否自定义
+                cityCode = taskout.getCityCode().trim();//上次创建的cityCode
+                //上次创建的cityCode
+                mProvinceCode = taskout.getProvinceCode().trim();
+                throwAddress = taskout.getThrowAddress();//上一次的投放地址
+                rangeRadius = taskout.getRangeRadius();//上次的投放半径
+
+                longitude = taskout.getLongitude().toString();
+                dimension = taskout.getDimension().toString();
+
+                allPerson = taskout.getPeoples() + "";
+
+                etTaskName.setText(taskout.getTaskName());
+
+                testCtPhone = taskout.getTestCtPhone();
+                testCuPhone = taskout.getTestCuPhone();
+                testCmPhone = taskout.getTestCmPhone();
+
+                etTestCt.setText(testCtPhone);
+                etTestCu.setText(testCuPhone);
+                etTestCm.setText(testCmPhone);
+
+            } else {
+                ageF = intent.getStringExtra("ageF");
+                ageB = intent.getStringExtra("ageB");
+                sex = intent.getStringExtra("sex");
+                interestIds = intent.getStringExtra("interestIds");
+                cityCode = intent.getStringExtra("cityCode");
+                throwAddress = intent.getStringExtra("throwAddress");
+                rangeRadius = intent.getStringExtra("rangeRadius");
+                industryMark = intent.getStringExtra("industryMark");
+                industryNameStr = intent.getStringExtra("industryNameStr");
+                longitude = intent.getStringExtra("longitude");
+                dimension = intent.getStringExtra("dimension");
+                mProvinceCode = intent.getStringExtra(Constants.mProvinceCode);
+                mCityName = intent.getStringExtra("cityName");
+                allPerson = intent.getStringExtra(Constants.all_person);
+//                day = intent.getIntExtra("day", 3);
+//                smsPrice = intent.getStringExtra("smsPrice");
+                Logger.d("省Code:---" + mProvinceCode);
+                String chinaDateTime = DateTool.getChinaDateTime();
+                chinaDateTime = chinaDateTime.replace("-", "");
+                chinaDateTime = chinaDateTime.replace(":", "");
+                chinaDateTime = chinaDateTime.replace(" ", "_");
+                etTaskName.setText(chinaDateTime + "_" + throwAddress);
+            }
 
             tvPerson.setText(allPerson + "人");
             tvProgressMaxNum.setText(allPerson);
             etPushPerson.setText(allPerson);
 
-            if(!TextUtils.isEmpty(allPerson)){
-                progressBar.setMax(Integer.parseInt(allPerson));
+            if (!TextUtils.isEmpty(allPerson)) {
+                progressBar.setMax(Integer.parseInt(allPerson) - 1000);
                 progressBar.setProgress(Integer.parseInt(allPerson));
             }
-
             progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     if (fromUser) {
                         etPushPerson.setText(1000 + progress + "");
-                    }else{
+                    } else {
 
                     }
                 }
@@ -513,22 +575,10 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
             });
 
 
-            Calendar calendar1 = Calendar.getInstance();
-            calendar1.add(Calendar.DAY_OF_MONTH, day);
-            startDateText = DateTool.parseCalendar2Str(calendar1, "yyyy-MM-dd");
-
-            //推送时间
-            tvPushTime.setText(startDateText);
-            Calendar calendar = Calendar.getInstance();
-            String chinaDateTime = DateTool.getChinaDateTime();
-            chinaDateTime = chinaDateTime.replace("-", "");
-            chinaDateTime = chinaDateTime.replace(":", "");
-            chinaDateTime = chinaDateTime.replace(" ", "_");
-            etTaskName.setText(chinaDateTime+"_"+throwAddress);
-
-//            etTaskName.setText(calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1)+""+calendar.get(Calendar.DATE)
-//            +"_" + calendar.get(Calendar.HOUR_OF_DAY) + "" + calendar.get(Calendar.MINUTE) +"" + calendar.get(Calendar.SECOND) + "_"+throwAddress);
         }
+
+
+
     }
 
 
@@ -537,8 +587,12 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
         etMsgContent = findViewById(R.id.etMsgContent);
         tvNum = (TextView) findViewById(R.id.tvNum);
 
-        String msgContent = SharedPreferencesTool.getInstance().getStringValue(SharedPreferencesTool.msgContent, "");
-        etMsgContent.setText(msgContent);
+        if (!isReCreate) {
+            String msgContent = SharedPreferencesTool.getInstance().getStringValue(SharedPreferencesTool.msgContent, "");
+            etMsgContent.setText(msgContent);
+        }else{
+            etMsgContent.setText(taskout.getContent());
+        }
 
         toggleBold.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
             @Override
@@ -667,10 +721,6 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
             }
         });
 
-
-
-
-
         //输入短信内容时
         etMsgContent.addTextChangedListener(new TextWatcher() {
             @Override
@@ -704,6 +754,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s.toString())) {
+                    progressBar.setMax(Integer.parseInt(allPerson) - 1000);
                     int etPushpersonNum  = Integer.parseInt(s.toString());
                     if(etPushpersonNum > 1000||etPushpersonNum < Integer.parseInt(allPerson)){
                         progressBar.setProgress(etPushpersonNum-1000);
@@ -718,29 +769,28 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
             }
         });
 
-//        etPushPerson.setOnFocusChangeListener(new View.
-//                OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) {
-//                    // 此处为得到焦点时的处理内容
-//                    Logger.d("获取焦点时：");
-//                    etMsgContent.setEnabled(true);
-//                } else {
-//                    Logger.d("失去焦点时焦点时：");
-//                    // 此处为失去焦点时的处理内容
-//                    String s = etPushPerson.getText().toString();
-//                    int etPushpersonNum  = Integer.parseInt(s.toString());
-//                    if (etPushpersonNum < 1000 ) {
-//                        ToastUtils.showShort("推送人数不能小于1000");
-//                        etPushPerson.setText(allPerson);
-//                    }else if(etPushpersonNum > Integer.parseInt(allPerson)){
-//                        etPushPerson.setText(allPerson);
-//                        ToastUtils.showShort("推送人数不能大于"+Integer.parseInt(allPerson));
-//                    }
-//                }
-//            }
-//        });
+        etPushPerson.setOnFocusChangeListener(new View.
+                OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // 此处为得到焦点时的处理内容
+                    Logger.d("获取焦点时：");
+                } else {
+                    Logger.d("失去焦点时焦点时：");
+                    // 此处为失去焦点时的处理内容
+                    String s = etPushPerson.getText().toString();
+                    int etPushpersonNum  = Integer.parseInt(s.toString());
+                    if (etPushpersonNum < 1000 ) {
+                        ToastUtils.showShort("推送人数不能小于1000");
+                        etPushPerson.setText(allPerson);
+                    }else if(etPushpersonNum > Integer.parseInt(allPerson)){
+                        etPushPerson.setText(allPerson);
+                        ToastUtils.showShort("推送人数不能大于"+Integer.parseInt(allPerson));
+                    }
+                }
+            }
+        });
 
     }
 
@@ -760,11 +810,10 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
             public void onClick(View v) {
                 content = etMsgContent.getText().toString();
                 SharedPreferencesTool.getInstance().putStringValue(SharedPreferencesTool.msgContent,content);
+                ToastUtils.showShort("已保存");
             }
         });
     }
-
-
 
 
     private void obtainData() {
@@ -776,7 +825,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
         contentAll = content + signStr + tvUnsubscribe.getText().toString(); //所有内容
     }
 
-    
+
 
     private String mNowDateText;
     private String startDateText; //开始时间的文本
@@ -830,6 +879,11 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
 
     }
 
+    @Override
+    public void getSignAndTd(MyInfoBean response) {
+
+    }
+
 
     public static final String DEFAULT_DATA = "1970-01-01";
     public static final String DEFAULT_STR = "开始日期";
@@ -880,7 +934,6 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
         });
         dialog.setCancelVisibility(View.GONE);
     }
-
 
 
     private void savaCache() {

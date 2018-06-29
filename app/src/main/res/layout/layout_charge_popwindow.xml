@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".view.home.InvoiceActivity">
+
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:text="余额不足请充值"
+            android:textColor="@color/text_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_close"
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <include layout="@layout/line_gray"/>
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="向网润寻客支付"
+        android:textColor="@color/gray_small" />
+
+    <TextView
+        android:id="@+id/tv_charge_money"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textSize="25sp"
+        android:text="2000"
+        android:textColor="@color/text_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_zhifubao"
+            android:drawablePadding="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@mipmap/icon_zhifubao"
+            android:text="支付宝"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_wechat"
+            android:drawablePadding="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@mipmap/icon_wechat"
+            android:text="支付宝"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="点击充值，即表示您已经同意"
+            android:textColor="@color/gray_small" />
+        <TextView
+            android:id="@+id/tv_charge_xieyi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="《网润寻客充值协议》"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+</LinearLayout>

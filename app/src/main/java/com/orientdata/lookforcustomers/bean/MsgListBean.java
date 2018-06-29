@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MsgListBean extends ErrBean{
     private List<Result> result;
-
+///
     public List<Result> getResult() {
         return result;
     }

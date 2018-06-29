@@ -64,6 +64,7 @@ import com.orientdata.lookforcustomers.bean.AddressSearchRecode;
 import com.orientdata.lookforcustomers.bean.Area;
 import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.BannerBean;
+import com.orientdata.lookforcustomers.bean.OrderDeliveryBean;
 import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
@@ -75,13 +76,13 @@ import com.orientdata.lookforcustomers.view.agreement.MyWebViewActivity;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.findcustomer.SearchActivity;
 import com.orientdata.lookforcustomers.view.findcustomer.TaskDeliveryView;
+import com.orientdata.lookforcustomers.view.findcustomer.TaskDetailActivity;
 import com.orientdata.lookforcustomers.view.home.fragment.MeActivity;
 import com.orientdata.lookforcustomers.widget.MyListView;
 import com.orientdata.lookforcustomers.widget.abslistview.CommonAdapter;
 import com.orientdata.lookforcustomers.widget.abslistview.ViewHolder;
 import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
-import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
 import com.qiniu.android.common.Constants;
 
 import java.util.ArrayList;
@@ -185,17 +186,17 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     // UI相关
     boolean isFirstLoc = true; // 是否首次定位
     private MyLocationData locData;
-    private ImageView imageView_suoxiao;
-    private ImageView imageView_fangda;
-    private ImageView imageView_jingzhundingwei;
 
-    private LinearLayout ll_at_create_find_customer_search; //搜索栏
-    private TextView tv_at_create_find_customer_location; //要选择的具体的城市
+
+
 
 
     private int locationFlag;
 
-    float[] mScaleLevel = {15.0f, 14.0f, 13.0f, 12.66f, 12.0f, 11.0f};
+//    float[] mScaleLevel = {15.0f, 14.0f, 13.0f, 12.66f, 12.0f, 11.0f};
+    float[] mScaleLevel = {15.6f, 15.0f, 14.0f, 14.00f, 13.0f, 12.0f};
+
+
     int[] mCircleRadius = {500, 1000, 2000, 3000, 5000, 10000};//米
     String[] mCircleRadiusKM = {"500M", "1KM", "2KM", "3KM", "5KM", "10KM"};
     String[] mCircleRadiusM = {"500", "1000", "2000", "3000", "5000", "10000"};
@@ -258,6 +259,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private AddressSearchRecode addressInfo;
     private boolean clickFlag = true;
 
+    private OrderDeliveryBean orderDeliveryBean;
+
     protected boolean isImmersionBarEnabled() {
         return false;
     }
@@ -300,6 +303,12 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 LbsManager.getInstance().getLocation(myListener);
                 break;
             case R.id.bt_go_orintion: //打开定向设置
+
+                if (mCurrentLatLng==null || TextUtils.isEmpty(mCityCode)) {
+                    ToastUtils.showShort("网络错误，请重新定位");
+                    return;
+                }
+
 
                 this.intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
                 this.intent.putExtra(Constants.latitude, mCurrentLatLng.latitude + ""); //精度
@@ -523,6 +532,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 // 刷新listview
                 strngCommonAdapter.notifyDataSetChanged();
                 setMapCenterInfo(mCurrentLatLng, mCircleRadiusM[mCurrentRadiuPos]);
+                moveMapTo(mCurrentLatLng.latitude,mCurrentLatLng.longitude,true,mScaleLevel[mCurrentRadiuPos]);
+
             }
         });
 
@@ -553,10 +564,15 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             }
         });
 
+        //点击事件
         taskDeliveryView.setOnItemClickListener(new TaskDeliveryView.OnClickListener() {
             @Override
             public void showTaskDetail() {
-
+                Intent intent = new Intent(MainHomeActivity.this, TaskDetailActivity.class);
+                if (orderDeliveryBean!=null) {
+                    intent.putExtra("taskId",orderDeliveryBean.getTask().getTaskId());
+                }
+                startActivity(intent);
             }
 
             @Override
@@ -568,6 +584,38 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
     }
 
+
+    /**
+     * @param latitude
+     * @param longitude
+     * @param isAnimate
+     * @param zoomLevel 调整地图的缩放比例
+     */
+    private void moveMapTo(double latitude, double longitude, boolean isAnimate, float zoomLevel) {
+        // needRefreshAddress = true;
+        MapStatus mMapStatus = new MapStatus.Builder().target(new LatLng(latitude, longitude)).zoom(zoomLevel).build();
+        MapStatusUpdate msu = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+        if (null != msu) {
+            if (isAnimate) {
+                // 设置中心点,移动到中心点
+                mBaiduMap.animateMapStatus(msu);
+            } else {
+                mBaiduMap.setMapStatus(msu);
+            }
+        }
+    }
+
+    private void moveMapTo(double latitude, double longitude, boolean isAnimate) {
+        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(new LatLng(latitude, longitude));
+        if (mBaiduMap == null) {
+            return;
+        }
+        if (isAnimate) {
+            mBaiduMap.animateMapStatus(msu);
+        } else {
+            mBaiduMap.setMapStatus(msu);
+        }
+    }
 
     //设置地图中心点的信息
     private void setMapCenterInfo(LatLng latLng, String radius) {
@@ -596,7 +644,11 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         //options.animateType(MarkerOptions.MarkerAnimateType.drop);
         mBaiduMap.addOverlay(oCircle);
         mBaiduMap.addOverlay(options);
+//        MapStatus mMapStatus = new MapStatus.Builder().target(latLng).zoom(zoomLevel).build();
+//        MapStatusUpdate msu = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+//        mBaiduMap.animateMapStatus(msu);
     }
+
 
     //设置任务的投放半径
     @Override
@@ -673,35 +725,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
 
 
-
-
-    /**
-     * 选择范围半径
-     *
-     * @param listString
-     * @param view
-     */
-    private void showRadiusFromDialog(List<String> listString, final TextView view) {
-        if (listString != null && listString.size() > 0) {
-            final SettingStringDialog dialog = new SettingStringDialog(this, R.style.Theme_Light_Dialog);
-            dialog.setOnchangeListener(new SettingStringDialog.ChangeListener() {
-                @Override
-                public void onChangeListener(String data, int position) {
-                    view.setText(data);
-                    dialog.dismiss();
-                    mCurrentScaleLevelPositon = position;
-                    MapStatus.Builder builder = new MapStatus.Builder();
-                    builder.target(mCurrentLatLng).zoom(mScaleLevel[mCurrentScaleLevelPositon]);
-                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-                }
-            });
-            dialog.setUpData(listString);
-            dialog.setSelect(mCurrentScaleLevelPositon);
-            dialog.show();
-        }
-    }
-
-
     private void showDialog() {
         final ConfirmDialog dialog = new ConfirmDialog(this, "您的地域有变动，请重新设置任务", "确定", "确定");
         dialog.show();
@@ -751,8 +774,12 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private void getProvinceCity() {
         mCityPickPresent.getProvinceCityData();
         mCityPickPresent.getBannerPic();
+
+
         new QBadgeView(this).bindTarget(ivMe).setBadgePadding(3, true).setBadgeGravity(Gravity.END | Gravity.TOP).setBadgeNumber(-1);
     }
+
+
 
 
 
@@ -792,6 +819,52 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             }
         });
     }
+
+
+    @Override
+    public void getTaskDeliveryInfo(OrderDeliveryBean orderDeliveryBean) {
+        this.orderDeliveryBean = orderDeliveryBean;
+        if (orderDeliveryBean.getTask()==null) {
+            taskDeliveryView.setVisibility(View.GONE);
+        }else{
+            int status = orderDeliveryBean.getTask().getStatus();
+            if (getStatus(status).equals("投放中")) {
+                taskDeliveryView.setVisibility(View.VISIBLE);
+                taskDeliveryView.setData(orderDeliveryBean);
+            }else if(getStatus(status).equals("投放结束")){
+                taskDeliveryView.setVisibility(View.VISIBLE);
+                // TODO: 2018/6/28 展示结束的边框
+                taskDeliveryView.setData(orderDeliveryBean);
+            }
+        }
+
+
+    }
+
+
+
+    /**
+     * 任务状态
+     *
+     * @param status
+     * @return
+     */
+    private String getStatus(int status) {
+        String type = "";
+        if (status == 1 || status == 3 || status == 5) {
+            type = "审核中";
+        } else if (status == 2 || status == 4) {
+            type = "审核失败";
+        } else if (status == 6) {
+            type = "待投放";
+        } else if (status == 7) {
+            type = "投放中";
+        } else if (status == 8) {
+            type = "投放结束";
+        }
+        return type;
+    }
+
 
     //地址转坐标的结果(手动选择城市，点击详情，搜索)
     @Override
@@ -870,7 +943,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
             mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
             locationFlag = 100;
-            moveMapTo(result.getLocation().latitude, result.getLocation().longitude, true, mScaleLevel[mCurrentScaleLevelPositon]);
+
+            moveMapTo(result.getLocation().latitude, result.getLocation().longitude, true,mScaleLevel[mCurrentRadiuPos]);
+
             setMapCenterInfo(result.getLocation(), mCircleRadiusM[mCurrentRadiuPos]);
             if (result.getAddressDetail() != null) {
                 tv_at_create_find_customer_putlocation.setText(result.getAddress());
@@ -970,6 +1045,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         //为系统的方向传感器注册监听器
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_UI);
+        mCityPickPresent.getTaskDeliveryInfo();
 
     }
 
@@ -991,6 +1067,16 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         mMapView = null;
         //GEO destroy
         mSearch.destroy();
+
+        if (taskDeliveryView.getmCountDownTimer()!=null) {
+            taskDeliveryView.getmCountDownTimer().cancel();
+        }
+        if (taskDeliveryView.getCountDownTimer()!=null) {
+            taskDeliveryView.getCountDownTimer().cancel();
+        }
+
+
+
     }
 
 
@@ -1125,13 +1211,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 0);
     }
 
-    @Override
-    public void onBackPressed() {
-        //返回的时候 清除 定向缓存
-        ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
-//        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
-        super.onBackPressed();
-    }
 
     @Override
     public void showLoading() {
@@ -1144,37 +1223,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     }
 
 
-    /**
-     * @param latitude
-     * @param longitude
-     * @param isAnimate
-     * @param zoomLevel 调整地图的缩放比例
-     */
-    private void moveMapTo(double latitude, double longitude, boolean isAnimate, float zoomLevel) {
-        // needRefreshAddress = true;
-        MapStatus mMapStatus = new MapStatus.Builder().target(new LatLng(latitude, longitude)).zoom(zoomLevel).build();
-        MapStatusUpdate msu = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-        if (null != msu) {
-            if (isAnimate) {
-                // 设置中心点,移动到中心点
-                mBaiduMap.animateMapStatus(msu);
-            } else {
-                mBaiduMap.setMapStatus(msu);
-            }
-        }
-    }
 
-    private void moveMapTo(double latitude, double longitude, boolean isAnimate) {
-        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(new LatLng(latitude, longitude));
-        if (mBaiduMap == null) {
-            return;
-        }
-        if (isAnimate) {
-            mBaiduMap.animateMapStatus(msu);
-        } else {
-            mBaiduMap.setMapStatus(msu);
-        }
-    }
 
     /**
      * 机型适配
@@ -1185,4 +1234,23 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         return !Build.MANUFACTURER.contains(Constants.SAMSUNG) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
+    @Override
+    public void onBackPressed() {
+        //返回的时候 清除 定向缓存
+        ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
+//        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
+        super.onBackPressed();
+        exit();
+    }
+
+    private long clickTime = 0; //记录第一次点击的时间
+
+    private void exit() {
+        if ((System.currentTimeMillis() - clickTime) > 2000) {
+            ToastUtils.showShort("再按一次后退键退出程序");
+            clickTime = System.currentTimeMillis();
+        } else {
+            this.finish();
+        }
+    }
 }

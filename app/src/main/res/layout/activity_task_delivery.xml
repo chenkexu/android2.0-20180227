@@ -9,42 +9,44 @@
     app:cardElevation="10dp">
 
     <RelativeLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/iv_close_task"
-            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:src="@mipmap/icon_main_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:padding="5dp"
+            android:src="@mipmap/icon_main_close" />
 
         <LinearLayout
             android:id="@+id/ll_text"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:layout_margin="7dp"
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="7dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
             <TextView
-                android:textSize="9sp"
+                android:id="@+id/tv_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="寻客任务订单正在投放中"
                 android:textColor="#6F6F6F"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="9sp" />
 
             <cn.iwgang.countdownview.CountdownView
-                android:layout_marginTop="5dp"
-                android:paddingBottom="5dp"
                 android:id="@+id/tv_remain_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:paddingBottom="5dp"
                 app:isShowDay="true"
                 app:isShowHour="true"
                 app:isShowMinute="true"
@@ -58,61 +60,61 @@
                 app:suffixTextColor="#6F6F6F"
                 app:suffixTextSize="9sp"
                 app:timeTextColor="#6F6F6F"
-                app:timeTextSize="9sp"/>
+                app:timeTextSize="9sp" />
 
             <TextView
 
-                android:textStyle="bold"
                 android:id="@+id/tv_show_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textSize="10sp"
                 android:layout_weight="1"
                 android:text="查看详情"
                 android:textColor="#6F6F6F"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <com.orientdata.lookforcustomers.view.DigitalGroupView
-            android:gravity="center"
-            android:layout_toRightOf="@id/ll_text"
-            android:layout_centerVertical="true"
             android:id="@+id/digital"
-            android:layout_toLeftOf="@+id/ll_jiasu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="30dp"
+            android:layout_toLeftOf="@+id/ll_jiasu"
+            android:layout_toRightOf="@id/ll_text"
+            android:gravity="center"
             app:digiGroupColor="@color/colorAccent"
             app:digiGroupFigureCounts="7"
             app:digiGroupInterval="0.8dp"
-            app:digiGroupTextSize="5sp"
-            android:layout_marginTop="30dp"/>
+            app:digiGroupTextSize="5sp" />
 
         <LinearLayout
             android:id="@+id/ll_jiasu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
-            android:orientation="vertical"
+            android:layout_marginTop="15dp"
             android:gravity="center"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_speed"
-                android:src="@mipmap/main_speed"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:src="@mipmap/main_speed" />
 
             <cn.iwgang.countdownview.CountdownView
-                android:visibility="gone"
                 android:id="@+id/tv_cooling_time"
-                android:layout_marginTop="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:visibility="gone"
                 app:isShowDay="false"
                 app:isShowHour="false"
                 app:isShowMillisecond="false"
@@ -123,16 +125,16 @@
                 app:suffixTextColor="#6F6F6F"
                 app:suffixTextSize="8sp"
                 app:timeTextColor="#6F6F6F"
-                app:timeTextSize="8sp"/>
+                app:timeTextSize="8sp" />
 
             <TextView
-                android:visibility="visible"
                 android:id="@+id/tv_time"
-                android:layout_marginTop="2dp"
-                android:textSize="8sp"
-                android:text="00 s"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="0s"
+                android:textSize="8sp"
+                android:visibility="visible" />
 
         </LinearLayout>
     </RelativeLayout>

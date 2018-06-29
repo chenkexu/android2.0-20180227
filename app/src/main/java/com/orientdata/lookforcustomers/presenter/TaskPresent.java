@@ -84,8 +84,9 @@ public class TaskPresent<T> extends BasePresenter<ITaskView> {
 
 
     public void getTaskDetail(int taskId){
+        mPageTaskView.showLoading();
         if(mSelectSettingModel!=null){
-            mPageTaskView.showLoading();
+
             mSelectSettingModel.getTaskDetail(new ITaskModel.TaskInfoComplete() {
 
                 @Override
@@ -104,6 +105,8 @@ public class TaskPresent<T> extends BasePresenter<ITaskView> {
             },taskId);
         }
     }
+
+
     public void deletTask(int taskId){
         if(mImgModel!=null){
             mPageTaskView.showLoading();

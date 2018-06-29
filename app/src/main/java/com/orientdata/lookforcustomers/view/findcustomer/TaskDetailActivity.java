@@ -6,22 +6,23 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
+import com.orientdata.lookforcustomers.bean.OrderDeliveryBean;
 import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.event.DeleteTaskEvent;
 import com.orientdata.lookforcustomers.event.TaskInfoEvent;
 import com.orientdata.lookforcustomers.presenter.TaskPresent;
-import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.ImagePagerActivity;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.widget.MyTitle;
+import com.qiniu.android.common.Constants;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -63,21 +64,9 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
     @BindView(R.id.cd_task_delivery2)
     CardView cardView;
 
-    private TextView tvType;
-    private TextView tvDirection;
-    private ImageView ivDirection;
-    private TextView taskId, taskName, taskBudget, runTime, runAddress, runRadius, tvImgUrl;
-    private ImageView ivAd;
-    private TextView searchMoney, displayNum, clickNum, tvTestNum, tvDelete;
     private int task_id = 0;
     private TaskOut taskOut;
-    private LinearLayout linearMsg, linearAd;
-    private TextView tvMsgContent;
-    private TextView tvStatus;
-    private LinearLayout linearPage, linearMessage;
-    private TextView issuNum, msgMoney;
     private ACache aCache = null;//数据缓存
-    private String imagePath;
 
 
 
@@ -107,17 +96,17 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
         myTitle.setRightTextClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double userStatus = Double.parseDouble(aCache.getAsString(SharedPreferencesTool.USER_STATUS));
-                if (userStatus == 2.0) {
-                    //黑名单
-                    ToastUtils.showShort("账户异常，请联系客服");
-                } else {
-                    Intent intent = new Intent(getBaseContext(), CreateFindCustomerActivity.class);
-                    intent.putExtra("isReCreate", true);
-                    intent.putExtra("taskOut", taskOut);
+//                double userStatus = Double.parseDouble(aCache.getAsString(SharedPreferencesTool.USER_STATUS));
+//                if (userStatus == 2.0) {
+//                    //黑名单
+//                    ToastUtils.showShort("账户异常，请联系客服");
+//                } else {
+                    Intent intent = new Intent(getBaseContext(), MessageTaskNewActivity.class);
+                    intent.putExtra(Constants.isReCreate, true);
+                    intent.putExtra(Constants.taskOut, taskOut);
                     startActivity(intent);
                     closeActivity(TaskDetailActivity.class);
-                }
+//                }
             }
         });
 
@@ -177,36 +166,51 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
 
     @Subscribe
     public void taskInfoReslt(TaskInfoEvent taskInfoEvent) {
+
         if (taskInfoEvent.taskInfoBean.getCode() == 0) {
             taskOut = taskInfoEvent.taskInfoBean.getResult();
             tvOrderId.setText("订单ID："+taskOut.getTaskId());
             tvOrderCreateTime.setText("创建时间："+taskOut.getCreateDate());
             String status = getStatus(taskOut.getStatus());
+
+
             orderDetailView.setData(taskOut);
-            reportResult.setData(taskOut);
 
             switch (status){
                 case "审核中":
-                    ivOrderImage1.setImageResource(R.mipmap.order_detail_ing);
-                    ivOrderImage2.setImageResource(R.mipmap.order_big_ing);
+                    Glide.with(this).load(R.mipmap.order_detail_ing).into(ivOrderImage1);
+                    Glide.with(this).load(R.mipmap.order_big_ing).into(ivOrderImage2);
                     break;
                 case "审核失败":
-                    ivOrderImage1.setImageResource(R.mipmap.order_detail_error);
-                    ivOrderImage2.setImageResource(R.mipmap.order_big_error);
+                    Glide.with(this).load(R.mipmap.order_detail_error).into(ivOrderImage1);
+                    Glide.with(this).load(R.mipmap.order_big_error).into(ivOrderImage2);
                     break;
                 case "待投放":
+                    Glide.with(this).load(R.mipmap.order_detail_pre).into(ivOrderImage1);
+                    Glide.with(this).load(R.mipmap.order_big_suc).into(ivOrderImage2);
                     cardView.setVisibility(View.VISIBLE);
-                    ivOrderImage1.setImageResource(R.mipmap.order_detail_pre);
-                    ivOrderImage2.setImageResource(R.mipmap.order_big_suc);
                     break;
                 case "投放中":
-                    ivOrderImage1.setImageResource(R.mipmap.order_detail_suc);
+                    Glide.with(this).load(R.mipmap.order_detail_suc).into(ivOrderImage1);
+                    taskDeliveryView.setVisibility(View.VISIBLE);
                     ivOrderImage2.setVisibility(View.GONE);
+
+                    OrderDeliveryBean orderDeliveryBean = taskOut.getOrderDeliveryBean();
+
+
+                    OrderDeliveryBean.TaskBean taskBean = new OrderDeliveryBean.TaskBean();
+                    taskBean.setEstimatePeoplerno(taskOut.getEstimatePeoplerno());
+                    taskBean.setTaskId(taskOut.getTaskId());
+                    orderDeliveryBean.setTask(taskBean);
+
+                    taskDeliveryView.setData(orderDeliveryBean);
+
                     break;
                 case "投放结束":
-                    reportResult.setVisibility(View.VISIBLE);
-                    ivOrderImage1.setImageResource(R.mipmap.order_detail_over);
+                    reportResult.setData(taskOut);
+                    Glide.with(this).load(R.mipmap.order_detail_over).into(ivOrderImage1);
                     ivOrderImage2.setVisibility(View.GONE);
+                    reportResult.setVisibility(View.VISIBLE);
                     break;
             }
 
@@ -229,5 +233,18 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
         List<String> photoUrls = new ArrayList<>();
         photoUrls.add(path);
         ImagePagerActivity.startImagePagerActivity(this, photoUrls, 0, imageSize);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (taskDeliveryView.getmCountDownTimer()!=null) {
+            taskDeliveryView.getmCountDownTimer().cancel();
+        }
+        if (taskDeliveryView.getCountDownTimer()!=null) {
+            taskDeliveryView.getCountDownTimer().cancel();
+        }
+
     }
 }

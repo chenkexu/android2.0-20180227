@@ -7,5 +7,4 @@ import com.orientdata.lookforcustomers.base.BaseView;
  */
 
 public interface IMsgView extends BaseView {
-
 }

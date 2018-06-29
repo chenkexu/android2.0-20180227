@@ -15,7 +15,7 @@ public class TaskBasicInfo  {
 
         private int smsPriceouter;
         private String reservationCycle;
-        private int balance;
+        private double balance;
         private SignAndTdBean signAndTd;
 
         public int getSmsPriceouter() {
@@ -34,11 +34,11 @@ public class TaskBasicInfo  {
             this.reservationCycle = reservationCycle;
         }
 
-        public int getBalance() {
+        public double getBalance() {
             return balance;
         }
 
-        public void setBalance(int balance) {
+        public void setBalance(double balance) {
             this.balance = balance;
         }
 

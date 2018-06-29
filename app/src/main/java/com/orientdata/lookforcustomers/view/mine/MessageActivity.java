@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 关于我们
+ * 消息界面
  */
 public class MessageActivity extends BaseActivity<IMsgView, MsgPresent<IMsgView>> implements IMsgView,XListView.IXListViewListener,View.OnClickListener {
 
@@ -302,6 +302,7 @@ public class MessageActivity extends BaseActivity<IMsgView, MsgPresent<IMsgView>
             updateData();
         }
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

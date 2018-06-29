@@ -8,6 +8,15 @@ public class TaskCountBean  {
     private  int throwingTaskCount;
     private  int examineTaskCount;
     private  int waitThrowTaskCount;
+    private  int taskId;
+
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
 
     public int getThrowingTaskCount() {
         return throwingTaskCount;

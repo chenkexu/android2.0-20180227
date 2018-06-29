@@ -24,6 +24,15 @@ public final class Constants {
     public static final String all_person = "all_person";
     public static final String mProvinceCode = "mProvinceCode";
 
+    public static final String balance = "balance";
+
+    public static final String taskType = "taskType";
+    public static final String MessageAndNoticeBean = "MessageAndNoticeBean";
+    public static final String isReCreate = "isReCreate";
+    public static final String taskOut = "taskOut";
+
+
+
 
 
 

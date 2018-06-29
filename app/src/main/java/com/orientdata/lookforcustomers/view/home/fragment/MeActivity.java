@@ -38,13 +38,14 @@ import com.orientdata.lookforcustomers.view.home.InvoiceActivity;
 import com.orientdata.lookforcustomers.view.home.RechargeActivity;
 import com.orientdata.lookforcustomers.view.home.ReportActivity;
 import com.orientdata.lookforcustomers.view.home.imple.IMeView;
-import com.orientdata.lookforcustomers.view.mine.MessageActivity;
+import com.orientdata.lookforcustomers.view.mine.MessageAndNoticeActivity;
 import com.orientdata.lookforcustomers.view.mine.ShareToGetCommissionActivity;
 import com.orientdata.lookforcustomers.view.mine.TaskListActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.AccountBalanceActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.CommissionWithDrawActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.SettingActivity;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
+import com.qiniu.android.common.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,7 +156,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
                  finish();
                 break;
             case R.id.iv_message:
-                intent = new Intent(MeActivity.this, MessageActivity.class);
+                intent = new Intent(MeActivity.this, MessageAndNoticeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_account_froze:
@@ -185,6 +186,11 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         ButterKnife.bind(this);
         mePresent = new MePresent(this);
         initView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         initData();
     }
 
@@ -207,19 +213,8 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(MeActivity.this, TaskListActivity.class);
-
-//                switch (position) {
-//                    case 0: //审核中
-//                        break;
-//                    case 1: //待投放
-//                        break;
-//                    case 2:
-//                        break;
-//                    case 3:
-//                        break;
-//                }
                 String taskType = taskStatusStr[position];
-                intent.putExtra("taskType", taskType);
+                intent.putExtra(Constants.taskType, taskType);
                 startActivity(intent);
             }
         });

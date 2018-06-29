@@ -21,6 +21,7 @@
         android:paddingBottom="10dp"
         android:layout_marginRight="15dp">
         <TextView
+            android:text="这是标题"
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,6 +30,7 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/text_gray"/>
         <TextView
+            android:text="这是内这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容容"
             android:id="@+id/tvContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,6 +46,7 @@
 
 
     <TextView
+        android:text="这是日期"
         android:id="@+id/tvDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

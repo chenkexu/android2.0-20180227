@@ -1,6 +1,7 @@
 package com.orientdata.lookforcustomers.util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -33,7 +34,7 @@ public class MyOpenActivityUtils {
      * @param title
      * @param url
      */
-    public static void openCommonWebView(Activity activity
+    public static void openCommonWebView(Context activity
             , String title, String url) {
         Intent intent = new Intent(activity, CommonWebView.class);
         Bundle bundle = new Bundle();

@@ -42,7 +42,9 @@ public  abstract class BaseObserver<T> implements Observer<WrResponse<T>> {
 
     @Override
     public void onNext(WrResponse<T> gdResponse) {
-        if (gdResponse.getCode() == 0) {
+
+        Logger.d("gdResponse: "+gdResponse);
+        if (gdResponse.getErr().getCode() == 0) {
                 onSuccees(gdResponse);
         } else {
                 onCodeError(gdResponse);
@@ -72,11 +74,11 @@ public  abstract class BaseObserver<T> implements Observer<WrResponse<T>> {
 
     // 返回成功了,但是code错误
     protected void onCodeError(WrResponse<T> t){
-        if (t.getCode() == -100) {
-            startError(101, t.getMsg());
+        if (t.getErr().getCode() == -100) {
+            startError(101, t.getErr().getMsg());
         }else{
-            ToastUtils.showShort(t.getMsg());
-            onFailure(t.getMsg()+"",false);
+            ToastUtils.showShort(t.getErr().getMsg());
+            onFailure(t.getErr().getMsg()+"",false);
         }
     }
 

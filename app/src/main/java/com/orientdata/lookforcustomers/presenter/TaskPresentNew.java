@@ -99,8 +99,8 @@ public class TaskPresentNew<T> extends BasePresenter<ITaskViewNew> {
 
 
     public void getCreateTaskBasicInfo(String mProvinceCode){
-
-        HashMap<String, Object> map = ParamsUtil.getMap();
+        mPageTaskView.showLoading();
+        final HashMap<String, Object> map = ParamsUtil.getMap();
         map.put("provinceCode",mProvinceCode);
 
         ApiManager.getInstence().getApiService().getCreateTaskBasicInfo(ParamsUtil.getParams(map))
@@ -108,12 +108,14 @@ public class TaskPresentNew<T> extends BasePresenter<ITaskViewNew> {
                 .subscribe(new BaseObserver<TaskBasicInfo>() {
                     @Override
                     protected void onSuccees(WrResponse<TaskBasicInfo> t) {
+                            mPageTaskView.hideLoading();
                             mPageTaskView.getCreateTaskBasicInfo(t.getResult());
                     }
 
                     @Override
                     protected void onFailure(String errorInfo, boolean isNetWorkError) {
-
+                        mPageTaskView.hideLoading();
+                        ToastUtils.showShort(errorInfo);
                     }
                 });
     }

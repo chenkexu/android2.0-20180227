@@ -1,7 +1,9 @@
 package com.orientdata.lookforcustomers.network.api;
 
 import com.orientdata.lookforcustomers.bean.AddressCollectInfo;
+import com.orientdata.lookforcustomers.bean.MessageAndNoticeBean;
 import com.orientdata.lookforcustomers.bean.MessageTypeBean;
+import com.orientdata.lookforcustomers.bean.OrderDeliveryBean;
 import com.orientdata.lookforcustomers.bean.TaskBasicInfo;
 import com.orientdata.lookforcustomers.bean.TaskCountBean;
 import com.orientdata.lookforcustomers.bean.WrResponse;
@@ -66,6 +68,23 @@ public interface ApiService {
     Observable<WrResponse<Object>> getTaskThrowExpedite(@QueryMap HashMap<String, Object> map);
 
 
+    //上传短信任务
+    @FormUrlEncoded
+    @POST("app/v1.1/task/insertTask")
+    Observable<WrResponse<TaskCountBean>> insertTask(@FieldMap HashMap<String, Object> map);
+
+
+    //戳我加速接口
+    @FormUrlEncoded
+    @POST("app/taskThrowExpedite")
+    Observable<WrResponse<Object>> pokeMeSpeedUp(@FieldMap HashMap<String, Object> map);
+
+
+
+
+    //首页请求任务投放接口
+    @GET("app/task/getNewestTaskThrowExpedite")
+    Observable<WrResponse<OrderDeliveryBean>> getNewestTaskThrowExpedite(@QueryMap HashMap<String, Object> map);
 
 
 
@@ -73,11 +92,18 @@ public interface ApiService {
 
 
     //获取消息和公告列表
-    Observable<WrResponse<Object>> selectMsgAndAnnouncement(@QueryMap HashMap<String, Object> map);
+    @GET("app/msg/announcement/selectMsgAndAnnouncement")
+    Observable<WrResponse<List<MessageAndNoticeBean>>> selectMsgAndAnnouncement(@QueryMap HashMap<String, Object> map);
+
+
+
 
 
     //获取任务单价和任务几天之后可以创建
     Observable<WrResponse<Object>> selectPriceAndDate(@QueryMap HashMap<String, Object> map);
+
+
+
 
 
 }

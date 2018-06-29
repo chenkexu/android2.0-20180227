@@ -44,7 +44,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="15dp"
                     android:orientation="vertical"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="5dp"
                     app:cardElevation="10dp">
 
                     <LinearLayout
@@ -74,6 +74,7 @@
 
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_task"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -160,6 +161,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:paddingBottom="2dp"
                     android:id="@+id/ll_at_create_find_customer_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -199,7 +201,7 @@
             <com.orientdata.lookforcustomers.view.findcustomer.TaskDeliveryView
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:id="@+id/task_delivery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

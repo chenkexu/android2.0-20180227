@@ -156,9 +156,12 @@ public class HttpConstant {
     public static final String BALANCE_DETAIL = HOST_URL + "app/balance/selectBalanceInfo";
     /*消息列表*/
     public static final String MSG_LIST = HOST_URL + "app/msg/selectMsgList";
+
     /*删除消息*/
     public static final String UPDATE_MSG = HOST_URL + "app/msg/updateMsg";
+
     public static final String MSG_DETAIL = HOST_URL + "app/msg/selectMsgInfo";
+
     /*我的-首页接口*/
     public static final String SELECT_SHOW_MY_INFO = HOST_URL + "app/user/selectShowMyInfo";
 
