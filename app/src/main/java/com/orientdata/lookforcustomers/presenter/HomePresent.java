@@ -4,7 +4,6 @@ import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.bean.TradeSelfout;
 import com.orientdata.lookforcustomers.bean.UploadPicBean;
-import com.orientdata.lookforcustomers.event.SearchListEvent;
 import com.orientdata.lookforcustomers.event.UploadImgEvent;
 import com.orientdata.lookforcustomers.model.ICertificateModel;
 import com.orientdata.lookforcustomers.model.IImgModel;
@@ -97,9 +96,11 @@ public class HomePresent<T> extends BasePresenter<IHomeView> {
                 @Override
                 public void onSuccess(SearchListBean searchListBean) {
                     mHomeView.hideLoading();
-                    SearchListEvent searchListEvent = new SearchListEvent();
-                    searchListEvent.searchListBean = searchListBean;
-                    EventBus.getDefault().post(searchListEvent);
+                    mHomeView.getSearchList(searchListBean);
+//                    SearchListEvent searchListEvent = new SearchListEvent();
+//
+//                    searchListEvent.searchListBean = searchListBean;
+//                    EventBus.getDefault().post(searchListEvent);
                 }
 
                 @Override

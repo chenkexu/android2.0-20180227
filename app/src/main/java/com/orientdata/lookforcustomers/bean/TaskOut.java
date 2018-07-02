@@ -15,6 +15,26 @@ public class TaskOut implements Serializable{
     private static final long serialVersionUID = 463278410952742534L;
 
 
+
+    private String sign;
+    private String td;
+
+    public String getSign() {
+        return sign == null ? "" : sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public String getTd() {
+        return td == null ? "" : td;
+    }
+
+    public void setTd(String td) {
+        this.td = td;
+    }
+
     private BigDecimal xunMoney;//	是	 	消费寻币
     private int showCount;//	是	 	展现量
     private int issuedCount;//	是	 	下发成功量
@@ -68,6 +88,19 @@ public class TaskOut implements Serializable{
     private TaskThrowInfo taskThrowInfo;
 
     private OrderDeliveryBean expediteInfo;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public OrderDeliveryBean getOrderDeliveryBean() {

@@ -12,6 +12,7 @@ import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
+import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
 import com.orientdata.lookforcustomers.util.EventManager;
 import com.orientdata.lookforcustomers.util.ToastUtils;
@@ -318,6 +319,11 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresent<IHomeView>
             dialog.setCancelable(true);
             dialog.show();
         }
+    }
+
+    @Override
+    public void getSearchList(SearchListBean searchListBean) {
+
     }
 
     public HomePresent<IHomeView> getPresent() {

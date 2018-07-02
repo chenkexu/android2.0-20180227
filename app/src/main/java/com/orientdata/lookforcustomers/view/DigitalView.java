@@ -8,7 +8,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -42,36 +41,34 @@ public class DigitalView extends View {
 
     public DigitalView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
         if (attrs != null) {
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.DigitalView);
             if (ta != null) {
                 mColor = ta.getColor(R.styleable.DigitalView_digiColor, Color.BLACK);
                 mTextSize = ta.getDimensionPixelSize(R.styleable.DigitalView_digiTextSize, DEFAULT_TEXT_SIZE);
+
                 ta.recycle();
             }
         }
+
         setTextSize(mTextSize);
         setTextColor(mColor);
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
         for (int i = 0; i < 10; i++) {
-            Rect bounds = new Rect();
-            mPaint.getTextBounds(String.valueOf(i), 0, String.valueOf(i).length(), bounds);
-
             canvas.drawText(String.valueOf(i), (mWid - mRequiredWid) / 2,
                     mHei * i + (mHei - mBaseLine) - mOffset, mPaint);
         }
     }
-
-
 
     private void calRequireSize() {
         Paint.FontMetrics fm = mPaint.getFontMetrics();
@@ -152,6 +149,7 @@ public class DigitalView extends View {
         mTextSize = size;
         int pxSize = DisplayUtils.dip2px(getContext(), mTextSize);
         mPaint.setTextSize(pxSize);
+
         calRequireSize();
         requestLayout();
         mOffset = mCurrentNum * mHei;

@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BasePermissionActivity;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
-import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
+import com.orientdata.lookforcustomers.view.home.MainHomeActivity;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 import com.umeng.analytics.MobclickAgent;
 
@@ -61,8 +61,8 @@ public class GuideActivity extends BasePermissionActivity{
                         startActivity(new Intent(GuideActivity.this, LoginAndRegisterActivity.class));
                         finish();
                     }else{ //false进入主页面
-                        startActivity(new Intent(GuideActivity.this, HomeActivity.class));
-//                        startActivity(new Intent(GuideActivity.this, MainHomeActivity.class));
+//                        startActivity(new Intent(GuideActivity.this, HomeActivity.class));
+                        startActivity(new Intent(GuideActivity.this, MainHomeActivity.class));
                         finish();
                     }
                 }

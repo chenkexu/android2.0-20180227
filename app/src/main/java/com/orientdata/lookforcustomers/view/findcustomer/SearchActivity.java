@@ -107,7 +107,6 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
                 break;
             case R.id.tv_clear_history://清空历史记录
                 showDialog();
-
                 break;
         }
     }
@@ -374,6 +373,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
     public void getAllCollectionAddress(List<AddressCollectInfo> addressCollectInfo) {
 
         if (addressCollectInfo == null || addressCollectInfo.size() == 0) {
+            rlClear.setVisibility(View.GONE);
             addressAdapter.setNewData(null);
             addressAdapter.setEmptyView(R.layout.layout_no_content, (ViewGroup) rvAddressList.getParent());
         } else {

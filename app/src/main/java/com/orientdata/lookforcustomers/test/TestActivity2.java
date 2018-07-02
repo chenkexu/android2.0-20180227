@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
+import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.DigitalGroupView;
 
 public class TestActivity2 extends AppCompatActivity {
@@ -28,6 +30,8 @@ public class TestActivity2 extends AppCompatActivity {
     private int dpToPx(int dp) {
         return (int) (Resources.getSystem().getDisplayMetrics().density * dp + 0.5f);
     }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +47,13 @@ public class TestActivity2 extends AppCompatActivity {
         num = Integer.parseInt(editDigit.getText().toString());
 
         digitalGroupView.setDigits(num);
-
-
+        buttonPlay.performClick();
 
         buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ToastUtils.showShort("好的");
+                Logger.d("好的");
                 int num = 0;
                 try {
                     num = Integer.parseInt(editDigit.getText().toString());
@@ -100,6 +105,7 @@ public class TestActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 if (hasViewAdded)
                     return;
+                buttonPlay.performClick();
                 addView();
                 hasViewAdded = true;
             }

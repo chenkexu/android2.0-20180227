@@ -32,11 +32,12 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:paddingLeft="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center_horizontal|left"
-                            android:text="符合筛选标签人数约有"
+                            android:text="符合筛选标签约有"
                             android:textColor="@color/text_gray"
                             android:textSize="14sp" />
 
@@ -45,7 +46,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="我要推送给的人数为"
+                            android:text="我要推送给"
                             android:textColor="@color/text_gray"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -325,8 +326,10 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:drawablePadding="10dp"
+                            android:drawableRight="@mipmap/order_down"
                             android:id="@+id/tv_push_time"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:text="2018-03-03"
@@ -488,6 +491,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginRight="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
@@ -504,13 +508,15 @@
                             android:textSize="14sp" />
 
                         <EditText
+                            android:drawablePadding="10dp"
+                            android:drawableRight="@mipmap/xiugai"
                             android:id="@+id/rt_task_name"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="20dp"
                             android:background="@null"
-                            android:hint="请输入任务名称"
+                            android:hint="请输入请输入任务名称请输入任务名称请输入任务名称请输入任务名称请输入任务名称任务名称"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:textColor="#B3B3B3"

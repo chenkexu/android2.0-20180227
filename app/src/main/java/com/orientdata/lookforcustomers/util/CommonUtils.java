@@ -75,7 +75,7 @@ public class CommonUtils {
             intersValue = intersValue * 1.0;
 //            personNumStr = (int) (personNumStr * 1.0);
         } else if (industryStr.equals("自定义")) {
-            if (labelNum==6) {
+            if (labelNum == 6) {
                 intersValue = labelNum * 1.0;
 //                personNumStr = (int)(personNumStr * labelNum * 1.0);
             }else{
@@ -111,6 +111,7 @@ public class CommonUtils {
         int s = (random.nextInt(max) % (max - min + 1) + min);
         return s;
     }
+
 
 
     public static int getRandom2(String radius,String cityName){

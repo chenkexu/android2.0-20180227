@@ -145,8 +145,9 @@ public class OrderDeliveryBean implements Serializable {
 
 
 
-    public static class TaskBean {
-            /**
+    public static class TaskBean implements Serializable{
+        private static final long serialVersionUID = -1802663880762982743L;
+        /**
              * taskNo : 120180627120244128515
              * taskName : 20180627_120215_山东省泰安市岱岳区
              * userId : 518

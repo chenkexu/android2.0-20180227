@@ -13,6 +13,7 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
+import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
 import com.orientdata.lookforcustomers.view.home.IHomeView;
 import com.orientdata.lookforcustomers.view.home.fragment.TaskListFragment;
@@ -118,8 +119,10 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
 
     }
 
+    @Override
+    public void getSearchList(SearchListBean searchListBean) {
 
-
+    }
 
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

@@ -27,6 +27,7 @@ import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.WangrunBaseFragment;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.MyInfoBean;
+import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.bean.URLBean;
 import com.orientdata.lookforcustomers.event.UploadImgEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
@@ -531,7 +532,10 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
         }
     }
 
+    @Override
+    public void getSearchList(SearchListBean searchListBean) {
 
+    }
 
 
     //头像上传完成之后

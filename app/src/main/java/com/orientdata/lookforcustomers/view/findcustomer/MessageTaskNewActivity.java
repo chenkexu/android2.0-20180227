@@ -151,6 +151,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
     private double balance;//余额
     private int smsPriceouter; //单价
     private TaskOut taskout;
+    private String tdcontent;
 
 
     @Override
@@ -340,12 +341,14 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                             map.put("testCtPhone", testCtPhone);
                             map.put("startdate", startdate);
                             map.put("enddate", enddate);
+//                            content = etMsgContent.getText().toString().trim(); //短信内容
                             map.put("content", content);
                             map.put("industryMark", industryMark); //是否自定义行业
                             map.put("industry", industryNameStr); //行业名称
-
                             map.put("peoples", allPerson); //行业名称
 
+//                            map.put("sign", signStr); //行业名称
+//                            map.put("td", tdcontent); //行业名称
 
                             intent.putExtra("map", map);
 
@@ -415,6 +418,10 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
         // TODO: 2018/6/25 单价，余额接口。签名接口
 //        mPresent.getSignAndTd(mProvinceCode);
         mPresent.getCreateTaskBasicInfo(mProvinceCode);
+
+
+
+
     }
 
 
@@ -435,7 +442,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
         tvPushTime.setText(startDateText);
 
         TaskBasicInfo.SignAndTdBean signAndTd = taskBasicInfo.getSignAndTd();
-        String tdcontent = signAndTd.getTdcontent();
+        tdcontent = signAndTd.getTdcontent();
         int signstate = signAndTd.getSignstate();
 
         tvUnsubscribe.setText(tdcontent); //设置回复退订
@@ -455,6 +462,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                 }
 
                 String substring = taskout.getContent().substring(0, taskout.getContent().indexOf("】") + 1);
+//                String substring = taskout.getSign();
                 etEnterpriseSignature.setText(substring);
             }
         } else { //固定签名
@@ -463,6 +471,17 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
             setEnable();
         }
 
+        if (!isReCreate) {
+            String msgContent = SharedPreferencesTool.getInstance().getStringValue(SharedPreferencesTool.msgContent, "");
+            etMsgContent.setText(msgContent);
+        }else{
+            // TODO: 2018/7/2 此处内容怎么截取？？？？
+            signStr = etEnterpriseSignature.getText().toString();
+            tdcontent = tvUnsubscribe.getText().toString();
+            String  substring1 = taskout.getContent().replace(signStr,"");
+            substring1 = substring1.substring(0,substring1.lastIndexOf(tdcontent)+1);
+            etMsgContent.setText(substring1);
+        }
 
     }
 
@@ -479,8 +498,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
     private void initIntentData() {
         Intent intent = getIntent();
         if (intent != null) {
-            boolean isReCreate = intent.getBooleanExtra(Constants.isReCreate, false);
-
+            isReCreate = intent.getBooleanExtra(Constants.isReCreate, false);
             minMoney = intent.getDoubleExtra("minMoney", 1000);
             if (isReCreate) {  //再次创建
                 taskout = (TaskOut) intent.getSerializableExtra(taskOut);
@@ -509,6 +527,8 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                 dimension = taskout.getDimension().toString();
 
                 allPerson = taskout.getPeoples() + "";
+                int allperonInt = Integer.parseInt(allPerson);
+                allPerson = ((int)(CommonUtils.getRandomDouble(allperonInt * 0.8, allperonInt * 1.2)))+"";
 
                 etTaskName.setText(taskout.getTaskName());
 
@@ -574,7 +594,6 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                 }
             });
 
-
         }
 
 
@@ -587,12 +606,6 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
         etMsgContent = findViewById(R.id.etMsgContent);
         tvNum = (TextView) findViewById(R.id.tvNum);
 
-        if (!isReCreate) {
-            String msgContent = SharedPreferencesTool.getInstance().getStringValue(SharedPreferencesTool.msgContent, "");
-            etMsgContent.setText(msgContent);
-        }else{
-            etMsgContent.setText(taskout.getContent());
-        }
 
         toggleBold.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
             @Override

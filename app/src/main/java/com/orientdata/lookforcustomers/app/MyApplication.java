@@ -9,6 +9,7 @@ import android.os.Vibrator;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
@@ -93,6 +94,7 @@ public class MyApplication extends MyApp {
         locationService = new LocationService(this);
         mVibrator = (Vibrator) getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
         SDKInitializer.initialize(this);
+        SDKInitializer.setCoordType(CoordType.BD09LL);
         SharedPreferencesTool.getInstance().init(this);
 
         UMShareAPI.get(this);

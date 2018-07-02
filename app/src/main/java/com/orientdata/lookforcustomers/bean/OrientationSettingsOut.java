@@ -9,6 +9,7 @@ import java.util.Map;
  */
 
 public class OrientationSettingsOut implements Serializable {
+    private static final long serialVersionUID = -1789155418526673875L;
     private List<String> jixing;//	是	list<String>	机型数组
     private List<String> xingqu;//	是	list<String>	兴趣数组
     private int userId;//	是	int	用户id

@@ -134,8 +134,9 @@ public class TaskDeliveryView extends FrameLayout {
         ivSpeed.setEnabled(false);
         tv_text.setText("寻客订单投放结束");
         tvRemainTime.start(0);
-        digital.setDigits(orderDeliveryBean.getTask().getEstimatePeoplerno());
     }
+
+
 
 
     public void setData(OrderDeliveryBean orderDeliveryBean){
@@ -152,21 +153,24 @@ public class TaskDeliveryView extends FrameLayout {
         estimatePeoplerno = orderDeliveryBean.getTask().getEstimatePeoplerno(); //总条数
         deliveryNum = estimatePeoplerno - num; //投放条数
 
+        Logger.d("剩余："+num+",投放了："+deliveryNum);
 
-        if (orderDeliveryBean.getTask().getStatus() == 8) { //投放结束
+        if (orderDeliveryBean.getTask().getStatus() == 8) { //运营商真正返回投放结束
+            digital.setDigits(deliveryNum);
+            setTaskDeliveryNum(deliveryNum, 1.0);
             setTaskFinish(orderDeliveryBean);
-        }else{      //正在投放中
+
+        }else{
             if (deliveryNum <= 0) {
                 deliveryNum = 0;
             }
-            Logger.d("剩余："+num+",投放了："+deliveryNum);
-            if (deliveryNum == estimatePeoplerno) {
-                // TODO: 2018/6/29 这个地方设置不上
-                digital.setDigits(deliveryNum);
-            }else{
+            if (deliveryNum == estimatePeoplerno) { //投放结束
+                digital.setDigits(estimatePeoplerno);
+                setTaskDeliveryNum(estimatePeoplerno,1.0);
+            }else{  //正在投放中
                 tvRemainTime.start(surplusDate * 1000);
                 digital.setDigits(deliveryNum);
-                setTaskDeliveryNum(estimatePeoplerno, rate,deliveryNum);
+                setTaskDeliveryNum(estimatePeoplerno, rate);
                 startCountDownTimer(expireDate * 1000);
             }
 
@@ -175,57 +179,14 @@ public class TaskDeliveryView extends FrameLayout {
 
     }
 
-
-
-    private void deliveryFinish(){
-        mCountDownTimer.cancel();
-        countDownTimer.cancel();
-        tvRemainTime.start(0);
-        getTaskDeliveryInfo();
-    }
-
-
-
-
-
-    //设置投放的数量
-    private void setTaskDeliveryNum(final int estimatePeoplerno, double rate, final int deliveryNum1){
-
-        countDownTimer.cancel();
-        countDownTimer.setMillisInFuture((long)(estimatePeoplerno*rate*1000))
-                .setCountDownInterval((long)(rate*1000))
-                .setTickDelegate(new CountDownTimerUtils.TickDelegate() {
-                    @Override
-                    public void onTick(long pMillisUntilFinished) {
-                        int getmDigits = digital.getmDigits(); //当前条数
-
-                        if (getmDigits < estimatePeoplerno) { //当前条数小于总条数
-                            digital.setDigits(getmDigits+1);
-                        }else{  //投放完成
-//                            deliveryFinish();
-                        }
-
-                    }
-                })
-                .setFinishDelegate(new CountDownTimerUtils.FinishDelegate() {
-                    @Override
-                    public void onFinish() {
-
-                    }
-                }).start();
-    }
-
-
-
-
-
-    @OnClick({R.id.iv_speed, R.id.tv_time,R.id.tv_show_detail,R.id.iv_close_task})
+    @OnClick({R.id.iv_speed, R.id.tv_time,R.id.tv_show_detail,R.id.iv_close_task,R.id.tv_text})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_text:
+                digital.setDigits(estimatePeoplerno);
+                break;
             case R.id.iv_speed: //戳我加速
-
                 int random = getRandom(1, 9);//取到随机数
-
                 final GoodView goodView = new GoodView(context);
                 goodView.setImage(getResources().getDrawable(images[random-1]));
                 goodView.setDistance(120);
@@ -234,20 +195,18 @@ public class TaskDeliveryView extends FrameLayout {
                 int currentTime =Integer.parseInt(tvtime.getText().toString().replace("s",""));
                 if (currentTime < Integer.parseInt(criticalValue)) { //小于60
                     goodView.show(ivSpeed);
-
                     currentTime = currentTime + Integer.parseInt(accelerateValueS); //当前时间
-
                     startCountDownTimer(currentTime * 1000);
                     int mDigits = digital.getmDigits();
 
-                    if ((random + mDigits)  > estimatePeoplerno) {
+                    if ((random + mDigits)  > estimatePeoplerno) {  //大于总条数，不能再投放了
                         digital.setDigits(estimatePeoplerno);
                         deliveryFinish();
                         ToastUtils.showShort("订单推送成功，系统结算中，请勿重复点击戳我加速哦！");
-                    }else{
+                    }else{  //继续投放
                         //设置投放的数量
                         digital.setDigits(mDigits + random - 1);
-                        setTaskDeliveryNum(estimatePeoplerno,rate,(mDigits + 10));
+                        setTaskDeliveryNum(estimatePeoplerno,rate);
                     }
                     // TODO: 2018/6/28 增加条数请求接口
                     spokeSpeedUp(expediteId,10);
@@ -266,6 +225,51 @@ public class TaskDeliveryView extends FrameLayout {
 
         }
     }
+
+
+    private void deliveryFinish(){
+        mCountDownTimer.cancel();
+        countDownTimer.cancel();
+        tvRemainTime.start(0);
+        getTaskDeliveryInfo();
+    }
+
+
+
+
+
+    //设置投放的数量
+    private void setTaskDeliveryNum(final int estimatePeoplerno, double rate){
+
+        countDownTimer.cancel();
+        countDownTimer.setMillisInFuture((long)(estimatePeoplerno*rate*1000))
+                .setCountDownInterval((long)(rate*1000))
+                .setTickDelegate(new CountDownTimerUtils.TickDelegate() {
+                    @Override
+                    public void onTick(long pMillisUntilFinished) {
+                        int getmDigits = digital.getmDigits(); //当前条数
+
+                        if (getmDigits < estimatePeoplerno) { //当前条数小于总条数
+                            digital.setDigits(getmDigits+1);
+                        }else if(getmDigits == estimatePeoplerno ){  //投放完成
+                            digital.setDigits(estimatePeoplerno);
+//                            deliveryFinish();
+                        }
+
+                    }
+                })
+                .setFinishDelegate(new CountDownTimerUtils.FinishDelegate() {
+                    @Override
+                    public void onFinish() {
+
+                    }
+                }).start();
+    }
+
+
+
+
+
 
 
     private void spokeSpeedUp(int expediteId,int expediteValue){
@@ -289,6 +293,8 @@ public class TaskDeliveryView extends FrameLayout {
 
 
 
+
+    //设置冷却值
     public void startCountDownTimer(final long millisInFuture) {
         if (mCountDownTimer!=null) {
             mCountDownTimer.cancel();

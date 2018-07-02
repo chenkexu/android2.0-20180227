@@ -7,7 +7,8 @@ import java.io.Serializable;
  */
 public class TaskThrowInfo implements Serializable {
 
-        private int id;
+    private static final long serialVersionUID = -5707839244027586543L;
+    private int id;
         private int taskId;
         private int man;
         private int woman;

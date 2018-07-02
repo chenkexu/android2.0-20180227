@@ -12,7 +12,6 @@ import com.orientdata.lookforcustomers.base.LazyLoadFragment;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.bean.Task;
-import com.orientdata.lookforcustomers.event.SearchListEvent;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.findcustomer.TaskDetailActivity;
@@ -20,8 +19,6 @@ import com.orientdata.lookforcustomers.view.home.IHomeView;
 import com.orientdata.lookforcustomers.view.xlistview.XListView;
 import com.orientdata.lookforcustomers.view.xlistview.XListViewFooter;
 import com.orientdata.lookforcustomers.widget.dialog.SettingStringDialog;
-
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +58,9 @@ public class TaskListFragment extends LazyLoadFragment<IHomeView, HomePresent<IH
     protected void lazyLoad() {
         AddData();
         intiView();
-        updateData(getStatus(fragmentTitle));
+        onRefresh();
+//        page = 1;
+//        updateData(getStatus(fragmentTitle));
     }
 
 
@@ -180,36 +179,42 @@ public class TaskListFragment extends LazyLoadFragment<IHomeView, HomePresent<IH
 
     SearchListBean searchListBean;
 
-    @Subscribe
-    public void searchListResult(SearchListEvent searchListEvent) {
-        searchListBean = searchListEvent.searchListBean;
-        if (searchListBean != null) {
-            if (searchListBean.getTotalCount() == 0) {
-                mListView.setVisibility(View.GONE);
-                textView.setVisibility(View.VISIBLE);
-            }else{
-                textView.setVisibility(View.GONE);
-                mListView.setVisibility(View.VISIBLE);
-                if (searchListBean.isHasMore()) { //有更多数据
-                    mListView.setLoadState(XListViewFooter.STATE_NORMAL);
-                } else {              //没有更多数据
-                    mListView.setLoadState(XListViewFooter.STATE_NO_MORE);
-                }
-                if (page == 1) {
-                    //refresh
-                    searchList = searchListBean.getResult();
-                } else {
-                    //loadMore
-                    searchList.addAll(searchList.size(), searchListBean.getResult());
-                }
-            }
 
-        }
-        mAdapter = new MyAdapter(getContext(), searchList);
-        mListView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-        onLoad();
-    }
+
+//    @Subscribe
+//    public void searchListResult(SearchListEvent searchListEvent) {
+//
+//        Logger.d("接收到了数据");
+//        searchListBean = searchListEvent.searchListBean;
+//        if (searchListBean != null) {
+//            if (searchListBean.getTotalCount() == 0) {
+//                mListView.setVisibility(View.GONE);
+//                textView.setVisibility(View.VISIBLE);
+//            }else{
+//                textView.setVisibility(View.GONE);
+//                mListView.setVisibility(View.VISIBLE);
+//                if (searchListBean.isHasMore()) { //有更多数据
+//                    mListView.setLoadState(XListViewFooter.STATE_NORMAL);
+//                } else {              //没有更多数据
+//                    mListView.setLoadState(XListViewFooter.STATE_NO_MORE);
+//                }
+//                if (page == 1) {
+//                    Logger.d("下拉刷新");
+//                    //refresh
+//                    searchList = searchListBean.getResult();
+//                } else {
+//                    //loadMore
+//                    Logger.d("加载更多");
+//                    searchList.addAll(searchList.size(), searchListBean.getResult());
+//                }
+//            }
+//
+//        }
+//        mAdapter = new MyAdapter(getContext(), searchList);
+//        mListView.setAdapter(mAdapter);
+//        mAdapter.notifyDataSetChanged();
+//        onLoad();
+//    }
 
 
     @Override
@@ -254,6 +259,39 @@ public class TaskListFragment extends LazyLoadFragment<IHomeView, HomePresent<IH
     @Override
     public void getCertificateMsg(CertificationOut certificationOut, boolean isCertificate) {
 
+    }
+
+    @Override
+    public void getSearchList(SearchListBean searchListBean) {
+        Logger.d("接收到了数据");
+        if (searchListBean != null) {
+            if (searchListBean.getTotalCount() == 0) {
+                mListView.setVisibility(View.GONE);
+                textView.setVisibility(View.VISIBLE);
+            }else{
+                textView.setVisibility(View.GONE);
+                mListView.setVisibility(View.VISIBLE);
+                if (searchListBean.isHasMore()) { //有更多数据
+                    mListView.setLoadState(XListViewFooter.STATE_NORMAL);
+                } else {              //没有更多数据
+                    mListView.setLoadState(XListViewFooter.STATE_NO_MORE);
+                }
+                if (page == 1) {
+                    Logger.d("下拉刷新");
+                    //refresh
+                    searchList = searchListBean.getResult();
+                } else {
+                    //loadMore
+                    Logger.d("加载更多");
+                    searchList.addAll(searchList.size(), searchListBean.getResult());
+                }
+            }
+
+        }
+        mAdapter = new MyAdapter(getContext(), searchList);
+        mListView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+        onLoad();
     }
 
     public static TaskListFragment getInstance() {

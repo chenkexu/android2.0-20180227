@@ -25,7 +25,7 @@
             android:layout_marginTop="10dp"
             android:textSize="15sp"
             android:textColor="@color/text_gray_new"
-            android:text="这里很冷清，暂无历史记录"
+            android:text="这里很冷清，暂无记录"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

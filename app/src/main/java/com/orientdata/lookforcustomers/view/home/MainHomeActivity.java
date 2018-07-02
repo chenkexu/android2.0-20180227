@@ -827,15 +827,17 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         if (orderDeliveryBean.getTask()==null) {
             taskDeliveryView.setVisibility(View.GONE);
         }else{
-            int status = orderDeliveryBean.getTask().getStatus();
-            if (getStatus(status).equals("投放中")) {
-                taskDeliveryView.setVisibility(View.VISIBLE);
-                taskDeliveryView.setData(orderDeliveryBean);
-            }else if(getStatus(status).equals("投放结束")){
-                taskDeliveryView.setVisibility(View.VISIBLE);
-                // TODO: 2018/6/28 展示结束的边框
-                taskDeliveryView.setData(orderDeliveryBean);
-            }
+            taskDeliveryView.setVisibility(View.VISIBLE);
+            taskDeliveryView.setData(orderDeliveryBean);
+//            int status = orderDeliveryBean.getTask().getStatus();
+//            if (getStatus(status).equals("投放中")) {
+//                taskDeliveryView.setVisibility(View.VISIBLE);
+//                taskDeliveryView.setData(orderDeliveryBean);
+//            }else if(getStatus(status).equals("投放结束")){
+//                taskDeliveryView.setVisibility(View.VISIBLE);
+//                // TODO: 2018/6/28 展示结束的边框
+//                taskDeliveryView.setData(orderDeliveryBean);
+//            }
         }
 
 

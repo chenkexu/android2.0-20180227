@@ -169,7 +169,7 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
 
         if (taskInfoEvent.taskInfoBean.getCode() == 0) {
             taskOut = taskInfoEvent.taskInfoBean.getResult();
-            tvOrderId.setText("订单ID："+taskOut.getTaskId());
+            tvOrderId.setText("订单ID："+taskOut.getTaskNo());
             tvOrderCreateTime.setText("创建时间："+taskOut.getCreateDate());
             String status = getStatus(taskOut.getStatus());
 

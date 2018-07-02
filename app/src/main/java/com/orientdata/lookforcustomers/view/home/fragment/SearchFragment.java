@@ -278,4 +278,9 @@ public class SearchFragment extends WangrunBaseFragment<IHomeView, HomePresent<I
     public void getCertificateMsg(CertificationOut certificationOut, boolean isCertificate) {
 
     }
+
+    @Override
+    public void getSearchList(SearchListBean searchListBean) {
+
+    }
 }

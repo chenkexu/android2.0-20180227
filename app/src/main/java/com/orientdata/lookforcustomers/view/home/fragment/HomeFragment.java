@@ -31,6 +31,7 @@ import com.orientdata.lookforcustomers.bean.AnnouncementBean;
 import com.orientdata.lookforcustomers.bean.BannerBean;
 import com.orientdata.lookforcustomers.bean.BannerBeans;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
+import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.bean.URLBean;
 import com.orientdata.lookforcustomers.bean.UserInfoBean;
 import com.orientdata.lookforcustomers.event.MyMoneyEvent;
@@ -688,6 +689,11 @@ public class HomeFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
 
             }
         }
+    }
+
+    @Override
+    public void getSearchList(SearchListBean searchListBean) {
+
     }
 
     @Override

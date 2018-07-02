@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -1157,9 +1156,9 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        ActivityCompat.finishAfterTransition(this);
-//        EasyTransition.exit(this);
+
+        finish();
+
     }
     private int dpToPx(int dp) {
         return (int) (Resources.getSystem().getDisplayMetrics().density * dp + 0.5f);
