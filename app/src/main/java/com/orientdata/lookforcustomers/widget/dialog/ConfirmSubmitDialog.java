@@ -41,6 +41,7 @@ public class ConfirmSubmitDialog extends Dialog {
         this.context = context;
         this.remindString = remindString;
     }
+
     public ConfirmSubmitDialog(Context context,String remindTitle, String remindString) {
         super(context, R.style.RemindDialog);
         this.context = context;

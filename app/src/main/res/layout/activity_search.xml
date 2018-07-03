@@ -125,30 +125,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
+            <LinearLayout
                 android:gravity="center_vertical"
                 android:id="@+id/rl_title_search"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:textColor="@color/text_gray_new"
-                    android:drawableLeft="@mipmap/icon_history_sel"
-                    android:id="@+id/tv_history"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginRight="50dp"
-                    android:layout_marginTop="15dp"
-                    android:drawablePadding="10dp"
+                <LinearLayout
                     android:gravity="center"
-                    android:text="历史记录"
-                    android:textSize="15sp" />
-
-
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textColor="@color/text_gray_new"
+                        android:drawableLeft="@mipmap/icon_history_sel"
+                        android:id="@+id/tv_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="历史记录"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
 
                 <TextView
@@ -159,19 +161,44 @@
                     android:layout_marginTop="5dp"
                     android:background="#D3D3D3" />
 
-                <TextView
-                    android:id="@+id/tv_collection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="15dp"
-                    android:drawableLeft="@mipmap/icon_collect"
-                    android:drawablePadding="10dp"
+                <LinearLayout
                     android:gravity="center"
-                    android:text="收藏地址"
-                    android:textSize="15sp" />
-            </RelativeLayout>
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tv_collection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:drawableLeft="@mipmap/icon_collect"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="收藏地址"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <include layout="@layout/line_gray"/>
 

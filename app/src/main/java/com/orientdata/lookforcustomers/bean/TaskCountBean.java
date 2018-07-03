@@ -10,6 +10,25 @@ public class TaskCountBean  {
     private  int waitThrowTaskCount;
     private  int taskId;
 
+    private  int unReadMsgNum;
+    private  int unReadAnnouncementNum;
+
+    public int getUnReadMsgNum() {
+        return unReadMsgNum;
+    }
+
+    public void setUnReadMsgNum(int unReadMsgNum) {
+        this.unReadMsgNum = unReadMsgNum;
+    }
+
+    public int getUnReadAnnouncementNum() {
+        return unReadAnnouncementNum;
+    }
+
+    public void setUnReadAnnouncementNum(int unReadAnnouncementNum) {
+        this.unReadAnnouncementNum = unReadAnnouncementNum;
+    }
+
     public int getTaskId() {
         return taskId;
     }

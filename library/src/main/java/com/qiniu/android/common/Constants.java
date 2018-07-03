@@ -30,6 +30,7 @@ public final class Constants {
     public static final String MessageAndNoticeBean = "MessageAndNoticeBean";
     public static final String isReCreate = "isReCreate";
     public static final String taskOut = "taskOut";
+    public static final String showRedPoint = "showRedPoint";
 
 
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.orientdata.lookforcustomers.view.home.MainHomeActivity;
 import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
 import com.orientdata.lookforcustomers.view.webview.imple.CommonWebView;
 
@@ -22,7 +23,7 @@ public class MyOpenActivityUtils {
         activity.startActivity(intent);
     }
     public static void openHomeActivity(Activity activity,boolean isNewUser) {
-        Intent intent = new Intent(activity, HomeActivity.class);
+        Intent intent = new Intent(activity, MainHomeActivity.class);
         intent.putExtra("isNewUser",isNewUser);
         activity.startActivity(intent);
     }

@@ -88,5 +88,10 @@
             <attr name="radius" format="dimension"/>
         </declare-styleable>
 
-
+        <declare-styleable name="PullZoomView">
+            <attr name="pzv_sensitive" format="float" />
+            <attr name="pzv_isZoomEnable" format="boolean" />
+            <attr name="pzv_isParallax" format="boolean" />
+            <attr name="pzv_zoomTime" format="integer" />
+        </declare-styleable>
 </resources>

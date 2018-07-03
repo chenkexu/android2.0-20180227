@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by wy on 2017/11/25.
@@ -63,13 +65,18 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
 
     @BindView(R.id.cd_task_delivery2)
     CardView cardView;
+    @BindView(R.id.btn_submit)
+    Button btnSubmit;
 
     private int task_id = 0;
     private TaskOut taskOut;
     private ACache aCache = null;//数据缓存
 
 
-
+    @OnClick(R.id.btn_submit)
+    public void onViewClicked() {
+        mPresent.deletTask(task_id);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,11 +89,9 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
     }
 
     private void initView() {
-        task_id = getIntent().getIntExtra("taskId",0);
+        task_id = getIntent().getIntExtra("taskId", 0);
         taskDeliveryView.hideView();
     }
-
-
 
 
     private void initTitle() {
@@ -101,18 +106,16 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
 //                    //黑名单
 //                    ToastUtils.showShort("账户异常，请联系客服");
 //                } else {
-                    Intent intent = new Intent(getBaseContext(), MessageTaskNewActivity.class);
-                    intent.putExtra(Constants.isReCreate, true);
-                    intent.putExtra(Constants.taskOut, taskOut);
-                    startActivity(intent);
-                    closeActivity(TaskDetailActivity.class);
+                Intent intent = new Intent(getBaseContext(), MessageTaskNewActivity.class);
+                intent.putExtra(Constants.isReCreate, true);
+                intent.putExtra(Constants.taskOut, taskOut);
+                startActivity(intent);
+                closeActivity(TaskDetailActivity.class);
 //                }
             }
         });
 
     }
-
-
 
 
     /**
@@ -169,15 +172,16 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
 
         if (taskInfoEvent.taskInfoBean.getCode() == 0) {
             taskOut = taskInfoEvent.taskInfoBean.getResult();
-            tvOrderId.setText("订单ID："+taskOut.getTaskNo());
-            tvOrderCreateTime.setText("创建时间："+taskOut.getCreateDate());
+            tvOrderId.setText("订单ID：" + taskOut.getTaskNo());
+            tvOrderCreateTime.setText("创建时间：" + taskOut.getCreateDate());
             String status = getStatus(taskOut.getStatus());
 
 
             orderDetailView.setData(taskOut);
 
-            switch (status){
+            switch (status) {
                 case "审核中":
+                    btnSubmit.setVisibility(View.VISIBLE);
                     Glide.with(this).load(R.mipmap.order_detail_ing).into(ivOrderImage1);
                     Glide.with(this).load(R.mipmap.order_big_ing).into(ivOrderImage2);
                     break;
@@ -239,12 +243,14 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (taskDeliveryView.getmCountDownTimer()!=null) {
+        if (taskDeliveryView.getmCountDownTimer() != null) {
             taskDeliveryView.getmCountDownTimer().cancel();
         }
-        if (taskDeliveryView.getCountDownTimer()!=null) {
+        if (taskDeliveryView.getCountDownTimer() != null) {
             taskDeliveryView.getCountDownTimer().cancel();
         }
 
     }
+
+
 }

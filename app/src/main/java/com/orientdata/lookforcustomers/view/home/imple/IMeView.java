@@ -17,4 +17,5 @@ public interface IMeView extends BaseView {
 
     void getTaskCount(TaskCountBean MyMoneyEvent);
 
+    void showRedPoint(TaskCountBean result);
 }

@@ -152,7 +152,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
     private int smsPriceouter; //单价
     private TaskOut taskout;
     private String tdcontent;
-
+//    private boolean isSave = false;
 
     @Override
     public void onBackPressed() {
@@ -160,25 +160,27 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
         //短信内容
         //开始时间.结束时间
         //任务预算
-        obtainData();
+//        if (isSave) { //已经保存
+//            finish();
+//        }else{
+            obtainData();
+            final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this,"温馨提示","是否保存当前内容");
+            dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
+                @Override
+                public void doCancel() {
+                    dialog.dismiss();
+                    SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.msgContent);
+                    finish();
+                }
 
-        final ConfirmSubmitDialog dialog = new ConfirmSubmitDialog(this, "是否保存当前内容");
-        dialog.setClickListenerInterface(new ConfirmSubmitDialog.ClickListenerInterface() {
-            @Override
-            public void doCancel() {
-                dialog.dismiss();
-                SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.msgContent);
-                finish();
-            }
-
-            @Override
-            public void doConfirm() {
-                dialog.dismiss();
-                savaCache();
-                finish();
-            }
-        });
-        dialog.show();
+                @Override
+                public void doConfirm() {
+                    dialog.dismiss();
+                    savaCache();
+                    finish();
+                }
+            });
+            dialog.show();
 
     }
 
@@ -418,12 +420,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
         // TODO: 2018/6/25 单价，余额接口。签名接口
 //        mPresent.getSignAndTd(mProvinceCode);
         mPresent.getCreateTaskBasicInfo(mProvinceCode);
-
-
-
-
     }
-
 
 
     @Override
@@ -462,7 +459,6 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                 }
 
                 String substring = taskout.getContent().substring(0, taskout.getContent().indexOf("】") + 1);
-//                String substring = taskout.getSign();
                 etEnterpriseSignature.setText(substring);
             }
         } else { //固定签名
@@ -721,11 +717,13 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                     numCount = etMsgContent.getText().toString().length() + tvUnsubscribe.getText().length()+etEnterpriseSignature.getText().toString().length();
                 }
 
-                if (numCount > 70){
-                    ToastUtils.showLong("您输入的短信内容超出"+ (numCount -70) + "个字");
-                }else{
-                    tvNum.setText("还可以输入"+(70-numCount)+"字符");
-                }
+                tvNum.setText("还可以输入"+(70-numCount)+"字符");
+
+//                if (numCount > 70){
+//                    ToastUtils.showLong("您输入的短信内容超出"+ (numCount -70) + "个字");
+//                }else{
+//                    tvNum.setText("还可以输入"+(70-numCount)+"字符");
+//                }
             }
 
             @Override
@@ -750,6 +748,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
             @Override
             public void afterTextChanged(Editable s/*之后的文字内容*/) {
                 if (numCount>70){
+                    tvNum.setText("还可以输入"+(70-numCount)+"字符");
                     ToastUtils.showShort("您输入的短信内容超出字数限制");
                 }else{
                     tvNum.setText("还可以输入"+(70-numCount)+"字符");
@@ -823,7 +822,8 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
             public void onClick(View v) {
                 content = etMsgContent.getText().toString();
                 SharedPreferencesTool.getInstance().putStringValue(SharedPreferencesTool.msgContent,content);
-                ToastUtils.showShort("已保存");
+                ToastUtils.showShort("保存成功");
+//                isSave = true;
             }
         });
     }
@@ -904,17 +904,6 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
 
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == 2) {
-            if (data != null) {
-                testCmPhone = data.getStringExtra("testCmPhone");
-                testCuPhone = data.getStringExtra("testCuPhone");
-                testCtPhone = data.getStringExtra("testCtPhone");
-            }
-        }
-    }
 
 
     class EmojiExcludeFilter implements InputFilter {

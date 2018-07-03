@@ -49,6 +49,26 @@ public class MePresent<T> extends BasePresenter<IMeView> {
     }
 
 
+    //显示小红点的接口
+    public void showRedPoint(){
+        HashMap<String, Object> map = ParamsUtil.getMap();
+        ApiManager.getInstence().getApiService().getUnReadMsgAndUnReadAnnouncement(ParamsUtil.getParams(map))
+                .compose(RxUtil.<WrResponse<TaskCountBean>>rxSchedulerHelper())
+                .subscribe(new BaseObserver<TaskCountBean>() {
+                    @Override
+                    protected void onSuccees(WrResponse<TaskCountBean> t) {
+                        if (t.getResult()!=null){
+                            mHomeView.showRedPoint(t.getResult());
+                        }
+                    }
+
+                    @Override
+                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
+                        ToastUtils.showShort(errorInfo);
+                    }
+                });
+    }
+
 
     public void getTaskCount(){
         HashMap<String, Object> map = ParamsUtil.getMap();

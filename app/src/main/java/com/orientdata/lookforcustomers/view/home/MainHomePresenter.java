@@ -5,6 +5,7 @@ import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.BannerBean;
 import com.orientdata.lookforcustomers.bean.BannerBeans;
 import com.orientdata.lookforcustomers.bean.OrderDeliveryBean;
+import com.orientdata.lookforcustomers.bean.TaskCountBean;
 import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.model.IProvinceCityModel;
 import com.orientdata.lookforcustomers.model.imple.ProvinceCityModelImple;
@@ -38,8 +39,6 @@ public class MainHomePresenter<T> extends BasePresenter<IHomeMainView> {
     }
 
 
-
-
     //获取任务投递的细节
     public void getTaskDeliveryInfo(){
 
@@ -62,9 +61,6 @@ public class MainHomePresenter<T> extends BasePresenter<IHomeMainView> {
 
 
     }
-
-
-
 
 
     public void getProvinceCityData() {
@@ -121,6 +117,26 @@ public class MainHomePresenter<T> extends BasePresenter<IHomeMainView> {
         }, map);
     }
 
+
+    //显示小红点的接口
+    public void showRedPoint(){
+        HashMap<String, Object> map = ParamsUtil.getMap();
+        ApiManager.getInstence().getApiService().getUnReadMsgAndUnReadAnnouncement(ParamsUtil.getParams(map))
+                .compose(RxUtil.<WrResponse<TaskCountBean>>rxSchedulerHelper())
+                .subscribe(new BaseObserver<TaskCountBean>() {
+                    @Override
+                    protected void onSuccees(WrResponse<TaskCountBean> t) {
+                        if (t.getResult()!=null){
+                            iCityPickView.showRedPoint(t.getResult());
+                        }
+                    }
+
+                    @Override
+                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
+                            ToastUtils.showShort(errorInfo);
+                    }
+                });
+    }
 
 
 

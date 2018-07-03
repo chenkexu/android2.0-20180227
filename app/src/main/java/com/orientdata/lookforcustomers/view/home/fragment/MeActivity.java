@@ -1,14 +1,21 @@
 package com.orientdata.lookforcustomers.view.home.fragment;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,6 +34,7 @@ import com.orientdata.lookforcustomers.event.MyMoneyEvent;
 import com.orientdata.lookforcustomers.network.HttpConstant;
 import com.orientdata.lookforcustomers.network.OkHttpClientManager;
 import com.orientdata.lookforcustomers.presenter.MePresent;
+import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.L;
@@ -44,9 +52,12 @@ import com.orientdata.lookforcustomers.view.mine.TaskListActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.AccountBalanceActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.CommissionWithDrawActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.SettingActivity;
+import com.orientdata.lookforcustomers.widget.PullZoomView;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
 import com.qiniu.android.common.Constants;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -57,8 +68,6 @@ import butterknife.OnClick;
 import cn.bingoogolapple.badgeview.BGABadgeFrameLayout;
 import vr.md.com.mdlibrary.UserDataManeger;
 import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
-
-import static com.orientdata.lookforcustomers.R.id.tv_company_name;
 
 
 /**
@@ -89,7 +98,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     RecyclerView rvTask;
     @BindView(R.id.rv_mine)
     RecyclerView rvMine;
-    @BindView(tv_company_name)
+    @BindView(R.id.tv_company_name)
     TextView tvCompanyName;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
@@ -97,6 +106,23 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     TextView tvStatus;
     @BindView(R.id.iv_back)
     ImageView ivBack;
+
+    @BindView(R.id.iv_message)
+    ImageView ivMessage;
+    @BindView(R.id.ll_account_balance)
+    LinearLayout llAccountBalance;
+    @BindView(R.id.ll_account_froze)
+    LinearLayout llAccountFroze;
+    @BindView(R.id.textView23)
+    TextView textView23;
+    @BindView(R.id.ll_account_commission)
+    LinearLayout llAccountCommission;
+    @BindView(R.id.textView24)
+    TextView textView24;
+    @BindView(R.id.line)
+    View line;
+    @BindView(R.id.pzv)
+    PullZoomView pzv;
 
     private MePresent mePresent;
     private ACache aCache = null;//数据缓存
@@ -133,15 +159,19 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     private String cerStatus = "";
     private String remindString = "";
     private int imgResId = 0;
-    private  String btText = "";
+    private String btText = "";
     private int authStatus = -1;
     private int throwingTaskCount;
     private int examineTaskCount;
     private int waitThrowTaskCount;
     private Adapter taskAdapter;
 
+    private static final int CROP_SMALL_PICTURE = 103;
+    public static final String IMAGE_FILE_LOCATION = "file:///sdcard/tempHeadPortrait.jpg";//剪切完的图片所存地址
+    public static final String IMAGE_FILE_LOCATION_Path = Environment.getExternalStorageDirectory() + "/tempHeadPortrait.jpg";//剪切完的图片所存地址
+    Uri imageUri = Uri.parse(IMAGE_FILE_LOCATION);
 
-    @OnClick({R.id.tv_more_task, R.id.iv_message, R.id.iv_back,R.id.linear_company,
+    @OnClick({R.id.tv_more_task, R.id.iv_message, R.id.iv_back, R.id.linear_company, R.id.iv_head_portrait,
             R.id.ll_account_balance, R.id.ll_account_froze, R.id.ll_account_commission})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -149,11 +179,14 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
                 intent = new Intent(MeActivity.this, TaskListActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.iv_head_portrait:
+                choosePhoto();
+                break;
             case R.id.linear_company:
                 showAuthenticationStatus();
                 break;
             case R.id.iv_back:
-                 finish();
+                finish();
                 break;
             case R.id.iv_message:
                 intent = new Intent(MeActivity.this, MessageAndNoticeActivity.class);
@@ -186,6 +219,16 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         ButterKnife.bind(this);
         mePresent = new MePresent(this);
         initView();
+        pzv.setOnPullZoomListener(new PullZoomView.OnPullZoomListener() {
+            @Override
+            public void onPullZoom(int originHeight, int currentHeight) {
+            }
+
+            @Override
+            public void onZoomFinish() {
+                initData();
+            }
+        });
     }
 
     @Override
@@ -195,6 +238,11 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     }
 
     private void initView() {
+        pzv.setIsParallax(true);
+        pzv.setIsZoomEnable(true);
+        pzv.setSensitive(1.5f);
+        pzv.setZoomTime(500);
+
         for (int i = 0; i < taskStatusPics.length; i++) {
             HomeBean homeBean = new HomeBean(taskStatusStr[i], taskStatusPics[i]);
             imagesAndTitles.add(homeBean);
@@ -286,6 +334,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
                         }
                         break;
                     case 7: //邀请码
+                        ToastUtils.showShort("程序员小哥正在开发中......");
                         break;
                     case 8: //设置
                         intent = new Intent(MeActivity.this, SettingActivity.class);
@@ -299,7 +348,7 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     }
 
 
-    private void showAuthenticationStatus(){
+    private void showAuthenticationStatus() {
         if (authStatus != 2) {
             final RemindDialog dialog = new RemindDialog(MeActivity.this, "", remindString, imgResId, btText);
             dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
@@ -318,16 +367,27 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     }
 
     private void initData() {
+        showDefaultLoading();
         aCache = ACache.get(this);
         LoginResultBean.UserBean user = (LoginResultBean.UserBean) SharedPreferencesTool.getInstance().getObjectFromShare(SharedPreferencesTool.user);
-        tvCompanyName.setText("ID: "+user.getUserNo()+"");
+        tvCompanyName.setText("ID: " + user.getUserNo() + "");
         showDefaultLoading();
         //获取账号 佣金 和 余额
         mPresent.getCommission();
         mPresent.getCertificateMsg(true);
         mPresent.getTaskCount();
+        mPresent.showRedPoint();
     }
 
+    @Override
+    public void showRedPoint(TaskCountBean redCountBean) {
+        hideDefaultLoading();
+        if (redCountBean.getUnReadAnnouncementNum() == 0 && redCountBean.getUnReadMsgNum() == 0) {
+            ivMessage.setImageResource(R.mipmap.icon_me_meesage_no);
+        } else {
+            ivMessage.setImageResource(R.mipmap.icon_me_meesage);
+        }
+    }
 
     @Override
     public void showLoading() {
@@ -338,7 +398,6 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
     public void hideLoading() {
 
     }
-
 
 
     @Override
@@ -371,8 +430,6 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         tvStatus.setText(cerStatus);
 
     }
-
-
 
 
     @Override
@@ -420,15 +477,12 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
 
 
         if (!TextUtils.isEmpty(userHead)) {
-            L.e("头像地址是："+userHead);
-            GlideUtil.getInstance().loadHeadImage(this,ivHeadPortrait,userHead,true);
+            L.e("头像地址是：" + userHead);
+            GlideUtil.getInstance().loadHeadImage(this, ivHeadPortrait, userHead, true);
         } else {
             Glide.with(this).load(R.mipmap.head_default).into(ivHeadPortrait);
         }
-        tvPhone.setText("手机号:"+myMoneyEvent.phone);
-
-
-
+        tvPhone.setText("手机号:" + myMoneyEvent.phone);
 
 
     }
@@ -464,19 +518,19 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
             switch (item.getName()) {
                 case "审核中":
 
-                    if (examineTaskCount!=0) {
-                        mBadgeView.showTextBadge(examineTaskCount+"");
+                    if (examineTaskCount != 0) {
+                        mBadgeView.showTextBadge(examineTaskCount + "");
                     }
 
                     break;
                 case "待投放":
-                    if (waitThrowTaskCount!=0) {
-                        mBadgeView.showTextBadge(waitThrowTaskCount+"");
+                    if (waitThrowTaskCount != 0) {
+                        mBadgeView.showTextBadge(waitThrowTaskCount + "");
                     }
                     break;
                 case "投放中":
-                    if (throwingTaskCount!=0) {
-                        mBadgeView.showTextBadge(throwingTaskCount+"");
+                    if (throwingTaskCount != 0) {
+                        mBadgeView.showTextBadge(throwingTaskCount + "");
                     }
                     break;
                 case "投放结束":
@@ -486,5 +540,115 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
                     break;
             }
         }
+    }
+
+
+    public static final int PHOTOZOOM = 0; // 相册/拍照
+
+    //选择照片
+    private void choosePhoto() {
+        if (CommonUtils.haveSDCard()) {
+            if (hasPermisson()) {
+                Intent openAlbumIntent = new Intent(Intent.ACTION_PICK);   //创建打开相册的意图对象,选择照片
+                openAlbumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");//传入数据(图片uri,图片类型)
+                startActivityForResult(openAlbumIntent, PHOTOZOOM);   //开启
+            } else {
+                requestPermission();
+            }
+        } else {
+            ToastUtils.showShort("没有SD卡");
+        }
+    }
+
+    /**
+     * 请求拍照的权限
+     */
+    @TargetApi(23)
+    public void requestPermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission_group.CONTACTS,
+                        Manifest.permission_group.MICROPHONE,
+                        Manifest.permission_group.SMS},
+                0);
+    }
+
+    /**
+     * 是否有拍照的权限
+     */
+    @TargetApi(23)
+    public boolean hasPermisson() {
+        boolean b1 = PermissionsManager.getInstance().hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        boolean b2 = PermissionsManager.getInstance().hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        boolean b3 = PermissionsManager.getInstance().hasPermission(this, Manifest.permission.CAMERA);
+        boolean b4 = PermissionsManager.getInstance().hasPermission(this, Manifest.permission_group.CONTACTS);
+        boolean b5 = PermissionsManager.getInstance().hasPermission(this, Manifest.permission_group.MICROPHONE);
+        boolean b6 = PermissionsManager.getInstance().hasPermission(this, Manifest.permission_group.SMS);
+        return b1 && b2 && b3 && b4 && b5 && b6;
+    }
+
+    Bitmap bitmap1 = null;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Uri uri = null;
+        switch (requestCode) {
+            case PHOTOZOOM://相册
+                if (resultCode != RESULT_OK) {
+                    return;
+                }
+                if (data == null) {
+                    return;
+                }
+                cropImageUri(data.getData(), 720, 720, CROP_SMALL_PICTURE);
+                break;
+
+            case CROP_SMALL_PICTURE:
+                //这里是调用图片库裁剪后的返回
+                //可以参照裁剪方法，里面已经指定了uri，所以在这里，直接可以从里面取uri，然后获取bitmap，并且设置到imageview
+                try {
+                    bitmap1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                    // TODO: 2018/4/11 压缩图片
+//                    compressImg(bitmap1);
+                    //上传图片
+                    if (bitmap1 != null) {
+                        File file = new File(IMAGE_FILE_LOCATION_Path);
+                        if (file.exists()) {
+                            mPresent.uploadImg(2, IMAGE_FILE_LOCATION_Path);
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void cropImageUri(Uri uri, int outputX, int outputY, int requestCode) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        //是否裁剪
+        intent.putExtra("crop", "true");
+//        //设置xy的裁剪比例
+        //设置输出的宽高
+        intent.putExtra("outputX", outputX);
+        intent.putExtra("outputY", outputY);
+        //是否缩放
+        intent.putExtra("scale", false);
+        //输入图片的Uri，指定以后，可以在这个uri获得图片
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        //是否返回图片数据，可以不用，直接用uri就可以了
+        intent.putExtra("return-data", false);
+        //设置输入图片格式
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        //是否关闭面部识别
+        intent.putExtra("noFaceDetection", true); // no face detection
+        //启动
+        startActivityForResult(intent, requestCode);
     }
 }

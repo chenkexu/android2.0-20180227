@@ -13,7 +13,7 @@ import com.orientdata.lookforcustomers.base.BaseActivity;
 import com.orientdata.lookforcustomers.event.LogoutResultEvent;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
 import com.orientdata.lookforcustomers.util.GlideUtil;
-import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
+import com.orientdata.lookforcustomers.view.home.MainHomeActivity;
 import com.orientdata.lookforcustomers.view.login.ILoginAndRegisterView;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 import com.orientdata.lookforcustomers.view.mine.AboutUsActivity;
@@ -191,7 +191,7 @@ public class SettingActivity extends BaseActivity<ILoginAndRegisterView, LoginAn
         if(logoutResultEvent!=null && logoutResultEvent.errBean.getCode() == 0){
             Intent intent = new Intent(this,LoginAndRegisterActivity.class);
             startActivity(intent);
-            closeActivity(SettingActivity.class, HomeActivity.class);
+            closeActivity(SettingActivity.class, MainHomeActivity.class);
         }
     }
 

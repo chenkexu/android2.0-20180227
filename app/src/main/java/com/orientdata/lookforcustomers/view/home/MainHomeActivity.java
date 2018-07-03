@@ -65,6 +65,7 @@ import com.orientdata.lookforcustomers.bean.Area;
 import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.BannerBean;
 import com.orientdata.lookforcustomers.bean.OrderDeliveryBean;
+import com.orientdata.lookforcustomers.bean.TaskCountBean;
 import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
@@ -257,9 +258,10 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private Double cityMapValue;
     private int radiusRam;
     private AddressSearchRecode addressInfo;
-    private boolean clickFlag = true;
 
     private OrderDeliveryBean orderDeliveryBean;
+
+    boolean showRedPoint = false;
 
     protected boolean isImmersionBarEnabled() {
         return false;
@@ -290,13 +292,12 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
             case R.id.iv_me:
                 Intent intent = new Intent(this, MeActivity.class);
+                intent.putExtra(Constants.showRedPoint, showRedPoint);
                 startActivity(intent);
-                ToastUtils.showShort("跳转到我的界面");
                 break;
             case R.id.ll_down:
                 behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 break;
-
             case R.id.imageView_jingzhundingwei:
                 isFirstLoc = true;
                 mIsShowDialog = true;
@@ -308,7 +309,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                     ToastUtils.showShort("网络错误，请重新定位");
                     return;
                 }
-
 
                 this.intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
                 this.intent.putExtra(Constants.latitude, mCurrentLatLng.latitude + ""); //精度
@@ -325,8 +325,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 this.intent.putExtra("address", tv_at_create_find_customer_putlocation.getText().toString().trim());
 
 
-
-                showDefaultLoading();
                 mBaiduMap.snapshotScope(null, new BaiduMap.SnapshotReadyCallback() {
                     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
@@ -358,6 +356,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 //                                EasyTransition.startActivity(intent, options);
                     }
                 });
+                showDefaultLoading();
                 break;
             case R.id.iv_service:
                 final String url = "mqqwpa://im/chat?chat_type=wpa&uin=2280249239";
@@ -776,7 +775,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         mCityPickPresent.getBannerPic();
 
 
-        new QBadgeView(this).bindTarget(ivMe).setBadgePadding(3, true).setBadgeGravity(Gravity.END | Gravity.TOP).setBadgeNumber(-1);
+
     }
 
 
@@ -843,6 +842,16 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
     }
 
+    @Override
+    public void showRedPoint(TaskCountBean redCountBean) {
+
+        if (redCountBean.getUnReadAnnouncementNum()==0 && redCountBean.getUnReadMsgNum() == 0) {
+            showRedPoint = false;
+        }else{
+            showRedPoint = true;
+            new QBadgeView(this).bindTarget(ivMe).setBadgePadding(3, true).setBadgeGravity(Gravity.END | Gravity.TOP).setBadgeNumber(-1);
+        }
+    }
 
 
     /**
@@ -1048,6 +1057,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_UI);
         mCityPickPresent.getTaskDeliveryInfo();
+        mCityPickPresent.showRedPoint();
 
     }
 
@@ -1238,10 +1248,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
     @Override
     public void onBackPressed() {
-        //返回的时候 清除 定向缓存
-        ACache.get(this).remove(SharedPreferencesTool.DIRECTION_HISTORY);
-//        SharedPreferencesTool.getInstance().remove(SharedPreferencesTool.MessageTaskCacheBean);
-        super.onBackPressed();
         exit();
     }
 

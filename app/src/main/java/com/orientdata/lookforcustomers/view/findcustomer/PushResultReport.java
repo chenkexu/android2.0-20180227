@@ -102,6 +102,7 @@ public class PushResultReport extends FrameLayout {
                 .inflate(R.layout.include_push_report, this);
         ButterKnife.bind(view);
         rvAgePush.setItemAnimator(new DefaultItemAnimator());
+
         rvAgePush.setLayoutManager(new LinearLayoutManager(context){
             @Override
             public boolean canScrollVertically() {
@@ -153,20 +154,6 @@ public class PushResultReport extends FrameLayout {
         tvWomanRatio.setText(taskThrowInfo.getWoman()+"%");
 
 
-//        List<Integer> ages = new ArrayList<>();
-//        ages.add((int) (taskThrowInfo.getAge0_20()*100));
-//        ages.add((int) (taskThrowInfo.getAge20_25()*100));
-//        ages.add((int) (taskThrowInfo.getAge25_30()*100));
-//        ages.add((int) (taskThrowInfo.getAge30_35()*100));
-//        ages.add((int) (taskThrowInfo.getAge35_40()*100));
-//        ages.add((int) (taskThrowInfo.getAge40_45()*100));
-//        ages.add((int) (taskThrowInfo.getAge45_50()*100));
-//        ages.add((int) (taskThrowInfo.getAge50_55()*100));
-//        ages.add((int) (taskThrowInfo.getAge55_60()*100));
-//        ages.add((int) (taskThrowInfo.getAge60_()*100));
-//        Logger.d("ages: "+ages);
-
-
         List<Double> ages2 = new ArrayList<>();
         ages2.add(taskThrowInfo.getAge0_20());
         ages2.add(taskThrowInfo.getAge20_25());
@@ -187,6 +174,7 @@ public class PushResultReport extends FrameLayout {
             AgePushBean agePushBean = new AgePushBean(v, agesArray[i], (int)(ages2.get(i)*100));
             agePushBeans.add(agePushBean);
         }
+
         rvAgePush.setAdapter(new AgeAdapter(agePushBeans));
 
         List<String> testPhones = new ArrayList<>();

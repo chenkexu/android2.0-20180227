@@ -95,7 +95,7 @@ public class TaskDeliveryView extends FrameLayout {
     private int[] images = {R.mipmap.main_lighting,R.mipmap.main_lighting2,
             R.mipmap.main_lighting3,R.mipmap.main_lighting4,R.mipmap.main_lighting5,R.mipmap.main_lighting6,
             R.mipmap.main_lighting7,R.mipmap.main_lighting8,R.mipmap.main_lighting9,};
-
+    private int surplusDate;
 
 
     public CountDownTimer getmCountDownTimer() {
@@ -148,7 +148,7 @@ public class TaskDeliveryView extends FrameLayout {
         expireDate = orderDeliveryBean.getExpireDate(); //从这个数开始倒计时
         accelerateValueS = orderDeliveryBean.getAccelerateValueS();
         criticalValue = orderDeliveryBean.getCriticalValue();
-        int surplusDate = orderDeliveryBean.getSurplusDate();
+        surplusDate = orderDeliveryBean.getSurplusDate(); //剩余的时间
         int num = (int) (surplusDate / rate);  //剩余条数
         estimatePeoplerno = orderDeliveryBean.getTask().getEstimatePeoplerno(); //总条数
         deliveryNum = estimatePeoplerno - num; //投放条数
@@ -207,6 +207,9 @@ public class TaskDeliveryView extends FrameLayout {
                         //设置投放的数量
                         digital.setDigits(mDigits + random - 1);
                         setTaskDeliveryNum(estimatePeoplerno,rate);
+                        // TODO: 2018/7/3 设置时间
+                        double v = ((estimatePeoplerno - (random + mDigits)) * rate) * 1000;
+                        tvRemainTime.start(Math.round(v));
                     }
                     // TODO: 2018/6/28 增加条数请求接口
                     spokeSpeedUp(expediteId,10);

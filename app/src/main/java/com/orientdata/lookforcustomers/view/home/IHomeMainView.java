@@ -4,6 +4,7 @@ import com.orientdata.lookforcustomers.base.BaseView;
 import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.BannerBean;
 import com.orientdata.lookforcustomers.bean.OrderDeliveryBean;
+import com.orientdata.lookforcustomers.bean.TaskCountBean;
 
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface IHomeMainView extends BaseView {
     void getBannerSuc(List<BannerBean> list);
 
     void getTaskDeliveryInfo(OrderDeliveryBean orderDeliveryBean);
+    void showRedPoint(TaskCountBean orderDeliveryBean);
 }

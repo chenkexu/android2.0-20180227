@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -63,7 +64,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
     @BindView(R.id.tv_clear_history)
     TextView tvClearHistory;
     @BindView(R.id.rl_title_search)
-    RelativeLayout rlTitleSearch;
+    LinearLayout rlTitleSearch;
     @BindView(R.id.rl_clear)
     RelativeLayout rlClear;
     @BindView(R.id.tv_history)
@@ -89,7 +90,7 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
             case R.id.tv_history://历史记录
                 clickHistory();
                 // TODO: 2018/5/24 查看所有的历史记录
-                history = findAll(AddressSearchRecode.class);
+                history = DataSupport.limit(15).order("id desc").find(AddressSearchRecode.class);
                 if (history.size() == 0 || history == null) {
                     addressAdapter.setNewData(null);
                     addressAdapter.setEmptyView(R.layout.layout_no_content, (ViewGroup) rvAddressList.getParent());

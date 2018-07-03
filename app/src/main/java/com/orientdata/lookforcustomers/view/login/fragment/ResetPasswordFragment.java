@@ -32,7 +32,7 @@ import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
-import com.orientdata.lookforcustomers.view.home.imple.HomeActivity;
+import com.orientdata.lookforcustomers.view.home.MainHomeActivity;
 import com.orientdata.lookforcustomers.view.login.imple.LoginAndRegisterActivity;
 import com.orientdata.lookforcustomers.view.mine.imple.SettingActivity;
 import com.orientdata.lookforcustomers.widget.CommonTitleBar;
@@ -213,7 +213,7 @@ public class ResetPasswordFragment extends BaseFragment implements View.OnClickL
         if (resetPasswordResultEvent.isResetPassword) {
             ToastUtils.showShort("修改成功");
             //关闭掉 前面的homeactivity 和 settingactivity
-            EventBus.getDefault().post(new CloseEvent(CloseEvent.CLOSE_IN_LIST_ACTIVITY, HomeActivity.class, SettingActivity.class));
+            EventBus.getDefault().post(new CloseEvent(CloseEvent.CLOSE_IN_LIST_ACTIVITY, MainHomeActivity.class, SettingActivity.class));
 
             //登录
             LoginFragment loginFragment = LoginFragment.newInstance(false);

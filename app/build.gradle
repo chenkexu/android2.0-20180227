@@ -11,8 +11,8 @@ android {
         applicationId "com.orientdata.lookforcustomers"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 311
-        versionName "3.1.1"
+        versionCode 300
+        versionName "3.0.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         aaptOptions.cruncherEnabled = false

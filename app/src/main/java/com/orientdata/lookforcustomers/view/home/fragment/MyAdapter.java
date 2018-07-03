@@ -66,7 +66,6 @@ public class MyAdapter extends BaseAdapter implements View.OnClickListener{
             viewHolder = new ViewHolder();
             LayoutInflater mInflater = LayoutInflater.from(mContext);
             convertView = mInflater.inflate(R.layout.item_search_task, null);
-
             viewHolder.ivStatus = (ImageView) convertView.findViewById(R.id.ivStatus);
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             viewHolder.tvStatus = (TextView) convertView.findViewById(R.id.tvStatus);
@@ -80,12 +79,7 @@ public class MyAdapter extends BaseAdapter implements View.OnClickListener{
 
         Task task = getItem(position);
         if (null != task) {
-
-
-
             viewHolder.tvTitle.setText(task.getTaskName());
-
-
 
             if(task.getStatus() == 2||task.getStatus()==4){ //审核失败
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.shenhe_error));
@@ -100,12 +94,11 @@ public class MyAdapter extends BaseAdapter implements View.OnClickListener{
                 viewHolder.ivStatus.setImageResource(R.mipmap.order_suc);
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.shenhe_sucuess));
             }else if(task.getStatus() == 8){ //投放结束
-                viewHolder.ivStatus.setImageResource(R.mipmap.order_suc);
+                viewHolder.ivStatus.setImageResource(R.mipmap.order_over);
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.shenhe_over));
             }else{
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.gray_small));
             }
-
 
             viewHolder.tvStatus.setText(getStatus(task.getStatus()));
         }

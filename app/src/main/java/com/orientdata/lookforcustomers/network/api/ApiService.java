@@ -88,12 +88,16 @@ public interface ApiService {
 
 
 
-
-
-
     //获取消息和公告列表
     @GET("app/msg/announcement/selectMsgAndAnnouncement")
     Observable<WrResponse<List<MessageAndNoticeBean>>> selectMsgAndAnnouncement(@QueryMap HashMap<String, Object> map);
+
+
+
+
+    //显示小红点
+    @GET("app/getUnReadMsgAndUnReadAnnouncement")
+    Observable<WrResponse<TaskCountBean>> getUnReadMsgAndUnReadAnnouncement(@QueryMap HashMap<String, Object> map);
 
 
 

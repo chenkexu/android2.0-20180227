@@ -435,17 +435,11 @@ public class MineFragment extends WangrunBaseFragment<IHomeView, HomePresent<IHo
 
 
     private void cropImageUri(Uri uri, int outputX, int outputY, int requestCode) {
-//        File file = new File(IMAGE_FILE_LOCATION);
-//        if(file.exists()){
-//            file.delete();
-//        }
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         //是否裁剪
         intent.putExtra("crop", "true");
 //        //设置xy的裁剪比例
-//        intent.putExtra("aspectX", 72);
-//        intent.putExtra("aspectY", 42);
         //设置输出的宽高
         intent.putExtra("outputX", outputX);
         intent.putExtra("outputY", outputY);
