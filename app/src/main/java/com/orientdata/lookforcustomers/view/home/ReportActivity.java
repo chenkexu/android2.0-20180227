@@ -524,6 +524,7 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresent<IRep
     private void initTitle() {
         title.setTitleName("报表");
         title.setRightText("导出报表");
+        title.setImageBack(this);
         title.setRightTextClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

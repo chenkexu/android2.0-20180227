@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
+import com.orientdata.lookforcustomers.util.AppManager;
 import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,6 +39,7 @@ public abstract class WangrunBaseActivity extends AppCompatActivity {
         //初始化沉浸式
         if (isImmersionBarEnabled())
             initImmersionBar();
+        AppManager.getAppManager().addActivity(this);
     }
 
 

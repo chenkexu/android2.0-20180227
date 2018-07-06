@@ -48,9 +48,7 @@ public class MainHomePresenter<T> extends BasePresenter<IHomeMainView> {
                 .subscribe(new BaseObserver<OrderDeliveryBean>() {
                     @Override
                     protected void onSuccees(WrResponse<OrderDeliveryBean> t) {
-                        if (t.getResult()!=null) {
                             iCityPickView.getTaskDeliveryInfo(t.getResult());
-                        }
                     }
 
                     @Override

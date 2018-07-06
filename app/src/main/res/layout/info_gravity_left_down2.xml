@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="60dp"
+        android:layout_alignParentRight="true"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:text="这里可以设置您想查看的范围"
+        android:id="@+id/id_iv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/id_iv_tip"-->
+        <!--android:src="@drawable/jt_down"/>-->
+
+</RelativeLayout>

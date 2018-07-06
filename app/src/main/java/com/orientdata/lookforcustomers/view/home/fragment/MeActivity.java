@@ -370,8 +370,9 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
         showDefaultLoading();
         aCache = ACache.get(this);
         LoginResultBean.UserBean user = (LoginResultBean.UserBean) SharedPreferencesTool.getInstance().getObjectFromShare(SharedPreferencesTool.user);
-        tvCompanyName.setText("ID: " + user.getUserNo() + "");
-        showDefaultLoading();
+        if (user!=null) {
+            tvCompanyName.setText("ID: " + user.getUserNo() + "");
+        }
         //获取账号 佣金 和 余额
         mPresent.getCommission();
         mPresent.getCertificateMsg(true);
@@ -461,7 +462,6 @@ public class MeActivity extends BaseActivity<IMeView, MePresent<IMeView>> implem
 
     @Override
     public void getMyMoney(MyMoneyEvent myMoneyEvent) {
-        hideDefaultLoading();
         balance = myMoneyEvent.balance;
         commission = myMoneyEvent.commission;
         frozenAmount = myMoneyEvent.frozenAmount;

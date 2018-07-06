@@ -32,6 +32,8 @@ public final class Constants {
     public static final String taskOut = "taskOut";
     public static final String showRedPoint = "showRedPoint";
 
+    public static final String from_order_confirm = "from_order_confirm";
+
 
 
 

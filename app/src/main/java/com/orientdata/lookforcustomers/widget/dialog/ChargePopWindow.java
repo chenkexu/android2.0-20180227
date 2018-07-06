@@ -64,7 +64,7 @@ public class ChargePopWindow extends Dialog implements View.OnClickListener{
     public ChargePopWindow(final Context context,double value) {
         super(context, R.style.RemindDialog);// 必须调用父类的构造函数
         this.context = context;
-        this.value = 0.01;
+        this.value = value;
         View contentView = LayoutInflater.from(context).inflate(R.layout.layout_charge_popwindow, null);
         setContentView(contentView);
 

@@ -196,12 +196,12 @@
         "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable-xhdpi-v4\\abc_ic_clear_mtrl_alpha.png"
     },
     {
-        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_pressed_holo.9.png",
-        "source": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\vpi__tab_unselected_pressed_holo.9.png"
-    },
-    {
         "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png",
         "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_pressed_holo.9.png",
+        "source": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\vpi__tab_unselected_pressed_holo.9.png"
     },
     {
         "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_000.png",

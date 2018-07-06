@@ -11,6 +11,7 @@ import android.widget.ToggleButton;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
+import com.orientdata.lookforcustomers.bean.MessageAndNoticeBean;
 import com.orientdata.lookforcustomers.bean.MsgListBean;
 import com.orientdata.lookforcustomers.bean.Result;
 import com.orientdata.lookforcustomers.event.MsgListEvent;
@@ -310,5 +311,10 @@ public class MessageActivity extends BaseActivity<IMsgView, MsgPresent<IMsgView>
             updateData();
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void selectMsgAndAnnouncement(MessageAndNoticeBean messageAndNoticeBean) {
+
     }
 }

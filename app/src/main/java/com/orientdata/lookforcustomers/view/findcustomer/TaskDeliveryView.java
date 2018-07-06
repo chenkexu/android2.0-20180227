@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.NetworkUtils;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.bean.OrderDeliveryBean;
@@ -186,13 +187,17 @@ public class TaskDeliveryView extends FrameLayout {
                 digital.setDigits(estimatePeoplerno);
                 break;
             case R.id.iv_speed: //戳我加速
+                if (!NetworkUtils.isConnected()) {
+                    ToastUtils.showShort("请检查网络连接");
+                    return;
+                }
                 int random = getRandom(1, 9);//取到随机数
                 final GoodView goodView = new GoodView(context);
                 goodView.setImage(getResources().getDrawable(images[random-1]));
                 goodView.setDistance(120);
                 goodView.setDuration(1200);
 
-                int currentTime =Integer.parseInt(tvtime.getText().toString().replace("s",""));
+                int currentTime = Integer.parseInt(tvtime.getText().toString().replace("s",""));
                 if (currentTime < Integer.parseInt(criticalValue)) { //小于60
                     goodView.show(ivSpeed);
                     currentTime = currentTime + Integer.parseInt(accelerateValueS); //当前时间
@@ -306,13 +311,12 @@ public class TaskDeliveryView extends FrameLayout {
 
             @Override
             public void onTick(long millisUntilFinished) {
-
                     tvtime.setText(millisUntilFinished /1000 +"s");
             }
 
             @Override
             public void onFinish() {
-
+                tvtime.setText(0 +"s");
             }
         };
         mCountDownTimer.start();

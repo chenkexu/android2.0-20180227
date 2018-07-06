@@ -2,9 +2,11 @@ package com.orientdata.lookforcustomers.view.home;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,11 +19,13 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -56,6 +60,7 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.blankj.utilcode.util.NetworkUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
@@ -69,6 +74,7 @@ import com.orientdata.lookforcustomers.bean.TaskCountBean;
 import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
+import com.orientdata.lookforcustomers.util.AppManager;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
@@ -82,10 +88,10 @@ import com.orientdata.lookforcustomers.view.home.fragment.MeActivity;
 import com.orientdata.lookforcustomers.widget.MyListView;
 import com.orientdata.lookforcustomers.widget.abslistview.CommonAdapter;
 import com.orientdata.lookforcustomers.widget.abslistview.ViewHolder;
-import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
 import com.orientdata.lookforcustomers.widget.dialog.RemindDialog;
 import com.qiniu.android.common.Constants;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -96,8 +102,18 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import q.rorbin.badgeview.QBadgeView;
 import vr.md.com.mdlibrary.utils.image.ImageUtil;
+import zhy.com.highlight.HighLight;
+import zhy.com.highlight.interfaces.HighLightInterface;
+import zhy.com.highlight.position.OnLeftPosCallback;
+import zhy.com.highlight.position.OnRightPosCallback;
+import zhy.com.highlight.position.OnTopPosCallback;
+import zhy.com.highlight.shape.CircleLightShape;
+import zhy.com.highlight.shape.RectLightShape;
 
+import static com.orientdata.lookforcustomers.R.id.bottom_sheet;
 import static com.orientdata.lookforcustomers.util.CommonUtils.getRandom2;
+import static com.qiniu.android.common.Constants.latitude;
+import static com.qiniu.android.common.Constants.longitude;
 
 
 /**
@@ -155,8 +171,12 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
     @BindView(R.id.task_delivery)
     TaskDeliveryView taskDeliveryView;
-
-
+    @BindView(R.id.cardView)
+    CardView cardView;
+    @BindView(R.id.ll_radius)
+    LinearLayout llRadius;
+    @BindView(R.id.frameLayout)
+    FrameLayout frameLayout;
 
 
     private MyLocationConfiguration.LocationMode mCurrentMode;
@@ -189,12 +209,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private MyLocationData locData;
 
 
-
-
-
     private int locationFlag;
 
-//    float[] mScaleLevel = {15.0f, 14.0f, 13.0f, 12.66f, 12.0f, 11.0f};
+    //    float[] mScaleLevel = {15.0f, 14.0f, 13.0f, 12.66f, 12.0f, 11.0f};
     float[] mScaleLevel = {15.6f, 15.0f, 14.0f, 14.00f, 13.0f, 12.0f};
 
 
@@ -235,6 +252,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
     private String mStrType;
 
+
     private String industryMark;
     private String industryNameStr;
 
@@ -262,6 +280,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private OrderDeliveryBean orderDeliveryBean;
 
     boolean showRedPoint = false;
+    private BigDecimal bg;
+    private float zoom;
 
     protected boolean isImmersionBarEnabled() {
         return false;
@@ -270,15 +290,17 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private long coolingTime = 0; //单位毫秒
 
 
-
+    private HighLight mHightLight;
 
     @OnClick({R.id.imageView_jingzhundingwei, R.id.iv_task,
             R.id.bt_go_orintion, R.id.iv_service,
             R.id.ll_at_create_find_customer_search, R.id.ll_down, R.id.iv_me})
     public void onViewClicked(View view) {
+        int status = -777;
         switch (view.getId()) {
             case R.id.iv_task: //显示任务进行中的布局
                 ivTask.setVisibility(View.GONE);
+
                 taskDeliveryView.setVisibility(View.VISIBLE);
                 break;
 //            case R.id.iv_close_task: //关闭任务
@@ -304,15 +326,23 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 LbsManager.getInstance().getLocation(myListener);
                 break;
             case R.id.bt_go_orintion: //打开定向设置
-
-                if (mCurrentLatLng==null || TextUtils.isEmpty(mCityCode)) {
+                status = findLocCityStatusByName(mProvinceName, mCityName);
+                if (!NetworkUtils.isConnected()) {
+                    ToastUtils.showShort("请检查网络连接");
+                    return;
+                }
+                if (status != 1) {
+                    ToastUtils.showShort(mCityName + "没有开通业务！");
+                    return;
+                }
+                if (mCurrentLatLng == null || TextUtils.isEmpty(mCityCode)) {
                     ToastUtils.showShort("网络错误，请重新定位");
                     return;
                 }
-
+                boolean b = requestCityStatus(mCityName);
                 this.intent = new Intent(MainHomeActivity.this, DirectionalSettingActivity3.class);
-                this.intent.putExtra(Constants.latitude, mCurrentLatLng.latitude + ""); //精度
-                this.intent.putExtra(Constants.longitude, mCurrentLatLng.longitude + ""); //维度
+                this.intent.putExtra(latitude, mCurrentLatLng.latitude + ""); //精度
+                this.intent.putExtra(longitude, mCurrentLatLng.longitude + ""); //维度
                 this.intent.putExtra("cityCode", mCityCode); //城市编码
                 this.intent.putExtra(Constants.mProvinceCode, mProvinceCode); //省编码
 
@@ -374,6 +404,32 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     }
 
 
+    public void showNextTipViewOnCreated() {
+        mHightLight = new HighLight(this)//
+                .autoRemove(false)
+                .intercept(true)
+                .enableNext()
+                .setOnLayoutCallback(new HighLightInterface.OnLayoutCallback() {
+                    @Override
+                    public void onLayouted() {
+                        mHightLight
+                                .addHighLight(R.id.ll_radius, R.layout.info_gravity_left_down2, new OnLeftPosCallback(50), new RectLightShape())
+                                .addHighLight(R.id.bt_go_orintion, R.layout.guide_info, new OnTopPosCallback(30), new RectLightShape())
+                                .addHighLight(R.id.iv_me, R.layout.info_gravity_left_down, new OnRightPosCallback(15), new CircleLightShape());
+                        //界面布局完成添加tipview
+                        //然后显示高亮布局
+                        mHightLight.show();
+                    }
+                })
+                .setClickCallback(new HighLight.OnClickCallback() {
+                    @Override
+                    public void onClick() {
+                        mHightLight.next();
+                    }
+                });
+        SharedPreferencesTool.getInstance().putBoolean(SharedPreferencesTool.guide_main, false);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -394,8 +450,23 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 .fullScreen(true)
                 .init();
         initData();
+        boolean booleanValue = SharedPreferencesTool.getInstance().getBooleanValue(SharedPreferencesTool.guide_main, true);
+        if (booleanValue) {
+            showNextTipViewOnCreated();
+        }
     }
 
+    /**
+     * 设置添加屏幕的背景透明度
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(Activity context, float bgAlpha) {
+        frameLayout.setAlpha(bgAlpha);
+//        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
+//        lp.alpha = bgAlpha;
+//        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//        context.getWindow().setAttributes(lp);
+    }
 
     private void initData() {
 //        long time4 = (long)2 * 24 * 60 * 60;
@@ -448,9 +519,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                mCurrentLatLng = latLng;
                 moveMapTo(latLng.latitude, latLng.longitude, true);
                 setMapCenterInfo(latLng, mCircleRadiusM[mCurrentRadiuPos]);
+                mCurrentLatLng = latLng;
             }
 
             @Override
@@ -477,20 +548,25 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
             @Override
             public void onMapStatusChangeFinish(MapStatus mapStatus) {
-                mCurrentLatLng = mapStatus.target;
-                setMapCenterInfo(mapStatus.target, mCircleRadiusM[mCurrentRadiuPos]);
-                //开始坐标转地址
-                mFromAction = 3;//来自地图移动
-                mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-                        .location(mapStatus.target)
-                        .newVersion(0));
-                mIsShowDialog = false;
+                float zoom = mapStatus.zoom;
+
+                if (Math.abs(MainHomeActivity.this.zoom - zoom) > 0.000001) {
+                    // 你的代码...
+                    MainHomeActivity.this.zoom = zoom;
+                    Logger.d("zoom", "缩放起了变化，现在缩放等级为" + zoom);
+                } else {
+                    mCurrentLatLng = mapStatus.target;
+                    //开始坐标转地址
+                    mFromAction = 3;//来自地图移动
+                    mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+                            .location(mapStatus.target)
+                            .newVersion(0));
+                    mIsShowDialog = true;
+                }
                 Logger.d("地图移动结束");
             }
         });
     }
-
-
 
 
     /**
@@ -498,7 +574,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
      */
     private void initView() {
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.sliding_layout);
-        View bottomSheet = coordinatorLayout.findViewById(R.id.bottom_sheet);
+        View bottomSheet = coordinatorLayout.findViewById(bottom_sheet);
         behavior = BottomSheetBehavior.from(bottomSheet);
         tv_at_create_find_customer_putlocation = (TextView) findViewById(R.id.tv_at_create_find_customer_putlocation);
         rl_map = findViewById(R.id.rl_map);
@@ -531,7 +607,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 // 刷新listview
                 strngCommonAdapter.notifyDataSetChanged();
                 setMapCenterInfo(mCurrentLatLng, mCircleRadiusM[mCurrentRadiuPos]);
-                moveMapTo(mCurrentLatLng.latitude,mCurrentLatLng.longitude,true,mScaleLevel[mCurrentRadiuPos]);
+                moveMapTo(mCurrentLatLng.latitude, mCurrentLatLng.longitude, true, mScaleLevel[mCurrentRadiuPos]);
 
             }
         });
@@ -541,18 +617,17 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 //这里是bottomSheet 状态的改变，根据slideOffset可以做一些动画
-//                if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) { //折叠
-//                    llDown.setVisibility(View.GONE);
-//                    llBannerScroll.getBackground().mutate().setAlpha(255);
-//                } else { //展开
-//                    llDown.setVisibility(View.VISIBLE);
-//                }
+                if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) { //折叠
+                    frameLayout.setForeground(new ColorDrawable(0xFFFFFF));
+                } else { //展开
+                    frameLayout.setForeground(new ColorDrawable(0xCC000000));
+//                    backgroundAlpha(MainHomeActivity.this,0.1f);
+                }
             }
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                 //这里是拖拽中的回调，根据slideOffset可以做一些动画
-                Logger.d("slideOffset:" + slideOffset);
                 if (slideOffset == 1.0) {
                     llDown.setVisibility(View.VISIBLE);
                 } else {
@@ -568,8 +643,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             @Override
             public void showTaskDetail() {
                 Intent intent = new Intent(MainHomeActivity.this, TaskDetailActivity.class);
-                if (orderDeliveryBean!=null) {
-                    intent.putExtra("taskId",orderDeliveryBean.getTask().getTaskId());
+                if (orderDeliveryBean != null) {
+                    intent.putExtra("taskId", orderDeliveryBean.getTask().getTaskId());
                 }
                 startActivity(intent);
             }
@@ -620,6 +695,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private void setMapCenterInfo(LatLng latLng, String radius) {
         int personNum = getRandom2(radius, mCityName);
         tvPersonNum.setText("当前范围约有" + personNum + "人");
+
         if (mBaiduMap == null || latLng == null) {
             Logger.e("mBaiduMap为空。。。。。");
             return;
@@ -635,7 +711,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         //绘制中心图标
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.icon_center);
         MarkerOptions options = new MarkerOptions();
-        options.position(mCurrentLatLng)        // 位置
+        options.position(latLng)        // 位置
                 .icon(icon)            // 图标
                 .anchor(0.5f, 0.5f);//设置 marker 覆盖物的锚点比例，默认（0.5f, 1.0f）水平居中，垂直下对齐
 
@@ -662,14 +738,14 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             case 2://搜索
                 if (data != null) {
                     addressInfo = (AddressSearchRecode) data.getSerializableExtra("searchValue");
+                    moveMapTo(addressInfo.getLatitude(), addressInfo.getLongitude(), true);
+                    setMapCenterInfo(new LatLng(addressInfo.getLatitude(), addressInfo.getLongitude()), mCircleRadiusM[mCurrentRadiuPos]);
                     mCurrentLatLng = new LatLng(addressInfo.getLatitude(), addressInfo.getLongitude());
                     //开始坐标转地址
                     mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                             .location(mCurrentLatLng)
                             .newVersion(0));
                     mFromAction = 4;
-                    moveMapTo(addressInfo.getLatitude(), addressInfo.getLongitude(), true);
-                    setMapCenterInfo(mCurrentLatLng, mCircleRadiusM[mCurrentRadiuPos]);
                 }
                 break;
             case 3: //定向设置
@@ -718,38 +794,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private String smsPrice = "";//短信单价
     private String pagePrice = "";//页面单价
 
-
-
-
-
-
-
-    private void showDialog() {
-        final ConfirmDialog dialog = new ConfirmDialog(this, "您的地域有变动，请重新设置任务", "确定", "确定");
-        dialog.show();
-        dialog.setConfirmVisibility(View.GONE);
-        dialog.setClickListenerInterface(new ConfirmDialog.ClickListenerInterface() {
-            @Override
-            public void doCancel() {
-                dialog.dismiss();
-                mIsShowDialog = true;
-                boolean b = requestCityStatus(mMoveCityName);
-                mCityName = mMoveCityName;
-                mCityCode = mMoveCityCode;
-                mProvinceName = mMoveProvinceName;
-                if (!TextUtils.isEmpty(mMoveAddress)) {
-                    tv_at_create_find_customer_putlocation.setText(mMoveAddress);
-                }
-//                tv_at_create_find_customer_location.setText(mCityName);
-            }
-
-            @Override
-            public void doConfirm() {
-                dialog.dismiss();
-            }
-        });
-    }
-
+    private boolean showErrorDialog = true;
 
 
     private void wipedata() {
@@ -775,11 +820,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         mCityPickPresent.getBannerPic();
 
 
-
     }
-
-
-
 
 
     /**
@@ -822,32 +863,25 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
     @Override
     public void getTaskDeliveryInfo(OrderDeliveryBean orderDeliveryBean) {
-        this.orderDeliveryBean = orderDeliveryBean;
-        if (orderDeliveryBean.getTask()==null) {
+        if (orderDeliveryBean == null) {
             taskDeliveryView.setVisibility(View.GONE);
-        }else{
+        } else if (orderDeliveryBean.getTask() == null) {
+            taskDeliveryView.setVisibility(View.GONE);
+        } else {
+            ivTask.setVisibility(View.GONE);
+            this.orderDeliveryBean = orderDeliveryBean;
             taskDeliveryView.setVisibility(View.VISIBLE);
             taskDeliveryView.setData(orderDeliveryBean);
-//            int status = orderDeliveryBean.getTask().getStatus();
-//            if (getStatus(status).equals("投放中")) {
-//                taskDeliveryView.setVisibility(View.VISIBLE);
-//                taskDeliveryView.setData(orderDeliveryBean);
-//            }else if(getStatus(status).equals("投放结束")){
-//                taskDeliveryView.setVisibility(View.VISIBLE);
-//                // TODO: 2018/6/28 展示结束的边框
-//                taskDeliveryView.setData(orderDeliveryBean);
-//            }
         }
-
-
     }
+
 
     @Override
     public void showRedPoint(TaskCountBean redCountBean) {
 
-        if (redCountBean.getUnReadAnnouncementNum()==0 && redCountBean.getUnReadMsgNum() == 0) {
+        if (redCountBean.getUnReadAnnouncementNum() == 0 && redCountBean.getUnReadMsgNum() == 0) {
             showRedPoint = false;
-        }else{
+        } else {
             showRedPoint = true;
             new QBadgeView(this).bindTarget(ivMe).setBadgePadding(3, true).setBadgeGravity(Gravity.END | Gravity.TOP).setBadgeNumber(-1);
         }
@@ -897,34 +931,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.bg_ac_create_find_customer_location)));
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
 
-        mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
-            @Override
-            public void onMapStatusChangeStart(MapStatus mapStatus) {
 
-            }
-
-            @Override
-            public void onMapStatusChangeStart(MapStatus mapStatus, int i) {
-
-            }
-
-            @Override
-            public void onMapStatusChange(MapStatus mapStatus) {
-                marker.setPosition(mapStatus.target);
-            }
-
-
-            //地图移动结束之后
-            @Override
-            public void onMapStatusChangeFinish(MapStatus mapStatus) {
-                mFromAction = 3;//来自地图移动
-                mIsShowDialog = false;
-                //开始坐标转地址
-                mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-                        .location(mapStatus.target)
-                        .newVersion(0));
-            }
-        });
         mFromAction = 4;//来自搜索
         mIsShowDialog = true;
 
@@ -955,7 +962,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
             locationFlag = 100;
 
-            moveMapTo(result.getLocation().latitude, result.getLocation().longitude, true,mScaleLevel[mCurrentRadiuPos]);
+            moveMapTo(result.getLocation().latitude, result.getLocation().longitude, true, mScaleLevel[mCurrentRadiuPos]);
 
             setMapCenterInfo(result.getLocation(), mCircleRadiusM[mCurrentRadiuPos]);
             if (result.getAddressDetail() != null) {
@@ -977,6 +984,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             if (result.getAddressDetail() != null) {
                 tv_at_create_find_customer_putlocation.setText(result.getAddress());
             }
+            setMapCenterInfo(result.getLocation(), mCircleRadiusM[mCurrentRadiuPos]);
         } else if (mFromAction == 4) {
             Logger.d("获得了经纬度转换地址的回调（来自搜索）城市为：" + addCom.city);
             mCityName = addCom.city;
@@ -985,6 +993,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
             tv_at_create_find_customer_putlocation.setText(address);
             moveMapTo(result.getLocation().latitude, result.getLocation().longitude, true);
+
             setMapCenterInfo(result.getLocation(), mCircleRadiusM[mCurrentRadiuPos]);
             if (result.getAddressDetail() != null) {
                 tv_at_create_find_customer_putlocation.setText(addressInfo.getAddress());
@@ -992,12 +1001,26 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         }
         mCurrentLatLng = result.getLocation();
         if (!TextUtils.isEmpty(mCityName)) {
-            Logger.d("最终获得的mCityName是:" + mCityName);
-            requestCityStatus(mCityName);
+            int status = findLocCityStatusByName(mProvinceName, mCityName);
+            if (status != 1 && mAreaOuts != null && mAreaOuts.size() > 0) {
+                ToastUtils.showShort(mCityName + "没有开通业务！");
+            }
         }
     }
 
-
+    private void showErrorDialog() {
+        final RemindDialog dialog = new RemindDialog(this, "", "抱歉," + mCityName + "未开通此业务~", R.mipmap.null_pass, "已了解");
+        dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
+            @Override
+            public void doCertificate() {
+                dialog.dismiss();
+                //stopLocation();
+            }
+        });
+        dialog.setCancelable(true);
+        dialog.show();
+        showErrorDialog = false;
+    }
 
     /**
      * 定位SDK监听函数
@@ -1049,6 +1072,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         mMapView.onPause();
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -1058,7 +1082,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 SensorManager.SENSOR_DELAY_UI);
         mCityPickPresent.getTaskDeliveryInfo();
         mCityPickPresent.showRedPoint();
-
     }
 
 
@@ -1080,13 +1103,12 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         //GEO destroy
         mSearch.destroy();
 
-        if (taskDeliveryView.getmCountDownTimer()!=null) {
+        if (taskDeliveryView.getmCountDownTimer() != null) {
             taskDeliveryView.getmCountDownTimer().cancel();
         }
-        if (taskDeliveryView.getCountDownTimer()!=null) {
+        if (taskDeliveryView.getCountDownTimer() != null) {
             taskDeliveryView.getCountDownTimer().cancel();
         }
-
 
 
     }
@@ -1168,19 +1190,10 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             for (AreaOut areaOut : mAreaOuts) {
                 if (areaOut.getName().equals(mProvinceName)) {
                     for (Area area : areaOut.getList()) {
-                        if (area.getName().equals(mCityName)) {
+                        if (area.getName().equals(cityName)) {
                             if (area.getStatus() == 0) {
                                 if (mIsShowDialog) {
-                                    final RemindDialog dialog = new RemindDialog(this, "", "抱歉," + cityName + "未开通此业务~", R.mipmap.null_pass, "已了解");
-                                    dialog.setClickListenerInterface(new RemindDialog.ClickListenerInterface() {
-                                        @Override
-                                        public void doCertificate() {
-                                            dialog.dismiss();
-                                            //stopLocation();
-                                        }
-                                    });
-                                    dialog.setCancelable(true);
-                                    dialog.show();
+                                    showErrorDialog();
                                 }
                                 return false;
                             } else {
@@ -1192,7 +1205,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             }
         }
         return false;
-
     }
 
 
@@ -1235,8 +1247,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     }
 
 
-
-
     /**
      * 机型适配
      *
@@ -1251,14 +1261,18 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         exit();
     }
 
-    private long clickTime = 0; //记录第一次点击的时间
+    private long exitTime; //记录第一次点击的时间
 
     private void exit() {
-        if ((System.currentTimeMillis() - clickTime) > 2000) {
-            ToastUtils.showShort("再按一次后退键退出程序");
-            clickTime = System.currentTimeMillis();
+        //显示在：发现Fragment
+        long nowTime = System.currentTimeMillis();
+        if ((nowTime - exitTime) <= 2000) {
+            AppManager.getAppManager().AppExit(this);
         } else {
-            this.finish();
+            ToastUtils.showShort("再按一次退出程序！");
+            exitTime = nowTime;
         }
     }
+
+
 }

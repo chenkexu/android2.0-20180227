@@ -4,6 +4,7 @@ import android.os.CountDownTimer;
 import android.text.TextUtils;
 
 import com.orientdata.lookforcustomers.bean.ErrBean;
+import com.orientdata.lookforcustomers.bean.LoginResultBean;
 import com.orientdata.lookforcustomers.event.LoginResultEvent;
 import com.orientdata.lookforcustomers.event.LogoutResultEvent;
 import com.orientdata.lookforcustomers.event.RegisterResultEvent;
@@ -79,12 +80,13 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
                     , mUserModel.getModel(),
                     mUserModel.getDeviceToken(), new ILoginModel.LoginComplete() {
                         @Override
-                        public void onSuccess(boolean isNewUser) {
+                        public void onSuccess(LoginResultBean response) {
                             codeId = "";
                             mLoginAndRegisterView.hideLoading();
                             LoginResultEvent loginResultEvent = new LoginResultEvent();
                             loginResultEvent.isLogin = true;
-                            loginResultEvent.isNewUser = isNewUser;
+                            loginResultEvent.isNewUser = response.isNewUser();
+                            loginResultEvent.userId = response.getUser().getUserId();
                             EventBus.getDefault().post(loginResultEvent);
                         }
 
@@ -132,11 +134,12 @@ public class LoginAndRegisterPresent<T> extends BasePresenter<ILoginAndRegisterV
                     mUserModel.getDeviceToken()
                     , new ILoginModel.LoginComplete() {
                         @Override
-                        public void onSuccess(boolean isNewUser) {
+                        public void onSuccess(LoginResultBean response) {
                             mLoginAndRegisterView.hideLoading();
                             LoginResultEvent loginResultEvent = new LoginResultEvent();
                             loginResultEvent.isLogin = true;
-                            loginResultEvent.isNewUser = isNewUser;
+                            loginResultEvent.isNewUser = response.isNewUser();
+                            loginResultEvent.userId = response.getUser().getUserId();
                             EventBus.getDefault().post(loginResultEvent);
                         }
 

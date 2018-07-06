@@ -10,11 +10,13 @@
 
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -48,6 +50,7 @@
                     app:cardElevation="10dp">
 
                     <LinearLayout
+                        android:id="@+id/ll_radius"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -215,7 +218,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="80dp"
+        app:behavior_peekHeight="90dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <LinearLayout

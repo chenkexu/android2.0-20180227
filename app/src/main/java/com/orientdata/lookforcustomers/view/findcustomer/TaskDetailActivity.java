@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
+import com.orientdata.lookforcustomers.bean.BannerBean;
 import com.orientdata.lookforcustomers.bean.OrderDeliveryBean;
 import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.bean.TaskOut;
@@ -19,9 +20,11 @@ import com.orientdata.lookforcustomers.bean.UploadPicBean;
 import com.orientdata.lookforcustomers.event.DeleteTaskEvent;
 import com.orientdata.lookforcustomers.event.TaskInfoEvent;
 import com.orientdata.lookforcustomers.presenter.TaskPresent;
+import com.orientdata.lookforcustomers.util.EventManager;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.ImagePagerActivity;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
+import com.orientdata.lookforcustomers.view.home.MainHomeActivity;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.qiniu.android.common.Constants;
 
@@ -78,6 +81,7 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
         mPresent.deletTask(task_id);
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,19 +89,42 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
         ButterKnife.bind(this);
         initTitle();
         initView();
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mPresent.getTaskDetail(task_id);
     }
+
+
 
     private void initView() {
         task_id = getIntent().getIntExtra("taskId", 0);
         taskDeliveryView.hideView();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        if (getIntent().getStringExtra(Constants.from_order_confirm)!=null) {
+            Intent intent = new Intent(this, MainHomeActivity.class);
+            startActivity(intent);
+        }else{
+            finish();
+        }
+    }
     private void initTitle() {
         myTitle.setRightText("再次创建");
         myTitle.setTitleName("订单详情");
         myTitle.setImageBack(this);
+        myTitle.setLeftImage(R.mipmap.ic_navigate_before, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    onBackPressed();
+            }
+        });
         myTitle.setRightTextClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,26 +202,30 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
             tvOrderId.setText("订单ID：" + taskOut.getTaskNo());
             tvOrderCreateTime.setText("创建时间：" + taskOut.getCreateDate());
             String status = getStatus(taskOut.getStatus());
-
-
             orderDetailView.setData(taskOut);
 
             switch (status) {
                 case "审核中":
+                    tv_order_err_descr.setVisibility(View.GONE);
                     btnSubmit.setVisibility(View.VISIBLE);
                     Glide.with(this).load(R.mipmap.order_detail_ing).into(ivOrderImage1);
                     Glide.with(this).load(R.mipmap.order_big_ing).into(ivOrderImage2);
                     break;
                 case "审核失败":
+                    btnSubmit.setVisibility(View.VISIBLE);
                     Glide.with(this).load(R.mipmap.order_detail_error).into(ivOrderImage1);
                     Glide.with(this).load(R.mipmap.order_big_error).into(ivOrderImage2);
+                    tv_order_err_descr.setVisibility(View.VISIBLE);
+                    tv_order_err_descr.setText("审核失败原因："+taskOut.getAuditFailReason());
                     break;
                 case "待投放":
+                    tv_order_err_descr.setVisibility(View.GONE);
                     Glide.with(this).load(R.mipmap.order_detail_pre).into(ivOrderImage1);
                     Glide.with(this).load(R.mipmap.order_big_suc).into(ivOrderImage2);
                     cardView.setVisibility(View.VISIBLE);
                     break;
                 case "投放中":
+                    tv_order_err_descr.setVisibility(View.GONE);
                     Glide.with(this).load(R.mipmap.order_detail_suc).into(ivOrderImage1);
                     taskDeliveryView.setVisibility(View.VISIBLE);
                     ivOrderImage2.setVisibility(View.GONE);
@@ -211,6 +242,7 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
 
                     break;
                 case "投放结束":
+                    tv_order_err_descr.setVisibility(View.GONE);
                     reportResult.setData(taskOut);
                     Glide.with(this).load(R.mipmap.order_detail_over).into(ivOrderImage1);
                     ivOrderImage2.setVisibility(View.GONE);
@@ -227,7 +259,11 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
     public void deleteTask(DeleteTaskEvent deleteTaskEvent) {
         if (deleteTaskEvent.errBean.getCode() == 0) {
             ToastUtils.showShort("删除成功！");
-            closeActivity(TaskDetailActivity.class);
+            String status = getStatus(taskOut.getStatus());
+            BannerBean bannerBean = new BannerBean();
+            bannerBean.setTitle(status);
+            EventManager.post(bannerBean);
+            closeActivity(MessageTaskNewActivity.class,TaskDetailActivity.class);
         }
 
     }

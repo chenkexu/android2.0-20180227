@@ -29,8 +29,9 @@ import com.orientdata.lookforcustomers.event.LoginResultEvent;
 import com.orientdata.lookforcustomers.event.ReLoginEvent;
 import com.orientdata.lookforcustomers.event.UpdateSmsStateEvent;
 import com.orientdata.lookforcustomers.network.callback.WrCallback;
-import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
+import com.orientdata.lookforcustomers.network.util.NetWorks;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
+import com.orientdata.lookforcustomers.push.TagAliasOperatorHelper;
 import com.orientdata.lookforcustomers.util.MyOpenActivityUtils;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
@@ -40,6 +41,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import vr.md.com.mdlibrary.UserDataManeger;
+
+import static com.orientdata.lookforcustomers.push.TagAliasOperatorHelper.ACTION_SET;
+import static com.orientdata.lookforcustomers.push.TagAliasOperatorHelper.sequence;
 
 /**
  * Created by wy on 2017/10/25.
@@ -65,19 +69,18 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     private TextView tvRegister;
     private static boolean reLogin = false;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         init(view);
         initEvent();
-
         return view;
     }
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         KeyboardDismisser.useWith(this);
     }
 
@@ -123,6 +126,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
 
     public static LoginFragment newInstance(boolean isReLogin) {
         reLogin = isReLogin;
+        Logger.d("打开登录界面。。。。");
         Bundle args = new Bundle();
         LoginFragment fragment = new LoginFragment();
         fragment.setArguments(args);
@@ -169,7 +173,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
             case R.id.tv_call_code:
                 final String phone = etAccount.getText().toString().trim();
                 showDefaultLoading();
-                NetWorkUtils.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
+                NetWorks.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
                     @Override
                     public void onSuccess(Response<WrResponse<Integer>> response) {
                         if (response!=null) {
@@ -257,12 +261,24 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
 
     }
 
+    //设置Jpush别名
+    private void setJpushAlias(String alias){
+        if(TextUtils.isEmpty(alias)){
+            return;
+        }
+        TagAliasOperatorHelper.TagAliasBean tagAliasBean = new TagAliasOperatorHelper.TagAliasBean();
+        tagAliasBean.action = ACTION_SET;
+        sequence++;
+        tagAliasBean.alias = alias;
+        tagAliasBean.isAliasAction = true;
+        TagAliasOperatorHelper.getInstance().handleAction(getActivity(),sequence,tagAliasBean);
+    }
 
     @Subscribe
     public void loginResult(LoginResultEvent loginResultEvent) {
-        
-
         if (!reLogin && loginResultEvent.isLogin) {//正常登录成功打开主页   重新登录不需要
+            Logger.d("登录成功。");
+            setJpushAlias(loginResultEvent.userId);
             MyOpenActivityUtils.openHomeActivity(getActivity(),loginResultEvent.isNewUser);
             //移除是否退出的标志位
             SharedPreferencesTool.getInstance().putBoolean(SharedPreferencesTool.USER_LOGOUT, false);

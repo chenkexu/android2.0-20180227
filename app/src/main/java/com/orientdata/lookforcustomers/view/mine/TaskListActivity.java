@@ -10,8 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.orhanobut.logger.Logger;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.base.BaseActivity;
+import com.orientdata.lookforcustomers.bean.BannerBean;
 import com.orientdata.lookforcustomers.bean.CertificationOut;
 import com.orientdata.lookforcustomers.bean.SearchListBean;
 import com.orientdata.lookforcustomers.presenter.HomePresent;
@@ -19,6 +21,8 @@ import com.orientdata.lookforcustomers.view.home.IHomeView;
 import com.orientdata.lookforcustomers.view.home.fragment.TaskListFragment;
 import com.orientdata.lookforcustomers.widget.MyTitle;
 import com.qiniu.android.common.Constants;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +40,7 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
 
     @BindView(R.id.tl_5)
     SlidingTabLayout tl5;
+
     @BindView(vp)
     ViewPager viewPager;
 
@@ -64,6 +69,7 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
         initView();
         initData();
         ButterKnife.bind(this);
+
         for (String title : mTitles) {
             TaskListFragment fragment = TaskListFragment.getInstance();
             fragment.setTitle(title);
@@ -73,8 +79,11 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
         viewPager.setAdapter(mAdapter);
         viewPager.setOffscreenPageLimit(0);
         tl5.setViewPager(viewPager);
+
+
         Intent intent = getIntent();
         String tasktype = intent.getStringExtra(Constants.taskType);
+
         if (tasktype!=null) {
             int positon = Arrays.binarySearch(mTitles, tasktype);
             viewPager.setCurrentItem(positon);
@@ -82,8 +91,19 @@ public class TaskListActivity extends BaseActivity<IHomeView, HomePresent<IHomeV
             viewPager.setCurrentItem(0);
         }
 
-
     }
+
+
+    @Subscribe
+    public void refreshResult(BannerBean bannerBean){
+        Logger.d("收到了重新删除的通知");
+        String title = bannerBean.getTitle();
+        int positon = Arrays.binarySearch(mTitles, title);
+        TaskListFragment item = (TaskListFragment) mAdapter.getItem(positon);
+        item.onRefresh();
+        viewPager.setCurrentItem(positon);
+    }
+
 
 
     private void initView() {

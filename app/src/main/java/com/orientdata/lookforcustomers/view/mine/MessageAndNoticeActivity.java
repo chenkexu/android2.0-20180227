@@ -72,7 +72,6 @@ public class MessageAndNoticeActivity extends BaseActivity<IMsgAndNoticeView, Ms
                 Intent intent = new Intent(MessageAndNoticeActivity.this, MsgDetailActivity.class);
                 List<MessageAndNoticeBean> data = messageAndToticeAdapter.getData();
                 intent.putExtra(Constants.MessageAndNoticeBean, data.get(position));
-
                 startActivity(intent);
 
             }
@@ -96,12 +95,6 @@ public class MessageAndNoticeActivity extends BaseActivity<IMsgAndNoticeView, Ms
     public void selectMsgAndAnnouncement(List<MessageAndNoticeBean> messageAndNoticeBeanList) {
         messageAndToticeAdapter.setNewData(messageAndNoticeBeanList);
     }
-
-
-
-
-
-
 
 
 

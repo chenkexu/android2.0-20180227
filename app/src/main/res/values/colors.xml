@@ -115,4 +115,5 @@
     <color name="dialog_text2">#7f7f7f</color>
 
     <color name="dialog_text">#7a7c85</color>
+    <color name="shadow">#cc222222</color>
 </resources>

@@ -26,7 +26,7 @@ import com.orientdata.lookforcustomers.bean.AgePushBean;
 import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.bean.TaskThrowInfo;
 import com.orientdata.lookforcustomers.util.AnimationUtil;
-import com.orientdata.lookforcustomers.widget.dialog.ConfirmDialog;
+import com.orientdata.lookforcustomers.widget.dialog.PushErrorDialog;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -218,19 +218,8 @@ public class PushResultReport extends FrameLayout {
 
 
     private void showDialog() {
-        final ConfirmDialog dialog = new ConfirmDialog(context, context.getString(R.string.report_quess),"我已了解");
-        dialog.show();
-        dialog.setClickListenerInterface(new ConfirmDialog.ClickListenerInterface() {
-            @Override
-            public void doCancel() {
-                dialog.dismiss();
-            }
-            @Override
-            public void doConfirm() {
-                dialog.dismiss();
-            }
-        });
-        dialog.setCancelVisibility(View.GONE);
+        PushErrorDialog pushErrorDialog = new PushErrorDialog(context);
+        pushErrorDialog.show();
     }
 
     class PhoneAdapter extends BaseQuickAdapter<String,BaseViewHolder> {

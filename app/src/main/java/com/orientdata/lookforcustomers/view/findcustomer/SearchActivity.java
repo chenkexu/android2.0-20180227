@@ -334,7 +334,6 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
         } else {
             addressAdapter.setNewData(null);
             addressAdapter.setEmptyView(R.layout.layout_no_content, (ViewGroup) rvAddressList.getParent());
-            ToastUtils.showShort("没有搜索结果");
         }
 
     }

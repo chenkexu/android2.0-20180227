@@ -53,6 +53,8 @@ public class MsgImple implements IMsgModel {
         }, map);
     }
 
+
+
     @Override
     public void msgInfo(final MsgInfoComplete msgInfoComplete, int pushMessageId) {
         String url = HttpConstant.MSG_DETAIL;
@@ -71,4 +73,6 @@ public class MsgImple implements IMsgModel {
             }
         }, map);
     }
+
+
 }

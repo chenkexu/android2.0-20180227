@@ -74,6 +74,23 @@ public class TaskOut implements Serializable{
     private int customFlag;
     private int peoples;
     private String industryName;
+    private String auditFailReason;
+
+    public String getAuditFailReason() {
+        return auditFailReason == null ? "" : auditFailReason;
+    }
+
+    public void setAuditFailReason(String auditFailReason) {
+        this.auditFailReason = auditFailReason;
+    }
+
+    public OrderDeliveryBean getExpediteInfo() {
+        return expediteInfo;
+    }
+
+    public void setExpediteInfo(OrderDeliveryBean expediteInfo) {
+        this.expediteInfo = expediteInfo;
+    }
 
     public int getPeoples() {
         return peoples;

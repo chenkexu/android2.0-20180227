@@ -129,7 +129,6 @@ public class MyApplication extends MyApp {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
 
-
         //初始化数据库
         LitePal.initialize(this);
 

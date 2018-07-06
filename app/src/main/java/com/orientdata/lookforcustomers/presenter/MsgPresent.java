@@ -1,17 +1,23 @@
 package com.orientdata.lookforcustomers.presenter;
 
 import com.orientdata.lookforcustomers.bean.ErrBean;
+import com.orientdata.lookforcustomers.bean.MessageAndNoticeBean;
 import com.orientdata.lookforcustomers.bean.MsgListBean;
-import com.orientdata.lookforcustomers.bean.ResultBean;
-import com.orientdata.lookforcustomers.event.MsgInfoEvent;
+import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.event.MsgListEvent;
 import com.orientdata.lookforcustomers.event.MsgUpdateEvent;
 import com.orientdata.lookforcustomers.model.IMsgModel;
 import com.orientdata.lookforcustomers.model.imple.MsgImple;
+import com.orientdata.lookforcustomers.network.api.ApiManager;
+import com.orientdata.lookforcustomers.network.api.BaseObserver;
+import com.orientdata.lookforcustomers.network.api.ParamsUtil;
+import com.orientdata.lookforcustomers.network.util.RxUtil;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.home.IMsgView;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
 
 /**
  * Created by wy on 2017/12/5.
@@ -30,6 +36,8 @@ public class MsgPresent<T> extends BasePresenter<IMsgView> {
     public void fecth() {
 
     }
+
+
     public void msgList(){
         if(mMsgModel!=null){
             mMsgView.showLoading();
@@ -50,6 +58,9 @@ public class MsgPresent<T> extends BasePresenter<IMsgView> {
             });
         }
     }
+
+
+
     public void updateMsg(String ids){
         if(mMsgModel!=null){
             mMsgView.showLoading();
@@ -74,25 +85,62 @@ public class MsgPresent<T> extends BasePresenter<IMsgView> {
     }
 
 
-    public void msgInfo(int pushMessageId){
-        if(mMsgModel!=null){
-            mMsgView.showLoading();
-            mMsgModel.msgInfo(new IMsgModel.MsgInfoComplete() {
-                @Override
-                public void onSuccess(ResultBean result) {
-                    mMsgView.hideLoading();
-                    MsgInfoEvent msgInfoEvent = new MsgInfoEvent();
-                    msgInfoEvent.result = result;
-                    EventBus.getDefault().post(msgInfoEvent);
-                }
 
-                @Override
-                public void onError(int code, String message) {
-                    mMsgView.hideLoading();
-                    ToastUtils.showShort(message);
-                }
-            },pushMessageId);
-        }
+    public void updateUserAnnStatus(int announcementId){
+
+        HashMap<String, Object> map = ParamsUtil.getMap();
+        map.put("announcementId", announcementId + "");
+        ApiManager.getInstence().getApiService().updateUserAnnStatus(ParamsUtil.getParams(map))
+                .compose(RxUtil.<WrResponse<MessageAndNoticeBean>>rxSchedulerHelper())
+                .subscribe(new BaseObserver<MessageAndNoticeBean>() {
+                    @Override
+                    protected void onSuccees(WrResponse<MessageAndNoticeBean> t) {
+                        if (t.getResult()!=null) {
+                            mMsgView.selectMsgAndAnnouncement(t.getResult());
+                        }
+                    }
+
+                    @Override
+                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
+                        ToastUtils.showShort(errorInfo);
+                    }
+//                    @Override
+//                    protected void onSuccees(WrResponse t) {
+//                        mMsgView.selectMsgAndAnnouncement(t.getResult());
+//                    }
+//
+//                    @Override
+//                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
+//                        ToastUtils.showShort(errorInfo);
+//                    }
+                });
+    }
+
+
+
+
+
+    //更新消息小红点
+    public void msgInfo(int pushMessageId){
+        HashMap<String, Object> map = ParamsUtil.getMap();
+        map.put("pushMessageId", pushMessageId + "");
+        ApiManager.getInstence().getApiService().selectMsgInfo(ParamsUtil.getParams(map))
+                .compose(RxUtil.<WrResponse<MessageAndNoticeBean>>rxSchedulerHelper())
+                .subscribe(new BaseObserver<MessageAndNoticeBean>() {
+                    @Override
+                    protected void onSuccees(WrResponse<MessageAndNoticeBean> t) {
+                        if (t.getResult()!=null) {
+                            mMsgView.selectMsgAndAnnouncement(t.getResult());
+                        }
+
+                    }
+
+                    @Override
+                    protected void onFailure(String errorInfo, boolean isNetWorkError) {
+
+                    }
+                });
+
     }
 
 

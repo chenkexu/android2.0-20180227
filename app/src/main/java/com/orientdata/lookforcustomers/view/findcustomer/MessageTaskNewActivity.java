@@ -268,6 +268,10 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                     testCmPhone = etTestCm.getText().toString();
                     testCuPhone = etTestCu.getText().toString();
                     testCtPhone = etTestCt.getText().toString();
+                    if (testCmPhone.equals("")&&testCuPhone.equals("")&&testCtPhone.equals("")) {
+                        ToastUtils.showShort("请输入测试号码。");
+                        return;
+                    }
 
                     if (!TextUtils.isEmpty(testCmPhone)) {
                         if (!CommonUtils.isPhoneNum(testCmPhone)) {
@@ -840,9 +844,10 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
 
 
 
-    private String mNowDateText;
-    private String startDateText; //开始时间的文本
     private String endDateText;
+
+    private String mNowDateText = DEFAULT_STR;
+    private String startDateText = DEFAULT_STR ; //开始时间的文本
     /**
      * 开始日期
      *

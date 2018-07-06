@@ -33,6 +33,7 @@ import com.orientdata.lookforcustomers.bean.SettingOut;
 import com.orientdata.lookforcustomers.presenter.DirectionalSettingPresentNew;
 import com.orientdata.lookforcustomers.util.BitmapUtil;
 import com.orientdata.lookforcustomers.util.CommonUtils;
+import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.view.certification.fragment.ACache;
 import com.orientdata.lookforcustomers.view.findcustomer.MessageTaskNewActivity;
@@ -53,6 +54,10 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import zhy.com.highlight.HighLight;
+import zhy.com.highlight.interfaces.HighLightInterface;
+import zhy.com.highlight.position.OnTopPosCallback;
+import zhy.com.highlight.shape.RectLightShape;
 
 
 /**
@@ -97,7 +102,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     ImageView collectAddress;
 
 
-
     @BindView(R.id.tv_address)
     TextView tvAddress;
     @BindView(R.id.tv_scope)
@@ -127,6 +131,8 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     ScrollView scrollView;
     @BindView(R.id.tv_person_num)
     TextView tvPersonNum;
+    @BindView(R.id.ll_ligit)
+    LinearLayout llLigit;
 
 
     private SettingOut settingOuts = null; //后台返回的数据
@@ -135,9 +141,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
     private RelativeLayout hobby_from;
     private RelativeLayout hobby_to;//商业兴趣
-
-
-
 
 
     private TextView tv_mHobbyOne;//商业兴趣 一级
@@ -151,7 +154,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private List<String> hobbyList = new ArrayList<>(); //兴趣点数组集合
     private Map<String, List<String>> hobbyMap = null;//存储兴趣Map(key：兴趣名称，value:二级兴趣点)
 
-//    private OrientationSettingsOut orientationSettingsOut = null;//数据缓存，之前的任务的数据
+    //    private OrientationSettingsOut orientationSettingsOut = null;//数据缓存，之前的任务的数据
     private List<String> agesFrom = new ArrayList<>();
     private List<String> agesTo = new ArrayList<>();
     private List<String> sexs = new ArrayList<>();
@@ -160,12 +163,11 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private String industryMark = ""; //是否自定义行业
 
     private String industryNameStr = ""; //选择的行业
-    private String[] industrysStr = {"餐饮", "3C数码", "汽车用品", "母婴用品", "美容美发", "鲜花礼品", "汽车用品", "自定义","不限"};
+    private String[] industrysStr = {"餐饮", "3C数码", "汽车用品", "母婴用品", "美容美发", "鲜花礼品", "汽车用品", "自定义", "不限"};
     private String[] sexsSelects = {"不限", "男", "女"};
     private String[] agesSelects = {"不限", "自定义"};
 
     private int sexPosition = 0;
-
 
 
     private AddressCollectInfo addressCollectInfo;
@@ -179,7 +181,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private String ageB = "不限";  //最后的终止年龄
     private String sex = "不限";   //性别
     private String industryStr = "不限"; //行业
-    private  int labelNum = 0;  //标签的数量
+    private int labelNum = 0;  //标签的数量
     private String mCityName;
     private String currentCircleRadius;
     private String cityCode = ""; //当前城市的cityCode
@@ -190,8 +192,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     private String interestIds = "";//兴趣名称数组,以逗号隔开的 如 "教育,学前教育,东磁教育"
 
     private boolean mIsLike = false; //没有收藏
-
-
+    private HighLight mHightLight;
 
 
     protected boolean isImmersionBarEnabled() {
@@ -204,8 +205,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     public void getPretask(PreOut preOut) {
 
 
-
-        Logger.d("定向设置的内容是:"+ageF+ageB+sex+industryStr+cityCode);
+        Logger.d("定向设置的内容是:" + ageF + ageB + sex + industryStr + cityCode);
         Intent intent = new Intent(this, MessageTaskNewActivity.class);
 
         intent.putExtra("ageF", ageF);
@@ -230,19 +230,16 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
         personNumStr = tvPersonNum.getText().toString();
 
-        personNumStr = personNumStr.substring(12, personNumStr.length()-1);
+        personNumStr = personNumStr.substring(12, personNumStr.length() - 1);
 
-        intent.putExtra(Constants.all_person,personNumStr);
-        intent.putExtra(Constants.mProvinceCode,mProvinceCode);
+        intent.putExtra(Constants.all_person, personNumStr);
+        intent.putExtra(Constants.mProvinceCode, mProvinceCode);
 
         startActivity(intent);
     }
 
 
-
-
-
-    private  void obtainData() {
+    private void obtainData() {
         for (Map.Entry<String, List<String>> map : hobbyMap.entrySet()) {
             String key = map.getKey(); //查到的兴趣名称
             List<String> listStr = map.getValue();//查到的兴趣二级标签
@@ -293,26 +290,9 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @OnClick({R.id.collect_address, R.id.iv_back, R.id.tv_quess, R.id.tv_no_limit, R.id.iv_kefu, R.id.iv_xunke_now,
             R.id.hobby_from, R.id.hobby_to, R.id.tv_3c, R.id.tv_baihe, R.id.tv_canyin, R.id.tv_muying, R.id.tv_hair, R.id.tv_flower, R.id.zidingyi, R.id.tv_car})
-    public void onViewClicked (View view){
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_xunke_now:
                 obtainData();
@@ -375,7 +355,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
 
     @Override
-    protected void onCreate (Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directional_setting_new);
         ButterKnife.bind(this);
@@ -387,10 +367,44 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
                 .statusBarView(R.id.top_view)
                 .fullScreen(true)
                 .init();
-//        EasyTransition.enter(this);
+
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        boolean booleanValue = SharedPreferencesTool.getInstance().getBooleanValue(SharedPreferencesTool.guide_dir, true);
+        if (booleanValue) {
+            showNextTipView();
+        }
+    }
 
+    private void showNextTipView() {
+        //
+//界面布局完成添加tipview
+//然后显示高亮布局
+        mHightLight = new HighLight(this)//
+                .autoRemove(false)
+                .intercept(true)
+                .enableNext()
+                .setOnLayoutCallback(new HighLightInterface.OnLayoutCallback() {
+                    @Override
+                    public void onLayouted() {
+                        mHightLight.addHighLight(R.id.ll_ligit, R.layout.guide_dir_view, new OnTopPosCallback(30), new RectLightShape());
+                        //界面布局完成添加tipview
+                        //然后显示高亮布局
+                        mHightLight.show();
+                    }
+                })
+                .setClickCallback(new HighLight.OnClickCallback() {
+                    @Override
+                    public void onClick() {
+                        mHightLight.next();
+                    }
+                });
+        SharedPreferencesTool.getInstance().putBoolean(SharedPreferencesTool.guide_dir,false);
+    }
 
 
     private void initData() {
@@ -413,14 +427,14 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
             return;
         }
 
-        for (AddressCollectInfo address : addressCollectInfo){
-            if (address.getLatitude().equals(latitude.substring(0,latitude.indexOf(".")+5))
-                    && address.getLongitude().equals(longitude.substring(0,longitude.indexOf(".")+5))) {
+        for (AddressCollectInfo address : addressCollectInfo) {
+            if (address.getLatitude().equals(latitude.substring(0, latitude.indexOf(".") + 5))
+                    && address.getLongitude().equals(longitude.substring(0, longitude.indexOf(".") + 5))) {
                 this.addressCollectInfo = address;
                 collectAddress.setImageResource(R.mipmap.icon_collect_dir);
                 mIsLike = true;
                 return;
-            }else{
+            } else {
                 mIsLike = false;
             }
 
@@ -460,16 +474,15 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-
-
     private void showDialog() {
-        final ConfirmDialog dialog = new ConfirmDialog(this, getString(R.string.dir_quess),"我已了解");
+        final ConfirmDialog dialog = new ConfirmDialog(this, getString(R.string.dir_quess), "我已了解");
         dialog.show();
         dialog.setClickListenerInterface(new ConfirmDialog.ClickListenerInterface() {
             @Override
             public void doCancel() {
                 dialog.dismiss();
             }
+
             @Override
             public void doConfirm() {
 
@@ -517,10 +530,8 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         hobby_to.setOnClickListener(this);
 
 
-
         ShadowDrawable.setShadowDrawable(ivBaiMapPic, ShadowDrawable.SHAPE_CIRCLE, Color.parseColor("#FF3D00"),
                 dpToPx(8), Color.parseColor("#991DE9B6"), dpToPx(6), dpToPx(4), dpToPx(4));
-
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -528,15 +539,12 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         rvAge.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvSex.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        final Adapter adaptersex = new Adapter(Arrays.asList(sexsSelects),1);
+        final Adapter adaptersex = new Adapter(Arrays.asList(sexsSelects), 1);
         rvSex.setAdapter(adaptersex);
 
-        final Adapter adapterAge = new Adapter(Arrays.asList(agesSelects),0);
+        final Adapter adapterAge = new Adapter(Arrays.asList(agesSelects), 0);
 
         rvAge.setAdapter(adapterAge);
-
-
-
 
 
         adaptersex.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -635,7 +643,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
             address = intent.getStringExtra("address");
             byte[] bitmaps = intent.getByteArrayExtra("bitmap");
             tvAddress.setText(address);
-            tvScope.setText(currentCircleRadius+"m");
+            tvScope.setText(currentCircleRadius + "m");
             ivBaiMapPic.setImageBitmap(BitmapUtil.Bytes2Bitmap(bitmaps));
             if (!industryStr.equals("自定义")) {
                 personNumStr = CommonUtils.getPersonNum(currentCircleRadius, mCityName, ageF, ageB, sex, industryStr, labelNum);
@@ -653,7 +661,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
         private int type;
 
-        public Adapter(@Nullable List<String> data,int type) {
+        public Adapter(@Nullable List<String> data, int type) {
             super(R.layout.item_categroy_select, data);
             this.type = type;
         }
@@ -665,7 +673,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
             if (sexPosition == layoutPosition) {
                 helper.setTextColor(R.id.tv_title, getResources().getColor(R.color.white));
                 helper.setBackgroundRes(R.id.rl_title, R.drawable.btn_selec);
-            } else if(type == 0){
+            } else if (type == 0) {
                 helper.setTextColor(R.id.tv_title, getResources().getColor(R.color.text_gray_new));
                 helper.setBackgroundRes(R.id.rl_title, R.drawable.btn_no_selec_border);
             } else {
@@ -674,20 +682,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -816,9 +810,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-
-
-
     /**
      * 保存之前 自上而下判空 并提示
      */
@@ -857,23 +848,19 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-
-
     @Override
     protected DirectionalSettingPresentNew<IDirectionalSettingView3> createPresent() {
         return new DirectionalSettingPresentNew<>(this);
     }
 
 
-
-
-
     /**
      * 选择兴趣动态加入框中
+     *
      * @param data
      */
     private void addHobbyToFrame(final List<String> data) {
-        if (data!=null) {
+        if (data != null) {
             labelNum = data.size();
             personNumStr = CommonUtils.getPersonNum(currentCircleRadius, mCityName, ageF, ageB, sex, industryStr, labelNum);
             tvPersonNum.setText(personNumStr);
@@ -909,7 +896,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
                     public void onClick(View v) {
                         data.remove(his);
                         labelNum = data.size();
-                        if (labelNum!=0) {
+                        if (labelNum != 0) {
                             personNumStr = CommonUtils.getPersonNum(currentCircleRadius, mCityName, ageF, ageB, sex, industryStr, labelNum);
                         }
 
@@ -1015,6 +1002,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
     /**
      * 兴趣二级dialog
+     *
      * @param listString
      * @param view
      */
@@ -1082,6 +1070,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
     /**
      * 重置--兴趣数据
+     *
      * @param position
      */
     private void updateHobbyFromData(int position) {
@@ -1117,8 +1106,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
     }
 
 
-
-
     //设置行业TextView的状态
     private void setTextState(int index, boolean isSelected) {
         for (int i = 0; i < industrys.size(); i++) {
@@ -1136,7 +1123,6 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
 
         industryStr = industrysStr[index];
     }
-
 
 
     //设置各个行业TextView的状态
@@ -1160,6 +1146,7 @@ public class DirectionalSettingActivity3 extends BaseActivity<IDirectionalSettin
         finish();
 
     }
+
     private int dpToPx(int dp) {
         return (int) (Resources.getSystem().getDisplayMetrics().density * dp + 0.5f);
     }

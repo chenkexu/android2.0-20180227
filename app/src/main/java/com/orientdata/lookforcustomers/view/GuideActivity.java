@@ -56,7 +56,6 @@ public class GuideActivity extends BasePermissionActivity{
                 @Override
                 public void run() {
                     boolean loginout = SharedPreferencesTool.getInstance().getBooleanValue(SharedPreferencesTool.USER_LOGOUT, true);
-
                     if (loginout) {   //已经退出,进入登录界面，或者找不到该变量（默认为true）
                         startActivity(new Intent(GuideActivity.this, LoginAndRegisterActivity.class));
                         finish();

@@ -124,7 +124,7 @@ public class AppManager {
 	 */
 	public void AppExit(Context context) {
 		try {
-//			finishAllActivity();
+			finishAllActivity();
 			ActivityManager activityMgr= (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 			activityMgr.restartPackage(context.getPackageName());
 			System.exit(0);

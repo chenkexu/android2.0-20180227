@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:text="这里可以快速查看\n附近的人数哦"
+        android:id="@+id/id_iv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/id_iv_tip"-->
+        <!--android:src="@drawable/jt_down"/>-->
+
+</RelativeLayout>

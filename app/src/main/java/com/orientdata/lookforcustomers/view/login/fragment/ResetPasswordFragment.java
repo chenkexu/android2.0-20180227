@@ -28,7 +28,7 @@ import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.event.ResetPasswordResultEvent;
 import com.orientdata.lookforcustomers.event.UpdateSmsStateEvent;
 import com.orientdata.lookforcustomers.network.callback.WrCallback;
-import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
+import com.orientdata.lookforcustomers.network.util.NetWorks;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
@@ -124,7 +124,7 @@ public class ResetPasswordFragment extends BaseFragment implements View.OnClickL
                     return;
                 }
                 showDefaultLoading();
-                NetWorkUtils.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
+                NetWorks.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
                     @Override
                     public void onSuccess(Response<WrResponse<Integer>> response) {
                         if (response!=null) {

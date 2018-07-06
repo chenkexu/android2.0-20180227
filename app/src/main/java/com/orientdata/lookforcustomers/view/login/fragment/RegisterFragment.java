@@ -31,7 +31,7 @@ import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.event.RegisterResultEvent;
 import com.orientdata.lookforcustomers.event.UpdateSmsStateEvent;
 import com.orientdata.lookforcustomers.network.callback.WrCallback;
-import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
+import com.orientdata.lookforcustomers.network.util.NetWorks;
 import com.orientdata.lookforcustomers.presenter.LoginAndRegisterPresent;
 import com.orientdata.lookforcustomers.util.MyOpenActivityUtils;
 import com.orientdata.lookforcustomers.util.RxUtils;
@@ -172,7 +172,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             case R.id.tv_call_code:
                 final String phone = etAccount.getText().toString().trim();
                 showDefaultLoading();
-                NetWorkUtils.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
+                NetWorks.phoneIsRegiste(phone, new WrCallback<WrResponse<Integer>>() {
                     @Override
                     public void onSuccess(Response<WrResponse<Integer>> response) {
                         if (response!=null) {

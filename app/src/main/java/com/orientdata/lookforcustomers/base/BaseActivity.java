@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import com.gyf.barlibrary.ImmersionBar;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.presenter.BasePresenter;
+import com.orientdata.lookforcustomers.util.AppManager;
 import com.orientdata.lookforcustomers.util.OsUtil;
 import com.umeng.analytics.MobclickAgent;
 
@@ -52,6 +53,7 @@ public abstract class  BaseActivity<V, T extends BasePresenter<V>> extends AppCo
         //初始化沉浸式
         if (isImmersionBarEnabled())
             initImmersionBar();
+        AppManager.getAppManager().addActivity(this);
     }
 
 

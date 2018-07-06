@@ -483,7 +483,7 @@
 
         <!-- User defined.  For test only  用户自定义的广播接收器-->
         <receiver
-            android:name=".push.MyReceiver"
+            android:name=".push.MyJPushReceiver"
             android:exported="false"
             android:enabled="true">
             <intent-filter>

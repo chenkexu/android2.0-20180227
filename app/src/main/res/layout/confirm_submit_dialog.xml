@@ -41,7 +41,6 @@
             android:id="@+id/tvConfirm"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-
             android:background="@drawable/bac_rec_border"
             android:gravity="center"
             android:text="确定"
@@ -49,6 +48,7 @@
             android:textSize="15sp" />
 
         <TextView
+
             android:layout_marginLeft="30dp"
             android:id="@+id/tvCancel"
             android:layout_width="100dp"

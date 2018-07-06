@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_circle_white_load_bg1"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="8dp">
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_gray"
+        android:text="触达失败"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="1、触达失败不计费，订单结束后将退回账户余额."
+        android:textColor="@color/text_gray"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="2、短信触达失败的主要原因:"
+        android:textColor="@color/text_gray"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:text="①：用户未开机"
+        android:id="@+id/tv_address_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/text_gray"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:text="②：用户不在服务区"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/text_gray"
+        android:textSize="14sp" />
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:text="③：手机已注销"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/text_gray"
+        android:textSize="14sp" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bac_rec_border"
+            android:gravity="center"
+            android:text="我已了解"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

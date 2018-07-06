@@ -1,16 +1,34 @@
 package com.orientdata.lookforcustomers.push;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
+
+import cn.jpush.android.api.JPushMessage;
+import cn.jpush.android.service.JPushMessageReceiver;
 
 /**
- * Created by ckx on 2018/5/15.
- */
+ * 自定义JPush message 接收器,包括操作tag/alias的结果返回(仅仅包含tag/alias新接口部分)
+ * */
+public class MyJPushMessageReceiver extends JPushMessageReceiver {
 
-public class MyJPushMessageReceiver extends BroadcastReceiver {
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onTagOperatorResult(Context context, JPushMessage jPushMessage) {
+        TagAliasOperatorHelper.getInstance().onTagOperatorResult(context,jPushMessage);
+        super.onTagOperatorResult(context, jPushMessage);
+    }
+    @Override
+    public void onCheckTagOperatorResult(Context context, JPushMessage jPushMessage){
+        TagAliasOperatorHelper.getInstance().onCheckTagOperatorResult(context,jPushMessage);
+        super.onCheckTagOperatorResult(context, jPushMessage);
+    }
+    @Override
+    public void onAliasOperatorResult(Context context, JPushMessage jPushMessage) {
+        TagAliasOperatorHelper.getInstance().onAliasOperatorResult(context,jPushMessage);
+        super.onAliasOperatorResult(context, jPushMessage);
+    }
 
+    @Override
+    public void onMobileNumberOperatorResult(Context context, JPushMessage jPushMessage) {
+//        TagAliasOperatorHelper.getInstance().onMobileNumberOperatorResult(context,jPushMessage);
+        super.onMobileNumberOperatorResult(context, jPushMessage);
     }
 }

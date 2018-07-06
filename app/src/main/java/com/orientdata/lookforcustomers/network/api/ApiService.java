@@ -63,11 +63,6 @@ public interface ApiService {
 
 
 
-    //查询任务投递信息
-    @GET("app/taskThrowExpedite")
-    Observable<WrResponse<Object>> getTaskThrowExpedite(@QueryMap HashMap<String, Object> map);
-
-
     //上传短信任务
     @FormUrlEncoded
     @POST("app/v1.1/task/insertTask")
@@ -93,18 +88,22 @@ public interface ApiService {
     Observable<WrResponse<List<MessageAndNoticeBean>>> selectMsgAndAnnouncement(@QueryMap HashMap<String, Object> map);
 
 
-
-
     //显示小红点
     @GET("app/getUnReadMsgAndUnReadAnnouncement")
     Observable<WrResponse<TaskCountBean>> getUnReadMsgAndUnReadAnnouncement(@QueryMap HashMap<String, Object> map);
 
 
 
+    //更新公告小红点
+    @FormUrlEncoded
+    @POST("app/announcement/selectAnnouncementInfo")
+    Observable<WrResponse<MessageAndNoticeBean>> updateUserAnnStatus(@FieldMap HashMap<String, Object> map);
 
 
-    //获取任务单价和任务几天之后可以创建
-    Observable<WrResponse<Object>> selectPriceAndDate(@QueryMap HashMap<String, Object> map);
+    @FormUrlEncoded
+    @POST("app/msg/selectMsgInfo")
+    Observable<WrResponse<MessageAndNoticeBean>> selectMsgInfo(@FieldMap HashMap<String, Object> map);
+
 
 
 

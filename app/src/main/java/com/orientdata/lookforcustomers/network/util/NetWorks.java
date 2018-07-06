@@ -17,7 +17,8 @@ import vr.md.com.mdlibrary.okhttp.requestMap.MDBasicRequestMap;
  * Created by 陈柯旭 on 2018/4/4.
  */
 
-public class NetWorkUtils {
+public class NetWorks {
+
 
 
     //获取要展示的测试号

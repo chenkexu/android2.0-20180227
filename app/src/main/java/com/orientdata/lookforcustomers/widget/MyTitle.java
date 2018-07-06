@@ -96,6 +96,11 @@ public class MyTitle extends RelativeLayout {
         }
     }
 
+
+
+
+
+
     /**
      * 设置左侧按钮的文字，显示文字时，图片隐藏
      */
@@ -126,6 +131,10 @@ public class MyTitle extends RelativeLayout {
             mViewLeft.setOnClickListener(listener);
         }
     }
+
+
+
+
 
     /**
      * 设置点击左侧图片，关闭当前activity

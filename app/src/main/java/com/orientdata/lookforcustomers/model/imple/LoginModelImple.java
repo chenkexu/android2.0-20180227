@@ -39,11 +39,13 @@ public class LoginModelImple implements ILoginModel {
                     UserDataManeger.getInstance().saveUserToken(response.getToken());
                     //todo 存储user对象
                     SharedPreferencesTool.getInstance().setObject(response.getUser(), SharedPreferencesTool.user);
-                    loginComplete.onSuccess(response.isNewUser());
+                    loginComplete.onSuccess(response);
                 }
             }
         }, map);
     }
+
+
 
     @Override
     public void authCodeLogin(String account, String code
@@ -68,7 +70,9 @@ public class LoginModelImple implements ILoginModel {
                 if (response.getErr().getCode() == 0) {
                     UserDataManeger.getInstance().setUserId(response.getUser().getUserId());
                     UserDataManeger.getInstance().saveUserToken(response.getToken());
-                    loginComplete.onSuccess(response.isNewUser());
+                    //todo 存储user对象
+                    SharedPreferencesTool.getInstance().setObject(response.getUser(), SharedPreferencesTool.user);
+                    loginComplete.onSuccess(response);
                 }
             }
         }, map);

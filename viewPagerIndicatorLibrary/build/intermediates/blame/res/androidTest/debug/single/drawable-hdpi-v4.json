@@ -56,12 +56,12 @@
         "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable-hdpi-v4\\abc_ic_ab_back_mtrl_am_alpha.png"
     },
     {
-        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
-        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
-    },
-    {
         "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_ic_star_half_black_16dp.png",
         "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable-hdpi-v4\\abc_ic_star_half_black_16dp.png"
+    },
+    {
+        "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
+        "source": "C:\\Users\\ckx\\.android\\build-cache\\de3c9999cd7bc0aee7fd937ff406a80e15cda69d\\output\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
         "merged": "F:\\AndroidProjects\\android2.0-20180227\\viewPagerIndicatorLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png",

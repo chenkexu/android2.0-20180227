@@ -146,7 +146,7 @@ dependencies {
 
     //沉浸式
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
-    compile 'com.blankj:utilcode:1.16.4'
+    compile 'com.blankj:utilcode:1.17.2'
     //图片缩放
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
     //友盟统计
@@ -175,6 +175,9 @@ dependencies {
     //compile 'com.robinhood.ticker:ticker:2.0.0'
     //tab
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
+    //新手引导
+    compile 'com.isanwenyu.highlight:highlight:1.8.0'
 }
 allprojects {
     repositories {

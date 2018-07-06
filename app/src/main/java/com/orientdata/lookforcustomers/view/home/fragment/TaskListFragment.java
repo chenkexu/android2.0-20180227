@@ -65,7 +65,6 @@ public class TaskListFragment extends LazyLoadFragment<IHomeView, HomePresent<IH
 
 
 
-
     public void updateData(int typeChoose) {
         Logger.d("获取寻客管理的内容" + typeChoose);
         //类型，状态，第几页，size

@@ -54,6 +54,7 @@ public class LoginAndRegisterActivity extends BaseActivity<ILoginAndRegisterView
         initFragment();
 
     }
+
     private void initFragment(){
         if(type == 0){  //进入登陆界面
             loginFragment = LoginFragment.newInstance(isReLogin);

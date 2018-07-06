@@ -11,5 +11,5 @@ public class LoginResultEvent {
     //是否是新用户
     public boolean isNewUser;
 
-    public int userId;
+    public String userId;
 }

@@ -183,7 +183,7 @@ public class OrderConfirmActivity extends WangrunBaseActivity {
                 Intent intent = new Intent(OrderConfirmActivity.this, TaskDetailActivity.class);
 
                 intent.putExtra("taskId",taskId);
-
+                intent.putExtra(Constants.from_order_confirm,"1");
                 startActivity(intent);
                 finish();
                 // TODO: 2018/6/26  跳转到订单详情页面

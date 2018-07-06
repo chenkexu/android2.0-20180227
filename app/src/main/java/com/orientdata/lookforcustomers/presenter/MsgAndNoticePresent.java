@@ -71,10 +71,12 @@ public class MsgAndNoticePresent<T> extends BasePresenter<IMsgAndNoticeView> {
         OkHttpClientManager.postAsyn(url, new OkHttpClientManager.ResultCallback<ResultBean>() {
             @Override
             public void onError(Exception e) {
+
             }
 
             @Override
             public void onResponse(ResultBean result) {
+
             }
         }, map);
     }

@@ -49,7 +49,7 @@ public class MessageAndNoticeBean implements Serializable {
         private String keyword;
         private int toptag;
         private int lookStatus = -100;
-        private int announcementId;
+        private int announcementId = 0;
         private String text;
         private String phoneType;
         private String acivity;
@@ -61,19 +61,18 @@ public class MessageAndNoticeBean implements Serializable {
         private int objectProperty;
         private boolean saveRedMessage;
         private boolean saveLetter;
-        private int pushMessageId;
-
+        private int pushMessageId = 0;
 
 
         public String getTitle() {
-            return title;
+            return title == null ? "" : title;
         }
 
         public void setTitle(String title) {
             this.title = title;
         }
 
-        public int getType() {
+    public int getType() {
             return type;
         }
 

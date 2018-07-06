@@ -16,7 +16,7 @@ import com.orientdata.lookforcustomers.base.WangrunBaseActivity;
 import com.orientdata.lookforcustomers.bean.MessageTaskCacheBean;
 import com.orientdata.lookforcustomers.bean.WrResponse;
 import com.orientdata.lookforcustomers.network.callback.WrCallback;
-import com.orientdata.lookforcustomers.network.util.NetWorkUtils;
+import com.orientdata.lookforcustomers.network.util.NetWorks;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.ToastUtils;
 import com.orientdata.lookforcustomers.widget.MyTitle;
@@ -77,7 +77,7 @@ public class TestPhoneSettingActivity extends WangrunBaseActivity {
         String cityCode = getIntent().getStringExtra("cityCode");
         int type = getIntent().getIntExtra("type", 0);
 
-        NetWorkUtils.getOperateState(cityCode, type, new WrCallback<WrResponse<String>>() {
+        NetWorks.getOperateState(cityCode, type, new WrCallback<WrResponse<String>>() {
             @Override
             public void onSuccess(Response<WrResponse<String>> response) {
                 String result = response.body().getResult();

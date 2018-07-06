@@ -33,6 +33,9 @@ public class MsgDetailActivity extends BaseActivity<IMsgView, MsgPresent<IMsgVie
     private int pushMessageId = -1;
     private TextView tvTitle;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,51 +45,23 @@ public class MsgDetailActivity extends BaseActivity<IMsgView, MsgPresent<IMsgVie
     }
 
     private void initView(){
-        pushMessageId = getIntent().getIntExtra("pushMessageId",-1);
+//        pushMessageId = getIntent().getIntExtra("pushMessageId",-1);
+//
         tvDate = findViewById(R.id.tvDate);
         tvTitle = findViewById(R.id.tvTitle);
         title = findViewById(R.id.title);
         tvContent = findViewById(R.id.tvContent);
 
 
-
         Intent intent = getIntent();
         MessageAndNoticeBean  messageAndNoticeBean  = (MessageAndNoticeBean) intent.getSerializableExtra(Constants.MessageAndNoticeBean);
-
-
         if (messageAndNoticeBean.getPushMessageId() !=0) {
             mPresent.msgInfo(messageAndNoticeBean.getPushMessageId());
         }
-
-
-
-
-
-
-        tvTitle.setText(messageAndNoticeBean.getTitle());
-        if (messageAndNoticeBean.getCreateDate() != null) {
-            tvDate.setText(messageAndNoticeBean.getCreateDate());
+        if (messageAndNoticeBean.getAnnouncementId() !=0) {
+            mPresent.updateUserAnnStatus(messageAndNoticeBean.getAnnouncementId());
         }
-        if (messageAndNoticeBean.getCreateTime() != null) {
-            tvDate.setText(messageAndNoticeBean.getCreateTime());
-        }
-
-        if (messageAndNoticeBean.getContent() != null) {
-            tvContent.setText(messageAndNoticeBean.getContent());
-        }
-        if (messageAndNoticeBean.getText() != null) {
-            tvContent.setText(messageAndNoticeBean.getText());
-        }
-
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -152,6 +127,28 @@ public class MsgDetailActivity extends BaseActivity<IMsgView, MsgPresent<IMsgVie
             tvDate.setText(CommonUtils.getTimeInterval(date,"yyyy-MM-dd HH:mm:ss","yyyy.MM.dd HH:mm:ss"));
         }
     }
+
+    @Override
+    public void selectMsgAndAnnouncement(MessageAndNoticeBean messageAndNoticeBean) {
+
+        tvTitle.setText(messageAndNoticeBean.getTitle());
+        if (messageAndNoticeBean.getCreateDate() != null) {
+            tvDate.setText(messageAndNoticeBean.getCreateDate());
+        }
+        if (messageAndNoticeBean.getCreateTime() != null) {
+            tvDate.setText(messageAndNoticeBean.getCreateTime());
+        }
+
+        if (messageAndNoticeBean.getContent() != null) {
+            tvContent.setText(messageAndNoticeBean.getContent());
+        }
+        if (messageAndNoticeBean.getText() != null) {
+            tvContent.setText(messageAndNoticeBean.getText());
+        }
+
+    }
+
+
     private class OnTvGlobalLayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
          @Override
          public void onGlobalLayout() {
