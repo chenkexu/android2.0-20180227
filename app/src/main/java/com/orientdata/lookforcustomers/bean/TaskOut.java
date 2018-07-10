@@ -112,14 +112,6 @@ public class TaskOut implements Serializable{
 
 
 
-
-
-
-
-
-
-
-
     public OrderDeliveryBean getOrderDeliveryBean() {
         return expediteInfo;
     }

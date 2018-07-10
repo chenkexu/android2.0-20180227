@@ -41,6 +41,10 @@ import com.orientdata.lookforcustomers.widget.CommonTitleBar;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import cn.jpush.android.api.JPushInterface;
+
+import static com.orientdata.lookforcustomers.push.TagAliasOperatorHelper.sequence;
+
 /**
  * Created by wy on 2017/10/25.
  * 注册界面
@@ -90,7 +94,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         mLoginAndRegisterPresent = ((LoginAndRegisterActivity) getActivity())
                 .getPresent();
         etPassword = view.findViewById(R.id.et_password);
-        etPassword.setHint("设置密码:包含字母和数字，6-8位");
+        etPassword.setHint("设置密码:包含字母和数字，6-18位");
         titleBar = view.findViewById(R.id.title_bar);
         titleBar.setTitle("注册");
         titleBar.setOnBack(new View.OnClickListener() {
@@ -261,6 +265,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             //注册成功
             // TODO: 2018/4/25 注册成功后，保存新用户的信息
             //登录
+            JPushInterface.deleteAlias(getActivity(),sequence);
             LoginFragment loginFragment = LoginFragment.newInstance(false);
             FragmentTransaction fragmentTransaction = getActivity()
                     .getSupportFragmentManager().beginTransaction();

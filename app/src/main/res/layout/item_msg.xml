@@ -60,6 +60,7 @@
             android:clickable="false"
             android:src="@mipmap/img_redpoint" />
         <TextView
+            android:singleLine="true"
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,10 +69,10 @@
             android:layout_toEndOf="@+id/linear"
             android:layout_toRightOf="@+id/linear"
             android:textSize="15sp"
-            android:maxEms="12"
+            android:maxEms="10"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="hdjskl;hbjnkml,"
+            android:text="贵州省毕节市无法创建寻客通知"
             android:textColor="@color/text_gray" />
         <TextView
             android:text="2018-03-27 15:59:49"

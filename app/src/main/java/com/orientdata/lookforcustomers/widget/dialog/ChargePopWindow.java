@@ -85,7 +85,7 @@ public class ChargePopWindow extends Dialog implements View.OnClickListener{
             @Override
             public void onClick(View view) {
                 dismiss();
-                MyOpenActivityUtils.openCommonWebView(context, "充值协议", "http://www.orientdata.cn/activity.html");
+                MyOpenActivityUtils.openCommonWebView(context, "充值协议", "http://www.orientdata.cn/pay_protocol.html");
             }
         },tvChargeXieyi);
 

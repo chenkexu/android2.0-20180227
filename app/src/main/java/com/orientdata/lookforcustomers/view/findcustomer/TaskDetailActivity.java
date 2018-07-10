@@ -232,21 +232,23 @@ public class TaskDetailActivity extends BaseActivity<ITaskView, TaskPresent<ITas
 
                     OrderDeliveryBean orderDeliveryBean = taskOut.getOrderDeliveryBean();
 
-
                     OrderDeliveryBean.TaskBean taskBean = new OrderDeliveryBean.TaskBean();
                     taskBean.setEstimatePeoplerno(taskOut.getEstimatePeoplerno());
                     taskBean.setTaskId(taskOut.getTaskId());
                     orderDeliveryBean.setTask(taskBean);
-
                     taskDeliveryView.setData(orderDeliveryBean);
 
                     break;
                 case "投放结束":
                     tv_order_err_descr.setVisibility(View.GONE);
-                    reportResult.setData(taskOut);
                     Glide.with(this).load(R.mipmap.order_detail_over).into(ivOrderImage1);
                     ivOrderImage2.setVisibility(View.GONE);
-                    reportResult.setVisibility(View.VISIBLE);
+                    int customFlag = taskOut.getCustomFlag();
+                    if (customFlag == 0) {  //使用行业
+
+                    } else { //使用自定义
+                        reportResult.setVisibility(View.GONE);
+                    }
                     break;
             }
 

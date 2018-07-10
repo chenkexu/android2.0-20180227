@@ -127,11 +127,18 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     public static LoginFragment newInstance(boolean isReLogin) {
         reLogin = isReLogin;
         Logger.d("打开登录界面。。。。");
+
+        // TODO: 2018/7/9 删除别名
+
         Bundle args = new Bundle();
         LoginFragment fragment = new LoginFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
+
+
+
 
     @Override
     public void onClick(View v) {

@@ -40,6 +40,10 @@ import com.orientdata.lookforcustomers.widget.CommonTitleBar;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import cn.jpush.android.api.JPushInterface;
+
+import static com.orientdata.lookforcustomers.push.TagAliasOperatorHelper.sequence;
+
 /**
  * Created by wy on 2017/10/27.
  * 忘记密码
@@ -215,6 +219,7 @@ public class ResetPasswordFragment extends BaseFragment implements View.OnClickL
             //关闭掉 前面的homeactivity 和 settingactivity
             EventBus.getDefault().post(new CloseEvent(CloseEvent.CLOSE_IN_LIST_ACTIVITY, MainHomeActivity.class, SettingActivity.class));
 
+            JPushInterface.deleteAlias(getActivity(),sequence);
             //登录
             LoginFragment loginFragment = LoginFragment.newInstance(false);
             FragmentTransaction fragmentTransaction = getActivity()

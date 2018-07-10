@@ -2,7 +2,6 @@ package com.orientdata.lookforcustomers.view.home;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,6 +22,8 @@ import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -75,6 +76,7 @@ import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.AppManager;
+import com.orientdata.lookforcustomers.util.BuglyUtil;
 import com.orientdata.lookforcustomers.util.CommonUtils;
 import com.orientdata.lookforcustomers.util.GlideUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
@@ -110,7 +112,6 @@ import zhy.com.highlight.position.OnTopPosCallback;
 import zhy.com.highlight.shape.CircleLightShape;
 import zhy.com.highlight.shape.RectLightShape;
 
-import static com.orientdata.lookforcustomers.R.id.bottom_sheet;
 import static com.orientdata.lookforcustomers.util.CommonUtils.getRandom2;
 import static com.qiniu.android.common.Constants.latitude;
 import static com.qiniu.android.common.Constants.longitude;
@@ -301,6 +302,10 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             case R.id.iv_task: //显示任务进行中的布局
                 ivTask.setVisibility(View.GONE);
 
+                // 初始化需要加载的动画资源
+                Animation animation = AnimationUtils
+                        .loadAnimation(this, R.anim.push_in);
+                taskDeliveryView.startAnimation(animation);
                 taskDeliveryView.setVisibility(View.VISIBLE);
                 break;
 //            case R.id.iv_close_task: //关闭任务
@@ -332,7 +337,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                     return;
                 }
                 if (status != 1) {
-                    ToastUtils.showShort(mCityName + "没有开通业务！");
+                    ToastUtils.showShort(mCityName + "该城市没有开通业务！");
                     return;
                 }
                 if (mCurrentLatLng == null || TextUtils.isEmpty(mCityCode)) {
@@ -447,8 +452,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         ImmersionBar.with(this)
                 .statusBarDarkFont(true, 0.2f)
                 .statusBarView(R.id.top_view)
-                .fullScreen(true)
                 .init();
+        //检查升级
+        BuglyUtil.checkUpdate();
         initData();
         boolean booleanValue = SharedPreferencesTool.getInstance().getBooleanValue(SharedPreferencesTool.guide_main, true);
         if (booleanValue) {
@@ -456,17 +462,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         }
     }
 
-    /**
-     * 设置添加屏幕的背景透明度
-     * @param bgAlpha
-     */
-    public void backgroundAlpha(Activity context, float bgAlpha) {
-        frameLayout.setAlpha(bgAlpha);
-//        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
-//        lp.alpha = bgAlpha;
-//        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-//        context.getWindow().setAttributes(lp);
-    }
+
 
     private void initData() {
 //        long time4 = (long)2 * 24 * 60 * 60;
@@ -574,7 +570,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
      */
     private void initView() {
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.sliding_layout);
-        View bottomSheet = coordinatorLayout.findViewById(bottom_sheet);
+        View bottomSheet = coordinatorLayout.findViewById(R.id.bottom_sheet);
         behavior = BottomSheetBehavior.from(bottomSheet);
         tv_at_create_find_customer_putlocation = (TextView) findViewById(R.id.tv_at_create_find_customer_putlocation);
         rl_map = findViewById(R.id.rl_map);
@@ -612,6 +608,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             }
         });
 
+
         //底部banner的拖动事件
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -620,7 +617,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                 if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) { //折叠
                     frameLayout.setForeground(new ColorDrawable(0xFFFFFF));
                 } else { //展开
-                    frameLayout.setForeground(new ColorDrawable(0xCC000000));
+                    frameLayout.setForeground(new ColorDrawable(0x70000000));
 //                    backgroundAlpha(MainHomeActivity.this,0.1f);
                 }
             }
@@ -652,6 +649,9 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             @Override
             public void hideTaskDelivery() {
                 ivTask.setVisibility(View.VISIBLE);
+                Animation animation = AnimationUtils
+                        .loadAnimation(MainHomeActivity.this, R.anim.push_out);
+                taskDeliveryView.startAnimation(animation);
                 taskDeliveryView.setVisibility(View.GONE);
             }
         });
@@ -818,8 +818,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private void getProvinceCity() {
         mCityPickPresent.getProvinceCityData();
         mCityPickPresent.getBannerPic();
-
-
     }
 
 
@@ -852,10 +850,14 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         lvBanner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainHomeActivity.this, MyWebViewActivity.class);
-                intent.putExtra("url", list.get(position).getImageUrl());
-                intent.putExtra("title", list.get(position).getTitle());
-                startActivity(intent);
+                if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) { //折叠
+                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }else{
+                    Intent intent = new Intent(MainHomeActivity.this, MyWebViewActivity.class);
+                    intent.putExtra("url", list.get(position).getImageUrl());
+                    intent.putExtra("title", list.get(position).getTitle());
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -881,6 +883,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
         if (redCountBean.getUnReadAnnouncementNum() == 0 && redCountBean.getUnReadMsgNum() == 0) {
             showRedPoint = false;
+            new QBadgeView(this).bindTarget(ivMe).setBadgePadding(3, true).setBadgeGravity(Gravity.END | Gravity.TOP).setBadgeNumber(0);
         } else {
             showRedPoint = true;
             new QBadgeView(this).bindTarget(ivMe).setBadgePadding(3, true).setBadgeGravity(Gravity.END | Gravity.TOP).setBadgeNumber(-1);
@@ -1003,7 +1006,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
         if (!TextUtils.isEmpty(mCityName)) {
             int status = findLocCityStatusByName(mProvinceName, mCityName);
             if (status != 1 && mAreaOuts != null && mAreaOuts.size() > 0) {
-                ToastUtils.showShort(mCityName + "没有开通业务！");
+                ToastUtils.showShort(mCityName + "该城市没有开通业务！");
             }
         }
     }

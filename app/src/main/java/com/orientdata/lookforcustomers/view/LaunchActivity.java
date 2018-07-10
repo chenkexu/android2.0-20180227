@@ -126,17 +126,13 @@ public class LaunchActivity extends BasePermissionActivity {
                         // 此方法只需要执行一次就可以: 把当前的监听事件从视图树中移除掉, 以后就不会在回调此事件了.
                         viewRedPoint.getViewTreeObserver()
                                 .removeGlobalOnLayoutListener(this);
-
                         mPointWidth = llPointGroup.getChildAt(1).getLeft()
                                 - llPointGroup.getChildAt(0).getLeft();
-
                         System.out.println("间距: " + mPointWidth);
                     }
                 });
 
         mViewPager.setPageTransformer(true, new DepthPageTransformer());
-
-
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -200,6 +196,7 @@ public class LaunchActivity extends BasePermissionActivity {
      */
     private void createImageView(int i) {
         ImageView imageView = new ImageView(this);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setBackgroundResource(mImageIds[i]);
         if (i == mImageIds.length - 1) {
             imageView.setOnClickListener(new View.OnClickListener() {

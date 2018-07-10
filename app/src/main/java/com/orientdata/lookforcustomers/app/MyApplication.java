@@ -23,6 +23,7 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.orientdata.lookforcustomers.BuildConfig;
 import com.orientdata.lookforcustomers.R;
 import com.orientdata.lookforcustomers.manager.LbsManager;
+import com.orientdata.lookforcustomers.util.BuglyUtil;
 import com.orientdata.lookforcustomers.util.SharedPreferencesTool;
 import com.orientdata.lookforcustomers.util.map.LocationService;
 import com.umeng.commonsdk.UMConfigure;
@@ -83,6 +84,8 @@ public class MyApplication extends MyApp {
         //工具类库
         Utils.init(this);
 
+        //bugly初始化
+        BuglyUtil.init(this);
 
         //PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
         //PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
@@ -119,7 +122,7 @@ public class MyApplication extends MyApp {
         initOkGo();
         //----------初始化友盟统计
         //设置LOG开关，默认为false
-        UMConfigure.setLogEnabled(true);
+        UMConfigure.setLogEnabled(false);
         //初始化组件化基础库, 统计SDK/推送SDK/分享SDK都必须调用此初始化接口
         UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,"6119919e888e88f695761c9d6b627293");
         //初始化推送

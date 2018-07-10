@@ -29,6 +29,7 @@
             android:paddingRight="15dp">
 
             <ImageView
+                android:padding="5dp"
                 android:id="@+id/iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

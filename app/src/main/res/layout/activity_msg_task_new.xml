@@ -52,6 +52,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:gravity="center_vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -521,7 +522,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="20dp"
                             android:background="@null"
-                            android:hint="请输入请输入任务名称请输入任务名称请输入任务名称请输入任务名称请输入任务名称任务名称"
+                            android:hint="请输入请输入任务名称"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:textColor="#B3B3B3"

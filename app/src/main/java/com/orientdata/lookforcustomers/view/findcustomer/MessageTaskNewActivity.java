@@ -452,8 +452,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
 
         // TODO: 2018/5/3 设置缓存信息
         if (signstate == 0) { //自定义
-
-            if (messageTaskCacheBean != null) { //有缓存信息
+        /*    if (messageTaskCacheBean != null) { //有缓存信息
                 Logger.d(messageTaskCacheBean.toString());
                 if (!TextUtils.isEmpty(messageTaskCacheBean.getSignStr())) {
                     etEnterpriseSignature.setText(messageTaskCacheBean.getSignStr());
@@ -461,7 +460,9 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                 if (!TextUtils.isEmpty(messageTaskCacheBean.getContent())) {
                     etMsgContent.setText(messageTaskCacheBean.getContent());
                 }
+            }*/
 
+            if (isReCreate) { //如果是再次創建的
                 String substring = taskout.getContent().substring(0, taskout.getContent().indexOf("】") + 1);
                 etEnterpriseSignature.setText(substring);
             }
@@ -479,7 +480,7 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
             signStr = etEnterpriseSignature.getText().toString();
             tdcontent = tvUnsubscribe.getText().toString();
             String  substring1 = taskout.getContent().replace(signStr,"");
-            substring1 = substring1.substring(0,substring1.lastIndexOf(tdcontent)+1);
+            substring1 = substring1.substring(0,substring1.lastIndexOf(tdcontent));
             etMsgContent.setText(substring1);
         }
 
@@ -526,7 +527,17 @@ public class MessageTaskNewActivity extends BaseActivity<ITaskViewNew, TaskPrese
                 longitude = taskout.getLongitude().toString();
                 dimension = taskout.getDimension().toString();
 
-                allPerson = taskout.getPeoples() + "";
+                if (taskout.getPeoples() == 0) {
+                    allPerson = 10000 +"";
+//                    String areaJson = ResourceUtils.readAssets2String("area2.json");
+//                    Gson gson = new Gson();
+//                    List<Area> areas = gson.fromJson(areaJson, new TypeToken<List<Area>>(){}.getType());
+//                    for(Area area : areas){
+//                        if(taskout.getProvinceCode()){}
+//                    }
+                }else{
+                    allPerson = taskout.getPeoples() + "";
+                }
                 int allperonInt = Integer.parseInt(allPerson);
                 allPerson = ((int)(CommonUtils.getRandomDouble(allperonInt * 0.8, allperonInt * 1.2)))+"";
 

@@ -156,7 +156,7 @@ public class DigitalGroupView extends LinearLayout {
             DigitalView v = new DigitalView(getContext());
             LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            v.setBackground(getResources().getDrawable(R.drawable.round_border_dilevery));
+//            v.setBackground(getResources().getDrawable(R.drawable.round_border_dilevery));
             if (i > 0)
                 params.leftMargin = dp2px(mTextInterval);
             v.setLayoutParams(params);

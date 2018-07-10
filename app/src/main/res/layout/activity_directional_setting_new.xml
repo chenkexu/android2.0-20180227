@@ -16,7 +16,6 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-
             android:id="@+id/rl_map"
             android:layout_width="match_parent"
             android:layout_height="250dp"
@@ -24,6 +23,7 @@
 
 
             <ImageView
+                android:foreground="@drawable/shape_gradient"
                 android:id="@+id/bmapView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

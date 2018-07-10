@@ -13,6 +13,10 @@ import com.orientdata.lookforcustomers.view.login.fragment.LoginFragment;
 import com.orientdata.lookforcustomers.view.login.fragment.RegisterFragment;
 import com.orientdata.lookforcustomers.view.login.fragment.ResetPasswordFragment;
 
+import cn.jpush.android.api.JPushInterface;
+
+import static com.orientdata.lookforcustomers.push.TagAliasOperatorHelper.sequence;
+
 /**
  * 登录注册
  */
@@ -57,6 +61,7 @@ public class LoginAndRegisterActivity extends BaseActivity<ILoginAndRegisterView
 
     private void initFragment(){
         if(type == 0){  //进入登陆界面
+            JPushInterface.deleteAlias(this,sequence);
             loginFragment = LoginFragment.newInstance(isReLogin);
             fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().add(R.id.fl_content, loginFragment).commit();

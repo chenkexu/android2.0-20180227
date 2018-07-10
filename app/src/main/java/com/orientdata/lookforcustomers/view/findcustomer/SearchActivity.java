@@ -193,6 +193,8 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
                 showDeleteDialog(addressSearchRecode);
             }
         });
+
+
     }
 
 
@@ -212,7 +214,6 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
                 addressAdapter.setNewData(null);
                 mPoiSearch.searchInCity((new PoiCitySearchOption()).city("北京").keyword(clearEdit.getText().toString()));
                 break;
-
             case R.id.back_btn:
                 finish();
                 break;

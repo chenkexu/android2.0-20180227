@@ -130,6 +130,7 @@ public class OrderDetailView extends FrameLayout {
                     hobbyStr.append((i == hobbyList.size() - 1) ? hobbyList.get(i) : hobbyList.get(i) + "、");
                 }
             }
+
             if (customFlag == 0) {  //使用行业
                 tvUserHobby.setText("用户偏好：" +taskOut.getIndustryName());
             } else { //使用自定义
@@ -159,11 +160,9 @@ public class OrderDetailView extends FrameLayout {
             if (TextUtils.isEmpty(taskOut.getTestCtPhone())) {
                 testPhones.set(1,"");
             }
-
             if (TextUtils.isEmpty(taskOut.getTestCuPhone())) {
                 testPhones.set(2,"");
             }
-
             StringBuffer sb = new StringBuffer();
             if (TextUtils.isEmpty(taskOut.getTestCmPhone())
                     && TextUtils.isEmpty(taskOut.getTestCtPhone())
