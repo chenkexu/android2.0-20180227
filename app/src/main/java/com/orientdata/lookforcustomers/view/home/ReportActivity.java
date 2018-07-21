@@ -1408,19 +1408,19 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresent<IRep
                         // 分享到微信
                         ShareManager.getInstance().shareWX(ReportActivity.this, shareEntity);
                         break;
-                    case R.id.ll_share_wx_circle:
-                        ShareManager.getInstance().shareWXQ(ReportActivity.this, shareEntity);
-                        // 分享到朋友圈
-                        break;
-                    case R.id.ll_share_sina:
-                        ShareManager.getInstance().shareWEIBO(ReportActivity.this, shareEntity);
-                        break;
+//                    case R.id.ll_share_wx_circle:
+//                        ShareManager.getInstance().shareWXQ(ReportActivity.this, shareEntity);
+//                        // 分享到朋友圈
+//                        break;
+//                    case R.id.ll_share_sina:
+//                        ShareManager.getInstance().shareWEIBO(ReportActivity.this, shareEntity);
+//                        break;
                     case R.id.ll_share_qq_friend:
                         ShareManager.getInstance().shareQQ(ReportActivity.this, shareEntity);
                         break;
-                    case R.id.ll_share_qq_circle:
-                        ShareManager.getInstance().shareQQZONE(ReportActivity.this, shareEntity);
-                        break;
+//                    case R.id.ll_share_qq_circle:
+//                        ShareManager.getInstance().shareQQZONE(ReportActivity.this, shareEntity);
+//                        break;
                     case R.id.tv_cancel:
                         // 取消
                         break;

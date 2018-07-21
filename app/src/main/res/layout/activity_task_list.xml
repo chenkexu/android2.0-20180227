@@ -27,16 +27,7 @@
         tl:tl_indicator_height="3dp"
         tl:tl_indicator_width="40dp"/>
 
-  <!--  <com.flyco.tablayout.SlidingTabLayout
-        tl:tl_underline_height="1dp"
-        tl:tl_indicator_margin_left="2dp"
-        tl:tl_underline_color="@color/colorPrimary"
-        tl:tl_textSelectColor="@color/colorPrimary"
-        tl:tl_textUnselectColor="#404040"
-        tl:tl_indicator_corner_radius="1.5dp"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        tl:tl_indicator_width="10dp"/>-->
+
 
 
     <android.support.v4.view.ViewPager

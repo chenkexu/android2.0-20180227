@@ -198,6 +198,8 @@ public class MyCommissionActivity extends BaseActivity<ICommissionView, Commissi
         });
         confirmDialog.show();
     }
+
+
     @Subscribe
     public void refreshResult(MyMoneyEvent moneyEvent){
         if(moneyEvent!=null){

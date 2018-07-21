@@ -47,7 +47,6 @@ import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
@@ -72,7 +71,6 @@ import com.orientdata.lookforcustomers.bean.AreaOut;
 import com.orientdata.lookforcustomers.bean.BannerBean;
 import com.orientdata.lookforcustomers.bean.OrderDeliveryBean;
 import com.orientdata.lookforcustomers.bean.TaskCountBean;
-import com.orientdata.lookforcustomers.bean.TaskOut;
 import com.orientdata.lookforcustomers.manager.LbsManager;
 import com.orientdata.lookforcustomers.runtimepermissions.PermissionsManager;
 import com.orientdata.lookforcustomers.util.AppManager;
@@ -223,14 +221,12 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
 
     List<String> mCircleRadiusKMLists = new ArrayList<>();//{"10KM", "5KM", "3KM", "2KM", "1KM", "500M"}范围半径数组
-    private int mRadiusFromPosition = 0;
     private static final int accuracyCircleFillColor = 0x00FFFF88;
     private static final int accuracyCircleStrokeColor = 0x0000FF00;
     int mCurrentScaleLevelPositon = 0;
 
     //GEO
     GeoCoder mSearch = null;
-    private String mSearchValue;
     private boolean mIsShowDialog = true;  //这个城市是否有业务的flag
     private String mTaskType;//任务类型。
     private String ageF;
@@ -246,12 +242,8 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private String mMoveCityName;
     private String mMoveProvinceName;
     private String mMoveCityCode;
-    private Bitmap bm;
     private boolean isReCreate = false;//是否是寻客详情点进来的重新创建
-    private TaskOut mTaskOut = null;//寻客详情的内容(上次常见的任务详情)
-    private String mMapClippath;
 
-    private String mStrType;
 
 
     private String industryMark;
@@ -274,8 +266,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     private Intent intent;
     private BottomSheetBehavior behavior;
     private HashMap<String, Integer> cityMap;
-    private Double cityMapValue;
-    private int radiusRam;
     private AddressSearchRecode addressInfo;
 
     private OrderDeliveryBean orderDeliveryBean;
@@ -283,13 +273,10 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     boolean showRedPoint = false;
     private BigDecimal bg;
     private float zoom;
-
     protected boolean isImmersionBarEnabled() {
         return false;
     }
-
-    private long coolingTime = 0; //单位毫秒
-
+    private boolean isSearch = false;
 
     private HighLight mHightLight;
 
@@ -545,19 +532,22 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             @Override
             public void onMapStatusChangeFinish(MapStatus mapStatus) {
                 float zoom = mapStatus.zoom;
-
                 if (Math.abs(MainHomeActivity.this.zoom - zoom) > 0.000001) {
                     // 你的代码...
                     MainHomeActivity.this.zoom = zoom;
                     Logger.d("zoom", "缩放起了变化，现在缩放等级为" + zoom);
                 } else {
-                    mCurrentLatLng = mapStatus.target;
-                    //开始坐标转地址
-                    mFromAction = 3;//来自地图移动
-                    mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-                            .location(mapStatus.target)
-                            .newVersion(0));
-                    mIsShowDialog = true;
+                    if (!isSearch) { //如果不是搜索
+                        mCurrentLatLng = mapStatus.target;
+                        //开始坐标转地址
+                        mFromAction = 3;//来自地图移动
+                        mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+                                .location(mapStatus.target)
+                                .newVersion(0));
+                        mIsShowDialog = true;
+                    }else{ //如果是搜索
+                        isSearch = false;
+                    }
                 }
                 Logger.d("地图移动结束");
             }
@@ -746,6 +736,7 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                             .location(mCurrentLatLng)
                             .newVersion(0));
                     mFromAction = 4;
+
                 }
                 break;
             case 3: //定向设置
@@ -791,8 +782,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
     }
 
-    private String smsPrice = "";//短信单价
-    private String pagePrice = "";//页面单价
 
     private boolean showErrorDialog = true;
 
@@ -846,7 +835,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             }
 
         });
-
         lvBanner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -891,32 +879,11 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
     }
 
 
-    /**
-     * 任务状态
-     *
-     * @param status
-     * @return
-     */
-    private String getStatus(int status) {
-        String type = "";
-        if (status == 1 || status == 3 || status == 5) {
-            type = "审核中";
-        } else if (status == 2 || status == 4) {
-            type = "审核失败";
-        } else if (status == 6) {
-            type = "待投放";
-        } else if (status == 7) {
-            type = "投放中";
-        } else if (status == 8) {
-            type = "投放结束";
-        }
-        return type;
-    }
-
 
     //地址转坐标的结果(手动选择城市，点击详情，搜索)
     @Override
     public void onGetGeoCodeResult(GeoCodeResult result) {
+        Logger.d("地址转坐标的结果");
         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
             Toast.makeText(MainHomeActivity.this,
                     "抱歉，未能找到结果",
@@ -924,24 +891,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
                     .show();
             return;
         }
-        mCurrentLatLng = new LatLng(result.getLocation().latitude, result.getLocation().longitude);
-        MapStatus.Builder builder = new MapStatus.Builder();
-        builder.target(mCurrentLatLng)
-                .zoom(mScaleLevel[mCurrentScaleLevelPositon]);
-        mBaiduMap.clear();
-        final Marker marker = (Marker) mBaiduMap.addOverlay(new MarkerOptions()
-                .position(mCurrentLatLng).alpha(0.0f)
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.bg_ac_create_find_customer_location)));
-        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-
-
-        mFromAction = 4;//来自搜索
-        mIsShowDialog = true;
-
-        //开始坐标转地址
-        mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-                .location(mCurrentLatLng)
-                .newVersion(0));
     }
 
 
@@ -958,7 +907,6 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
 
         } else if (locationFlag == 2) {//定位
             Logger.d("获得了经纬度转换地址的回调（定位获得的）城市为：" + addCom.city);
-            tv_at_create_find_customer_putlocation.setText(address);
             mCityName = addCom.city;
             mProvinceName = addCom.province;
             mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
@@ -994,14 +942,14 @@ public class MainHomeActivity extends BaseActivity<IHomeMainView, MainHomePresen
             mProvinceName = addCom.province;
             mCityCode = findLocCityCodeByName(mProvinceName, mCityName);
             mProvinceCode = findLocProviceCodeByName(mProvinceName, mCityName);
-            tv_at_create_find_customer_putlocation.setText(address);
             moveMapTo(result.getLocation().latitude, result.getLocation().longitude, true);
-
             setMapCenterInfo(result.getLocation(), mCircleRadiusM[mCurrentRadiuPos]);
             if (result.getAddressDetail() != null) {
                 tv_at_create_find_customer_putlocation.setText(addressInfo.getAddress());
             }
+            isSearch = true;
         }
+
         mCurrentLatLng = result.getLocation();
         if (!TextUtils.isEmpty(mCityName)) {
             int status = findLocCityStatusByName(mProvinceName, mCityName);

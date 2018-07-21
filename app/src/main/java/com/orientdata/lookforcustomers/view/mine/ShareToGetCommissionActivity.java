@@ -128,7 +128,6 @@ public class ShareToGetCommissionActivity extends WangrunBaseActivity implements
         }
         if (TextUtils.isEmpty(url)) {
             ToastUtils.showShort("后台分享链接为空！");
-            //shareEntity.setShareUrl("http://www.baidu.com");
         } else {
             shareEntity.setShareUrl(url);
         }

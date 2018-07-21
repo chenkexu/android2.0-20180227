@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
@@ -32,23 +33,22 @@ public class CommonUtils {
     private String ageB = "不限";  //最后的终止年龄
     private String sex = "不限";   //性别
     private String industryStr = "不限"; //行业
-    private  int labelNum = 0;
+    private int labelNum = 0;
 
 
-
-    public static String getPersonNum(String currentCircleRadius,String cityName,String ageF,String ageB,String sex,String industryStr,int labelNum){
+    public static String getPersonNum(String currentCircleRadius, String cityName, String ageF, String ageB, String sex, String industryStr, int labelNum) {
         String ageValue = "";
 
         double sexValue = 1.0;
         double intersValue = 1.0;
 
-        Logger.d("选择的参数为: "+currentCircleRadius+","+cityName+","+ageF+","+ageB+","+sex+","+industryStr+","+labelNum);
+        Logger.d("选择的参数为: " + currentCircleRadius + "," + cityName + "," + ageF + "," + ageB + "," + sex + "," + industryStr + "," + labelNum);
         int personNumStr = CommonUtils.getRandom2(currentCircleRadius, cityName);
 
         if (sex.equals("不限")) {
             sexValue = 1.0;
 //            personNumStr = (int) (personNumStr * 1.0);
-        }else{
+        } else {
             sexValue = 0.5;
 //            personNumStr = (int) (personNumStr * 0.5);
         }
@@ -56,14 +56,14 @@ public class CommonUtils {
 
         // TODO: 2018/6/12 年龄选择
         String ageJson = ResourceUtils.readAssets2String("dataAge.json");
-        HashMap<String, Map<String,String>> ageJsonMap = GsonUtils.parseJsonToMap(ageJson);
-        for(Map.Entry<String,Map<String,String>> entry:ageJsonMap.entrySet()){
+        HashMap<String, Map<String, String>> ageJsonMap = GsonUtils.parseJsonToMap(ageJson);
+        for (Map.Entry<String, Map<String, String>> entry : ageJsonMap.entrySet()) {
             if (ageF.equals(entry.getKey())) {
                 Map<String, String> value = entry.getValue();
-                for(Map.Entry<String,String> entry2:value.entrySet()){
+                for (Map.Entry<String, String> entry2 : value.entrySet()) {
                     if (ageB.equals(entry2.getKey())) {
                         ageValue = entry2.getValue();
-                        Logger.d("ageValue: "+ageValue);
+                        Logger.d("ageValue: " + ageValue);
                     }
                 }
             }
@@ -78,7 +78,7 @@ public class CommonUtils {
             if (labelNum == 6) {
                 intersValue = labelNum * 1.0;
 //                personNumStr = (int)(personNumStr * labelNum * 1.0);
-            }else{
+            } else {
                 intersValue = labelNum * 0.1666;
 //                personNumStr = (int)(personNumStr * labelNum * 0.1666);
             }
@@ -90,22 +90,17 @@ public class CommonUtils {
 
         personNumStr = (int) (personNumStr * ((sexValue + Double.parseDouble(ageValue)) * 0.5 + intersValue * 0.5));
 
-        return "当前范围符合您标签的约有"+ personNumStr +"人";
+        return "当前范围符合您标签的约有" + personNumStr + "人";
     }
 
 
-
-
-
-    public static double getRandomDouble(double min, double max){
+    public static double getRandomDouble(double min, double max) {
         double d = min + Math.random() * max % (max - min + 1);
         return d;
     }
 
 
-
-
-    public static int getRandom(int min, int max){
+    public static int getRandom(int min, int max) {
 
         Random random = new Random();
         int s = (random.nextInt(max) % (max - min + 1) + min);
@@ -113,40 +108,39 @@ public class CommonUtils {
     }
 
 
-
-    public static int getRandom2(String radius,String cityName){
-        Logger.d("当前的城市名:"+cityName);
+    public static int getRandom2(String radius, String cityName) {
+        Logger.d("当前的城市名:" + cityName);
         int radiusRam = 0;
-        switch (radius){
+        switch (radius) {
             case "500":
                 radiusRam = CommonUtils.getRandom(8000, 12000);
                 break;
             case "1000":
-                radiusRam = CommonUtils.getRandom(28000,32000);
+                radiusRam = CommonUtils.getRandom(28000, 32000);
                 break;
             case "2000":
-                radiusRam = CommonUtils.getRandom(90000,110000);
+                radiusRam = CommonUtils.getRandom(90000, 110000);
                 break;
             case "3000":
-                radiusRam = CommonUtils.getRandom(290000,310000);
+                radiusRam = CommonUtils.getRandom(290000, 310000);
                 break;
             case "5000":
-                radiusRam = CommonUtils.getRandom(900000,1100000);
+                radiusRam = CommonUtils.getRandom(900000, 1100000);
                 break;
             case "10000":
-                radiusRam = CommonUtils.getRandom(1800000,2200000);
+                radiusRam = CommonUtils.getRandom(1800000, 2200000);
                 break;
         }
         Double cityMapValue = CommonUtils.getCityMapValue(cityName);
-        int personNum = (int)(radiusRam * cityMapValue);
+        int personNum = (int) (radiusRam * cityMapValue);
         return personNum;
     }
 
 
-
-    public static Double getCityMapValue(String cityName){
+    public static Double getCityMapValue(String cityName) {
         HashMap<String, Double> cityMap = new HashMap<String, Double>() {
             private static final long serialVersionUID = 1L;
+
             {
                 put("北京市", 1.0);
                 put("上海市", 1.0);
@@ -170,7 +164,7 @@ public class CommonUtils {
             }
         };
 
-        for(Map.Entry<String,Double> entry:cityMap.entrySet()){
+        for (Map.Entry<String, Double> entry : cityMap.entrySet()) {
             if (cityName.equals(entry.getKey())) {
                 return entry.getValue();
             }
@@ -210,14 +204,15 @@ public class CommonUtils {
 
     /**
      * 将时间由patternDate转换成相应的pattern
+     *
      * @param date
      * @param patternDate
      * @param pattern
      * @return
      */
-    public static String getTimeInterval(String date,String patternDate, String pattern) {
+    public static String getTimeInterval(String date, String patternDate, String pattern) {
         SimpleDateFormat format = new SimpleDateFormat(pattern);
-        Date dateTmp = getDate(date,patternDate);
+        Date dateTmp = getDate(date, patternDate);
         return format.format(dateTmp);
     }
 
@@ -239,7 +234,8 @@ public class CommonUtils {
         }
         return null;
     }
-    public static Date getDate(String data,String pattern) {
+
+    public static Date getDate(String data, String pattern) {
         SimpleDateFormat format = new SimpleDateFormat(pattern);
         try {
             return format.parse(data);
@@ -248,6 +244,7 @@ public class CommonUtils {
         }
         return null;
     }
+
     public static Date getDate1(String data) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -257,6 +254,7 @@ public class CommonUtils {
         }
         return null;
     }
+
     /**
      * Date转字符串
      */
@@ -264,7 +262,8 @@ public class CommonUtils {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(date);
     }
-    public static String getDateStr(Date date,String pattern) {
+
+    public static String getDateStr(Date date, String pattern) {
         SimpleDateFormat format = new SimpleDateFormat(pattern);
         return format.format(date);
     }
@@ -326,6 +325,7 @@ public class CommonUtils {
         String st = df.format(decimal);
         return st;
     }
+
     /**
      * 读取图片属性：旋转的角度
      *
@@ -355,6 +355,7 @@ public class CommonUtils {
         }
         return degree;
     }
+
     /**
      * 7:根据dip返回当前设备上的px值
      *
@@ -371,6 +372,7 @@ public class CommonUtils {
         // Print.println("pxToDip px = " + px);
         return px;
     }
+
     /**
      * sd卡是否可用
      *
@@ -379,35 +381,39 @@ public class CommonUtils {
     public static boolean haveSDCard() {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
-    public static int getWidth(Context context){
+
+    public static int getWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         return wm.getDefaultDisplay().getWidth();
     }
-    public static int getHeight(Context context){
+
+    public static int getHeight(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         return wm.getDefaultDisplay().getHeight();
     }
 
     /**
      * 当浮点型数据位数超过10位之后，数据变成科学计数法显示。用此方法可以使其正常显示。
+     *
      * @param value
      * @return Sting
      */
     public static String formatFloatNumber(double value) {
-        if(value != 0.00){
+        if (value != 0.00) {
             java.text.DecimalFormat df = new java.text.DecimalFormat("##########.########");
             return df.format(value);
-        }else{
+        } else {
             return "0.00";
         }
 
     }
+
     public static String formatFloatNumber(Double value) {
-        if(value != null){
-            if(value.doubleValue() != 0.00){
+        if (value != null) {
+            if (value.doubleValue() != 0.00) {
                 java.text.DecimalFormat df = new java.text.DecimalFormat("##########.########");
                 return df.format(value.doubleValue());
-            }else{
+            } else {
                 return "0.00";
             }
         }
@@ -434,9 +440,9 @@ public class CommonUtils {
     }
 
 
-
     /**
      * 判定输入汉字是否是中文
+     *
      * @param c
      */
     public static boolean isChinese(char c) {
@@ -457,8 +463,8 @@ public class CommonUtils {
     }
 
     public static final int INPUT_LIMIT_LEN = 20;
-    private static char[] chineseParam = new char[] { '」', '，', '。', '？', '…', '：', '～', '【', '＃', '、', '％', '＊', '＆', '＄', '（', '‘', '’',
-            '“', '”', '『', '〔', '｛', '【', '￥', '￡', '‖', '〖', '《', '「', '》', '〗', '】', '｝', '〕', '』', '”', '）', '！', '；', '—' };
+    private static char[] chineseParam = new char[]{'」', '，', '。', '？', '…', '：', '～', '【', '＃', '、', '％', '＊', '＆', '＄', '（', '‘', '’',
+            '“', '”', '『', '〔', '｛', '【', '￥', '￡', '‖', '〖', '《', '「', '》', '〗', '】', '｝', '〕', '』', '”', '）', '！', '；', '—'};
 
     public static boolean checkApkExist(Context context, String packageName) {
         if (packageName == null || "".equals(packageName))
@@ -471,4 +477,12 @@ public class CommonUtils {
             return false;
         }
     }
+
+
+    public Uri setQQUri(String key) {
+        Uri data = Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D" + key);
+        // 此Flag可根据具体产品需要自定义，如设置，则在加群界面按返回，返回手Q主界面，不设置，按返回会返回到呼起产品界面    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        return data;
+    }
+
 }

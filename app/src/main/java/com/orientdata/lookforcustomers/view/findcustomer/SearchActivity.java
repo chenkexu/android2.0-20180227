@@ -160,6 +160,8 @@ public class SearchActivity extends BaseActivity<IDirectionalSettingView, Direct
 
 
 
+
+
         clearEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -9,11 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.orientdata.lookforcustomers.R;
-import com.orientdata.lookforcustomers.event.ImgClipResultEvent;
 import com.orientdata.lookforcustomers.presenter.BasePresenter;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Created by wy on 2017/10/24.
@@ -92,9 +90,6 @@ public abstract class WangrunBaseFragment<V, T extends BasePresenter<V>> extends
      */
     protected abstract T createPresent();
 
-    @Subscribe
-    public void imgClipResult(ImgClipResultEvent imgClipResultEvent) {
 
-    }
 
 }

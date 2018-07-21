@@ -244,6 +244,9 @@ public class CommissionPresent<T> extends BasePresenter<ICommissionView> {
         map.put("userId", UserDataManeger.getInstance().getUserId());
 //        mCommissionView.showLoading();
         OkHttpClientManager.postAsyn(HttpConstant.SELECT_SHOW_MY_INFO, new OkHttpClientManager.ResultCallback<MyInfoBean>() {
+
+
+
             @Override
             public void onError(Exception e) {
                 ToastUtils.showShort(e.getMessage());
@@ -264,6 +267,7 @@ public class CommissionPresent<T> extends BasePresenter<ICommissionView> {
                     double balance = 0;
                     double frozenAmount = 0;
                     String subCount = "";
+                    String upMoney = "";
                            /* commission
                     是 bigdecimal 佣金*/
                     if (mMapInfoBeans.containsKey("commission")) {
@@ -287,12 +291,19 @@ public class CommissionPresent<T> extends BasePresenter<ICommissionView> {
                     if (mMapInfoBeans.containsKey("frozenAmount")) {
                         frozenAmount = (Double) mMapInfoBeans.get("frozenAmount");
                     }
+                    if (mMapInfoBeans.containsKey("upMoney")) {
+                        upMoney = (String) mMapInfoBeans.get("upMoney");
+                    }
+
 
                     MyMoneyEvent moneyEvent = new MyMoneyEvent();
                     moneyEvent.commission = commission;
                     moneyEvent.balance = balance;
                     moneyEvent.subCount = subCount;
                     moneyEvent.frozenAmount = frozenAmount;
+                    moneyEvent.upMoney = upMoney;
+
+
                     EventBus.getDefault().post(moneyEvent);
                 }
 //                mCommissionView.hideLoading();

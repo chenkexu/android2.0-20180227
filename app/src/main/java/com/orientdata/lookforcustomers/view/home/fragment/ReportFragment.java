@@ -1408,19 +1408,19 @@ public class ReportFragment extends WangrunBaseFragment<IReportView, ReportPrese
                         // 分享到微信
                         ShareManager.getInstance().shareWX(getActivity(), shareEntity);
                         break;
-                    case R.id.ll_share_wx_circle:
-                        ShareManager.getInstance().shareWXQ(getActivity(), shareEntity);
-                        // 分享到朋友圈
-                        break;
-                    case R.id.ll_share_sina:
-                        ShareManager.getInstance().shareWEIBO(getActivity(), shareEntity);
-                        break;
+//                    case R.id.ll_share_wx_circle:
+//                        ShareManager.getInstance().shareWXQ(getActivity(), shareEntity);
+//                        // 分享到朋友圈
+//                        break;
+//                    case R.id.ll_share_sina:
+//                        ShareManager.getInstance().shareWEIBO(getActivity(), shareEntity);
+//                        break;
                     case R.id.ll_share_qq_friend:
                         ShareManager.getInstance().shareQQ(getActivity(), shareEntity);
                         break;
-                    case R.id.ll_share_qq_circle:
-                        ShareManager.getInstance().shareQQZONE(getActivity(), shareEntity);
-                        break;
+//                    case R.id.ll_share_qq_circle:
+//                        ShareManager.getInstance().shareQQZONE(getActivity(), shareEntity);
+//                        break;
                     case R.id.tv_cancel:
                         // 取消
                         break;

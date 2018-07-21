@@ -375,6 +375,7 @@ public class TaskDeliveryView extends FrameLayout {
     public void setOnItemClickListener(OnClickListener listener) {
         onItemClickListener = listener;
     }
+
     public void hideView(){
         ivCloseTask.setVisibility(View.GONE);
         tvShowDetail.setVisibility(View.GONE);

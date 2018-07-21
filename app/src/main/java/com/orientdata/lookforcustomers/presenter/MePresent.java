@@ -43,6 +43,7 @@ public class MePresent<T> extends BasePresenter<IMeView> {
     private IMeView mHomeView;
     private ICertificateModel mCertificateModel = new CertificateModelImple();
     private IImgModel mImgModel = new ImgModelImple();
+    private String upMoney;
 
     public MePresent(IMeView mHomeView) {
         this.mHomeView = mHomeView;
@@ -186,7 +187,7 @@ public class MePresent<T> extends BasePresenter<IMeView> {
                     }
 
                     if (mMapInfoBeans.containsKey("upMoney")) {
-                        String upMoney = (String) mMapInfoBeans.get("upMoney");
+                        upMoney = (String) mMapInfoBeans.get("upMoney");
                     }
 
                     MyMoneyEvent moneyEvent = new MyMoneyEvent();
@@ -196,6 +197,7 @@ public class MePresent<T> extends BasePresenter<IMeView> {
                     moneyEvent.frozenAmount = frozenAmount;
                     moneyEvent.userHead = userHead;
                     moneyEvent.phone = phone;
+                    moneyEvent.upMoney = upMoney;
                     moneyEvent.moreMoney = moreMoney;
                     moneyEvent.name = name;
 

@@ -45,6 +45,8 @@ public class LoginAndRegisterActivity extends BaseActivity<ILoginAndRegisterView
 //                .statusBarColor(R.color.bg_white).init();
     }
 
+
+
     @Override
     protected boolean isImmersionBarEnabled() {
         return false;

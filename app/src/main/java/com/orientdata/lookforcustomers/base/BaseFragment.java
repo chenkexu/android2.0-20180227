@@ -79,5 +79,6 @@ public class BaseFragment extends Fragment {
     }
     @Subscribe
     public void imgClipResult(ImgClipResultEvent imgClipResultEvent) {
+
     }
 }
